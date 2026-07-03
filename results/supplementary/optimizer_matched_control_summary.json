@@ -1,0 +1,100 @@
+{
+  "study": "optimizer_matched_12_candidate_control_summary",
+  "decision": "PASS_OPTIMIZER_CONTROL_SUMMARY_GENERATED",
+  "summary": [
+    {
+      "method": "ours_compact_anchor_safe",
+      "N_cases": 80,
+      "test_wmse_mean": 0.0038086692984506954,
+      "test_mae_mean": 0.0467760875588283,
+      "test_worst10_mean": 0.01509398096241057,
+      "case_cvar90_wmse": 0.008696098579093814,
+      "adapted_candidate_count": 6.1
+    },
+    {
+      "method": "pt_a57",
+      "N_cases": 80,
+      "test_wmse_mean": 0.004496962715347763,
+      "test_mae_mean": 0.050684243883006276,
+      "test_worst10_mean": 0.017144308105343953,
+      "case_cvar90_wmse": 0.011878072400577366,
+      "adapted_candidate_count": 1.0
+    },
+    {
+      "method": "meta_top12_sgd_mse50_valbest",
+      "N_cases": 80,
+      "test_wmse_mean": 0.006714820691558998,
+      "test_mae_mean": 0.062298939237371086,
+      "test_worst10_mean": 0.025246360525488853,
+      "case_cvar90_wmse": 0.01965262833982706,
+      "adapted_candidate_count": 12
+    },
+    {
+      "method": "zero_top12_sgd_mse50_valbest",
+      "N_cases": 80,
+      "test_wmse_mean": 0.0074017955208546485,
+      "test_mae_mean": 0.06600604183040559,
+      "test_worst10_mean": 0.028099383256630972,
+      "case_cvar90_wmse": 0.020401739282533526,
+      "adapted_candidate_count": 12
+    },
+    {
+      "method": "common12_sgd_mse50_valbest",
+      "N_cases": 80,
+      "test_wmse_mean": 0.0067073023310513236,
+      "test_mae_mean": 0.0622201269492507,
+      "test_worst10_mean": 0.0252401674981229,
+      "case_cvar90_wmse": 0.01965262833982706,
+      "adapted_candidate_count": 12
+    },
+    {
+      "method": "common12_sgd_mse50_anchor_safe",
+      "N_cases": 80,
+      "test_wmse_mean": 0.00681883162324084,
+      "test_mae_mean": 0.06259495480917394,
+      "test_worst10_mean": 0.02556173886405304,
+      "case_cvar90_wmse": 0.02054710837546736,
+      "adapted_candidate_count": 12
+    }
+  ],
+  "paired_ours_relative_to_controls": {
+    "pt_a57": {
+      "mean": 0.101302548576967,
+      "median": 0.07721497989049589,
+      "ci_low": 0.055302425851399536,
+      "ci_high": 0.15358802714785522,
+      "n_centers": 20
+    },
+    "meta_top12_sgd_mse50_valbest": {
+      "mean": 0.38898280938368135,
+      "median": 0.41144542059881495,
+      "ci_low": 0.3164846458760302,
+      "ci_high": 0.45764863624890173,
+      "n_centers": 20
+    },
+    "zero_top12_sgd_mse50_valbest": {
+      "mean": 0.4490745580596626,
+      "median": 0.4548763714536197,
+      "ci_low": 0.37028396434327776,
+      "ci_high": 0.5264057769151774,
+      "n_centers": 20
+    },
+    "common12_sgd_mse50_valbest": {
+      "mean": 0.38712919845030125,
+      "median": 0.41144542059881495,
+      "ci_low": 0.3160469000553493,
+      "ci_high": 0.45890317900657834,
+      "n_centers": 20
+    },
+    "common12_sgd_mse50_anchor_safe": {
+      "mean": 0.39087261406622886,
+      "median": 0.4201031713982843,
+      "ci_low": 0.3128460573973721,
+      "ci_high": 0.4603389768830092,
+      "n_centers": 20
+    }
+  },
+  "claim_boundary": "The matched controls isolate optimizer/loss/step-count and candidate-budget differences for the search baselines. They do not prove that the compact bank alone causes every performance gain.",
+  "selection_uses_test": false,
+  "test_opened_after_all_selectors_fixed": true
+}

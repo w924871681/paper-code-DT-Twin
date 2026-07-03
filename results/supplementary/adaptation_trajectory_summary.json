@@ -1,0 +1,89 @@
+{
+  "study": "fixed_50_step_adaptation_trajectory_summary",
+  "decision": "PASS_TRAJECTORY_SUMMARY_GENERATED",
+  "N_cases": 80,
+  "N_candidate_checkpoint_rows": 2856,
+  "checkpoints": [
+    {
+      "step": 0,
+      "candidate_check_wmse_mean": 0.00724242432478291,
+      "selected_check_wmse_mean": 0.003972650150899426,
+      "selected_validation_wmse_mean": 0.003691093971428927,
+      "rank_spearman_vs_50_mean": 0.6825000000000001,
+      "selector_agreement_with_50": 0.5125,
+      "best_alternative_agreement_with_50": 0.5375,
+      "cumulative_adaptation_seconds_per_case_mean": 0.0,
+      "selected_check_reduction_vs_step0": 0.0,
+      "selected_check_reduction_vs_step20": -0.05264924259318222
+    },
+    {
+      "step": 1,
+      "candidate_check_wmse_mean": 0.006842682854920046,
+      "selected_check_wmse_mean": 0.003908012179817888,
+      "selected_validation_wmse_mean": 0.0036432917237107175,
+      "rank_spearman_vs_50_mean": 0.7039285714285715,
+      "selector_agreement_with_50": 0.5125,
+      "best_alternative_agreement_with_50": 0.5125,
+      "cumulative_adaptation_seconds_per_case_mean": 0.12768920875001327,
+      "selected_check_reduction_vs_step0": 0.01627074336023101,
+      "selected_check_reduction_vs_step20": -0.035521856918606994
+    },
+    {
+      "step": 5,
+      "candidate_check_wmse_mean": 0.00604313285758439,
+      "selected_check_wmse_mean": 0.0037805604395543925,
+      "selected_validation_wmse_mean": 0.0035412381890637334,
+      "rank_spearman_vs_50_mean": 0.7402678571428571,
+      "selector_agreement_with_50": 0.5875,
+      "best_alternative_agreement_with_50": 0.5,
+      "cumulative_adaptation_seconds_per_case_mean": 0.6399848024999903,
+      "selected_check_reduction_vs_step0": 0.0483530399104463,
+      "selected_check_reduction_vs_step20": -0.001750451754372998
+    },
+    {
+      "step": 10,
+      "candidate_check_wmse_mean": 0.005707142739290148,
+      "selected_check_wmse_mean": 0.0037281250672094755,
+      "selected_validation_wmse_mean": 0.0034700762778811624,
+      "rank_spearman_vs_50_mean": 0.8293750000000003,
+      "selector_agreement_with_50": 0.6625,
+      "best_alternative_agreement_with_50": 0.5875,
+      "cumulative_adaptation_seconds_per_case_mean": 1.2621797724999824,
+      "selected_check_reduction_vs_step0": 0.06155213128269974,
+      "selected_check_reduction_vs_step20": 0.012143561781547792
+    },
+    {
+      "step": 20,
+      "candidate_check_wmse_mean": 0.005532199758711024,
+      "selected_check_wmse_mean": 0.003773954314601724,
+      "selected_validation_wmse_mean": 0.003473659091105219,
+      "rank_spearman_vs_50_mean": 0.9133928571428573,
+      "selector_agreement_with_50": 0.775,
+      "best_alternative_agreement_with_50": 0.8,
+      "cumulative_adaptation_seconds_per_case_mean": 2.4894558687499986,
+      "selected_check_reduction_vs_step0": 0.050015941172846676,
+      "selected_check_reduction_vs_step20": 0.0
+    },
+    {
+      "step": 50,
+      "candidate_check_wmse_mean": 0.005543738916824951,
+      "selected_check_wmse_mean": 0.0037840411598153876,
+      "selected_validation_wmse_mean": 0.0035615711502032356,
+      "rank_spearman_vs_50_mean": 1.0,
+      "selector_agreement_with_50": 1.0,
+      "best_alternative_agreement_with_50": 1.0,
+      "cumulative_adaptation_seconds_per_case_mean": 6.1264613800000145,
+      "selected_check_reduction_vs_step0": 0.04747686906028199,
+      "selected_check_reduction_vs_step20": -0.0026727523361806827
+    }
+  ],
+  "stability_20_to_50": {
+    "changed_case_rate": 0.225,
+    "mean_transition_count": 0.275,
+    "zero_transition_case_rate": 0.7625,
+    "mean_rank_spearman_20_vs_50": 0.9133928571428573,
+    "selected_20_matches_50_rate": 0.775
+  },
+  "claim_boundary": "The result may support sufficiency under the evaluated fixed protocol if the 20-to-50 loss and ranking changes are small. It does not establish global optimality of 50 steps.",
+  "test_used": false
+}

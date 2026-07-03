@@ -1,0 +1,7 @@
+Measure,Value
+Full method WMSE,0.00406312879131292
+PT-A57 WMSE,0.005051306932728039
+Test oracle WMSE,0.003851038603897905
+Full/Test-oracle regret,0.05578374487371292
+Full matches Test oracle,0.5875
+Check matches Test oracle,0.75

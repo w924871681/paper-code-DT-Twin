@@ -1,0 +1,7 @@
+Measure,Value
+Full method WMSE,0.004063
+PT-A57 WMSE,0.005051
+Test-oracle WMSE,0.003851
+Mean selector-to-oracle regret,5.58
+Full matches Test oracle,58.75
+Check matches Test oracle,75.00

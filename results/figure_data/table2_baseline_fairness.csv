@@ -1,0 +1,8 @@
+Method,Structure,Source knowledge,Target update,Candidates,Hard feasibility
+PT+FT,Fixed A57,Pooled pretraining,SGD/MSE-50,1,Checked
+MeDeT-style,Fixed A57,Meta initialization,SGD/MSE-50,1,Checked
+Scratch50,Fixed A57,Random initialization,SGD/MSE-50,1,Checked
+Meta+NAS-lite,Proxy Top-12,Legacy C1 bank,Adam/Huber-50,≤12,Before search
+Zero-NAS,Proxy Top-1,Legacy C1 prior,None,0,Before search
+Zero-NAS+FT,Proxy Top-12,Legacy C1 bank,Adam/Huber-50,≤12,Before search
+Ours,Frozen six-architecture bank,Strong indexed priors + PT-A57,SGD/MSE-50,≤7,Before adaptation and output

@@ -1,0 +1,11 @@
+Measure,Value
+Selected WMSE,0.001249749340240669
+A57 WMSE,0.0012791254936018958
+Test-oracle WMSE,0.0011943652931677208
+Selected gain vs A57,0.019927963378421
+Selected gain CI low,-0.04833435898393312
+Selected gain CI high,0.07780467914283555
+Oracle gain vs A57,0.10804498383480861
+Mean captured oracle headroom,0.654228491766997
+Beneficial selected cases,39
+Harmful selected cases,5

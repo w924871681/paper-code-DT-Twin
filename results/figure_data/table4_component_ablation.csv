@@ -1,0 +1,7 @@
+Variant,MAE,WMSE,Worst-10%,Gain vs PT (%),FR (%)
+Full method,0.04720,0.004063,0.015764,15.79,100.0
+Legacy prior bank,0.05203,0.004876,0.019044,1.75,100.0
+PT-A57 only,0.05291,0.005051,0.019512,0.00,100.0
+Dual-initialization A57,0.05232,0.004917,0.019136,1.29,100.0
+Without anchor protection,0.04719,0.004055,0.015690,16.16,100.0
+Without hard-feasibility filtering,0.04710,0.004037,0.015635,16.13,96.2

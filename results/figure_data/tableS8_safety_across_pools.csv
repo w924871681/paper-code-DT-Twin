@@ -1,0 +1,6 @@
+Pool,Outcome,Cases,Switch rate (%),Harmful rate (%),Role
+Selector development,Check,80,58.75,5.00,Calibration
+C3-2 independent final,Check,80,53.75,3.75,Independent selector validation
+C3-3 locked comparison,Test,80,58.75,3.75,Primary locked evaluation
+Additional ablation pool,Test,80,76.25,15.00,Post-freeze stress analysis
+Alibaba semi-real,Test,80,55.00,6.25,External distribution analysis

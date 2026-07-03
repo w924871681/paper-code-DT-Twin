@@ -1,0 +1,28 @@
+{
+  "data_seed": 2904,
+  "source_bank_training_seeds": [
+    2904,
+    2905,
+    2906
+  ],
+  "H": [
+    1,
+    4
+  ],
+  "K": [
+    10,
+    20
+  ],
+  "locked_main_centers": [
+    980,
+    999
+  ],
+  "trajectory_centers": [
+    1080,
+    1099
+  ],
+  "optimizer_control_centers": [
+    1100,
+    1119
+  ]
+}

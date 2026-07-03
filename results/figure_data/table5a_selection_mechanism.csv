@@ -1,0 +1,14 @@
+Measure,Value
+Anchor retention rate,41.25
+Non-anchor switch rate,58.75
+Beneficial switches / all cases,55.00
+Harmful switches / all cases,3.75
+Beneficial switches / switched cases,93.62
+Mean adapted candidates,6.25
+Feasible-output rate,100.00
+Selected PT-A57 cases,33
+Selected A55 cases,21
+Selected A56 cases,15
+Selected A6 cases,9
+Selected A13 cases,2
+Selected A1 cases,0

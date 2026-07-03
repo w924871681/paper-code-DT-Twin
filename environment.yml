@@ -1,0 +1,14 @@
+name: few-shot-dt-instantiation
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - pytorch
+  - pytorch-cuda=12.1
