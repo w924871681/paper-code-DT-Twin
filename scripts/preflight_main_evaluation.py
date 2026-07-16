@@ -13,7 +13,7 @@ def main():
     ap.add_argument("--root", default=ROOT)
     ap.add_argument(
         "--out",
-        default=os.path.join(CFG.output_root, "preflight", "main_evaluation_preflight.json"),
+        default=os.path.join(CFG.output_root, "preflight", "c33_preflight.json"),
     )
     args = ap.parse_args()
     root = args.root if os.path.isabs(args.root) else os.path.join(ROOT, args.root)

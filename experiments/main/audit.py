@@ -26,6 +26,9 @@ def audit(project_root: str, result_root: str) -> Dict[str, Any]:
     details: Dict[str, Any] = {}
     if all(checks.values()):
         objs = {k: load_json(v) for k, v in paths.items()}
+        real_processed = str(objs["real_manifest"]["processed_npz"])
+        if not os.path.isabs(real_processed):
+            real_processed = os.path.join(os.path.dirname(paths["real_manifest"]), real_processed)
         checks.update(
             {
                 "preflight_pass": objs["preflight"].get("decision") == "PASS_FINAL_PAPER_EXPERIMENTS_PREFLIGHT",
@@ -42,7 +45,7 @@ def audit(project_root: str, result_root: str) -> Dict[str, Any]:
                 "scale_eval_records_400": int(objs["scale_eval"].get("N_records", -1)) == 400,
                 "scale_eval_test_not_used_for_selection": not bool(objs["scale_eval"].get("selection_uses_test")),
                 "real_manifest_pass": objs["real_manifest"].get("decision") == "PASS_REAL_TRACE_PREPARED",
-                "real_processed_hash": file_sha256(objs["real_manifest"]["processed_npz"]) == objs["real_manifest"]["processed_sha256"],
+                "real_processed_hash": file_sha256(real_processed) == objs["real_manifest"]["processed_sha256"],
                 "real_bank_pass": objs["real_bank"].get("decision") == "PASS_REAL_SOURCE_BANK",
                 "real_bank_assets_12": int(objs["real_bank"].get("completed_assets", -1)) == 12,
                 "real_bank_test_unused": not bool(objs["real_bank"].get("test_used")),

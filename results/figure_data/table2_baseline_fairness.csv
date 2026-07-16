@@ -1,8 +1,8 @@
-Method,Structure,Source knowledge,Target update,Candidates,Hard feasibility
-PT+FT,Fixed A57,Pooled pretraining,SGD/MSE-50,1,Checked
-MeDeT-style,Fixed A57,Meta initialization,SGD/MSE-50,1,Checked
-Scratch50,Fixed A57,Random initialization,SGD/MSE-50,1,Checked
-Meta+NAS-lite,Proxy Top-12,Legacy C1 bank,Adam/Huber-50,≤12,Before search
-Zero-NAS,Proxy Top-1,Legacy C1 prior,None,0,Before search
-Zero-NAS+FT,Proxy Top-12,Legacy C1 bank,Adam/Huber-50,≤12,Before search
-Ours,Frozen six-architecture bank,Strong indexed priors + PT-A57,SGD/MSE-50,≤7,Before adaptation and output
+Method,Structure,Source initialization,Target update,Adapted models,Complexity-limit check
+PT+FT,Fixed reference architecture,Pooled source pretraining,SGD/MSE-50,1,Before output
+MeDeT-based adaptation,Fixed reference architecture,Meta initialization,SGD/MSE-50,1,Before output
+Random initialization,Fixed reference architecture,Random initialization,SGD/MSE-50,1,Before output
+Few-shot NAS,Top-12 shortlist,Baseline-specific initialization bank,Adam/Huber-50,<=12,Before candidate evaluation
+Zero-shot NAS,Top-ranked model,Baseline-specific initialization,None,0,Before candidate evaluation
+Zero-shot NAS + fine-tuning,Top-12 shortlist,Baseline-specific initialization bank,Adam/Huber-50,<=12,Before candidate evaluation
+Proposed method,Source-initialization bank (six architectures),Architecture-matched source initializations,SGD/MSE-50,4--7,Before adaptation and output

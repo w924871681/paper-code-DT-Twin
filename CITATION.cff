@@ -1,7 +1,21 @@
 cff-version: 1.2.0
-title: Few-Shot Digital Twin Model Instantiation under Resource Constraints
-message: Please cite the associated paper and archived release.
+title: >-
+  Complexity-Constrained Few-Shot Digital Twin Model Instantiation for
+  Heterogeneous Multi-Center Computing Networks
+message: >-
+  Please cite the associated paper and the planned v1.1.0 release once it has
+  been archived. Replace the anonymous author placeholder and add the paper DOI
+  before publication.
 type: software
-version: 1.0.0-paper
-date-released: 2026-07-03
+version: 1.1.0
 license: MIT
+repository-code: https://github.com/w924871681/paper-code-DT-Twin
+url: https://github.com/w924871681/paper-code-DT-Twin
+authors:
+  - name: Anonymous authors
+keywords:
+  - digital twin
+  - few-shot adaptation
+  - model complexity
+  - heterogeneous computing centers
+

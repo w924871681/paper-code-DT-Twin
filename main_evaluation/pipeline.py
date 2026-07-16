@@ -92,17 +92,17 @@ def _validate_manifest_assets(
 
 def _load_strong_manifest(project_root: str, manifest_path: str) -> Dict[str, Any]:
     obj = load_json(manifest_path)
-    if obj.get("decision") != CFG.expected_source_prior_bank_decision:
-        raise RuntimeError("source-prior-bank evaluation strong bank is not frozen PASS")
+    if obj.get("decision") != CFG.expected_c31_bank_decision:
+        raise RuntimeError("C3-1 strong bank is not frozen PASS")
     if bool(
         obj.get("target_pool_used")
         or obj.get("historical_pool_k_used")
         or obj.get("test_used")
     ):
-        raise RuntimeError("source-prior-bank evaluation strong bank contains forbidden data use")
+        raise RuntimeError("C3-1 strong bank contains forbidden data use")
     ok, errors = _validate_manifest_assets(project_root, obj)
     if not ok:
-        raise RuntimeError(f"source-prior-bank evaluation strong assets invalid: {errors}")
+        raise RuntimeError(f"C3-1 strong assets invalid: {errors}")
     return obj
 
 
@@ -133,9 +133,9 @@ def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
     root = os.path.abspath(project_root)
     paths = {
         "anchor_safe_selector": os.path.join(root, CFG.anchor_safe_selector_path),
-        "anchor_safe_selector_analysis": os.path.join(root, CFG.anchor_safe_selector_analysis_path),
-        "anchor_safe_selector_audit": os.path.join(root, CFG.anchor_safe_selector_audit_path),
-        "source_prior_bank_manifest": os.path.join(root, CFG.source_prior_bank_manifest_path),
+        "c32_analysis": os.path.join(root, CFG.c32_analysis_path),
+        "c32_audit": os.path.join(root, CFG.c32_audit_path),
+        "c31_bank_manifest": os.path.join(root, CFG.c31_bank_manifest_path),
         "c1_bank": os.path.join(root, CFG.c1_bank_path),
         "external_source_manifest": os.path.join(
             root, CFG.external_source_manifest_path
@@ -155,9 +155,9 @@ def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
 
     if all(checks.values()):
         selector = load_json(paths["anchor_safe_selector"])
-        analysis = load_json(paths["anchor_safe_selector_analysis"])
-        audit = load_json(paths["anchor_safe_selector_audit"])
-        bank = _load_strong_manifest(root, paths["source_prior_bank_manifest"])
+        analysis = load_json(paths["c32_analysis"])
+        audit = load_json(paths["c32_audit"])
+        bank = _load_strong_manifest(root, paths["c31_bank_manifest"])
         ext_source = load_json(paths["external_source_manifest"])
         ext_audit = load_json(paths["external_audit"])
         bank_ok, bank_errors = _validate_manifest_assets(root, bank)
@@ -167,50 +167,50 @@ def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
             {
                 "anchor_safe_selector_pass": selector.get("decision")
                 == CFG.expected_anchor_safe_selector_decision,
-                "anchor_safe_selector_analysis_allows_locked_eval": analysis.get("decision")
-                == CFG.expected_anchor_safe_selector_analysis_decision,
-                "anchor_safe_selector_audit_pass": audit.get("decision")
-                == CFG.expected_anchor_safe_selector_audit_decision,
+                "c32_analysis_allows_locked_eval": analysis.get("decision")
+                == CFG.expected_c32_analysis_decision,
+                "c32_audit_pass": audit.get("decision")
+                == CFG.expected_c32_audit_decision,
                 "anchor_safe_selector_hash_frozen": file_sha256(
                     paths["anchor_safe_selector"]
                 ).lower()
                 == CFG.expected_anchor_safe_selector_sha256,
-                "anchor_safe_selector_analysis_hash_frozen": file_sha256(
-                    paths["anchor_safe_selector_analysis"]
+                "c32_analysis_hash_frozen": file_sha256(
+                    paths["c32_analysis"]
                 ).lower()
-                == CFG.expected_anchor_safe_selector_analysis_sha256,
-                "anchor_safe_selector_audit_hash_frozen": file_sha256(paths["anchor_safe_selector_audit"]).lower()
-                == CFG.expected_anchor_safe_selector_audit_sha256,
+                == CFG.expected_c32_analysis_sha256,
+                "c32_audit_hash_frozen": file_sha256(paths["c32_audit"]).lower()
+                == CFG.expected_c32_audit_sha256,
                 "anchor_safe_selector_bound_by_audit": str(
                     audit.get("selector_sha256", "")
                 ).lower()
                 == file_sha256(paths["anchor_safe_selector"]).lower(),
-                "anchor_safe_selector_analysis_bound_by_audit": str(
+                "c32_analysis_bound_by_audit": str(
                     audit.get("analysis_sha256", "")
                 ).lower()
-                == file_sha256(paths["anchor_safe_selector_analysis"]).lower(),
+                == file_sha256(paths["c32_analysis"]).lower(),
                 "margin_exactly_10pct": abs(
                     float(selector.get("selected_margin_rel", -1.0))
                     - CFG.frozen_margin_rel
                 )
                 < 1e-12,
-                "anchor_safe_selector_test_unused": not bool(
+                "c32_test_unused": not bool(
                     selector.get("test_used")
                     or analysis.get("test_used")
                     or audit.get("test_used")
                 ),
-                "source_prior_bank_pass": bank.get("decision")
-                == CFG.expected_source_prior_bank_decision,
-                "source_prior_bank_manifest_hash_frozen": file_sha256(
-                    paths["source_prior_bank_manifest"]
+                "c31_bank_pass": bank.get("decision")
+                == CFG.expected_c31_bank_decision,
+                "c31_bank_manifest_hash_frozen": file_sha256(
+                    paths["c31_bank_manifest"]
                 ).lower()
-                == CFG.expected_source_prior_bank_manifest_sha256,
+                == CFG.expected_c31_bank_manifest_sha256,
                 "compact_set_exact": tuple(
                     int(x) for x in bank.get("candidate_arch_indices", ())
                 )
                 == tuple(CFG.compact_arch_indices),
-                "source_prior_bank_assets_valid": bank_ok,
-                "source_prior_bank_target_test_unused": not bool(
+                "c31_bank_assets_valid": bank_ok,
+                "c31_bank_target_test_unused": not bool(
                     bank.get("target_pool_used")
                     or bank.get("historical_pool_k_used")
                     or bank.get("test_used")
@@ -243,7 +243,7 @@ def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
                 "target_steps_50": CFG.fixed_target_steps == 50,
                 "methods_frozen": CFG.methods
                 == (
-                    "ours",
+                    "ours_c32_locked",
                     "pt_ft",
                     "medet_style",
                     "scratch50",
@@ -256,14 +256,14 @@ def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
         details = {
             "bank_asset_errors": bank_errors,
             "external_asset_errors": ext_errors,
-            "anchor_safe_selector_frozen_margin_rel": selector.get("selected_margin_rel"),
+            "c32_frozen_margin_rel": selector.get("selected_margin_rel"),
             "locked_pool_overlap": overlap,
         }
 
     decision = (
-        "PASS_MAIN_EVALUATION_LOCKED_PREFLIGHT_READY"
+        "PASS_C33_LOCKED_PREFLIGHT_READY"
         if checks and all(checks.values())
-        else "FAIL_MAIN_EVALUATION_LOCKED_PREFLIGHT"
+        else "FAIL_C33_LOCKED_PREFLIGHT"
     )
     obj = {
         "study": "c3_3_locked_preflight",
@@ -540,7 +540,7 @@ def _run_ours_case(
         selected_model, selected_row = anchor_model, anchor_row
         del best_alt_model
     selector = {
-        "selector": "anchor_safe_selector_frozen_anchor_safe_compact_selector",
+        "selector": "c32_frozen_anchor_safe_compact_selector",
         "margin_rel": CFG.frozen_margin_rel,
         "anchor_validation_mse": anchor_val,
         "best_alternative_validation_mse": alt_val,
@@ -693,12 +693,12 @@ def run_method(
         raise ValueError(f"Unknown C3-3 method: {method}")
     root = os.path.abspath(project_root)
     preflight_path = os.path.join(
-        root, CFG.output_root, "preflight", "main_evaluation_preflight.json"
+        root, CFG.output_root, "preflight", "c33_preflight.json"
     )
     if not os.path.isfile(preflight_path):
         raise FileNotFoundError("Run C3-3 preflight first")
     preflight_obj = load_json(preflight_path)
-    if preflight_obj.get("decision") != "PASS_MAIN_EVALUATION_LOCKED_PREFLIGHT_READY":
+    if preflight_obj.get("decision") != "PASS_C33_LOCKED_PREFLIGHT_READY":
         raise RuntimeError("C3-3 preflight is not PASS")
 
     start, count, offset = CFG.locked_pool
@@ -709,7 +709,7 @@ def run_method(
         raise RuntimeError("Architecture-space mismatch")
     frozen = load_frozen_assets(root)
     strong_manifest = _load_strong_manifest(
-        root, os.path.join(root, CFG.source_prior_bank_manifest_path)
+        root, os.path.join(root, CFG.c31_bank_manifest_path)
     )
     source_manifest = _load_external_source_manifest(root)
     L = int(cfg.main.task.L)
@@ -720,8 +720,8 @@ def run_method(
     upstream_hashes = {
         "preflight": file_sha256(preflight_path),
         "anchor_safe_selector": file_sha256(os.path.join(root, CFG.anchor_safe_selector_path)),
-        "source_prior_bank_manifest": file_sha256(
-            os.path.join(root, CFG.source_prior_bank_manifest_path)
+        "c31_bank_manifest": file_sha256(
+            os.path.join(root, CFG.c31_bank_manifest_path)
         ),
         "external_source_manifest": file_sha256(
             os.path.join(root, CFG.external_source_manifest_path)
@@ -734,7 +734,7 @@ def run_method(
         else {
             "study": "c3_3_locked_external_comparison",
             "method": method,
-            "decision": "MAIN_EVALUATION_METHOD_IN_PROGRESS",
+            "decision": "C33_METHOD_IN_PROGRESS",
             "run_mode": run_mode,
             "protocol": config_dict(),
             "pool": list(CFG.locked_pool),
@@ -774,7 +774,7 @@ def run_method(
         seed = CFG.train_seed + 1009 * cid + 37 * H + 53 * K
         online_started = time.perf_counter()
 
-        if method == "ours":
+        if method == "ours_c32_locked":
             (
                 selected_model,
                 selected_spec,
@@ -936,7 +936,7 @@ def run_method(
                 CFG.fixed_target_steps
                 if method
                 in {
-                    "ours",
+                    "ours_c32_locked",
                     "pt_ft",
                     "medet_style",
                     "scratch50",
@@ -973,9 +973,9 @@ def run_method(
             torch.cuda.empty_cache()
 
     result["decision"] = (
-        "MAIN_EVALUATION_LOCKED_METHOD_COMPLETE"
+        "C33_LOCKED_METHOD_COMPLETE"
         if result.get("complete")
-        else "MAIN_EVALUATION_LOCKED_METHOD_INCOMPLETE"
+        else "C33_LOCKED_METHOD_INCOMPLETE"
     )
     atomic_json(result, out_path)
     return result
@@ -1067,10 +1067,10 @@ def analyze(project_root: str, result_root: str) -> Dict[str, Any]:
             }
         )
 
-    ours = rows["ours"]
+    ours = rows["ours_c32_locked"]
     paired: Dict[str, Any] = {}
     for method in CFG.methods:
-        if method == "ours":
+        if method == "ours_c32_locked":
             continue
         base = rows[method]
         common = sorted(set(ours) & set(base))
@@ -1100,7 +1100,7 @@ def analyze(project_root: str, result_root: str) -> Dict[str, Any]:
     )
     summary = {
         "study": "c3_3_locked_external_analysis",
-        "decision": "MAIN_EVALUATION_LOCKED_COMPARISON_COMPLETE_REPORT_AS_OBSERVED",
+        "decision": "C33_LOCKED_COMPARISON_COMPLETE_REPORT_AS_OBSERVED",
         "protocol": config_dict(),
         "overall": overall,
         "paired_ours_vs_baselines": paired,
@@ -1159,7 +1159,7 @@ def analyze(project_root: str, result_root: str) -> Dict[str, Any]:
 def audit(project_root: str, result_root: str) -> Dict[str, Any]:
     root = os.path.abspath(project_root)
     result_root = os.path.abspath(result_root)
-    preflight_path = os.path.join(result_root, "preflight", "main_evaluation_preflight.json")
+    preflight_path = os.path.join(result_root, "preflight", "c33_preflight.json")
     analysis_path = os.path.join(result_root, "analysis", "main_evaluation_analysis.json")
     # Budget tier is data-derived; build expected identity without tier.
     expected_identity = {
@@ -1172,7 +1172,7 @@ def audit(project_root: str, result_root: str) -> Dict[str, Any]:
     expected_upstream = {
         "preflight": file_sha256(preflight_path) if os.path.isfile(preflight_path) else None,
         "anchor_safe_selector": file_sha256(os.path.join(root, CFG.anchor_safe_selector_path)),
-        "source_prior_bank_manifest": file_sha256(os.path.join(root, CFG.source_prior_bank_manifest_path)),
+        "c31_bank_manifest": file_sha256(os.path.join(root, CFG.c31_bank_manifest_path)),
         "external_source_manifest": file_sha256(os.path.join(root, CFG.external_source_manifest_path)),
         "c1_bank": file_sha256(os.path.join(root, CFG.c1_bank_path)),
     }
@@ -1223,13 +1223,13 @@ def audit(project_root: str, result_root: str) -> Dict[str, Any]:
                         obj.get("historical_pool_k_reused")
                     ),
                     "run_mode_formal": obj.get("run_mode") == "formal",
-                    "decision_complete": obj.get("decision") == "MAIN_EVALUATION_LOCKED_METHOD_COMPLETE",
+                    "decision_complete": obj.get("decision") == "C33_LOCKED_METHOD_COMPLETE",
                     "top_level_check_unused": not bool(obj.get("selection_uses_check")),
                     "top_level_test_unused": not bool(obj.get("selection_uses_test")),
                     "upstream_hashes_exact": obj.get("upstream_hashes") == expected_upstream,
                 }
             )
-            if method == "ours":
+            if method == "ours_c32_locked":
                 info["margin_exact"] = all(
                     abs(
                         float(r["selector"].get("margin_rel", -1.0))
@@ -1292,16 +1292,16 @@ def audit(project_root: str, result_root: str) -> Dict[str, Any]:
         keys == key_sets[0] for keys in key_sets[1:]
     )
     if os.path.isfile(preflight_path):
-        checks["preflight_pass"] = load_json(preflight_path).get("decision") == "PASS_MAIN_EVALUATION_LOCKED_PREFLIGHT_READY"
+        checks["preflight_pass"] = load_json(preflight_path).get("decision") == "PASS_C33_LOCKED_PREFLIGHT_READY"
     if os.path.isfile(analysis_path):
         analysis = load_json(analysis_path)
-        checks["analysis_complete"] = analysis.get("decision") == "MAIN_EVALUATION_LOCKED_COMPARISON_COMPLETE_REPORT_AS_OBSERVED"
+        checks["analysis_complete"] = analysis.get("decision") == "C33_LOCKED_COMPARISON_COMPLETE_REPORT_AS_OBSERVED"
         checks["analysis_no_retuning"] = not bool(analysis.get("method_or_selector_tuning_after_this_pool_allowed"))
         checks["analysis_test_order_pass"] = bool(analysis.get("test_used_only_after_each_final_model_was_fixed"))
     decision = (
-        "PASS_MAIN_EVALUATION_LOCKED_EVALUATION_COMPLETE_AND_AUDITED"
+        "PASS_C33_LOCKED_EVALUATION_COMPLETE_AND_AUDITED"
         if checks and all(checks.values())
-        else "FAIL_MAIN_EVALUATION_LOCKED_EVALUATION_AUDIT"
+        else "FAIL_C33_LOCKED_EVALUATION_AUDIT"
     )
     result = {
         "study": "c3_3_locked_audit",
@@ -1328,6 +1328,6 @@ def audit(project_root: str, result_root: str) -> Dict[str, Any]:
         "test_used_for_selection": False,
         "method_or_selector_retuning_allowed": False,
     }
-    out_path = os.path.join(result_root, "audit", "main_evaluation_audit.json")
+    out_path = os.path.join(result_root, "audit", "c33_audit.json")
     atomic_json(result, out_path)
     return result

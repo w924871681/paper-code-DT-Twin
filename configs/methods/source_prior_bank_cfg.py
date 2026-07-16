@@ -7,9 +7,9 @@ from typing import Dict, Tuple
 
 @dataclass(frozen=True)
 class SourcePriorBankConfig:
-    """Frozen source-prior-bank evaluation anchor-protected compact strong-prior protocol.
+    """Frozen C3-1 anchor-protected compact strong-prior protocol.
 
-    source-bank development is treated as completed development evidence. source-prior-bank evaluation does not reuse
+    C3-0 is treated as completed development evidence. C3-1 does not reuse
     historical Pool K and does not modify the full C3 method.
     """
 
@@ -18,14 +18,14 @@ class SourcePriorBankConfig:
     train_seed: int = 2904
     source_centers: int = 20
 
-    # Fresh source-prior-bank evaluation holdout. source-bank development used 900--919.
+    # Fresh C3-1 holdout. C3-0 used 900--919.
     fresh_pool: Tuple[int, int, int] = (920, 20, 190000)
     H_list: Tuple[int, ...] = (1, 4)
     K_list: Tuple[int, ...] = (10, 20)
     architecture_count: int = 66
     anchor_arch_idx: int = 57
 
-    # Deterministically derived from source-bank development:
+    # Deterministically derived from C3-0:
     # Check-oracle true wins >=2 OR validation-positive wins >=2.
     compact_arch_indices: Tuple[int, ...] = (1, 6, 13, 55, 56, 57)
     compact_non_anchor_indices: Tuple[int, ...] = (1, 6, 13, 55, 56)
@@ -33,7 +33,7 @@ class SourcePriorBankConfig:
 
     output_root: str = "outputs/source_prior_bank_d2904_t2904"
 
-    # Frozen source-bank development evidence.
+    # Frozen C3-0 evidence.
     c30_preflight_path: str = "outputs/c30_d2904_t2904/preflight/c30_preflight.json"
     c30_fixed_path: str = "outputs/c30_d2904_t2904/fixed_anchor/c30_fixed_anchor.json"
     c30_oracle_path: str = "outputs/c30_d2904_t2904/oracle/c30_c1_oracle.json"
@@ -70,7 +70,7 @@ class SourcePriorBankConfig:
     target_lr: float = 1e-2
     target_grad_clip: float = 1.0
 
-    # Frozen before opening the source-prior-bank evaluation Check split.
+    # Frozen before opening the C3-1 Check split.
     switch_margin_rel: float = 0.01
 
     bootstrap_repeats: int = 4000
@@ -85,7 +85,7 @@ class SourcePriorBankConfig:
     oracle_headroom_mean: float = 0.05
     oracle_headroom_ci_low: float = 0.0
 
-    # Includes source/development/final pools and source-bank development diagnostic pool.
+    # Includes source/development/final pools and C3-0 diagnostic pool.
     known_used_center_ranges: Tuple[Tuple[int, int], ...] = (
         (0, 219),
         (420, 839),

@@ -241,12 +241,12 @@ def _write_latex_table(
 
 def _paths(root: Path) -> Dict[str, Path]:
     return {
-        "ours": root / "outputs/main_evaluation_eval_d2904_t2904/methods/ours.json",
+        "ours": root / "outputs/main_evaluation_eval_d2904_t2904/methods/ours_c32_locked.json",
         "pt": root / "outputs/main_evaluation_eval_d2904_t2904/methods/pt_ft.json",
         "main_csv": root / "outputs/experiments.main_d2904_t2904/report/tables/table_main_results.csv",
         "ablation": root / "outputs/experiments.main_d2904_t2904/ablation/ablation_candidates.json",
         "selector": root / "outputs/anchor_safe_selector_d2904_t2904/selector/anchor_safe_selector_manifest.json",
-        "anchor_safe_selector_final": root / "outputs/anchor_safe_selector_d2904_t2904/final/anchor_safe_candidates.json",
+        "c32_final": root / "outputs/anchor_safe_selector_d2904_t2904/final/c32_final_candidates.json",
         "scale": root / "outputs/experiments.robustness_d2904_t2904/source_scale_controlled/controlled_source_scale_eval.json",
         "seed": root / "outputs/experiments.robustness_d2904_t2904/source_seed/source_seed_eval.json",
         "real": root / "outputs/experiments.robustness_d2904_t2904/real_diagnostics/real_candidate_diagnostics.json",
@@ -257,13 +257,13 @@ def _paths(root: Path) -> Dict[str, Path]:
 def _validate_inputs(paths: Mapping[str, Path]) -> None:
     missing = [str(p) for p in paths.values() if not p.exists()]
     if missing:
-        raise FileNotFoundError("Missing required experiment input<REPOSITORY_RELATIVE_PATH>" + "\n".join(missing))
+        raise FileNotFoundError("Missing required experiment inputs:\n" + "\n".join(missing))
     decisions = {
-        "ours": "MAIN_EVALUATION_LOCKED_METHOD_COMPLETE",
-        "pt": "MAIN_EVALUATION_LOCKED_METHOD_COMPLETE",
+        "ours": "C33_LOCKED_METHOD_COMPLETE",
+        "pt": "C33_LOCKED_METHOD_COMPLETE",
         "ablation": "PASS_FINAL_ABLATION_RESOURCE_BANK_ORACLE",
-        "selector": "PASS_ANCHOR_SAFE_SELECTOR_FROZEN",
-        "anchor_safe_selector_final": "ANCHOR_SAFE_FINAL_CANDIDATES_COMPLETE",
+        "selector": "PASS_C32_SELECTOR_FROZEN",
+        "c32_final": "C32_FINAL_CANDIDATES_COMPLETE",
         "scale": "PASS_CONTROLLED_SOURCE_SCALE_EVAL",
         "seed": "PASS_SOURCE_SEED_ROBUSTNESS_EVAL",
         "real": "PASS_REAL_CANDIDATE_DIAGNOSTICS",
@@ -644,7 +644,7 @@ def _select_from_candidates(candidates: Mapping[str, Mapping[str, Any]], margin:
 
 def _safety_rows(
     selector_obj: Mapping[str, Any],
-    anchor_safe_selector_final_obj: Mapping[str, Any],
+    c32_final_obj: Mapping[str, Any],
     ours: Mapping[str, Any],
     pt: Mapping[str, Any],
     ablation_obj: Mapping[str, Any],
@@ -656,13 +656,13 @@ def _safety_rows(
     out.append({"Pool": "Selector development", "Outcome": "Check", "Cases": 80, "SwitchRate": dev["switch_rate"], "HarmfulRate": dev["harmful_switch_rate_all_cases"], "Role": "Calibration"})
 
     harmful = switched = 0
-    for r in anchor_safe_selector_final_obj["records"].values():
+    for r in c32_final_obj["records"].values():
         selected, anchor, sw = _select_from_candidates(r["candidates"], selected_margin, "check")
         if sw:
             switched += 1
             if float(selected["check"]["weighted_mse"]) > float(anchor["check"]["weighted_mse"]) * (1.0 + 1e-6):
                 harmful += 1
-    n = len(anchor_safe_selector_final_obj["records"])
+    n = len(c32_final_obj["records"])
     out.append({"Pool": "C3-2 independent final", "Outcome": "Check", "Cases": n, "SwitchRate": switched / n, "HarmfulRate": harmful / n, "Role": "Independent selector validation"})
 
     switched = harmful = 0
@@ -1320,7 +1320,7 @@ def generate(project_root: str, output_root: str) -> Dict[str, Any]:
     pt_obj = _load_json(paths["pt"])
     ablation_obj = _load_json(paths["ablation"])
     selector_obj = _load_json(paths["selector"])
-    anchor_safe_selector_final_obj = _load_json(paths["anchor_safe_selector_final"])
+    c32_final_obj = _load_json(paths["c32_final"])
     scale_obj = _load_json(paths["scale"])
     seed_obj = _load_json(paths["seed"])
     real_obj = _load_json(paths["real"])
@@ -1339,7 +1339,7 @@ def generate(project_root: str, output_root: str) -> Dict[str, Any]:
     bank_rows = _bank_size_rows(ablation_obj)
     oracle_rows, oracle_mse, full_mse = _oracle_rows(ablation_obj)
     coverage_rows = _coverage_rows(coverage_obj)
-    safety_rows = _safety_rows(selector_obj, anchor_safe_selector_final_obj, ours, pt, ablation_obj, real_obj)
+    safety_rows = _safety_rows(selector_obj, c32_final_obj, ours, pt, ablation_obj, real_obj)
 
     _write_main_tables(out, config_rows, fairness_rows, main_rows, ablation_rows, mechanism, efficiency, seed_rows, real_rows, real_diag)
     _write_supp_tables(out, robustness, scale_rows, seed_rows, bank_rows, oracle_rows, real_rows, real_diag, coverage_rows, safety_rows)

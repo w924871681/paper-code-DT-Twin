@@ -239,12 +239,12 @@ def _result_paths(root: str) -> Dict[str, str]:
 def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
     root = os.path.abspath(project_root)
     paths = {
-        "main_evaluation_analysis": os.path.join(root, CFG.main_evaluation_analysis_path),
-        "main_evaluation_audit": os.path.join(root, CFG.main_evaluation_audit_path),
-        "main_evaluation_ours": os.path.join(root, CFG.main_evaluation_ours_path),
-        "main_evaluation_pt": os.path.join(root, CFG.main_evaluation_pt_path),
+        "c33_analysis": os.path.join(root, CFG.c33_analysis_path),
+        "c33_audit": os.path.join(root, CFG.c33_audit_path),
+        "c33_ours": os.path.join(root, CFG.c33_ours_path),
+        "c33_pt": os.path.join(root, CFG.c33_pt_path),
         "anchor_safe_selector": os.path.join(root, CFG.anchor_safe_selector_path),
-        "source_prior_bank_manifest": os.path.join(root, CFG.source_prior_bank_manifest_path),
+        "c31_bank_manifest": os.path.join(root, CFG.c31_bank_manifest_path),
         "c1_bank": os.path.join(root, CFG.c1_bank_path),
         "external_source_manifest": os.path.join(
             root, CFG.external_source_manifest_path
@@ -271,25 +271,25 @@ def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
     )
 
     if all(checks.values()):
-        main_evaluation_analysis = load_json(paths["main_evaluation_analysis"])
-        main_evaluation_audit = load_json(paths["main_evaluation_audit"])
-        main_evaluation_ours = load_json(paths["main_evaluation_ours"])
-        main_evaluation_pt = load_json(paths["main_evaluation_pt"])
+        c33_analysis = load_json(paths["c33_analysis"])
+        c33_audit = load_json(paths["c33_audit"])
+        c33_ours = load_json(paths["c33_ours"])
+        c33_pt = load_json(paths["c33_pt"])
         anchor_safe_selector = load_json(paths["anchor_safe_selector"])
-        source_prior_bank = _load_strong_manifest(root, paths["source_prior_bank_manifest"])
+        c31_bank = _load_strong_manifest(root, paths["c31_bank_manifest"])
         ext_manifest = _load_external_source_manifest(root)
-        bank_ok, bank_errors = _validate_manifest_assets(root, source_prior_bank)
+        bank_ok, bank_errors = _validate_manifest_assets(root, c31_bank)
         ext_ok, ext_errors = _validate_manifest_assets(root, ext_manifest)
         checks.update(
             {
-                "main_evaluation_analysis_decision": main_evaluation_analysis.get("decision")
-                == CFG.expected_main_evaluation_analysis_decision,
-                "main_evaluation_audit_decision": main_evaluation_audit.get("decision")
-                == CFG.expected_main_evaluation_audit_decision,
-                "main_evaluation_ours_complete": bool(main_evaluation_ours.get("complete")),
-                "main_evaluation_pt_complete": bool(main_evaluation_pt.get("complete")),
-                "main_evaluation_no_retuning": not bool(
-                    main_evaluation_analysis.get("method_or_selector_tuning_after_this_pool_allowed")
+                "c33_analysis_decision": c33_analysis.get("decision")
+                == CFG.expected_c33_analysis_decision,
+                "c33_audit_decision": c33_audit.get("decision")
+                == CFG.expected_c33_audit_decision,
+                "c33_ours_complete": bool(c33_ours.get("complete")),
+                "c33_pt_complete": bool(c33_pt.get("complete")),
+                "c33_no_retuning": not bool(
+                    c33_analysis.get("method_or_selector_tuning_after_this_pool_allowed")
                 ),
                 "anchor_safe_selector_pass": anchor_safe_selector.get("decision")
                 == CFG.expected_anchor_safe_selector_decision,
@@ -298,16 +298,16 @@ def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
                     - CFG.frozen_margin_rel
                 )
                 < 1e-12,
-                "source_prior_bank_pass": source_prior_bank.get("decision")
-                == CFG.expected_source_prior_bank_decision,
-                "source_prior_bank_assets_valid": bank_ok,
+                "c31_bank_pass": c31_bank.get("decision")
+                == CFG.expected_c31_bank_decision,
+                "c31_assets_valid": bank_ok,
                 "external_assets_valid": ext_ok,
                 "c1_bank_hash": file_sha256(paths["c1_bank"]).lower()
                 == CFG.c1_bank_sha256,
                 "new_pools_no_previous_overlap": len(overlap) == 0,
                 "new_pools_mutually_disjoint": not cross_overlap,
                 "compact_set_exact": tuple(
-                    int(x) for x in source_prior_bank.get("candidate_arch_indices", ())
+                    int(x) for x in c31_bank.get("candidate_arch_indices", ())
                 )
                 == CFG.compact_arch_indices,
                 "target_steps_50": CFG.target_steps == 50,
@@ -445,7 +445,7 @@ def run_ablation_pool(
     L = int(cfg.main.task.L)
     frozen = load_frozen_assets(root)
     strong_manifest = _load_strong_manifest(
-        root, os.path.join(root, CFG.source_prior_bank_manifest_path)
+        root, os.path.join(root, CFG.c31_bank_manifest_path)
     )
     jobs = _jobs(CFG.ablation_pool, smoke)
     run_mode = "smoke" if smoke else "formal"
@@ -705,7 +705,7 @@ def run_seed_robustness(
     L = int(cfg.main.task.L)
     frozen = load_frozen_assets(root)
     strong_manifest = _load_strong_manifest(
-        root, os.path.join(root, CFG.source_prior_bank_manifest_path)
+        root, os.path.join(root, CFG.c31_bank_manifest_path)
     )
     jobs = _jobs(CFG.seed_pool, smoke)
     run_mode = "smoke" if smoke else "formal"

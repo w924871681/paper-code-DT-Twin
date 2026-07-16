@@ -1,4 +1,4 @@
-case_key,center_id,H,K,budget_tier,selected_at_20,selected_at_50,changed_20_to_50,selection_transitions_20_50,unique_selected_tokens_20_50,rank_spearman_20_vs_50,selected_20_matches_50
+﻿case_key,center_id,H,K,budget_tier,selected_at_20,selected_at_50,changed_20_to_50,selection_transitions_20_50,unique_selected_tokens_20_50,rank_spearman_20_vs_50,selected_20_matches_50
 c1080_h1_k10_bmedium,1080,1,10,medium,STRONG_A6,PT_A57,True,1,PT_A57|STRONG_A6,0.7857142857142859,False
 c1080_h1_k20_bmedium,1080,1,20,medium,STRONG_A6,PT_A57,True,1,PT_A57|STRONG_A6,0.9642857142857145,False
 c1080_h4_k10_bmedium,1080,4,10,medium,STRONG_A6,STRONG_A6,False,0,STRONG_A6,0.9642857142857145,True

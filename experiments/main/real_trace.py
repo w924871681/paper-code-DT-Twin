@@ -290,15 +290,17 @@ def prepare_alibaba_trace(
         "protocol": config_dict(),
         "source": {
             "dataset": "Alibaba cluster-trace-v2018 machine_usage",
-            "input_path": input_path,
+            "input_path": os.path.basename(input_path),
+            "source_format": (
+                "machine_usage_tar_gz"
+                if input_path.lower().endswith((".tar.gz", ".tgz"))
+                else "unpacked_or_development_input"
+            ),
             "input_sha256": archive_hash,
             "official_expected_archive_sha256": CFG.real_trace_expected_archive_sha256,
-            "archive_hash_verified": (
-                not input_path.lower().endswith((".tar.gz", ".tgz"))
-                or archive_hash.lower() == CFG.real_trace_expected_archive_sha256.lower()
-            ),
+            "archive_hash_verified": archive_hash.lower() == CFG.real_trace_expected_archive_sha256.lower(),
         },
-        "processed_npz": npz_path,
+        "processed_npz": os.path.basename(npz_path),
         "processed_sha256": file_sha256(npz_path),
         "source_machine_ids": source_ids,
         "target_machine_ids": target_ids,
@@ -332,6 +334,9 @@ def _load_processed(manifest_path: str):
     if manifest.get("decision") != "PASS_REAL_TRACE_PREPARED":
         raise RuntimeError("Real trace is not prepared")
     npz_path = manifest["processed_npz"]
+    if not os.path.isabs(npz_path):
+        npz_path = os.path.join(os.path.dirname(os.path.abspath(manifest_path)), npz_path)
+    manifest["processed_npz"] = npz_path
     if file_sha256(npz_path) != manifest["processed_sha256"]:
         raise RuntimeError("Processed real-trace NPZ hash mismatch")
     data = np.load(npz_path, allow_pickle=False)
@@ -496,7 +501,7 @@ def build_real_bank(
             del model, opt
         params, flops = profile_arch(spec, L=L, input_dim=input_dim, H=H)
         bank.setdefault("assets", {})[key] = {
-            "path": out_file,
+            "path": os.path.basename(out_file),
             "sha256": file_sha256(out_file),
             "H": int(H), "arch_idx": int(idx), "arch_key": str(spec.arch_key),
             "family": str(spec.family), "epochs": int(epochs), "final_source_loss": last_loss,
@@ -521,10 +526,13 @@ def build_real_bank(
     return bank
 
 
-def _load_real_bank_model(bank: Mapping[str, Any], A, H, idx, input_dim, L, device):
+def _load_real_bank_model(bank: Mapping[str, Any], bank_dir: str, A, H, idx, input_dim, L, device):
     item = bank["assets"][f"h{H}_a{idx}"]
     model = build_model(A[idx], input_dim=input_dim, H=H, L=L, device=str(device))
-    state = torch.load(item["path"], map_location=device)
+    asset_path = str(item["path"])
+    if not os.path.isabs(asset_path):
+        asset_path = os.path.join(bank_dir, asset_path)
+    state = torch.load(asset_path, map_location=device)
     model.load_state_dict(state, strict=True)
     return model
 
@@ -579,7 +587,7 @@ def run_real_eval(
         for idx in feasible:
             spec = A[idx]; actual = candidate_device(spec, requested, safe)
             with candidate_backend_context(spec, actual, safe):
-                model = _load_real_bank_model(bank, A, H, idx, input_dim, L, actual)
+                model = _load_real_bank_model(bank, os.path.abspath(bank_dir), A, H, idx, input_dim, L, actual)
                 seed_all(seed, actual); model.train(); opt = optim.SGD(model.parameters(), lr=CFG.target_lr)
                 for _ in range(1 if smoke else CFG.target_steps):
                     opt.zero_grad(set_to_none=True); loss = ((model(Xs.to(actual)) - ys.to(actual)) ** 2).mean(); loss.backward(); torch.nn.utils.clip_grad_norm_(model.parameters(), CFG.target_grad_clip); opt.step()

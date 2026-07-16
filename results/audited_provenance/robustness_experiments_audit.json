@@ -1,0 +1,120 @@
+{
+  "study": "final_paper_experiments_v2_audit",
+  "decision": "PASS_FINAL_PAPER_EXPERIMENTS_V2_COMPLETE_AND_AUDITED",
+  "protocol": {
+    "protocol_version": "final_paper_experiments_v2_0",
+    "data_seed": 2904,
+    "target_eval_seed": 2904,
+    "source_seeds": [
+      2904,
+      2905,
+      2906
+    ],
+    "source_scales": [
+      10,
+      20,
+      30,
+      40,
+      50
+    ],
+    "H_list": [
+      1,
+      4
+    ],
+    "K_list": [
+      10,
+      20
+    ],
+    "compact_arch_indices": [
+      1,
+      6,
+      13,
+      55,
+      56,
+      57
+    ],
+    "anchor_arch_idx": 57,
+    "architecture_count": 66,
+    "frozen_margin_rel": 0.1,
+    "source_count_reference": 20,
+    "source_updates_per_asset": 2000,
+    "source_batch_size": 64,
+    "source_lr": 0.001,
+    "source_weight_decay": 0.0,
+    "checkpoint_every_updates": 100,
+    "target_steps": 50,
+    "target_lr": 0.01,
+    "target_grad_clip": 1.0,
+    "bootstrap_repeats": 4000,
+    "eps": 1e-12,
+    "source_scale_pool": [
+      1040,
+      20,
+      250000
+    ],
+    "source_seed_pool": [
+      1060,
+      20,
+      260000
+    ],
+    "known_used_center_ranges": [
+      [
+        0,
+        219
+      ],
+      [
+        420,
+        839
+      ],
+      [
+        900,
+        1059
+      ]
+    ],
+    "output_root": "outputs/final_paper_experiments_v2_d2904_t2904",
+    "old_result_root": "outputs/final_paper_experiments_d2904_t2904",
+    "old_audit_path": "outputs/final_paper_experiments_d2904_t2904/audit/final_exp_audit.json",
+    "old_ablation_path": "outputs/final_paper_experiments_d2904_t2904/ablation/ablation_candidates.json",
+    "old_real_manifest_path": "outputs/final_paper_experiments_d2904_t2904/real_trace/processed/real_trace_manifest.json",
+    "old_real_bank_dir": "outputs/final_paper_experiments_d2904_t2904/real_trace/bank",
+    "c32_final_candidates_path": "outputs/c32_selector_d2904_t2904/final/c32_final_candidates.json",
+    "c33_ours_path": "outputs/c33_locked_eval_d2904_t2904/methods/ours_c32_locked.json",
+    "c33_pt_path": "outputs/c33_locked_eval_d2904_t2904/methods/pt_ft.json",
+    "expected_old_audit_decision": "PASS_FINAL_PAPER_EXPERIMENTS_COMPLETE_AND_AUDITED"
+  },
+  "checks": {
+    "preflight_exists": true,
+    "preflight_decision": true,
+    "scale_banks_exists": true,
+    "scale_banks_decision": true,
+    "scale_eval_exists": true,
+    "scale_eval_decision": true,
+    "seed_banks_exists": true,
+    "seed_banks_decision": true,
+    "seed_eval_exists": true,
+    "seed_eval_decision": true,
+    "real_diag_exists": true,
+    "real_diag_decision": true,
+    "coverage_exists": true,
+    "coverage_decision": true,
+    "report_exists": true,
+    "report_decision": true,
+    "scale_bank_count": true,
+    "scale_eval_count": true,
+    "seed_bank_count": true,
+    "seed_eval_count": true,
+    "real_diag_count": true,
+    "same_initialization_across_scales": true,
+    "fixed_updates_across_scales": true
+  },
+  "artifact_sha256": {
+    "preflight": "c1222b9e789510d024a8e03bfc537a4b6c642602b7a821541f59e80b687a43b5",
+    "scale_banks": "ebe79814f2d5a00f27ec5ce7bd48942e0b4168b5a62948ae350da2cbcb3581eb",
+    "scale_eval": "9766248dfacf049e7eb31dce6197f7042e9fcc2b349bed5adaf58414c79df792",
+    "seed_banks": "84f96c379f57615762741ef49ed8691fe57547efdc19fb1aa11621bdb15fdfa5",
+    "seed_eval": "42db96c986d906e197ea4bba4699d63bd9705b3b0be659b32ee97865ce59545a",
+    "real_diag": "8a45d825669161790757657f71e54ff365a920d8e11e9370df43fa7fc99110a3",
+    "coverage": "1b77e109fe588e62b12175093feee504af9587cdda7c9ab95d7ed1681b0e0c67",
+    "report": "cb4ece79fa83b66b1e88a6d4e916b073e000de23f11faa0525ebecf74a8ec0e3"
+  }
+}

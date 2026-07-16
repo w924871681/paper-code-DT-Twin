@@ -64,13 +64,13 @@ class FinalPaperExperimentsV2Cfg:
     old_real_bank_dir: str = (
         "outputs/experiments.main_d2904_t2904/real_trace/bank"
     )
-    anchor_safe_candidates_path: str = (
-        "outputs/anchor_safe_selector_d2904_t2904/final/anchor_safe_candidates.json"
+    c32_final_candidates_path: str = (
+        "outputs/anchor_safe_selector_d2904_t2904/final/c32_final_candidates.json"
     )
-    main_evaluation_ours_path: str = (
-        "outputs/main_evaluation_eval_d2904_t2904/methods/ours.json"
+    c33_ours_path: str = (
+        "outputs/main_evaluation_eval_d2904_t2904/methods/ours_c32_locked.json"
     )
-    main_evaluation_pt_path: str = (
+    c33_pt_path: str = (
         "outputs/main_evaluation_eval_d2904_t2904/methods/pt_ft.json"
     )
 

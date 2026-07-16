@@ -1,0 +1,28 @@
+{
+  "purpose": "Document path-only sanitization applied to the public copies of frozen provenance files.",
+  "numerical_fields_changed": false,
+  "historical_identifiers_changed": false,
+  "original_package_index": "FILE_INDEX.csv",
+  "files": {
+    "RESTRUCTURE_REPORT.json": {
+      "original_sha256": "af9300be1056d0f32ab7d566adde71ddf0d66984e6ba69242e630a7e4d6b01ce",
+      "sanitized_sha256": "74ed9aed769577f6614671afe07ccd3f5441badcd1294f6342340582791659ed",
+      "change": "Replaced local source and destination roots with release-relative paths."
+    },
+    "results/audited_provenance/anchor_safe_selector_manifest.json": {
+      "original_sha256": "88505782e3b0cf7238394a380255e900d75715ccc762e6ba3041a742a7b49111",
+      "sanitized_sha256": "094b3155c642fc9e3f1ae5d890d5f2ea4991a8cc26e20d62863d2a0424deb522",
+      "change": "Replaced one machine-specific development-candidate path with a release-relative path."
+    },
+    "results/audited_provenance/main_experiments_audit.json": {
+      "original_sha256": "572c47ca14ba248487abc341d26afc440b531ddb1230af2df660b12b3d242b49",
+      "sanitized_sha256": "558a9216d628e01a325eba3a97babd332049875bb90706c67f76828e752a780a",
+      "change": "Replaced machine-specific report directories with release-relative paths."
+    },
+    "results/supplementary/anchor_risk.json": {
+      "original_sha256": "51966c6d63e601685d24943679bed7bdb0dbe02c19abdd85588682efa06efbec",
+      "sanitized_sha256": "eb6396336a196f81a151b964f938bb6bcb65453c743a3fe687366bf515a45286",
+      "change": "Replaced one machine-specific source path with a release-relative path."
+    }
+  }
+}

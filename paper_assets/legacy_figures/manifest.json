@@ -1,0 +1,36 @@
+{
+  "purpose": "Versioned source assets for unchanged paper figures preserved by Level B.",
+  "policy": "These seven figures are copied after checksum verification; the five figures added or redesigned in v1.1.0 are regenerated from code.",
+  "files": {
+    "fig2.pdf": {
+      "sha256": "3b752f2094a9a570f46ee7eed049261b3f1d2a304dabeef6ef3a08d7cb10387f",
+      "note": "Content-preserving PDF normalization for standards-compliant parsing.",
+      "known_raster_xobjects": 1,
+      "pre_normalization_sha256": "4e15660eda5cb66f5cb053f483021d1dee38a9ba3df7d96b334e697436883809"
+    },
+    "fig3.pdf": {
+      "sha256": "1047e7768f631c33855f1cc4db1af815261fc752c463b8368deee1de38834073",
+      "known_raster_xobjects": 14
+    },
+    "fig4.pdf": {
+      "sha256": "beb666c16a4262bb1fe016d4609c0e6ad8e4972eca810f2e3363dce43281080d",
+      "known_raster_xobjects": 4
+    },
+    "fig5.pdf": {
+      "sha256": "69d11fb949213e697a342aa2c98cb7ceeb6e0527876d91ed3303fe6a6a1463bc",
+      "known_raster_xobjects": 4
+    },
+    "fig6_paired_instantiation.pdf": {
+      "sha256": "ebaca9d75b0193cb745a78d21dcbd47a9cd8f07bade4e15ae4761013039bed52",
+      "known_raster_xobjects": 0
+    },
+    "fig8_budget_architecture.pdf": {
+      "sha256": "35b1970aa77262fdd1aaeb382b1fd55a7c35abd92c86ec48bee21b5f411ebef2",
+      "known_raster_xobjects": 2
+    },
+    "fig9_bank_adaptation_margin.pdf": {
+      "sha256": "53146c657d65dd67616f636581d63b323cb3de5b287112d2795d8358e93f3796",
+      "known_raster_xobjects": 0
+    }
+  }
+}

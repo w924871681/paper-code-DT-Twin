@@ -1,0 +1,57 @@
+{
+  "purpose": "Record narrowly scoped corrections to stale derived public diagnostics while preserving original-package hashes.",
+  "method_or_protocol_changed": false,
+  "new_experiments_run": false,
+  "files": {
+    "results/main/mechanism_and_cost.csv": {
+      "original_sha256": "2f3a7bd39fd533a394baa80103bbfea45c284b90cc62064a8d971194ab3b193f",
+      "corrected_sha256": "4bba8a42700e21894504e6537072747988aa0f8f0da0df7438841ada7d9bfd68",
+      "correction": "Set reference retention to 33/80 = 0.4125 and replace obsolete one-pass runtime fields with the frozen repeated synchronized means."
+    },
+    "results/robustness/architecture_coverage.csv": {
+      "original_sha256": "33cfdf38b61cc1b601f2ac53db21207d24a0b1d8f9bdf9094dce10c4028a653d",
+      "corrected_sha256": "306ed4f6f0b007ecca32c33dd014895c8e1c7fd443d7ddfede0229a0e3194957",
+      "correction": "Classify all 33 C33 retained-reference cases as neutral before any floating-point gain comparison."
+    },
+    "results/figure_data/tableS6_alibaba_semi_real.csv": {
+      "original_sha256": "f359191c43ace927d9c607e0b00cf7e7db6957bca6daa1220d03382cae0b80fd",
+      "corrected_sha256": "c98c2bb53f03e174caa1770374e0adf68d50739636118f1763c515ecaaeee53a",
+      "correction": "Use the V2 mean captured oracle headroom of 65.42% and public-facing method names."
+    },
+    "results/figure_data/tableS5_oracle_diagnostics.csv": {
+      "original_sha256": "3a00b57a6f30a4471ac36c54423720857c0aca5692836f0130473f5121210b43",
+      "corrected_sha256": "6ce3782c810e23944ceddc86731c8d8097588525c2960a6eeb31b875b09e9f22",
+      "correction": "Label 75.00% as check-set-oracle/test-oracle agreement and add percent units."
+    },
+    "results/figure_data/tableS7_architecture_coverage.csv": {
+      "original_sha256": "a723543a3a6a01125d27920b843ebeab02d8a2341f67de7366904d8347271aa8",
+      "corrected_sha256": "61a3d7e3c7c42729e9a17af51eaccfa487feaee15b0a814bcc3686da91e5bfc7",
+      "correction": "State that the unique-rescue-rate denominator is the number of feasible cases."
+    },
+    "results/figure_data/tableS8_safety_across_pools.csv": {
+      "original_sha256": "d695605be78aefa38ec2617dd61ac6b0ed62c62e773191c209b85cb0b32be48b",
+      "corrected_sha256": "238ff8bfa581aaf8165d5a4a7401655b6b781d76e72b648af29ba4bff5e59ee4",
+      "correction": "State that switch and harmful-selection rates use all cases as the denominator."
+    },
+    "results/figure_data/table4_component_ablation.csv": {
+      "original_sha256": "2a910569b40f9d53399d7c411d322d43fa8ebdc2bb5ed3e910ec63bd44e3b203",
+      "corrected_sha256": "76bdd9bf8ee3e87793765723039e27cc7163ccbef72fe6099f99cf712a6c5391",
+      "correction": "Rebuild complete paper Table 4, including harmful alternative selection and 96.25% limit satisfaction."
+    },
+    "results/figure_data/tableS4_bank_size.csv": {
+      "original_sha256": "04c273edb89578726571dfc30b0fab33e959fe20d5ba0379a7fb44d8f589b3a6",
+      "corrected_sha256": "b4029e8391f459a768ee4998179cf84d0912ae2c2eeec73e6d7484a3777b4d6f",
+      "correction": "Identify the switch metric as reference replacement over all cases."
+    },
+    "results/figure_data/table1_experimental_configuration.csv": {
+      "original_sha256": "ce51a42b2a2212b82ce7fa5d0cc6c08abcdbc6e4ebfdeb846d9a5d377a8bcbed",
+      "corrected_sha256": "8322c22c5b83203e330ab1d8998697fe62905928e528b9da67526c6abb6300fe",
+      "correction": "Synchronize the public configuration table with revised-paper Table 1."
+    },
+    "results/figure_data/table2_baseline_fairness.csv": {
+      "original_sha256": "970202f403e146875280196712e65ca9bc70b2e1a107492e125fcdcd95bfe8d3",
+      "corrected_sha256": "81753d237d7e7e178c186ff91e2870d308eacd380b5d98ceb83a3854647c1071",
+      "correction": "Synchronize public method names and target-side protocol descriptions with revised-paper Table 2."
+    }
+  }
+}

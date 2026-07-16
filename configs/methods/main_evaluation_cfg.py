@@ -9,7 +9,7 @@ from typing import Dict, Tuple
 class MainEvaluationConfig:
     """Frozen C3 end-to-end integration and external comparison.
 
-    C3-3 is evaluation-only. It reuses the frozen source-prior-bank evaluation strong compact bank,
+    C3-3 is evaluation-only. It reuses the frozen C3-1 strong compact bank,
     the C3-2 10% anchor-safe selector, and the previously frozen source-only
     external-baseline assets. It must not retrain source models, recalibrate
     the selector, reopen the 66-architecture search for Ours, or reuse any
@@ -29,7 +29,7 @@ class MainEvaluationConfig:
     architecture_count: int = 66
 
     methods: Tuple[str, ...] = (
-        "ours",
+        "ours_c32_locked",
         "pt_ft",
         "medet_style",
         "scratch50",
@@ -38,7 +38,7 @@ class MainEvaluationConfig:
         "zero_nas_ft",
     )
     primary_methods: Tuple[str, ...] = (
-        "ours",
+        "ours_c32_locked",
         "pt_ft",
         "medet_style",
         "scratch50",
@@ -54,35 +54,35 @@ class MainEvaluationConfig:
         "outputs/anchor_safe_selector_d2904_t2904/selector/"
         "anchor_safe_selector_manifest.json"
     )
-    anchor_safe_selector_analysis_path: str = (
+    c32_analysis_path: str = (
         "outputs/anchor_safe_selector_d2904_t2904/analysis/"
-        "anchor_safe_selector_final_analysis.json"
+        "c32_final_analysis.json"
     )
-    anchor_safe_selector_audit_path: str = (
-        "outputs/anchor_safe_selector_d2904_t2904/audit/anchor_safe_selector_audit.json"
+    c32_audit_path: str = (
+        "outputs/anchor_safe_selector_d2904_t2904/audit/c32_audit.json"
     )
-    expected_anchor_safe_selector_decision: str = "PASS_ANCHOR_SAFE_SELECTOR_FROZEN"
-    expected_anchor_safe_selector_analysis_decision: str = "PROCEED_LIMITED_C3_COMPACT_ONLY"
-    expected_anchor_safe_selector_audit_decision: str = (
-        "PASS_ANCHOR_SAFE_SELECTOR_COMPLETE_AND_AUDITED"
+    expected_anchor_safe_selector_decision: str = "PASS_C32_SELECTOR_FROZEN"
+    expected_c32_analysis_decision: str = "PROCEED_LIMITED_C3_COMPACT_ONLY"
+    expected_c32_audit_decision: str = (
+        "PASS_C32_SELECTOR_COMPLETE_AND_AUDITED"
     )
     expected_anchor_safe_selector_sha256: str = (
         "88505782e3b0cf7238394a380255e900d75715ccc762e6ba3041a742a7b49111"
     )
-    expected_anchor_safe_selector_analysis_sha256: str = (
+    expected_c32_analysis_sha256: str = (
         "dbe01790381d69e088d7495c2075bc942ac7b91639824dd821fa9a33d4878f57"
     )
-    expected_anchor_safe_selector_audit_sha256: str = (
+    expected_c32_audit_sha256: str = (
         "3784ab52615fbc9aec795334d4ed804c6888d4f1c406cd9a008b2ce75b67c257"
     )
 
-    # Frozen source-prior-bank evaluation strong compact bank.
-    source_prior_bank_manifest_path: str = (
+    # Frozen C3-1 strong compact bank.
+    c31_bank_manifest_path: str = (
         "outputs/source_prior_bank_d2904_t2904/strong_bank/"
-        "source_prior_bank_manifest.json"
+        "c31_strong_bank_manifest.json"
     )
-    expected_source_prior_bank_decision: str = "PASS_SOURCE_PRIOR_BANK_STRONG_BANK_FROZEN"
-    expected_source_prior_bank_manifest_sha256: str = (
+    expected_c31_bank_decision: str = "PASS_C31_STRONG_BANK_FROZEN"
+    expected_c31_bank_manifest_sha256: str = (
         "4b71e6affe3093a6a012afeea2e38000ca9ab9ae1e6991f92826bee6c9dccb2f"
     )
     anchor_arch_idx: int = 57

@@ -49,7 +49,7 @@ class SupplementaryEvidenceCfg:
 
     # Runtime repetition.
     runtime_methods: Tuple[str, ...] = (
-        "ours",
+        "ours_c32_locked",
         "pt_ft",
         "medet_style",
         "scratch50",
@@ -72,11 +72,11 @@ class SupplementaryEvidenceCfg:
     output_root: str = "outputs/experiments.supplementary_d2904_t2904"
 
     # Frozen assets and existing evidence.
-    source_prior_bank_manifest_path: str = (
+    c31_bank_manifest_path: str = (
         "outputs/source_prior_bank_d2904_t2904/strong_bank/"
-        "source_prior_bank_manifest.json"
+        "c31_strong_bank_manifest.json"
     )
-    expected_source_prior_bank_decision: str = "PASS_SOURCE_PRIOR_BANK_STRONG_BANK_FROZEN"
+    expected_c31_bank_decision: str = "PASS_C31_STRONG_BANK_FROZEN"
     c1_bank_path: str = (
         "outputs/formal_c1_seed2904/shared_artifacts/"
         "ours_weight_bank_source_pooled_c1_v1_src20.pt"
@@ -92,8 +92,8 @@ class SupplementaryEvidenceCfg:
         "outputs/experiments.main_d2904_t2904/ablation/"
         "ablation_candidates.json"
     )
-    main_evaluation_preflight_path: str = (
-        "outputs/main_evaluation_eval_d2904_t2904/preflight/main_evaluation_preflight.json"
+    c33_preflight_path: str = (
+        "outputs/main_evaluation_eval_d2904_t2904/preflight/c33_preflight.json"
     )
 
 

@@ -128,7 +128,11 @@ def adapt_steps(
         y = y_tr.to(dev)
         model.train()
         opt = optim.Adam(model.parameters(), lr=float(lr), weight_decay=float(weight_decay))
-        scaler = torch.cuda.amp.GradScaler(enabled=bool(use_amp and dev.type == 'cuda'))
+        amp_enabled = bool(use_amp and dev.type == 'cuda')
+        if hasattr(torch, "amp") and hasattr(torch.amp, "GradScaler"):
+            scaler = torch.amp.GradScaler("cuda", enabled=amp_enabled)
+        else:  # compatibility with older supported PyTorch releases
+            scaler = torch.cuda.amp.GradScaler(enabled=amp_enabled)
         step_cnt = 0
         base_acc = 0.0
         tail_acc = 0.0
@@ -138,7 +142,11 @@ def adapt_steps(
             for Xb, yb in _iter_minibatches(X, y, int(batch_size), seed=int(seed) + 1000 * t):
                 opt.zero_grad(set_to_none=True)
                 if dev.type == 'cuda' and bool(use_amp):
-                    with torch.cuda.amp.autocast():
+                    if hasattr(torch, "amp") and hasattr(torch.amp, "autocast"):
+                        autocast_context = torch.amp.autocast("cuda", enabled=amp_enabled)
+                    else:
+                        autocast_context = torch.cuda.amp.autocast(enabled=amp_enabled)
+                    with autocast_context:
                         pred = model(Xb)
                         base_loss, per_sample = _base_loss(pred, yb, loss_type=str(robust_loss_type), huber_delta=float(huber_delta), trimmed_ratio=float(trimmed_ratio))
                         tail_pen = _cvar_tail_penalty(per_sample, alpha=float(cvar_alpha))

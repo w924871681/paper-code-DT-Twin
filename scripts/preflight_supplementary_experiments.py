@@ -84,11 +84,11 @@ def run_preflight(project_root: str) -> Dict[str, Any]:
     out_path = root / cfg.output_root / "preflight" / "supp_preflight.json"
 
     required = {
-        "source_prior_bank_manifest": root / cfg.source_prior_bank_manifest_path,
+        "c31_bank_manifest": root / cfg.c31_bank_manifest_path,
         "c1_bank": root / cfg.c1_bank_path,
         "external_source_manifest": root / cfg.external_source_manifest_path,
         "ablation_candidates": root / cfg.ablation_candidates_path,
-        "main_evaluation_preflight": root / cfg.main_evaluation_preflight_path,
+        "c33_preflight": root / cfg.c33_preflight_path,
     }
     checks: Dict[str, bool] = {}
     details: Dict[str, Any] = {"required_files": {}}
@@ -127,14 +127,14 @@ def run_preflight(project_root: str) -> Dict[str, Any]:
     if checks["c1_bank_exists"]:
         checks["c1_bank_hash_frozen"] = _sha256(required["c1_bank"]).lower() == str(cfg.c1_bank_sha256).lower()
 
-    if checks["source_prior_bank_manifest_exists"]:
-        manifest = _check_json(required["source_prior_bank_manifest"], "source_prior_bank_manifest", checks, details)
+    if checks["c31_bank_manifest_exists"]:
+        manifest = _check_json(required["c31_bank_manifest"], "c31_bank_manifest", checks, details)
         if manifest is not None:
-            checks["source_prior_bank_decision_frozen"] = manifest.get("decision") == cfg.expected_source_prior_bank_decision
+            checks["c31_bank_decision_frozen"] = manifest.get("decision") == cfg.expected_c31_bank_decision
             actual_arches = tuple(int(x) for x in manifest.get("candidate_arch_indices", ()))
             checks["compact_architecture_set_exact"] = actual_arches == tuple(cfg.compact_arch_indices)
-            details["source_prior_bank_manifest"]["decision"] = manifest.get("decision")
-            details["source_prior_bank_manifest"]["candidate_arch_indices"] = list(actual_arches)
+            details["c31_bank_manifest"]["decision"] = manifest.get("decision")
+            details["c31_bank_manifest"]["candidate_arch_indices"] = list(actual_arches)
 
     if checks["external_source_manifest_exists"]:
         _check_json(required["external_source_manifest"], "external_source_manifest", checks, details)
@@ -146,11 +146,11 @@ def run_preflight(project_root: str) -> Dict[str, Any]:
             details["ablation_candidates"]["complete"] = ablation.get("complete")
             details["ablation_candidates"]["N_records"] = ablation.get("N_records")
 
-    if checks["main_evaluation_preflight_exists"]:
-        main_evaluation = _check_json(required["main_evaluation_preflight"], "main_evaluation_preflight", checks, details)
-        if main_evaluation is not None:
-            checks["main_evaluation_preflight_pass"] = main_evaluation.get("decision") == "PASS_MAIN_EVALUATION_LOCKED_PREFLIGHT_READY"
-            details["main_evaluation_preflight"]["decision"] = main_evaluation.get("decision")
+    if checks["c33_preflight_exists"]:
+        c33 = _check_json(required["c33_preflight"], "c33_preflight", checks, details)
+        if c33 is not None:
+            checks["c33_preflight_pass"] = c33.get("decision") == "PASS_C33_LOCKED_PREFLIGHT_READY"
+            details["c33_preflight"]["decision"] = c33.get("decision")
 
     details.update({
         "trajectory_pool_overlap": trajectory_overlap,

@@ -1,0 +1,288 @@
+{
+  "study": "c3_1_compact_strong_source_bank",
+  "decision": "PASS_C31_STRONG_BANK_FROZEN",
+  "run_mode": "formal",
+  "protocol": {
+    "protocol_version": "c3_1_anchor_protected_compact_strong_prior_v1_0",
+    "data_seed": 2904,
+    "train_seed": 2904,
+    "source_centers": 20,
+    "fresh_pool": [
+      920,
+      20,
+      190000
+    ],
+    "H_list": [
+      1,
+      4
+    ],
+    "K_list": [
+      10,
+      20
+    ],
+    "architecture_count": 66,
+    "anchor_arch_idx": 57,
+    "compact_arch_indices": [
+      1,
+      6,
+      13,
+      55,
+      56,
+      57
+    ],
+    "compact_non_anchor_indices": [
+      1,
+      6,
+      13,
+      55,
+      56
+    ],
+    "candidate_rule_min_wins": 2,
+    "output_root": "outputs/c31_compact_d2904_t2904",
+    "c30_preflight_path": "outputs/c30_d2904_t2904/preflight/c30_preflight.json",
+    "c30_fixed_path": "outputs/c30_d2904_t2904/fixed_anchor/c30_fixed_anchor.json",
+    "c30_oracle_path": "outputs/c30_d2904_t2904/oracle/c30_c1_oracle.json",
+    "c30_analysis_path": "outputs/c30_d2904_t2904/analysis/c30_analysis.json",
+    "c30_audit_path": "outputs/c30_d2904_t2904/audit/c30_audit.json",
+    "expected_c30_audit_decision": "PASS_C30_DIAGNOSTIC_COMPLETE_AND_AUDITED",
+    "accepted_c30_analysis_decisions": [
+      "PROCEED_C3_ANCHOR_PROTECTED_SEARCH",
+      "PROCEED_C3_STRONG_BANK_AND_SELECTOR_RESEARCH"
+    ],
+    "external_source_manifest": "outputs/final_e2e_c23_external_d2904_t2904/source_assets/source_assets_manifest.json",
+    "expected_source_decision": "PASS_EXTERNAL_SOURCE_ASSETS_FROZEN",
+    "c1_bank_path": "outputs/formal_c1_seed2904/shared_artifacts/ours_weight_bank_source_pooled_c1_v1_src20.pt",
+    "c1_bank_sha256": "bb3a655606af3b554a8f088bb1d2f3f8d9f190b0911a812fd3755d3de3216b9d",
+    "source_epochs": 50,
+    "source_lr": 0.001,
+    "source_batch_size": 64,
+    "source_weight_decay": 0.0,
+    "target_steps": 50,
+    "target_lr": 0.01,
+    "target_grad_clip": 1.0,
+    "switch_margin_rel": 0.01,
+    "bootstrap_repeats": 4000,
+    "eps": 1e-12,
+    "primary_gain_mean": 0.03,
+    "primary_gain_ci_low": 0.0,
+    "harmful_switch_rate_max": 0.05,
+    "architecture_increment_mean": 0.03,
+    "architecture_increment_ci_low": 0.0,
+    "oracle_headroom_mean": 0.05,
+    "oracle_headroom_ci_low": 0.0,
+    "known_used_center_ranges": [
+      [
+        0,
+        219
+      ],
+      [
+        420,
+        839
+      ],
+      [
+        900,
+        919
+      ]
+    ]
+  },
+  "source_centers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "candidate_arch_indices": [
+    1,
+    6,
+    13,
+    55,
+    56,
+    57
+  ],
+  "source_recipe": {
+    "optimizer": "Adam",
+    "loss": "MSE",
+    "epochs": 50,
+    "lr": 0.001,
+    "batch_size": 64,
+    "weight_decay": 0.0,
+    "source_data": "support_plus_validation_K20"
+  },
+  "assets": {
+    "h1_a1": {
+      "path": "outputs/c31_compact_d2904_t2904/strong_bank/strong_h1_a1.pt",
+      "sha256": "0953c393d04cca7bea80b9bc3b4edfaaaeca330785c7e16a1052ad3868cb5988",
+      "H": 1,
+      "arch_idx": 1,
+      "arch_key": "MLP_L2_H32_D0.1",
+      "family": "MLP",
+      "provenance": "PT_recipe_source_only_rebuild",
+      "epochs_completed": 50,
+      "final_source_loss": 0.0048823800612643195,
+      "params": 77921.0,
+      "flops": 155712.0
+    },
+    "h1_a6": {
+      "path": "outputs/c31_compact_d2904_t2904/strong_bank/strong_h1_a6.pt",
+      "sha256": "eb574956ef4f59ff82ba316ffd8dfedd580031f8d818243be77d1207608795ef",
+      "H": 1,
+      "arch_idx": 6,
+      "arch_key": "MLP_L3_H32_D0.0",
+      "family": "MLP",
+      "provenance": "PT_recipe_source_only_rebuild",
+      "epochs_completed": 50,
+      "final_source_loss": 0.0022252919421589467,
+      "params": 78977.0,
+      "flops": 157760.0
+    },
+    "h1_a13": {
+      "path": "outputs/c31_compact_d2904_t2904/strong_bank/strong_h1_a13.pt",
+      "sha256": "291fe3b4d05a88613bac96653b8525a508b23f84ba250de8e708f4b3818bae60",
+      "H": 1,
+      "arch_idx": 13,
+      "arch_key": "MLP_L4_H32_D0.1",
+      "family": "MLP",
+      "provenance": "PT_recipe_source_only_rebuild",
+      "epochs_completed": 50,
+      "final_source_loss": 0.00476386928348802,
+      "params": 80033.0,
+      "flops": 159808.0
+    },
+    "h1_a55": {
+      "path": "outputs/c31_compact_d2904_t2904/strong_bank/strong_h1_a55.pt",
+      "sha256": "ad00ee90288cfcaecd550d42979ae9693fa5fb94350482692755cee521449e1f",
+      "H": 1,
+      "arch_idx": 55,
+      "arch_key": "GRU_L1_H16_D0.1",
+      "family": "GRU",
+      "provenance": "PT_recipe_source_only_rebuild",
+      "epochs_completed": 50,
+      "final_source_loss": 0.0021863986035565506,
+      "params": 2081.0,
+      "flops": 377888.0
+    },
+    "h1_a56": {
+      "path": "outputs/c31_compact_d2904_t2904/strong_bank/strong_h1_a56.pt",
+      "sha256": "2a4d81b8669207180e496c3a09dd7f9e6b8bc6b41016a1927099077a1749d5de",
+      "H": 1,
+      "arch_idx": 56,
+      "arch_key": "GRU_L1_H32_D0.0",
+      "family": "GRU",
+      "provenance": "PT_recipe_source_only_rebuild",
+      "epochs_completed": 50,
+      "final_source_loss": 0.0015795490966411308,
+      "params": 5697.0,
+      "flops": 1050688.0
+    },
+    "h1_a57": {
+      "path": "outputs/c31_compact_d2904_t2904/strong_bank/strong_h1_a57.pt",
+      "sha256": "9faaf152f58bb1be4261369914169868b024f4b5baf7ac621b92619ff25682b5",
+      "H": 1,
+      "arch_idx": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "provenance": "exact_frozen_PT_A57_copy",
+      "original_sha256": "9faaf152f58bb1be4261369914169868b024f4b5baf7ac621b92619ff25682b5",
+      "epochs_completed": 50
+    },
+    "h4_a1": {
+      "path": "outputs/c31_compact_d2904_t2904/strong_bank/strong_h4_a1.pt",
+      "sha256": "f373706272c7d9725c5bfc2676a1ee92db6a5a5fe0bd76306e649bfb86b0c202",
+      "H": 4,
+      "arch_idx": 1,
+      "arch_key": "MLP_L2_H32_D0.1",
+      "family": "MLP",
+      "provenance": "PT_recipe_source_only_rebuild",
+      "epochs_completed": 50,
+      "final_source_loss": 0.010472734599501233,
+      "params": 78020.0,
+      "flops": 155904.0
+    },
+    "h4_a6": {
+      "path": "outputs/c31_compact_d2904_t2904/strong_bank/strong_h4_a6.pt",
+      "sha256": "84aee633948e1186569662c7a87ac26677bc2874cc2e16f3a1eeebbcede5c91e",
+      "H": 4,
+      "arch_idx": 6,
+      "arch_key": "MLP_L3_H32_D0.0",
+      "family": "MLP",
+      "provenance": "PT_recipe_source_only_rebuild",
+      "epochs_completed": 50,
+      "final_source_loss": 0.0027602682550257832,
+      "params": 79076.0,
+      "flops": 157952.0
+    },
+    "h4_a13": {
+      "path": "outputs/c31_compact_d2904_t2904/strong_bank/strong_h4_a13.pt",
+      "sha256": "9c77de3c4e912935295e545110e97819f65aac16cdd33f15f0cbec3172985682",
+      "H": 4,
+      "arch_idx": 13,
+      "arch_key": "MLP_L4_H32_D0.1",
+      "family": "MLP",
+      "provenance": "PT_recipe_source_only_rebuild",
+      "epochs_completed": 50,
+      "final_source_loss": 0.010472734966209497,
+      "params": 80132.0,
+      "flops": 160000.0
+    },
+    "h4_a55": {
+      "path": "outputs/c31_compact_d2904_t2904/strong_bank/strong_h4_a55.pt",
+      "sha256": "931dd65ad50ca608b4ff0ead390e4c89cf8c654c01b96a7c7872dd378f6ed2c5",
+      "H": 4,
+      "arch_idx": 55,
+      "arch_key": "GRU_L1_H16_D0.1",
+      "family": "GRU",
+      "provenance": "PT_recipe_source_only_rebuild",
+      "epochs_completed": 50,
+      "final_source_loss": 0.002680234270387287,
+      "params": 2132.0,
+      "flops": 377984.0
+    },
+    "h4_a56": {
+      "path": "outputs/c31_compact_d2904_t2904/strong_bank/strong_h4_a56.pt",
+      "sha256": "bfcc05eb521995f8b54fa84522155f1e08fe1754199777e6a7583701350c805c",
+      "H": 4,
+      "arch_idx": 56,
+      "arch_key": "GRU_L1_H32_D0.0",
+      "family": "GRU",
+      "provenance": "PT_recipe_source_only_rebuild",
+      "epochs_completed": 50,
+      "final_source_loss": 0.001814998121500883,
+      "params": 5796.0,
+      "flops": 1050880.0
+    },
+    "h4_a57": {
+      "path": "outputs/c31_compact_d2904_t2904/strong_bank/strong_h4_a57.pt",
+      "sha256": "de14f4fbaf86aeb68c774a2c1148ba890b7804c3a2f6acd2cd605ff32f7212ac",
+      "H": 4,
+      "arch_idx": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "provenance": "exact_frozen_PT_A57_copy",
+      "original_sha256": "de14f4fbaf86aeb68c774a2c1148ba890b7804c3a2f6acd2cd605ff32f7212ac",
+      "epochs_completed": 50
+    }
+  },
+  "target_pool_used": false,
+  "historical_pool_k_used": false,
+  "test_used": false,
+  "completed_assets": 12,
+  "expected_assets": 12,
+  "asset_count": 12,
+  "manifest_frozen_at_unix_s": 1782833202.0714052
+}

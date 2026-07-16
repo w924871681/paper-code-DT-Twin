@@ -1,7 +1,7 @@
-Variant,MAE,WMSE,Worst-10%,Gain vs PT (%),FR (%)
-Full method,0.04720,0.004063,0.015764,15.79,100.0
-Legacy prior bank,0.05203,0.004876,0.019044,1.75,100.0
-PT-A57 only,0.05291,0.005051,0.019512,0.00,100.0
-Dual-initialization A57,0.05232,0.004917,0.019136,1.29,100.0
-Without anchor protection,0.04719,0.004055,0.015690,16.16,100.0
-Without hard-feasibility filtering,0.04710,0.004037,0.015635,16.13,96.2
+Variant,WMSE,Worst-10%,Gain vs reference (%),Harmful alternative selection / all cases (%),Complexity-feasible outputs (%)
+Proposed method,0.004063,0.015764,15.79,15.00,100.00
+Shared pooled initialization,0.004876,0.019044,1.75,2.50,100.00
+Reference candidate only,0.005051,0.019512,0.00,0.00,100.00
+Two reference-architecture initializations,0.004917,0.019136,1.29,1.25,100.00
+Without minimum-improvement rule,0.004055,0.015690,16.16,17.50,100.00
+Without complexity-limit filtering,0.004037,0.015635,16.13,13.75,96.25

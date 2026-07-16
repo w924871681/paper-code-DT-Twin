@@ -1,4 +1,4 @@
-method,case_key,center_id,H,K,budget_tier,test_wmse,test_mae,test_worst10
+﻿method,case_key,center_id,H,K,budget_tier,test_wmse,test_mae,test_worst10
 ours_compact_anchor_safe,c1100_h1_k10_btight,1100,1,10,tight,0.004461362026631832,0.052137698978185654,0.021245291456580162
 ours_compact_anchor_safe,c1100_h1_k20_btight,1100,1,20,tight,0.004487024154514074,0.05248228460550308,0.021389909088611603
 ours_compact_anchor_safe,c1100_h4_k10_btight,1100,4,10,tight,0.005976047832518816,0.059249792248010635,0.0250801220536232

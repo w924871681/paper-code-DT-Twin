@@ -65,9 +65,9 @@ def _validate_margin_grid() -> bool:
 def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
     root = os.path.abspath(project_root)
     paths = {
-        "source_prior_bank_audit": os.path.join(root, CFG.source_prior_bank_audit_path),
-        "source_prior_bank_analysis": os.path.join(root, CFG.source_prior_bank_analysis_path),
-        "source_prior_bank_manifest": os.path.join(root, CFG.source_prior_bank_manifest_path),
+        "c31_audit": os.path.join(root, CFG.c31_audit_path),
+        "c31_analysis": os.path.join(root, CFG.c31_analysis_path),
+        "c31_bank_manifest": os.path.join(root, CFG.c31_bank_manifest_path),
         "c1_bank": os.path.join(root, CFG.c1_bank_path),
     }
     checks: Dict[str, bool] = {
@@ -82,34 +82,34 @@ def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
         prior_ids.update(range(int(lo), int(hi) + 1))
 
     if all(checks.values()):
-        source_prior_bank_audit = load_json(paths["source_prior_bank_audit"])
-        source_prior_bank_analysis = load_json(paths["source_prior_bank_analysis"])
-        source_prior_bank = _load_strong_manifest(root, paths["source_prior_bank_manifest"])
+        c31_audit = load_json(paths["c31_audit"])
+        c31_analysis = load_json(paths["c31_analysis"])
+        c31_bank = _load_strong_manifest(root, paths["c31_bank_manifest"])
         checks.update(
             {
-                "source_prior_bank_audit_pass": source_prior_bank_audit.get("decision")
-                == CFG.expected_source_prior_bank_audit_decision,
-                "source_prior_bank_analysis_requires_selector_revision": source_prior_bank_analysis.get(
+                "c31_audit_pass": c31_audit.get("decision")
+                == CFG.expected_c31_audit_decision,
+                "c31_analysis_requires_selector_revision": c31_analysis.get(
                     "decision"
                 )
-                == CFG.expected_source_prior_bank_analysis_decision,
-                "source_prior_bank_frozen": source_prior_bank.get("decision")
-                == CFG.expected_source_prior_bank_decision,
-                "source_prior_bank_target_unused": not bool(
-                    source_prior_bank.get("target_pool_used")
-                    or source_prior_bank.get("historical_pool_k_used")
-                    or source_prior_bank.get("test_used")
+                == CFG.expected_c31_analysis_decision,
+                "c31_bank_frozen": c31_bank.get("decision")
+                == CFG.expected_c31_bank_decision,
+                "c31_bank_target_unused": not bool(
+                    c31_bank.get("target_pool_used")
+                    or c31_bank.get("historical_pool_k_used")
+                    or c31_bank.get("test_used")
                 ),
-                "source_prior_bank_asset_count_12": len(source_prior_bank.get("assets", {}))
+                "c31_bank_asset_count_12": len(c31_bank.get("assets", {}))
                 == len(CFG.H_list) * len(CFG.compact_arch_indices),
-                "source_prior_bank_analysis_bound_by_audit": str(
-                    source_prior_bank_audit.get("analysis_sha256", "")
+                "c31_analysis_bound_by_audit": str(
+                    c31_audit.get("analysis_sha256", "")
                 ).lower()
-                == file_sha256(paths["source_prior_bank_analysis"]).lower(),
-                "source_prior_bank_bound_by_audit": str(
-                    source_prior_bank_audit.get("bank_manifest_sha256", "")
+                == file_sha256(paths["c31_analysis"]).lower(),
+                "c31_bank_bound_by_audit": str(
+                    c31_audit.get("bank_manifest_sha256", "")
                 ).lower()
-                == file_sha256(paths["source_prior_bank_manifest"]).lower(),
+                == file_sha256(paths["c31_bank_manifest"]).lower(),
                 "c1_bank_hash_bound": file_sha256(paths["c1_bank"]).lower()
                 == CFG.c1_bank_sha256.lower(),
                 "dev_pool_no_prior_overlap": len(dev_ids & prior_ids) == 0,
@@ -118,7 +118,7 @@ def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
                 "dev_pool_count": len(dev_ids) == int(CFG.selector_dev_pool[1]),
                 "final_pool_count": len(final_ids) == int(CFG.final_pool[1]),
                 "candidate_set_frozen": tuple(
-                    source_prior_bank.get("candidate_arch_indices", ())
+                    c31_bank.get("candidate_arch_indices", ())
                 )
                 == tuple(CFG.compact_arch_indices),
                 "anchor_A57": CFG.anchor_arch_idx == 57,
@@ -134,9 +134,9 @@ def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
         }
 
     decision = (
-        "PASS_ANCHOR_SAFE_SELECTOR_PREFLIGHT_READY"
+        "PASS_C32_PREFLIGHT_READY"
         if checks and all(checks.values())
-        else "FAIL_ANCHOR_SAFE_SELECTOR_PREFLIGHT"
+        else "FAIL_C32_PREFLIGHT"
     )
     obj = {
         "study": "c3_2_selector_preflight",
@@ -177,18 +177,18 @@ def run_candidate_pool(
         raise ValueError("pool_role must be selector_dev or final")
     pool = CFG.selector_dev_pool if pool_role == "selector_dev" else CFG.final_pool
     root = os.path.abspath(project_root)
-    preflight_path = os.path.join(root, CFG.output_root, "preflight", "anchor_safe_selector_preflight.json")
+    preflight_path = os.path.join(root, CFG.output_root, "preflight", "c32_preflight.json")
     if not os.path.isfile(preflight_path):
         raise FileNotFoundError("Run C3-2 preflight first")
-    if load_json(preflight_path).get("decision") != "PASS_ANCHOR_SAFE_SELECTOR_PREFLIGHT_READY":
+    if load_json(preflight_path).get("decision") != "PASS_C32_PREFLIGHT_READY":
         raise RuntimeError("C3-2 preflight is not PASS")
 
     strong_manifest = _load_strong_manifest(root, bank_manifest_path)
     run_mode = "smoke" if smoke else "formal"
-    # C3-2 always reuses the frozen formal source-prior-bank evaluation bank. Smoke only shortens
+    # C3-2 always reuses the frozen formal C3-1 bank. Smoke only shortens
     # the target-center jobs; it must not create or require a second bank.
     if str(strong_manifest.get("run_mode")) != "formal":
-        raise RuntimeError("C3-2 requires the frozen formal source-prior-bank evaluation bank")
+        raise RuntimeError("C3-2 requires the frozen formal C3-1 bank")
 
     start, count, offset = pool
     cfg, cache, A, requested, safe = build_runtime(
@@ -542,9 +542,9 @@ def calibrate_selector(
 
     selected_margin = min(eligible) if eligible else None
     decision = (
-        "PASS_ANCHOR_SAFE_SELECTOR_FROZEN"
+        "PASS_C32_SELECTOR_FROZEN"
         if selected_margin is not None
-        else "FAIL_ANCHOR_SAFE_SELECTOR_NO_SAFE_MARGIN"
+        else "FAIL_C32_NO_SAFE_MARGIN"
     )
     result = {
         "study": "c3_2_selector_calibration",
@@ -573,7 +573,7 @@ def analyze_final(
 ) -> Dict[str, Any]:
     _ = os.path.abspath(project_root)
     selector = load_json(selector_path)
-    if selector.get("decision") != "PASS_ANCHOR_SAFE_SELECTOR_FROZEN":
+    if selector.get("decision") != "PASS_C32_SELECTOR_FROZEN":
         raise RuntimeError("C3-2 selector is not frozen PASS")
     final = load_json(final_candidates_path)
     if not final.get("complete") or str(final.get("pool_role")) != "final":
@@ -646,7 +646,7 @@ def analyze_final(
     if primary_pass and architecture_pass:
         decision = "PROCEED_LIMITED_C3_COMPACT_ONLY"
         next_step = (
-            "Freeze the source-prior-bank evaluation six-architecture bank and the C3-2 margin. "
+            "Freeze the C3-1 six-architecture bank and the C3-2 margin. "
             "Do not reopen the 66-architecture search."
         )
     elif primary_pass and not architecture_pass:
@@ -722,7 +722,7 @@ def audit(
     selector = load_json(selector_path)
     final = load_json(final_candidates_path)
     analysis_obj = load_json(analysis_path)
-    bank_path = os.path.join(root, CFG.source_prior_bank_manifest_path)
+    bank_path = os.path.join(root, CFG.c31_bank_manifest_path)
     bank = _load_strong_manifest(root, bank_path)
 
     expected_cases = int(CFG.final_pool[1]) * len(CFG.H_list) * len(CFG.K_list)
@@ -788,12 +788,12 @@ def audit(
         )
 
     checks = {
-        "preflight_pass": preflight_obj.get("decision") == "PASS_ANCHOR_SAFE_SELECTOR_PREFLIGHT_READY",
-        "source_prior_bank_still_frozen": bank.get("decision") == CFG.expected_source_prior_bank_decision,
+        "preflight_pass": preflight_obj.get("decision") == "PASS_C32_PREFLIGHT_READY",
+        "c31_bank_still_frozen": bank.get("decision") == CFG.expected_c31_bank_decision,
         "dev_candidates_complete": candidate_cache_valid(
             dev, "selector_dev", CFG.selector_dev_pool
         ),
-        "selector_frozen_pass": selector.get("decision") == "PASS_ANCHOR_SAFE_SELECTOR_FROZEN",
+        "selector_frozen_pass": selector.get("decision") == "PASS_C32_SELECTOR_FROZEN",
         "selector_dev_hash_bound": selector.get("dev_candidates_sha256")
         == file_sha256(dev_candidates_path),
         "selector_margin_registered": selected_margin
@@ -834,9 +834,9 @@ def audit(
         ),
     }
     decision = (
-        "PASS_ANCHOR_SAFE_SELECTOR_COMPLETE_AND_AUDITED"
+        "PASS_C32_SELECTOR_COMPLETE_AND_AUDITED"
         if all(checks.values())
-        else "FAIL_ANCHOR_SAFE_SELECTOR_AUDIT"
+        else "FAIL_C32_SELECTOR_AUDIT"
     )
     result = {
         "study": "c3_2_selector_audit",

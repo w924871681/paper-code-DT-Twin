@@ -1,7 +1,7 @@
 {
   "study": "full_vs_no_anchor_risk_from_existing_candidate_results",
   "decision": "PASS_ANCHOR_RISK_ANALYSIS_COMPLETE",
-  "source_path": "<REPOSITORY_RELATIVE_PATH>",
+  "source_path": "outputs/final_paper_experiments_d2904_t2904/ablation/ablation_candidates.json",
   "source_sha256": "5984de19df8cc62d72e94a72af19333825768fcdcc81a5fdb332d11fb430f0d7",
   "metric_definition": {
     "switch_regret": "(selected_test_wmse-anchor_test_wmse)/anchor_test_wmse",

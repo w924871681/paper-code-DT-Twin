@@ -173,7 +173,7 @@ def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
                 "c30_audit_pass": (
                     c30_audit.get("decision") == CFG.expected_c30_audit_decision
                 ),
-                "c30_analysis_allows_source_prior_bank": (
+                "c30_analysis_allows_c31": (
                     c30_analysis.get("decision")
                     in set(CFG.accepted_c30_analysis_decisions)
                 ),
@@ -227,9 +227,9 @@ def preflight(project_root: str, out_path: str) -> Dict[str, Any]:
         )
 
     decision = (
-        "PASS_SOURCE_PRIOR_BANK_PREFLIGHT_READY"
+        "PASS_C31_PREFLIGHT_READY"
         if checks and all(checks.values())
-        else "FAIL_SOURCE_PRIOR_BANK_PREFLIGHT"
+        else "FAIL_C31_PREFLIGHT"
     )
     obj = {
         "study": "c3_1_compact_preflight",
@@ -291,15 +291,15 @@ def build_strong_bank(
     smoke: bool = False,
 ) -> Dict[str, Any]:
     root = os.path.abspath(project_root)
-    preflight_path = os.path.join(root, CFG.output_root, "preflight", "source_prior_bank_preflight.json")
+    preflight_path = os.path.join(root, CFG.output_root, "preflight", "c31_preflight.json")
     if not os.path.isfile(preflight_path):
-        raise FileNotFoundError("Run source-prior-bank evaluation preflight first")
-    if load_json(preflight_path).get("decision") != "PASS_SOURCE_PRIOR_BANK_PREFLIGHT_READY":
-        raise RuntimeError("source-prior-bank evaluation preflight is not PASS")
+        raise FileNotFoundError("Run C3-1 preflight first")
+    if load_json(preflight_path).get("decision") != "PASS_C31_PREFLIGHT_READY":
+        raise RuntimeError("C3-1 preflight is not PASS")
 
     out_dir = os.path.abspath(out_dir)
     os.makedirs(out_dir, exist_ok=True)
-    manifest_path = os.path.join(out_dir, "source_prior_bank_manifest.json")
+    manifest_path = os.path.join(out_dir, "c31_strong_bank_manifest.json")
 
     cfg, cache, A, requested, safe = build_runtime(device, safe_mode, ())
     if len(A) != CFG.architecture_count:
@@ -316,7 +316,7 @@ def build_strong_bank(
     if os.path.isfile(manifest_path):
         manifest = load_json(manifest_path)
         if manifest.get("protocol", {}).get("protocol_version") != CFG.protocol_version:
-            raise RuntimeError("Existing source-prior-bank evaluation bank manifest has a different protocol")
+            raise RuntimeError("Existing C3-1 bank manifest has a different protocol")
         if str(manifest.get("run_mode")) != run_mode:
             raise RuntimeError(
                 "Smoke/formal outputs cannot share one directory. "
@@ -325,7 +325,7 @@ def build_strong_bank(
     else:
         manifest = {
             "study": "c3_1_compact_strong_source_bank",
-            "decision": "SOURCE_PRIOR_BANK_STRONG_BANK_IN_PROGRESS",
+            "decision": "C31_STRONG_BANK_IN_PROGRESS",
             "run_mode": run_mode,
             "protocol": config_dict(),
             "source_centers": list(range(CFG.source_centers)),
@@ -412,7 +412,7 @@ def build_strong_bank(
                     opt.load_state_dict(state["optimizer"])
                     start_epoch = int(state.get("next_epoch", 0))
                     print(
-                        f"[source-prior-bank evaluation][Bank] resume H={H} A={idx} "
+                        f"[C3-1][Bank] resume H={H} A={idx} "
                         f"next_epoch={start_epoch}",
                         flush=True,
                     )
@@ -458,7 +458,7 @@ def build_strong_bank(
                         * max(0, epochs - epoch - 1)
                     )
                     print(
-                        f"[source-prior-bank evaluation][Bank] job={job_no}/{len(jobs)} "
+                        f"[C3-1][Bank] job={job_no}/{len(jobs)} "
                         f"H={H} A={idx} {spec.arch_key} "
                         f"epoch={epoch+1}/{epochs} loss={last_loss:.6g} "
                         f"elapsed={elapsed/3600:.2f}h eta={eta/3600:.2f}h",
@@ -505,7 +505,7 @@ def build_strong_bank(
             "%Y-%m-%d %H:%M:%S", time.localtime(time.time() + eta)
         )
         print(
-            f"[source-prior-bank evaluation][Bank] assets={done}/{len(jobs)} "
+            f"[C3-1][Bank] assets={done}/{len(jobs)} "
             f"elapsed={elapsed/3600:.2f}h avg={avg:.1f}s "
             f"eta={eta/3600:.2f}h finish={finish}",
             flush=True,
@@ -518,15 +518,15 @@ def build_strong_bank(
     for key, item in manifest["assets"].items():
         full = os.path.join(root, str(item["path"]).replace("/", os.sep))
         if not os.path.isfile(full):
-            raise FileNotFoundError(f"Missing source-prior-bank evaluation strong asset: {full}")
+            raise FileNotFoundError(f"Missing C3-1 strong asset: {full}")
         if file_sha256(full).lower() != str(item["sha256"]).lower():
-            raise RuntimeError(f"source-prior-bank evaluation strong asset hash mismatch: {full}")
+            raise RuntimeError(f"C3-1 strong asset hash mismatch: {full}")
     if len(manifest["assets"]) != len(jobs):
         raise RuntimeError(
-            f"source-prior-bank evaluation strong bank incomplete: "
+            f"C3-1 strong bank incomplete: "
             f"{len(manifest['assets'])}/{len(jobs)}"
         )
-    manifest["decision"] = "PASS_SOURCE_PRIOR_BANK_STRONG_BANK_FROZEN"
+    manifest["decision"] = "PASS_C31_STRONG_BANK_FROZEN"
     manifest["asset_count"] = len(manifest["assets"])
     manifest["manifest_frozen_at_unix_s"] = time.time()
     atomic_json(manifest, manifest_path)
@@ -537,19 +537,19 @@ def _load_strong_manifest(
     project_root: str, manifest_path: str
 ) -> Dict[str, Any]:
     obj = load_json(manifest_path)
-    if obj.get("decision") != "PASS_SOURCE_PRIOR_BANK_STRONG_BANK_FROZEN":
-        raise RuntimeError("source-prior-bank evaluation strong bank is not frozen PASS")
+    if obj.get("decision") != "PASS_C31_STRONG_BANK_FROZEN":
+        raise RuntimeError("C3-1 strong bank is not frozen PASS")
     if obj.get("target_pool_used") or obj.get("historical_pool_k_used") or obj.get("test_used"):
-        raise RuntimeError("source-prior-bank evaluation strong bank contains forbidden data use")
+        raise RuntimeError("C3-1 strong bank contains forbidden data use")
     for item in obj.get("assets", {}).values():
         full = os.path.join(
             project_root,
             str(item["path"]).replace("\\", os.sep).replace("/", os.sep),
         )
         if not os.path.isfile(full):
-            raise FileNotFoundError(f"Missing source-prior-bank evaluation strong asset: {full}")
+            raise FileNotFoundError(f"Missing C3-1 strong asset: {full}")
         if file_sha256(full).lower() != str(item["sha256"]).lower():
-            raise RuntimeError(f"source-prior-bank evaluation strong asset hash mismatch: {full}")
+            raise RuntimeError(f"C3-1 strong asset hash mismatch: {full}")
     return obj
 
 
@@ -718,7 +718,7 @@ def run_fresh_holdout(
         if os.path.isfile(out_path)
         else {
             "study": "c3_1_fresh_anchor_protected_compact_holdout",
-            "decision": "SOURCE_PRIOR_BANK_HOLDOUT_IN_PROGRESS",
+            "decision": "C31_HOLDOUT_IN_PROGRESS",
             "run_mode": run_mode,
             "protocol": config_dict(),
             "bank_manifest": os.path.abspath(bank_manifest_path),
@@ -885,7 +885,7 @@ def run_fresh_holdout(
                 time.localtime(time.time() + eta),
             )
             print(
-                f"[source-prior-bank evaluation][Holdout] case={case_no}/{len(jobs)} "
+                f"[C3-1][Holdout] case={case_no}/{len(jobs)} "
                 f"candidate={candidate_no}/{len(planned)} "
                 f"{case_key} {token} done={done}/{total_expected} "
                 f"steps={done*CFG.target_steps} "
@@ -943,9 +943,9 @@ def run_fresh_holdout(
         atomic_json(result, out_path)
 
     result["decision"] = (
-        "SOURCE_PRIOR_BANK_FRESH_HOLDOUT_COMPLETE"
+        "C31_FRESH_HOLDOUT_COMPLETE"
         if result.get("complete")
-        else "SOURCE_PRIOR_BANK_FRESH_HOLDOUT_INCOMPLETE"
+        else "C31_FRESH_HOLDOUT_INCOMPLETE"
     )
     atomic_json(result, out_path)
     return result
@@ -1048,7 +1048,7 @@ def analyze(
 ) -> Dict[str, Any]:
     holdout = load_json(holdout_path)
     if not holdout.get("complete"):
-        raise RuntimeError("source-prior-bank evaluation fresh holdout is incomplete")
+        raise RuntimeError("C3-1 fresh holdout is incomplete")
     records = holdout["records"]
 
     comparisons = {
@@ -1250,10 +1250,10 @@ def audit(
 
     checks = {
         "preflight_pass": (
-            preflight_obj.get("decision") == "PASS_SOURCE_PRIOR_BANK_PREFLIGHT_READY"
+            preflight_obj.get("decision") == "PASS_C31_PREFLIGHT_READY"
         ),
         "bank_frozen_pass": (
-            bank.get("decision") == "PASS_SOURCE_PRIOR_BANK_STRONG_BANK_FROZEN"
+            bank.get("decision") == "PASS_C31_STRONG_BANK_FROZEN"
         ),
         "bank_asset_count": len(bank.get("assets", {})) == expected_assets,
         "bank_target_unused": not bool(
@@ -1296,9 +1296,9 @@ def audit(
         ),
     }
     decision = (
-        "PASS_SOURCE_PRIOR_BANK_COMPACT_COMPLETE_AND_AUDITED"
+        "PASS_C31_COMPACT_COMPLETE_AND_AUDITED"
         if all(checks.values())
-        else "FAIL_SOURCE_PRIOR_BANK_COMPACT_AUDIT"
+        else "FAIL_C31_COMPACT_AUDIT"
     )
     obj = {
         "study": "c3_1_compact_audit",

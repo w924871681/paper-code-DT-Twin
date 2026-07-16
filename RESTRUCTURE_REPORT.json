@@ -1,0 +1,8 @@
+{
+  "source": "few-shot-dt-instantiation-public.zip",
+  "output": ".",
+  "copied_file_count": 145,
+  "python_compile_errors": [],
+  "decision": "PASS_PUBLIC_REPOSITORY_RESTRUCTURED",
+  "note": "Historical identifiers are retained only inside immutable protocol/audit fields."
+}

@@ -1,7 +1,7 @@
-Method,WMSE,MAE,W10
-Ours,0.001250,0.02102,0.007055
-PT+FT,0.001279,0.02163,0.007210
+﻿Method,WMSE,MAE,W10
+Proposed method,0.001250,0.02102,0.007055
+Reference candidate,0.001279,0.02163,0.007210
 Test oracle (diagnostic),0.001194,0.02028,0.006884
-Selected gain vs PT,1.99%,--,--
-Oracle gain vs PT,10.80%,--,--
-Captured oracle headroom,56.18%,--,--
+Selected gain vs reference,1.99%,--,--
+Oracle gain vs reference,10.80%,--,--
+Captured oracle headroom,65.42%,--,--

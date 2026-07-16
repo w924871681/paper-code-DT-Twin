@@ -17,7 +17,7 @@ from .pipeline import _center_bootstrap, _mean, _rel_gain
 
 
 METHOD_LABELS = {
-    "ours": "Ours",
+    "ours_c32_locked": "Ours",
     "pt_ft": "PT+FT",
     "medet_style": "MeDeT-style",
     "scratch50": "Scratch50",
@@ -53,7 +53,7 @@ def _save_figure(fig, path: str) -> None:
 def _method_records(root: str) -> Dict[str, Dict[str, Any]]:
     out = {}
     for method in METHOD_LABELS:
-        p = os.path.join(root, CFG.main_evaluation_root, "methods", f"{method}.json")
+        p = os.path.join(root, CFG.c33_root, "methods", f"{method}.json")
         obj = load_json(p)
         if not obj.get("complete"):
             raise RuntimeError(f"Incomplete C3-3 method {method}")
@@ -300,7 +300,7 @@ def _mechanism_cost(methods: Mapping[str, Mapping[str, Any]]) -> List[Dict[str, 
             "FLOPs": _mean(float(r.get("flops", 0.0)) for r in vals),
             "FeasibleRate": _mean(float(r.get("feasible", True)) for r in vals),
         }
-        if method == "ours":
+        if method == "ours_c32_locked":
             tokens = Counter(str(r["selector"].get("selected_token", "PT_A57")) for r in vals)
             switched = [r for r in vals if bool(r["selector"].get("switched_from_pt_anchor"))]
             pt_map = methods["pt_ft"]
@@ -343,7 +343,7 @@ def generate_report(project_root: str, result_root: str) -> Dict[str, Any]:
     os.makedirs(tables_dir, exist_ok=True); os.makedirs(figures_dir, exist_ok=True)
 
     methods = _method_records(root)
-    anchor_safe_selector = load_json(os.path.join(root, CFG.anchor_safe_selector_path))
+    c32 = load_json(os.path.join(root, CFG.anchor_safe_selector_path))
     ablation = load_json(os.path.join(result_root, "ablation", "ablation_candidates.json"))
     seeds = load_json(os.path.join(result_root, "seeds", "seed_robustness.json"))
     scale = load_json(os.path.join(result_root, "source_scale", "source_scale_eval.json"))
@@ -358,7 +358,7 @@ def generate_report(project_root: str, result_root: str) -> Dict[str, Any]:
             raise RuntimeError(f"{name} is not complete")
 
     main_rows = _overall_table(methods)
-    ours, pt = methods["ours"], methods["pt_ft"]
+    ours, pt = methods["ours_c32_locked"], methods["pt_ft"]
     hk_rows = _group_robustness(ours, pt, "HK")
     budget_rows = _group_robustness(ours, pt, "budget_tier")
     type_rows = _group_robustness(ours, pt, "center_type")
@@ -446,7 +446,7 @@ def generate_report(project_root: str, result_root: str) -> Dict[str, Any]:
     _save_figure(fig, os.path.join(figures_dir, "fig_accuracy_online_cost.pdf"))
 
     # Margin safety from frozen C3-2 development results.
-    grid = [anchor_safe_selector["margin_grid_results"][k] for k in sorted(anchor_safe_selector["margin_grid_results"], key=float)]
+    grid = [c32["margin_grid_results"][k] for k in sorted(c32["margin_grid_results"], key=float)]
     fig, ax1 = plt.subplots(figsize=(6.8, 4.4)); ax2 = ax1.twinx()
     margins = [100 * x["margin_rel"] for x in grid]
     ax1.plot(margins, [100 * x["primary_gain_over_PT"]["mean"] for x in grid], marker="o", label="WMSE gain")
@@ -487,7 +487,7 @@ def generate_report(project_root: str, result_root: str) -> Dict[str, Any]:
         "figures": {name: os.path.join(figures_dir, name) for name in CFG.required_figures},
         "paired_ours_vs_pt": pt_paired,
         "source_inputs": {
-            "main_evaluation_analysis": file_sha256(os.path.join(root, CFG.main_evaluation_analysis_path)),
+            "c33_analysis": file_sha256(os.path.join(root, CFG.c33_analysis_path)),
             "anchor_safe_selector": file_sha256(os.path.join(root, CFG.anchor_safe_selector_path)),
             "ablation": file_sha256(os.path.join(result_root, "ablation", "ablation_candidates.json")),
             "seeds": file_sha256(os.path.join(result_root, "seeds", "seed_robustness.json")),

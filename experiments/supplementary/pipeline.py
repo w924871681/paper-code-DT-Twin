@@ -184,7 +184,7 @@ def _result_paths(project_root: str) -> Dict[str, str]:
 def _upstream_hashes(project_root: str, include_external: bool = False) -> Dict[str, str]:
     root = os.path.abspath(project_root)
     items = {
-        "source_prior_bank_manifest": os.path.join(root, CFG_SUPP.source_prior_bank_manifest_path),
+        "c31_bank_manifest": os.path.join(root, CFG_SUPP.c31_bank_manifest_path),
         "c1_bank": os.path.join(root, CFG_SUPP.c1_bank_path),
         "supp_preflight": _result_paths(root)["preflight"],
     }
@@ -289,7 +289,7 @@ def preflight(project_root: str, out_path: Optional[str] = None) -> Dict[str, An
     paths = _result_paths(root)
     out_path = out_path or paths["preflight"]
     required = {
-        "source_prior_bank_manifest": os.path.join(root, CFG_SUPP.source_prior_bank_manifest_path),
+        "c31_bank_manifest": os.path.join(root, CFG_SUPP.c31_bank_manifest_path),
         "c1_bank": os.path.join(root, CFG_SUPP.c1_bank_path),
         "external_source_manifest": os.path.join(
             root, CFG_SUPP.external_source_manifest_path
@@ -297,7 +297,7 @@ def preflight(project_root: str, out_path: Optional[str] = None) -> Dict[str, An
         "ablation_candidates": os.path.join(
             root, CFG_SUPP.ablation_candidates_path
         ),
-        "main_evaluation_preflight": os.path.join(root, CFG_SUPP.main_evaluation_preflight_path),
+        "c33_preflight": os.path.join(root, CFG_SUPP.c33_preflight_path),
     }
     checks: Dict[str, bool] = {
         f"{name}_exists": os.path.isfile(path) for name, path in required.items()
@@ -339,10 +339,10 @@ def preflight(project_root: str, out_path: Optional[str] = None) -> Dict[str, An
             file_sha256(required["c1_bank"]).lower()
             == CFG_SUPP.c1_bank_sha256.lower()
         )
-    if checks.get("source_prior_bank_manifest_exists"):
-        manifest = load_json(required["source_prior_bank_manifest"])
-        checks["source_prior_bank_decision_frozen"] = (
-            manifest.get("decision") == CFG_SUPP.expected_source_prior_bank_decision
+    if checks.get("c31_bank_manifest_exists"):
+        manifest = load_json(required["c31_bank_manifest"])
+        checks["c31_bank_decision_frozen"] = (
+            manifest.get("decision") == CFG_SUPP.expected_c31_bank_decision
         )
         checks["compact_architecture_set_exact"] = tuple(
             int(x) for x in manifest.get("candidate_arch_indices", ())
@@ -352,10 +352,10 @@ def preflight(project_root: str, out_path: Optional[str] = None) -> Dict[str, An
         checks["ablation_complete"] = bool(ablation.get("complete")) and int(
             ablation.get("N_records", 0)
         ) == 80
-    if checks.get("main_evaluation_preflight_exists"):
-        main_evaluation = load_json(required["main_evaluation_preflight"])
-        checks["main_evaluation_preflight_pass"] = (
-            main_evaluation.get("decision") == "PASS_MAIN_EVALUATION_LOCKED_PREFLIGHT_READY"
+    if checks.get("c33_preflight_exists"):
+        c33 = load_json(required["c33_preflight"])
+        checks["c33_preflight_pass"] = (
+            c33.get("decision") == "PASS_C33_LOCKED_PREFLIGHT_READY"
         )
 
     details.update(
@@ -677,7 +677,7 @@ def run_adaptation_trajectory(
     L = int(cfg.main.task.L)
     frozen = load_frozen_assets(root)
     strong_manifest = _load_strong_manifest(
-        root, os.path.join(root, CFG_SUPP.source_prior_bank_manifest_path)
+        root, os.path.join(root, CFG_SUPP.c31_bank_manifest_path)
     )
     jobs = _jobs(CFG_SUPP.trajectory_pool, smoke)
     run_mode = "smoke" if smoke else "formal"
@@ -1202,7 +1202,7 @@ def _execute_online_method(
     L: int,
     seed: int,
 ) -> Tuple[nn.Module, Dict[str, Any], int, int]:
-    if method == "ours":
+    if method == "ours_c32_locked":
         model, _spec, row, selector, candidate_count, adapted_count = _run_ours_case(
             project_root,
             strong_manifest,
@@ -1319,7 +1319,7 @@ def run_repeated_runtime(
     L = int(cfg.main.task.L)
     frozen = load_frozen_assets(root)
     strong_manifest = _load_strong_manifest(
-        root, os.path.join(root, CFG_SUPP.source_prior_bank_manifest_path)
+        root, os.path.join(root, CFG_SUPP.c31_bank_manifest_path)
     )
     source_manifest = _load_external_source_manifest(root)
     jobs = _jobs(CFG_SUPP.runtime_pool, smoke)
@@ -1762,7 +1762,7 @@ def run_optimizer_matched_control(
     L = int(cfg.main.task.L)
     frozen = load_frozen_assets(root)
     strong_manifest = _load_strong_manifest(
-        root, os.path.join(root, CFG_SUPP.source_prior_bank_manifest_path)
+        root, os.path.join(root, CFG_SUPP.c31_bank_manifest_path)
     )
     jobs = _jobs(CFG_SUPP.optimizer_control_pool, smoke)
     run_mode = "smoke" if smoke else "formal"

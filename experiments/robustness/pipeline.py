@@ -82,9 +82,9 @@ def run_v2_preflight(project_root: str, out_path: str) -> Dict[str, Any]:
         "old_ablation": CFG2.old_ablation_path,
         "real_manifest": CFG2.old_real_manifest_path,
         "real_bank_manifest": os.path.join(CFG2.old_real_bank_dir, "real_bank_manifest.json"),
-        "anchor_safe_candidates": CFG2.anchor_safe_candidates_path,
-        "main_evaluation_ours": CFG2.main_evaluation_ours_path,
-        "main_evaluation_pt": CFG2.main_evaluation_pt_path,
+        "c32_final_candidates": CFG2.c32_final_candidates_path,
+        "c33_ours": CFG2.c33_ours_path,
+        "c33_pt": CFG2.c33_pt_path,
     }
     for name, rel in required.items():
         checks[f"{name}_exists"] = os.path.isfile(os.path.join(root, rel))
@@ -640,7 +640,7 @@ def analyze_architecture_coverage(project_root: str, out_path: str) -> Dict[str,
     root=os.path.abspath(project_root); _require_v2_preflight(root); v2root=os.path.join(root,CFG2.output_root); rows=[]; sources=[]
     candidates=[
         ("AblationPool1000-1019",os.path.join(root,CFG2.old_ablation_path),"test"),
-        ("C32Final960-979",os.path.join(root,CFG2.anchor_safe_candidates_path),"check"),
+        ("C32Final960-979",os.path.join(root,CFG2.c32_final_candidates_path),"check"),
         ("ControlledScale1040-1059",os.path.join(v2root,"source_scale_controlled","controlled_source_scale_eval.json"),"test"),
         ("SourceSeed1060-1079",os.path.join(v2root,"source_seed","source_seed_eval.json"),"test"),
         ("AlibabaSemiReal",os.path.join(v2root,"real_diagnostics","real_candidate_diagnostics.json"),"test"),
@@ -649,16 +649,21 @@ def analyze_architecture_coverage(project_root: str, out_path: str) -> Dict[str,
         if os.path.isfile(path):
             obj=load_json(path); rows.extend(_coverage_rows_from_candidate_records(name,obj["records"],outcome)); sources.append({"dataset":name,"path":os.path.relpath(path,root).replace('\\','/'),"sha256":file_sha256(path)})
     # C3-3 provides selected-candidate test evidence even though unselected test states were not stored.
-    op=os.path.join(root,CFG2.main_evaluation_ours_path); pp=os.path.join(root,CFG2.main_evaluation_pt_path)
+    op=os.path.join(root,CFG2.c33_ours_path); pp=os.path.join(root,CFG2.c33_pt_path)
     if os.path.isfile(op) and os.path.isfile(pp):
         ours=load_json(op)["records"]; pt=load_json(pp)["records"]
         for idx in CFG2.compact_arch_indices:
             selected=[]
             for k,r in ours.items():
                 if int(r["arch_idx"])==idx:
-                    selected.append(_rel_gain(r["test"]["weighted_mse"],pt[k]["test"]["weighted_mse"]))
-            rows.append({"Dataset":"MAIN_EVALUATIONLocked980-999","Outcome":"test_selected_only","ArchIdx":idx,"Cases":len(ours),"FeasibleRate":None,"SelectedCount":len(selected),"OracleBestCount":None,"SelectedBeneficialCount":sum(x>1e-6 for x in selected),"SelectedHarmfulCount":sum(x<-1e-6 for x in selected),"MeanGainWhenSelected":float(np.mean(selected)) if selected else None,"MeanLeaveOneOutGain":None,"UniqueRescueCount":None})
-        sources.extend([{"dataset":"MAIN_EVALUATIONLocked980-999","path":CFG2.main_evaluation_ours_path,"sha256":file_sha256(op)},{"dataset":"MAIN_EVALUATIONPT","path":CFG2.main_evaluation_pt_path,"sha256":file_sha256(pp)}])
+                    switched = bool(r.get("selector", {}).get("switched_from_pt_anchor", False))
+                    selected.append(
+                        _rel_gain(r["test"]["weighted_mse"], pt[k]["test"]["weighted_mse"])
+                        if switched
+                        else 0.0
+                    )
+            rows.append({"Dataset":"C33Locked980-999","Outcome":"test_selected_only","ArchIdx":idx,"Cases":len(ours),"FeasibleRate":None,"SelectedCount":len(selected),"OracleBestCount":None,"SelectedBeneficialCount":sum(x>1e-6 for x in selected),"SelectedHarmfulCount":sum(x<-1e-6 for x in selected),"MeanGainWhenSelected":float(np.mean(selected)) if selected else None,"MeanLeaveOneOutGain":None,"UniqueRescueCount":None})
+        sources.extend([{"dataset":"C33Locked980-999","path":CFG2.c33_ours_path,"sha256":file_sha256(op)},{"dataset":"C33PT","path":CFG2.c33_pt_path,"sha256":file_sha256(pp)}])
     focus={}
     for idx in (13,1):
         rr=[r for r in rows if int(r["ArchIdx"])==idx]

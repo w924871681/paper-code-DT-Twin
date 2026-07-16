@@ -9,7 +9,7 @@ from typing import Dict, Tuple
 class AnchorSafeSelectorConfig:
     """Frozen C3-2 anchor-safe selector calibration protocol.
 
-    C3-2 reuses the frozen source-prior-bank evaluation strong compact bank. It does not retrain
+    C3-2 reuses the frozen C3-1 strong compact bank. It does not retrain
     source models, reopen the 66-architecture space, reuse historical Pool K,
     or read Test. The development pool calibrates one pre-registered relative
     Validation margin; the final pool is opened only after the selector file
@@ -33,24 +33,24 @@ class AnchorSafeSelectorConfig:
 
     output_root: str = "outputs/anchor_safe_selector_d2904_t2904"
 
-    # Frozen source-prior-bank evaluation evidence and assets.
-    source_prior_bank_audit_path: str = (
-        "outputs/source_prior_bank_d2904_t2904/audit/source_prior_bank_audit.json"
+    # Frozen C3-1 evidence and assets.
+    c31_audit_path: str = (
+        "outputs/source_prior_bank_d2904_t2904/audit/c31_audit.json"
     )
-    source_prior_bank_analysis_path: str = (
-        "outputs/source_prior_bank_d2904_t2904/analysis/source_prior_bank_analysis.json"
+    c31_analysis_path: str = (
+        "outputs/source_prior_bank_d2904_t2904/analysis/c31_analysis.json"
     )
-    source_prior_bank_manifest_path: str = (
+    c31_bank_manifest_path: str = (
         "outputs/source_prior_bank_d2904_t2904/strong_bank/"
-        "source_prior_bank_manifest.json"
+        "c31_strong_bank_manifest.json"
     )
-    expected_source_prior_bank_audit_decision: str = (
-        "PASS_SOURCE_PRIOR_BANK_COMPACT_COMPLETE_AND_AUDITED"
+    expected_c31_audit_decision: str = (
+        "PASS_C31_COMPACT_COMPLETE_AND_AUDITED"
     )
-    expected_source_prior_bank_analysis_decision: str = "REVISE_VALIDATION_SELECTOR_ONLY"
-    expected_source_prior_bank_decision: str = "PASS_SOURCE_PRIOR_BANK_STRONG_BANK_FROZEN"
+    expected_c31_analysis_decision: str = "REVISE_VALIDATION_SELECTOR_ONLY"
+    expected_c31_bank_decision: str = "PASS_C31_STRONG_BANK_FROZEN"
 
-    # Legacy C1-A57 remains in the candidate pool to preserve source-prior-bank evaluation semantics.
+    # Legacy C1-A57 remains in the candidate pool to preserve C3-1 semantics.
     c1_bank_path: str = (
         "outputs/formal_c1_seed2904/shared_artifacts/"
         "ours_weight_bank_source_pooled_c1_v1_src20.pt"

@@ -1,0 +1,35 @@
+{
+  "study": "supplementary_evidence_audit",
+  "decision": "PASS_SUPPLEMENTARY_EVIDENCE_COMPLETE_AND_AUDITED",
+  "checks": {
+    "preflight_pass": true,
+    "trajectory_complete": true,
+    "trajectory_test_unused": true,
+    "anchor_risk_complete": true,
+    "runtime_complete": true,
+    "runtime_test_unused": true,
+    "runtime_check_unused": true,
+    "optimizer_control_complete": true,
+    "optimizer_selection_test_unused": true,
+    "optimizer_test_opened_after_selection": true
+  },
+  "details": {
+    "trajectory_records": 80,
+    "anchor_risk_cases": 80,
+    "runtime_records": 2800,
+    "optimizer_records": 80
+  },
+  "required_checks": [
+    "preflight_pass",
+    "trajectory_complete",
+    "trajectory_test_unused",
+    "anchor_risk_complete",
+    "runtime_complete",
+    "runtime_test_unused",
+    "runtime_check_unused",
+    "optimizer_control_complete",
+    "optimizer_selection_test_unused",
+    "optimizer_test_opened_after_selection"
+  ],
+  "method_retuning_allowed": false
+}

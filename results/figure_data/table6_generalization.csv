@@ -1,5 +1,5 @@
-Study,Setting,Ours WMSE,Reference WMSE,Gain (%),95% CI (%)
-Source-bank seed,2904,0.005269,0.005648,10.52,"[3.81, 18.21]"
-Source-bank seed,2905,0.005208,0.006016,13.21,"[7.80, 18.79]"
-Source-bank seed,2906,0.005225,0.005715,11.25,"[5.26, 18.21]"
-Alibaba semi-real,20 target machines / 80 cases,0.001250,0.001279,1.99,"[-4.98, 7.67]"
+﻿Study,Setting,Proposed WMSE,Reference WMSE,Gain (%),95% CI (%)
+Source-initialization seed,2904,0.005269,0.005648,10.52,"[3.93, 18.17]"
+Source-initialization seed,2905,0.005208,0.006016,13.21,"[7.62, 18.89]"
+Source-initialization seed,2906,0.005225,0.005715,11.25,"[5.23, 17.96]"
+Alibaba semi-real,20 target machines / 80 cases,0.001250,0.001279,1.99,"[-4.83, 7.78]"

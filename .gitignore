@@ -3,6 +3,7 @@ __pycache__/
 .idea/
 .vscode/
 .venv/
+.pytest_cache/
 venv/
 env/
 outputs/
@@ -17,3 +18,7 @@ model_checkpoints/
 *.zip
 *.log
 .DS_Store
+data/alibaba2018/raw/*
+data/alibaba2018/processed/*
+!data/alibaba2018/raw/.gitkeep
+!data/alibaba2018/processed/.gitkeep

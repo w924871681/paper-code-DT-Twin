@@ -1,4 +1,4 @@
-Dataset,Arch,Selected,Beneficial,Harmful,Selection precision (%),Unique rescue,Unique rescue rate (%)
+﻿Dataset,Arch,Selected,Beneficial,Harmful,Selection precision (%),Unique rescue,Unique rescue rate among feasible cases (%)
 AblationPool1000-1019,A1,2,2,0,100.00,2,2.50
 AblationPool1000-1019,A13,0,0,0,--,0,0.00
 ControlledScale1040-1059,A1,19,14,5,73.68,15,5.36
@@ -7,5 +7,5 @@ SourceSeed1060-1079,A1,17,15,2,88.24,14,9.72
 SourceSeed1060-1079,A13,16,13,3,81.25,7,4.86
 AlibabaSemiReal,A1,1,0,1,0.00,0,0.00
 AlibabaSemiReal,A13,0,0,0,--,0,0.00
-MAIN_EVALUATIONLocked980-999,A1,0,0,0,--,--,--
-MAIN_EVALUATIONLocked980-999,A13,2,2,0,100.00,--,--
+C33Locked980-999,A1,0,0,0,--,--,--
+C33Locked980-999,A13,2,2,0,100.00,--,--

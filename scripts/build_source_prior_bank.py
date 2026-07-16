@@ -32,7 +32,7 @@ def main():
                 "decision": obj.get("decision"),
                 "asset_count": obj.get("asset_count"),
                 "out": os.path.abspath(
-                    os.path.join(a.out_dir, "source_prior_bank_manifest.json")
+                    os.path.join(a.out_dir, "c31_strong_bank_manifest.json")
                 ),
             },
             ensure_ascii=False,

@@ -13,7 +13,7 @@
   "timer_scope": "candidate instantiation, prior restoration, target adaptation, validation evaluation, and final selection; excludes data construction, Check, Test, reporting, and source training",
   "summary": [
     {
-      "method": "ours",
+      "method": "ours_c32_locked",
       "N_observations": 400,
       "N_repeats": 5,
       "mean_seconds": 5.676108809500022,

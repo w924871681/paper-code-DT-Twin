@@ -77,38 +77,38 @@ class FinalPaperExperimentsCfg:
     output_root: str = "outputs/experiments.main_d2904_t2904"
 
     # Frozen C3-3 evidence.
-    main_evaluation_root: str = "outputs/main_evaluation_eval_d2904_t2904"
-    main_evaluation_analysis_path: str = (
+    c33_root: str = "outputs/main_evaluation_eval_d2904_t2904"
+    c33_analysis_path: str = (
         "outputs/main_evaluation_eval_d2904_t2904/analysis/main_evaluation_analysis.json"
     )
-    main_evaluation_audit_path: str = (
-        "outputs/main_evaluation_eval_d2904_t2904/audit/main_evaluation_audit.json"
+    c33_audit_path: str = (
+        "outputs/main_evaluation_eval_d2904_t2904/audit/c33_audit.json"
     )
-    main_evaluation_ours_path: str = (
-        "outputs/main_evaluation_eval_d2904_t2904/methods/ours.json"
+    c33_ours_path: str = (
+        "outputs/main_evaluation_eval_d2904_t2904/methods/ours_c32_locked.json"
     )
-    main_evaluation_pt_path: str = (
+    c33_pt_path: str = (
         "outputs/main_evaluation_eval_d2904_t2904/methods/pt_ft.json"
     )
-    expected_main_evaluation_audit_decision: str = (
-        "PASS_MAIN_EVALUATION_LOCKED_EVALUATION_COMPLETE_AND_AUDITED"
+    expected_c33_audit_decision: str = (
+        "PASS_C33_LOCKED_EVALUATION_COMPLETE_AND_AUDITED"
     )
-    expected_main_evaluation_analysis_decision: str = (
-        "MAIN_EVALUATION_LOCKED_COMPARISON_COMPLETE_REPORT_AS_OBSERVED"
+    expected_c33_analysis_decision: str = (
+        "C33_LOCKED_COMPARISON_COMPLETE_REPORT_AS_OBSERVED"
     )
 
     # Frozen C3-2 margin evidence.
     anchor_safe_selector_path: str = (
         "outputs/anchor_safe_selector_d2904_t2904/selector/anchor_safe_selector_manifest.json"
     )
-    expected_anchor_safe_selector_decision: str = "PASS_ANCHOR_SAFE_SELECTOR_FROZEN"
+    expected_anchor_safe_selector_decision: str = "PASS_C32_SELECTOR_FROZEN"
 
-    # Frozen source-prior-bank evaluation strong bank and legacy C1 bank.
-    source_prior_bank_manifest_path: str = (
+    # Frozen C3-1 strong bank and legacy C1 bank.
+    c31_bank_manifest_path: str = (
         "outputs/source_prior_bank_d2904_t2904/strong_bank/"
-        "source_prior_bank_manifest.json"
+        "c31_strong_bank_manifest.json"
     )
-    expected_source_prior_bank_decision: str = "PASS_SOURCE_PRIOR_BANK_STRONG_BANK_FROZEN"
+    expected_c31_bank_decision: str = "PASS_C31_STRONG_BANK_FROZEN"
     c1_bank_path: str = (
         "outputs/formal_c1_seed2904/shared_artifacts/"
         "ours_weight_bank_source_pooled_c1_v1_src20.pt"

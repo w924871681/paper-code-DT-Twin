@@ -10,5 +10,8 @@ dependencies:
   - scipy
   - scikit-learn
   - matplotlib
+  - pillow
+  - pypdf
+  - pytest
   - pytorch
   - pytorch-cuda=12.1

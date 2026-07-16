@@ -1,4 +1,4 @@
-Pool,Outcome,Cases,Switch rate (%),Harmful rate (%),Role
+﻿Pool,Outcome,Cases,Alternative-selection rate / all cases (%),Harmful alternatives / all cases (%),Role
 Selector development,Check,80,58.75,5.00,Calibration
 C3-2 independent final,Check,80,53.75,3.75,Independent selector validation
 C3-3 locked comparison,Test,80,58.75,3.75,Primary locked evaluation
