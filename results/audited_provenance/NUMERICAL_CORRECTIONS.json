@@ -5,12 +5,12 @@
   "files": {
     "results/main/mechanism_and_cost.csv": {
       "original_sha256": "2f3a7bd39fd533a394baa80103bbfea45c284b90cc62064a8d971194ab3b193f",
-      "corrected_sha256": "4bba8a42700e21894504e6537072747988aa0f8f0da0df7438841ada7d9bfd68",
+      "corrected_sha256": "80dcdeeb88915b1eacc871528b86f741f3226b2d2ce3c5cf77007f096747fd58",
       "correction": "Set reference retention to 33/80 = 0.4125 and replace obsolete one-pass runtime fields with the frozen repeated synchronized means."
     },
     "results/robustness/architecture_coverage.csv": {
       "original_sha256": "33cfdf38b61cc1b601f2ac53db21207d24a0b1d8f9bdf9094dce10c4028a653d",
-      "corrected_sha256": "306ed4f6f0b007ecca32c33dd014895c8e1c7fd443d7ddfede0229a0e3194957",
+      "corrected_sha256": "b0a287906430cf0d1846bf3523f3650f58ab6872a993a7490406713dc8515c93",
       "correction": "Classify all 33 C33 retained-reference cases as neutral before any floating-point gain comparison."
     },
     "results/figure_data/tableS6_alibaba_semi_real.csv": {
@@ -25,12 +25,12 @@
     },
     "results/figure_data/tableS7_architecture_coverage.csv": {
       "original_sha256": "a723543a3a6a01125d27920b843ebeab02d8a2341f67de7366904d8347271aa8",
-      "corrected_sha256": "61a3d7e3c7c42729e9a17af51eaccfa487feaee15b0a814bcc3686da91e5bfc7",
+      "corrected_sha256": "89046482cc561f5bda03a29c8fb865d321782514b62149c3f8ca89f5442d3e62",
       "correction": "State that the unique-rescue-rate denominator is the number of feasible cases."
     },
     "results/figure_data/tableS8_safety_across_pools.csv": {
       "original_sha256": "d695605be78aefa38ec2617dd61ac6b0ed62c62e773191c209b85cb0b32be48b",
-      "corrected_sha256": "238ff8bfa581aaf8165d5a4a7401655b6b781d76e72b648af29ba4bff5e59ee4",
+      "corrected_sha256": "5ae1a45b3842d15cdebd7704be8901b06746ce290efbbb5339632caf73650bc1",
       "correction": "State that switch and harmful-selection rates use all cases as the denominator."
     },
     "results/figure_data/table4_component_ablation.csv": {
@@ -40,12 +40,12 @@
     },
     "results/figure_data/tableS4_bank_size.csv": {
       "original_sha256": "04c273edb89578726571dfc30b0fab33e959fe20d5ba0379a7fb44d8f589b3a6",
-      "corrected_sha256": "b4029e8391f459a768ee4998179cf84d0912ae2c2eeec73e6d7484a3777b4d6f",
+      "corrected_sha256": "f448fe70675b19367eb592b25f5a8e21399d62c93ed95025edb7bae1ed7db3f1",
       "correction": "Identify the switch metric as reference replacement over all cases."
     },
     "results/figure_data/table1_experimental_configuration.csv": {
       "original_sha256": "ce51a42b2a2212b82ce7fa5d0cc6c08abcdbc6e4ebfdeb846d9a5d377a8bcbed",
-      "corrected_sha256": "8322c22c5b83203e330ab1d8998697fe62905928e528b9da67526c6abb6300fe",
+      "corrected_sha256": "e12c3b8c5340297f278edbb463511d4ecc623deb4ff944c24df4a9993d51b7a9",
       "correction": "Synchronize the public configuration table with revised-paper Table 1."
     },
     "results/figure_data/table2_baseline_fairness.csv": {

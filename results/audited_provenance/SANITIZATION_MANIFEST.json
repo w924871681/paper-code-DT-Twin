@@ -6,7 +6,7 @@
   "files": {
     "RESTRUCTURE_REPORT.json": {
       "original_sha256": "af9300be1056d0f32ab7d566adde71ddf0d66984e6ba69242e630a7e4d6b01ce",
-      "sanitized_sha256": "74ed9aed769577f6614671afe07ccd3f5441badcd1294f6342340582791659ed",
+      "sanitized_sha256": "2c196f5d04fc5f8df180bfcf4a5d8c0046344f8d13d443b1c9a58c64f9723e08",
       "change": "Replaced local source and destination roots with release-relative paths."
     },
     "results/audited_provenance/anchor_safe_selector_manifest.json": {
