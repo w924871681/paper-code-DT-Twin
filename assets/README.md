@@ -15,8 +15,8 @@ Release assets:
 
 `https://github.com/w924871681/paper-code-DT-Twin/releases/download/v1.1.4/cuda_replay_evidence_v1.1.4.zip`
 
-- Size: recorded on the v1.1.4 Release after the exact-tag CUDA replay
-- SHA-256: recorded in `cuda_replay_evidence_v1.1.4.zip.sha256`
+- Size: `239,612` bytes
+- SHA-256: `40c2bca3909142326df77f7af5c1698c6bbcc152eb7d36b28c147f0d4aa8a215`
 - Sidecar: `cuda_replay_evidence_v1.1.4.zip.sha256`
 
 The bootstrap payload remains byte-identical to the v1.1.2/v1.1.3 assets.

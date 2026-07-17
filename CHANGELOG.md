@@ -5,6 +5,8 @@ dates are recorded only after a version is actually published.
 
 ## [Unreleased]
 
+## [1.1.4] - 2026-07-17
+
 - Prepare v1.1.4 as a public-packaging and privacy patch without changing the
   frozen protocol or reported results.
 - Sanitize machine-specific paths from public CUDA evidence, add ZIP privacy
