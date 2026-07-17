@@ -41,17 +41,19 @@ CORRECTED_FILES = {
 }
 REQUIRED_FILES = {
     "README.md", "CITATION.cff", "LICENSE", "pyproject.toml", "environment.yml",
-    "CHANGELOG.md", "RELEASE_NOTES_v1.1.0.md", ".github/workflows/ci.yml",
-    "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md",
+    "CHANGELOG.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
+    "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md", "docs/LEVEL_C_COMPLETION_PLAN.md",
     "assets/README.md", "assets/model_assets.csv", "data/README.md", "data/alibaba2018/README.md",
     "results/README.md", "results/audited_provenance/SANITIZATION_MANIFEST.json",
     "results/audited_provenance/NUMERICAL_CORRECTIONS.json",
     "scripts/generate_paper_outputs.py", "scripts/verify_repository.py", "scripts/verify_assets.py",
     "scripts/run_smoke_test.py", "scripts/run_full_reproduction.py", "scripts/build_alibaba2018_bank.py",
+    "scripts/plot_reproducible_figures.py", "scripts/derive_reproducible_figure_data.py",
+    "reporting/reproducible_figures.py",
     "scripts/validate_paper_outputs.py", "reporting/frozen.py", "paper_assets/legacy_figures/manifest.json",
     *CANONICAL_SOURCES,
 }
-MODULES = ["core.data.sim", "core.space.profile", "source_prior_bank.pipeline", "anchor_safe_selector.pipeline", "main_evaluation.pipeline", "experiments.main.pipeline", "experiments.robustness.pipeline", "experiments.supplementary.pipeline", "reporting.frozen"]
+MODULES = ["core.data.sim", "core.space.profile", "source_prior_bank.pipeline", "anchor_safe_selector.pipeline", "main_evaluation.pipeline", "experiments.main.pipeline", "experiments.robustness.pipeline", "experiments.supplementary.pipeline", "reporting.frozen", "reporting.reproducible_figures"]
 
 
 def _sha256(path: Path) -> str:
@@ -60,6 +62,11 @@ def _sha256(path: Path) -> str:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def _sha256_release_text(path: Path) -> str:
+    """Hash released text with Git's LF form on every checkout platform."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def _csv(path: Path) -> list[dict[str, str]]:
@@ -95,12 +102,12 @@ def check_checksums() -> list[str]:
     if set(sanitation.get("files", {})) != SANITIZED_FILES: errors.append("sanitization file set mismatch")
     for name, info in sanitation.get("files", {}).items():
         if index.get(name) != info.get("original_sha256"): errors.append(f"sanitization original checksum mismatch: {name}")
-        if not (ROOT / name).is_file() or _sha256(ROOT / name) != info.get("sanitized_sha256"): errors.append(f"sanitized checksum mismatch: {name}")
+        if not (ROOT / name).is_file() or _sha256_release_text(ROOT / name) != info.get("sanitized_sha256"): errors.append(f"sanitized checksum mismatch: {name}")
     corrections = json.loads((ROOT / "results/audited_provenance/NUMERICAL_CORRECTIONS.json").read_text(encoding="utf-8"))
     if set(corrections.get("files", {})) != CORRECTED_FILES: errors.append("numerical-correction file set mismatch")
     for name, info in corrections.get("files", {}).items():
         if index.get(name) != info.get("original_sha256"): errors.append(f"correction original checksum mismatch: {name}")
-        if not (ROOT / name).is_file() or _sha256(ROOT / name) != info.get("corrected_sha256"): errors.append(f"corrected checksum mismatch: {name}")
+        if not (ROOT / name).is_file() or _sha256_release_text(ROOT / name) != info.get("corrected_sha256"): errors.append(f"corrected checksum mismatch: {name}")
     for path in (ROOT / "results/audited_provenance").glob("*.json"):
         name = path.relative_to(ROOT).as_posix()
         if path.name in {"SANITIZATION_MANIFEST.json", "NUMERICAL_CORRECTIONS.json"} or name in SANITIZED_FILES: continue
@@ -141,6 +148,15 @@ def check_numbers() -> list[str]:
     if not retained or int(retained["SelectedCount"])!=33 or int(retained["SelectedBeneficialCount"])!=0 or int(retained["SelectedHarmfulCount"])!=0: errors.append("retained references are not neutral")
     paper = paper_table_rows(ROOT)
     if set(paper) != set(PAPER_TABLE_NAMES) or len(paper["table6_matched_control"]) != 6: errors.append("exact revised-paper table set is incomplete")
+    fig6 = _csv(ROOT / "results/figure_data/fig6_paired_instantiation_data.csv")
+    fig6_counts = {name: sum(row["selection_category"] == name for row in fig6) for name in ("beneficial alternative", "reference retained", "harmful alternative")}
+    if len(fig6) != 80 or fig6_counts != {"beneficial alternative": 44, "reference retained": 33, "harmful alternative": 3}: errors.append("Fig. 6 public paired data changed")
+    filtering = _csv(ROOT / "results/figure_data/fig8_candidate_filtering_data.csv")
+    if [(row["budget_tier"], row["case_count"], row["initialized_candidates_per_case"], row["feasible_candidates_per_case_mean"]) for row in filtering] != [("tight", "20", "7", "4"), ("medium", "52", "7", "7"), ("loose", "8", "7", "7")]: errors.append("Fig. 8 candidate-filtering data changed")
+    selection = _csv(ROOT / "results/figure_data/fig8_architecture_selection_data.csv")
+    if len(selection) != 15 or any(sum(int(row["selection_count"]) for row in selection if row["budget_tier"] == tier) != n for tier, n in (("tight", 20), ("medium", 52), ("loose", 8))): errors.append("Fig. 8 architecture-selection data changed")
+    margin = {float(row["minimum_improvement"]): row for row in _csv(ROOT / "results/figure_data/fig9_margin_data.csv")}
+    if float(margin[0.1]["harmful_selection_rate"]) != 0.05 or margin[0.1]["eligible_under_5pct_criterion"] != "true": errors.append("Fig. 9 margin data changed")
     return errors
 
 

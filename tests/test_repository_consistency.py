@@ -28,3 +28,16 @@ def test_table4_is_complete() -> None:
     rows = public_table_rows(ROOT)["table4_component_ablation"]
     assert rows[-1]["Complexity-feasible outputs (%)"] == "96.25"
     assert "Harmful alternative selection / all cases (%)" in rows[0]
+
+
+def test_reproducible_figures_have_public_data() -> None:
+    import csv
+
+    with (ROOT / "results/figure_data/fig6_paired_instantiation_data.csv").open(
+        encoding="utf-8-sig", newline=""
+    ) as handle:
+        rows = list(csv.DictReader(handle))
+    assert len(rows) == 80
+    assert sum(row["selection_category"] == "beneficial alternative" for row in rows) == 44
+    assert (ROOT / "results/figure_data/fig8_architecture_selection_data.csv").is_file()
+    assert (ROOT / "results/figure_data/fig9_margin_data.csv").is_file()

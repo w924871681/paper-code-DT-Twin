@@ -3,9 +3,11 @@
 
 This module deliberately does not import experiment runners or load model
 weights.  It converts the checksum-tracked CSV sources into the public table
-layer, the six exact revised-manuscript tables, and five code-native figures.
-Seven unchanged historical figure PDFs are checksum verified and copied from
-``paper_assets/legacy_figures``.
+layer, the six exact revised-manuscript tables, and eight code-native figures.
+Four unchanged historical figure PDFs are checksum verified and copied from
+``paper_assets/legacy_figures``.  Fig. 6, Fig. 8, and Fig. 9 are reconstructed
+from their released derived CSVs by the same plotting code exposed through the
+standalone public CLI.
 """
 
 from __future__ import annotations
@@ -26,6 +28,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Rectangle
 from PIL import Image
+
+from reporting.reproducible_figures import FIGURE_SIZES, plot_fig6, plot_fig8, plot_fig9
 
 
 DECISION = "PASS_FROZEN_TABLES_AND_FIGURES"
@@ -65,6 +69,9 @@ REVISED_FIGURES: Mapping[str, tuple[float, float]] = OrderedDict(
         ("fig_accuracy_complexity_3d", (7.48, 4.85)),
         ("fig_target_robustness_radar", (5.50, 4.75)),
         ("fig_generalization_forest", (7.48, 3.25)),
+        ("fig6_paired_instantiation", FIGURE_SIZES["fig6_paired_instantiation"]),
+        ("fig8_budget_architecture", FIGURE_SIZES["fig8_budget_architecture"]),
+        ("fig9_bank_adaptation_margin", FIGURE_SIZES["fig9_bank_adaptation_margin"]),
     )
 )
 
@@ -73,9 +80,15 @@ LEGACY_FIGURES = (
     "fig3.pdf",
     "fig4.pdf",
     "fig5.pdf",
-    "fig6_paired_instantiation.pdf",
-    "fig8_budget_architecture.pdf",
-    "fig9_bank_adaptation_margin.pdf",
+)
+
+REPRODUCIBLE_FIGURE_DATA = (
+    "fig6_paired_instantiation_data.csv",
+    "fig8_candidate_filtering_data.csv",
+    "fig8_architecture_selection_data.csv",
+    "fig9_bank_size_data.csv",
+    "fig9_adaptation_steps_data.csv",
+    "fig9_margin_data.csv",
 )
 
 # This set is intentionally explicit.  It is audited by Level A and recorded
@@ -88,6 +101,7 @@ CANONICAL_SOURCES = (
     *(f"paper_assets/legacy_figures/{name}" for name in LEGACY_FIGURES),
     "paper_assets/legacy_figures/manifest.json",
     *(f"results/figure_data/{name}.csv" for name in PUBLIC_TABLE_NAMES),
+    *(f"results/figure_data/{name}" for name in REPRODUCIBLE_FIGURE_DATA),
     "results/main/alibaba_semi_real.csv",
     "results/main/baseline_fairness.csv",
     "results/main/center_type_robustness.csv",
@@ -127,6 +141,7 @@ def _expected_generated_files() -> tuple[str, ...]:
             "figure_data/fig_target_robustness_radar_data.csv",
         ]
     )
+    files.extend(f"figure_data/{name}" for name in REPRODUCIBLE_FIGURE_DATA)
     files.extend(f"figure_data/{name}.csv" for name in PUBLIC_TABLE_NAMES)
     files.extend(f"figures/{name}.pdf" for name in REVISED_FIGURES)
     files.extend(f"figures/{name}.png" for name in REVISED_FIGURES)
@@ -930,8 +945,8 @@ def _plot_forest(out: Path, rows: Sequence[Mapping[str, str]]) -> None:
 def _copy_legacy_figures(root: Path, out: Path) -> None:
     source_dir = root / "paper_assets/legacy_figures"
     manifest = json.loads((source_dir / "manifest.json").read_text(encoding="utf-8"))
-    if set(manifest.get("files", {})) != set(LEGACY_FIGURES):
-        raise ValueError("Legacy-figure manifest has an unexpected file set")
+    if not set(LEGACY_FIGURES).issubset(manifest.get("files", {})):
+        raise ValueError("Legacy-figure manifest is missing a required historical file")
     figure_dir = out / "figures"
     figure_dir.mkdir(parents=True, exist_ok=True)
     for name in LEGACY_FIGURES:
@@ -963,10 +978,10 @@ CAPTIONS = """# Generated figure captions
   deterministic semi-synthetic complexity-limit tiers and its interval crosses
   zero.
 
-The output directory also contains the seven unchanged paper figures listed
-in `paper_assets/legacy_figures/manifest.json`. Level B verifies and copies
-those versioned source assets; it does not claim to regenerate their historical
-drawing programs.
+The output directory also contains Fig. 2--5 as checksum-verified historical
+PDFs from `paper_assets/legacy_figures/manifest.json`. Fig. 6, Fig. 8, and
+Fig. 9 are reconstructed from released derived CSVs with independent plotting
+code; no model weights or private experiment paths are needed.
 """
 
 
@@ -1063,8 +1078,8 @@ def validate_output(output_root: str | Path) -> dict[str, Any]:
 
 
 def _validate_sources(root: Path) -> dict[str, str]:
-    if len(CANONICAL_SOURCES) != 38 or len(set(CANONICAL_SOURCES)) != 38:
-        raise AssertionError("Canonical source set must contain exactly 38 unique files")
+    if len(CANONICAL_SOURCES) != 41 or len(set(CANONICAL_SOURCES)) != 41:
+        raise AssertionError("Canonical source set must contain exactly 41 unique files")
     missing = [relative for relative in CANONICAL_SOURCES if not (root / relative).is_file()]
     if missing:
         raise FileNotFoundError("Missing released source(s): " + ", ".join(missing))
@@ -1090,12 +1105,17 @@ def generate(project_root: str | Path, output_root: str | Path) -> dict[str, Any
         _write_latex(out / f"tables/paper_latex/{name}.tex", rows)
     for name, rows in figure_data.items():
         _write_csv(out / f"figure_data/{name}.csv", rows)
+    for name in REPRODUCIBLE_FIGURE_DATA:
+        shutil.copyfile(root / f"results/figure_data/{name}", out / f"figure_data/{name}")
 
     _plot_scenario(out)
     _plot_source_scale(out, figure_data["fig_source_scale_line_data"])
     _plot_accuracy(out, figure_data["fig_accuracy_complexity_3d_data"])
     _plot_radar(out, figure_data["fig_target_robustness_radar_data"])
     _plot_forest(out, figure_data["fig_generalization_forest_data"])
+    plot_fig6(root / "results/figure_data", out / "figures")
+    plot_fig8(root / "results/figure_data", out / "figures")
+    plot_fig9(root / "results/figure_data", out / "figures")
     _copy_legacy_figures(root, out)
     (out / "FIGURE_CAPTIONS.md").write_text(CAPTIONS, encoding="utf-8")
     validation = validate_output(out)
@@ -1125,6 +1145,7 @@ def generate(project_root: str | Path, output_root: str | Path) -> dict[str, Any
             "figure_data/fig_accuracy_complexity_3d_data.csv",
             "figure_data/fig_target_robustness_radar_data.csv",
             "figure_data/fig_generalization_forest_data.csv",
+            *(f"figure_data/{name}" for name in REPRODUCIBLE_FIGURE_DATA),
         ],
     }
     (out / "paper_outputs_manifest.json").write_text(

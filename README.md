@@ -93,8 +93,9 @@ The equivalent Conda specification is provided in `environment.yml`.
   terminology, privacy rules, and numerical consistency. It does not require
   model weights.
 - **Level B -- Rebuild paper tables and figures:** uses only released
-  repository files. It regenerates the five figures added or redesigned in
-  this revision, checksum-verifies and copies seven unchanged legacy PDFs,
+  repository files. It regenerates eight code-native figures, including
+  Fig. 6, Fig. 8, and Fig. 9 from their public derived CSVs, and
+  checksum-verifies and copies the four unchanged Fig. 2--5 PDFs,
   rebuilds the exact structured data for revised-manuscript Tables 1--6, and
   rebuilds the broader fifteen-table public result layer. It requires neither
   model weights nor Alibaba raw data.
@@ -127,10 +128,18 @@ python .\scripts\generate_paper_outputs.py
 The default output directory is `outputs/paper_outputs`. The command rebuilds
 the code-native scenario schematic, source-center-scale line plot,
 accuracy--complexity 3D scatter, target robustness radar plot, and
-generalization forest plot. Each data-driven figure has a companion CSV. It
-also verifies and copies the seven unchanged PDFs under
-`paper_assets/legacy_figures/`, yielding the complete 12-figure set cited by
-the revised paper.
+generalization forest plot. It also rebuilds Fig. 6, Fig. 8, and Fig. 9 from
+the six versioned CSVs under `results/figure_data/`. Each data-driven figure
+has public source data, and all eight generated figures receive vector-PDF,
+600-DPI PNG, grayscale, and layout checks. Fig. 2--5 are checksum-verified and
+copied from `paper_assets/legacy_figures/`, yielding the complete 12-figure
+set cited by the revised paper.
+
+To rebuild only Fig. 6, Fig. 8, and Fig. 9:
+
+```powershell
+python .\scripts\plot_reproducible_figures.py
+```
 
 The revised manuscript's exact Table 1--6 data are written under
 `tables/paper_csv/` and `tables/paper_latex/`; this includes the
@@ -154,6 +163,9 @@ clone. `--plan-only` validates supplied assets and writes a non-executing plan.
 Without `--plan-only`, the wrapper requires the exact Alibaba archive and an
 available CUDA device, then returns an explicit blocked status while the public
 driver is unavailable; it never reports that training ran when it did not.
+
+The exact remaining bootstrap contents, orchestration stages, and acceptance
+criteria are listed in `docs/LEVEL_C_COMPLETION_PLAN.md`.
 
 ## 10. Model assets
 
@@ -200,12 +212,11 @@ supplied.
 
 ## 14. Citation
 
-Use the release-candidate metadata in `CITATION.cff`. The source repository is
-`https://github.com/w924871681/paper-code-DT-Twin`; release `v1.1.0` is planned
-but must not be tagged while author, DOI, release date, or permanent model-asset
-metadata remain pending.
+Use the release metadata in `CITATION.cff`. The source repository is
+`https://github.com/w924871681/paper-code-DT-Twin`. Releases `v1.1.0` and
+`v1.1.1` record the public revision workflow; author and DOI metadata remain
+pending.
 
 ## 15. License
 
 The repository code is released under the MIT License. See `LICENSE`.
-

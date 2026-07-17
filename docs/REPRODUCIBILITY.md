@@ -21,8 +21,9 @@ python .\scripts\generate_paper_outputs.py
 
 This reads only released repository sources and writes:
 
-- five code-generated revised figures and their QA artifacts;
-- seven checksum-pinned unchanged paper PDFs;
+- eight code-generated figures and their QA artifacts, including Fig. 6,
+  Fig. 8, and Fig. 9 reconstructed from six public derived CSVs;
+- four checksum-pinned unchanged Fig. 2--5 PDFs;
 - the exact structured data for revised-manuscript Tables 1--6 under
   `tables/paper_csv/` and `tables/paper_latex/`;
 - the broader checked public table layer;
@@ -31,6 +32,17 @@ This reads only released repository sources and writes:
 It does not train a model and requires no weights. The runtime source of truth
 is `results/supplementary/repeated_runtime_summary.csv`; target-side times use
 the repeated synchronized measurements.
+
+The three reconstructed historical-result figures can also be built directly:
+
+```powershell
+python .\scripts\plot_reproducible_figures.py
+```
+
+Their canonical plotting module is `reporting/reproducible_figures.py`. The
+custodian-side derivation procedure is recorded in
+`scripts/derive_reproducible_figure_data.py`; a public clone needs only the
+committed CSVs to draw the figures.
 
 ## Level C: full training and evaluation
 
@@ -50,4 +62,3 @@ Do not tune the frozen candidate bank, source-training seeds, target split,
 common adaptation procedure, preset selection margin, or locked evaluation
 pools. See `results/README.md` for the boundary between frozen legacy schemas
 and the public presentation layer.
-

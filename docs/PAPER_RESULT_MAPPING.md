@@ -18,6 +18,9 @@ paper outputs.
 | Alibaba semi-real evaluation | `results/main/alibaba_semi_real.csv` and `results/robustness/alibaba_oracle_diagnostics.csv` | Table S6, generalization output, and forest data |
 | Architecture coverage | corrected `results/robustness/architecture_coverage.csv` | Table S7 |
 | Bank size | `results/main/bank_size.csv` | Table S4 |
+| Fig. 6 paired instantiation | locked proposed-method and PT+FT records | `results/figure_data/fig6_paired_instantiation_data.csv` and regenerated vector/PNG figure |
+| Fig. 8 budget and architecture behavior | locked proposed-method records | candidate-filtering and architecture-selection CSVs and regenerated vector/PNG figure |
+| Fig. 9 diagnostic protocols | bank-size CSV, adaptation-trajectory CSV, and sanitized margin audit | three Fig. 9 CSVs and regenerated vector/PNG figure |
 
 The exact six-table manuscript layer is generated under
 `tables/paper_csv/` and `tables/paper_latex/`. The broader presentation layer is
@@ -28,4 +31,3 @@ earlier one-pass diagnostic retained in historical provenance.
 Some immutable audits and frozen source schemas retain historical identifiers.
 See `results/audited_provenance/SANITIZATION_MANIFEST.json` and
 `NUMERICAL_CORRECTIONS.json` for the exact integrity boundary.
-

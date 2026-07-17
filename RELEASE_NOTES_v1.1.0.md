@@ -1,8 +1,7 @@
-# Release notes: v1.1.0 (planned)
+# Release notes: v1.1.0
 
-This release candidate synchronizes the public repository with the revised
-paper. It is not yet a published GitHub release, and it must not be tagged
-until the publication metadata and external model-asset archive are complete.
+This release synchronizes the public repository with the revised paper while
+keeping the Level C limitation explicit.
 
 ## Reproducibility scope
 

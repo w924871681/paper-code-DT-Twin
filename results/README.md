@@ -8,7 +8,8 @@ The result tree has two deliberately different layers.
   or `FLOPs`; these are provenance fields, not recommended public paper terms.
 - `figure_data/` is the public presentation layer. Its labels use the revised
   paper terminology, and `reporting/frozen.py` derives cross-file values before
-  rounding.
+  rounding. It also contains the public derived CSVs for Fig. 6, Fig. 8, and
+  Fig. 9; these are the direct inputs to the independent plotting CLI.
 - `audited_provenance/` contains publishable immutable audit files, path-only
   sanitized copies with both hashes, and the manifest for narrowly corrected
   stale diagnostics.
@@ -17,4 +18,3 @@ No correction changes the frozen method, seeds, data split, hyperparameters,
 or selected models. See
 `audited_provenance/NUMERICAL_CORRECTIONS.json` for original-package hashes,
 corrected hashes, and exact reasons.
-

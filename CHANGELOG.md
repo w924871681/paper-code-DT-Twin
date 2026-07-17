@@ -11,7 +11,23 @@ dates are recorded only after a version is actually published.
   public end-to-end training/evaluation driver before claiming Level C
   reproduction from a fresh clone.
 
-## [1.1.0] - planned
+## [1.1.1] - 2026-07-17
+
+### Added
+
+- Public derived CSVs and independent plotting code for Fig. 6, Fig. 8, and
+  Fig. 9.
+- Pure-vector PDFs, 600-DPI PNGs, grayscale previews, and programmatic layout
+  checks for those three reconstructed figures.
+
+### Changed
+
+- Level B now reconstructs eight figures and preserves only Fig. 2--5 as
+  checksum-verified historical PDFs.
+- Text-integrity checks now canonicalize Git line endings so the same released
+  hashes verify on Windows and Linux.
+
+## [1.1.0] - 2026-07-17
 
 ### Changed
 
@@ -33,7 +49,7 @@ dates are recorded only after a version is actually published.
   paths, real source-bank construction, and the boundary between real workload
   observations and deterministic semi-synthetic complexity-limit tiers.
 - Replaced incomplete licensing and citation metadata with the full MIT text,
-  the official repository URL, and a planned v1.1.0 citation record.
+  the official repository URL and a v1.1.0 citation record.
 - Documented the model-asset manifest and verification workflow without
   committing large weights to ordinary Git history.
 

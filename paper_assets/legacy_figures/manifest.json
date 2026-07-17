@@ -1,6 +1,6 @@
 {
-  "purpose": "Versioned source assets for unchanged paper figures preserved by Level B.",
-  "policy": "These seven figures are copied after checksum verification; the five figures added or redesigned in v1.1.0 are regenerated from code.",
+  "purpose": "Versioned historical paper-figure assets preserved for provenance comparison.",
+  "policy": "Fig. 2--5 are copied after checksum verification. Historical Fig. 6, Fig. 8, and Fig. 9 are archived here but superseded by public-CSV reconstructions.",
   "files": {
     "fig2.pdf": {
       "sha256": "3b752f2094a9a570f46ee7eed049261b3f1d2a304dabeef6ef3a08d7cb10387f",
@@ -22,15 +22,18 @@
     },
     "fig6_paired_instantiation.pdf": {
       "sha256": "ebaca9d75b0193cb745a78d21dcbd47a9cd8f07bade4e15ae4761013039bed52",
-      "known_raster_xobjects": 0
+      "known_raster_xobjects": 0,
+      "status": "historical; superseded by reproducible reconstruction"
     },
     "fig8_budget_architecture.pdf": {
       "sha256": "35b1970aa77262fdd1aaeb382b1fd55a7c35abd92c86ec48bee21b5f411ebef2",
-      "known_raster_xobjects": 2
+      "known_raster_xobjects": 2,
+      "status": "historical; superseded by reproducible reconstruction"
     },
     "fig9_bank_adaptation_margin.pdf": {
       "sha256": "53146c657d65dd67616f636581d63b323cb3de5b287112d2795d8358e93f3796",
-      "known_raster_xobjects": 0
+      "known_raster_xobjects": 0,
+      "status": "historical; superseded by reproducible reconstruction"
     }
   }
 }
