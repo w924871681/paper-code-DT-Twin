@@ -1,53 +1,51 @@
-# Model assets
+# Model assets and Level-C bootstrap
 
-Large model weights are not stored in ordinary Git history. The required
-filenames, purposes, horizons, architecture indices, and SHA-256 digests are
-listed in `model_assets.csv`.
+Large model weights are distributed in the GitHub Release bootstrap archive,
+not ordinary Git history. The archive also contains the exact frozen evidence
+and external-baseline records required by the locked main-evaluation preflight.
 
-## Publication status
+Release asset:
 
-The permanent model-asset archive URL is **pending**. No GitHub Release,
-Zenodo, or Figshare location is claimed until the archive has actually been
-uploaded and independently checked. This means Level C is not currently
-available from a fresh clone alone. Level A verification and Level B paper
-output reconstruction do not need these files.
+`https://github.com/w924871681/paper-code-DT-Twin/releases/download/v1.1.2/level_c_bootstrap_v1.1.2.zip`
 
-When the archive is published, record its permanent URL and release checksum
-in this document and in the release notes. Do not commit the weight files to
-ordinary Git history.
+- Size: `64,258,937` bytes
+- SHA-256: `365df44a8cf4de1cabb21dd21aa6e865aff83a3f30d083e91caf18ed744ef650`
+- File records: `32`
 
-## Expected directory tree
+`model_assets.csv` retains the flat 13-weight inventory. The complete portable
+mapping is `level_c_bootstrap_files.csv`; it binds each archived file to the
+repository-relative destination expected by the released code.
 
-Pass the directory that directly contains the files below as `--asset-dir`:
+## Verify and stage
 
-```text
-<asset-dir>/
-|-- strong_h1_a1.pt
-|-- strong_h1_a6.pt
-|-- strong_h1_a13.pt
-|-- strong_h1_a55.pt
-|-- strong_h1_a56.pt
-|-- strong_h1_a57.pt
-|-- strong_h4_a1.pt
-|-- strong_h4_a6.pt
-|-- strong_h4_a13.pt
-|-- strong_h4_a55.pt
-|-- strong_h4_a56.pt
-|-- strong_h4_a57.pt
-`-- ours_weight_bank_source_pooled_c1_v1_src20.pt
-```
-
-The filenames are historical archive identifiers. Public paper text refers to
-the source-initialization bank and reference candidate.
-
-## Verification
+Extract the ZIP, then run:
 
 ```powershell
-python .\scripts\verify_assets.py --asset-dir <asset-dir>
+python .\scripts\stage_level_c_bootstrap.py `
+  --bundle-root <extracted-bundle-directory> --verify-only
+python .\scripts\stage_level_c_bootstrap.py `
+  --bundle-root <extracted-bundle-directory>
+python .\scripts\preflight_main_evaluation.py
 ```
 
-The command reports each expected filename as `OK`, `MISSING`, or `MISMATCH`.
-It exits nonzero if a required file is absent or if its SHA-256 digest differs
-from `model_assets.csv`. Extra files are reported but do not invalidate the
-archive.
+The expected preflight decision is `PASS_C33_LOCKED_PREFLIGHT_READY`.
 
+Custodians can recreate the release archive without modifying frozen files:
+
+```powershell
+python .\scripts\build_level_c_bootstrap.py `
+  --source-root <custodian-project-root> `
+  --bundle-root <output-directory> --zip
+```
+
+The Alibaba Cluster Trace v2018 is not present in this archive and is not
+redistributed. See `data/alibaba2018/README.md`.
+
+## Historical flat-asset check
+
+For a legacy directory containing only the 13 filenames listed in
+`model_assets.csv`, the original verifier remains available:
+
+```powershell
+python .\scripts\verify_assets.py --asset-dir <flat-weight-directory>
+```

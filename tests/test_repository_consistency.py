@@ -41,3 +41,12 @@ def test_reproducible_figures_have_public_data() -> None:
     assert sum(row["selection_category"] == "beneficial alternative" for row in rows) == 44
     assert (ROOT / "results/figure_data/fig8_architecture_selection_data.csv").is_file()
     assert (ROOT / "results/figure_data/fig9_margin_data.csv").is_file()
+
+
+def test_level_c_bootstrap_manifest_is_portable() -> None:
+    from scripts.level_c_bootstrap import load_manifest
+
+    rows = load_manifest()
+    assert len(rows) == 32
+    assert len({row["artifact"] for row in rows}) == 32
+    assert all(len(row["sha256"]) == 64 for row in rows)

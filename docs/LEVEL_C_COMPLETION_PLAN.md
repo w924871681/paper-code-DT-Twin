@@ -1,68 +1,65 @@
-# Level C completion plan
+# Level C status and completion boundary
 
-Level C is technically achievable, but the current public release does not yet
-claim it. The experiments are not missing from the custodian workspace; the
-remaining gap is a portable, permanently hosted bootstrap package plus an
-executed CUDA verification of the public orchestration path.
+The historical results and code are retained from actual runs. A mandatory
+full retraining is not needed to establish that provenance. Level C is split
+into a now-completed publication path and a separate new-execution check.
 
-## What already exists
+## Completed public prerequisites
 
-- The 12 architecture-matched source-initialization weights and the pooled
-  historical bundle listed in `assets/model_assets.csv` exist and have matching
-  SHA-256 values.
-- The original Alibaba `machine_usage.tar.gz` archive exists in the custodian
-  workspace and matches the checksum documented under `data/alibaba2018/`.
-- Individual public entry points exist for the locked main evaluation,
-  component and robustness studies, Alibaba preprocessing/evaluation, and
-  paper-output reconstruction.
-- `environment.yml` specifies a CUDA-enabled Conda environment using Python
-  3.11 and `pytorch-cuda=12.1`.
+- The 32-file portable bootstrap package is published with a release checksum.
+- The package includes all frozen source-initialization weights, the pooled
+  bundle, selector evidence, shared evaluator records, and external-baseline
+  assets needed by the locked main evaluation.
+- Public build, verification, and repository-relative staging commands are
+  available.
+- The public driver stages the package and orchestrates the frozen preflight,
+  seven locked methods, analysis, and formal audit without retuning.
+- The released package was built from the custodian workspace with every hash
+  matching and passed `PASS_C33_LOCKED_PREFLIGHT_READY` after staging.
 
-## What the public bootstrap package must additionally contain
+## What has not been newly rerun
 
-The 13-file flat weight archive is necessary but not sufficient for a portable
-fresh-clone run. The final evaluation code also verifies exact frozen evidence
-and baseline initialization records. A release bootstrap bundle therefore
-needs:
+The current Python installation is CPU-only even though the machine has an
+NVIDIA GPU. Therefore the seven-method CUDA replay has not been executed in
+this release session. This is a runtime validation gap for the newly published
+path; it is not a claim that the frozen historical outputs are unverified or
+that their model assets are absent.
 
-1. the frozen shared-evaluator identity and qualification JSON files;
-2. the exact source-initialization-bank manifest that binds the 12 weights;
-3. the frozen 10% selector manifest, its analysis, and its audit binding;
-4. the external-baseline initialization manifest, audit, and two additional
-   unique baseline weight files;
-5. a portable destination manifest mapping every archived file to the relative
-   path expected by the released code.
+The original Alibaba trace is a separate external prerequisite. It is not
+redistributed. Repeating the Alibaba preprocessing, real source-bank build,
+and evaluation also requires a CUDA environment and substantial runtime.
 
-These files exist locally. They must be copied without content changes because
-the released preflight checks intentionally bind their hashes.
+## Commands
 
-## Public driver requirements
+Verify the package and inspect the exact stage plan without CUDA:
 
-The completed driver must perform and record the following stages:
+```powershell
+python .\scripts\run_full_reproduction.py `
+  --bootstrap-dir <extracted-bundle-directory> --plan-only
+```
 
-1. verify repository files, bootstrap hashes, Alibaba archive hash, and CUDA;
-2. stage the bootstrap bundle into portable repository-relative paths;
-3. run the frozen preflight and all seven locked main-evaluation methods;
-4. analyze and audit the locked evaluation before downstream studies run;
-5. execute component, robustness, supplementary, and Alibaba stages without
-   retuning the frozen method;
-6. rebuild paper outputs and run Level A and Level B verification again;
-7. write a machine-readable stage ledger containing commands, return codes,
-   start/end times, output hashes, and resume status.
+Execute a short CUDA path check:
 
-## Acceptance criteria
+```powershell
+python .\scripts\run_full_reproduction.py `
+  --bootstrap-dir <extracted-bundle-directory> --smoke
+```
 
-Level C can be marked complete only after all of the following are true:
+Execute the complete frozen locked main evaluation:
 
-- the bootstrap bundle has a permanent public URL and published SHA-256;
-- a fresh clone can receive the bundle without private absolute paths or
-  unpublished files;
-- the driver finishes on a CUDA-enabled machine and every scientific audit
-  returns its documented PASS decision;
-- regenerated result tables agree with the released frozen values within the
-  declared deterministic or numerical tolerances;
-- the exact environment, GPU model, driver version, runtime, and final output
-  manifest are archived.
+```powershell
+python .\scripts\run_full_reproduction.py `
+  --bootstrap-dir <extracted-bundle-directory>
+```
 
-Until then, `scripts/run_full_reproduction.py` correctly reports Level C as
-blocked instead of presenting a validation-only plan as an executed rerun.
+The formal run is complete only when the ledger decision is
+`PASS_FROZEN_MAIN_EVALUATION_REPLAY` and the formal audit passes. Source-bank
+training is not repeated by this driver because the released archive freezes
+the source initializations used by the reported evaluation.
+
+## Remaining acceptance item
+
+To claim a newly executed Level-C replay, archive the CUDA environment, GPU and
+driver versions, runtime ledger, stage logs, output manifest, and successful
+formal audit. Full from-raw Alibaba repetition should be reported separately
+because its license-controlled source archive is external to this release.

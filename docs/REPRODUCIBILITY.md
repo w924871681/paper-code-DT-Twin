@@ -6,12 +6,12 @@ The repository exposes three deliberately separate levels.
 
 ```powershell
 python .\scripts\verify_repository.py
+python .\scripts\run_smoke_test.py
 ```
 
-This checks imports, required CSV/JSON and metadata files, frozen configuration
-fields, immutable and sanitized-copy checksums, narrow numerical-correction
-hashes, model-asset manifest syntax, numerical consistency, public terminology,
-and privacy-sensitive paths. Model weights are not required.
+These CPU checks validate imports, released data, frozen configurations,
+checksums, terminology, numerical consistency, and the small synthetic method
+path. Model weights are not required.
 
 ## Level B: rebuild released tables and figures
 
@@ -19,19 +19,10 @@ and privacy-sensitive paths. Model weights are not required.
 python .\scripts\generate_paper_outputs.py
 ```
 
-This reads only released repository sources and writes:
-
-- eight code-generated figures and their QA artifacts, including Fig. 6,
-  Fig. 8, and Fig. 9 reconstructed from six public derived CSVs;
-- four checksum-pinned unchanged Fig. 2--5 PDFs;
-- the exact structured data for revised-manuscript Tables 1--6 under
-  `tables/paper_csv/` and `tables/paper_latex/`;
-- the broader checked public table layer;
-- companion figure-data CSV files and a provenance manifest.
-
-It does not train a model and requires no weights. The runtime source of truth
-is `results/supplementary/repeated_runtime_summary.csv`; target-side times use
-the repeated synchronized measurements.
+This reads only released repository sources. It rebuilds eight code-generated
+figures, including Fig. 6, Fig. 8, and Fig. 9 from six public derived CSVs;
+checksum-copies unchanged Fig. 2--5; and reconstructs the manuscript tables.
+No training or model weights are required.
 
 The three reconstructed historical-result figures can also be built directly:
 
@@ -39,26 +30,34 @@ The three reconstructed historical-result figures can also be built directly:
 python .\scripts\plot_reproducible_figures.py
 ```
 
-Their canonical plotting module is `reporting/reproducible_figures.py`. The
-custodian-side derivation procedure is recorded in
-`scripts/derive_reproducible_figure_data.py`; a public clone needs only the
-committed CSVs to draw the figures.
+## Level C: frozen locked-evaluation replay
 
-## Level C: full training and evaluation
+Download and extract the v1.1.2 bootstrap release asset documented in
+`assets/README.md`. First perform a no-training package and plan check:
 
 ```powershell
-python .\scripts\verify_assets.py --asset-dir <path>
-python .\scripts\run_full_reproduction.py --asset-dir <path> --plan-only
+python .\scripts\stage_level_c_bootstrap.py `
+  --bundle-root <extracted-bundle-directory> --verify-only
+python .\scripts\run_full_reproduction.py `
+  --bootstrap-dir <extracted-bundle-directory> --plan-only
 ```
 
-Level C requires a CUDA-capable GPU, the complete archived model-asset bundle,
-and substantial runtime. Alibaba evaluation additionally requires the original
-`machine_usage` archive and a real source-initialization bank built from the
-processed source machines. Because the permanent model archive and public
-end-to-end driver are pending, the wrapper validates prerequisites and records
-the stage order but returns an explicit blocked status for execution.
+Then use a CUDA-enabled PyTorch environment for either a short path test or the
+formal frozen replay:
 
-Do not tune the frozen candidate bank, source-training seeds, target split,
-common adaptation procedure, preset selection margin, or locked evaluation
-pools. See `results/README.md` for the boundary between frozen legacy schemas
-and the public presentation layer.
+```powershell
+python .\scripts\run_full_reproduction.py `
+  --bootstrap-dir <extracted-bundle-directory> --smoke
+python .\scripts\run_full_reproduction.py `
+  --bootstrap-dir <extracted-bundle-directory>
+```
+
+The driver stages the exact archived files, performs the frozen preflight,
+runs the seven locked methods, and—for a formal run—analyzes and audits all 80
+case/configuration records per method. It writes a machine-readable ledger and
+per-stage logs. It replays the target evaluation from frozen real weights; it
+does not retrain the source-initialization bank.
+
+Alibaba evaluation is separate because the original trace is not
+redistributed. Follow `data/alibaba2018/README.md` for its checksum,
+preprocessing, real-bank build, and evaluation commands.

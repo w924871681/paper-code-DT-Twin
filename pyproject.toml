@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "complexity-constrained-few-shot-dt"
-version = "1.1.1"
+version = "1.1.2"
 description = "Complexity-constrained few-shot digital twin model instantiation"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -24,6 +24,8 @@ dt-smoke-test = "scripts.run_smoke_test:main"
 dt-generate-paper-outputs = "scripts.generate_paper_outputs:main"
 dt-full-reproduction = "scripts.run_full_reproduction:main"
 dt-build-alibaba-bank = "scripts.build_alibaba2018_bank:main"
+dt-build-level-c-bootstrap = "scripts.build_level_c_bootstrap:main"
+dt-stage-level-c-bootstrap = "scripts.stage_level_c_bootstrap:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

@@ -20,6 +20,7 @@ from reporting.frozen import (
     paper_table_rows, public_table_rows,
 )
 from scripts.verify_assets import load_asset_manifest
+from scripts.level_c_bootstrap import load_manifest as load_bootstrap_manifest
 
 SANITIZED_FILES = {
     "RESTRUCTURE_REPORT.json",
@@ -41,13 +42,14 @@ CORRECTED_FILES = {
 }
 REQUIRED_FILES = {
     "README.md", "CITATION.cff", "LICENSE", "pyproject.toml", "environment.yml",
-    "CHANGELOG.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
+    "CHANGELOG.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
     "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md", "docs/LEVEL_C_COMPLETION_PLAN.md",
-    "assets/README.md", "assets/model_assets.csv", "data/README.md", "data/alibaba2018/README.md",
+    "assets/README.md", "assets/model_assets.csv", "assets/level_c_bootstrap_files.csv", "data/README.md", "data/alibaba2018/README.md",
     "results/README.md", "results/audited_provenance/SANITIZATION_MANIFEST.json",
     "results/audited_provenance/NUMERICAL_CORRECTIONS.json",
     "scripts/generate_paper_outputs.py", "scripts/verify_repository.py", "scripts/verify_assets.py",
     "scripts/run_smoke_test.py", "scripts/run_full_reproduction.py", "scripts/build_alibaba2018_bank.py",
+    "scripts/level_c_bootstrap.py", "scripts/build_level_c_bootstrap.py", "scripts/stage_level_c_bootstrap.py",
     "scripts/plot_reproducible_figures.py", "scripts/derive_reproducible_figure_data.py",
     "reporting/reproducible_figures.py",
     "scripts/validate_paper_outputs.py", "reporting/frozen.py", "paper_assets/legacy_figures/manifest.json",
@@ -118,7 +120,12 @@ def check_checksums() -> list[str]:
 def check_asset_manifest() -> list[str]:
     try: rows = load_asset_manifest(ROOT / "assets/model_assets.csv")
     except Exception as exc: return [f"invalid model asset manifest: {exc}"]
-    return [] if len(rows) == 13 else [f"expected 13 model assets, found {len(rows)}"]
+    errors = [] if len(rows) == 13 else [f"expected 13 model assets, found {len(rows)}"]
+    try: bootstrap_rows = load_bootstrap_manifest()
+    except Exception as exc: return errors + [f"invalid Level-C bootstrap manifest: {exc}"]
+    if len(bootstrap_rows) != 32:
+        errors.append(f"expected 32 Level-C bootstrap files, found {len(bootstrap_rows)}")
+    return errors
 
 
 def check_frozen_protocol() -> list[str]:

@@ -99,10 +99,11 @@ The equivalent Conda specification is provided in `environment.yml`.
   rebuilds the exact structured data for revised-manuscript Tables 1--6, and
   rebuilds the broader fifteen-table public result layer. It requires neither
   model weights nor Alibaba raw data.
-- **Level C -- Full training and evaluation:** requires a CUDA-capable GPU,
-  archived model assets, substantial runtime, and the original Alibaba trace.
-  The public package currently exposes prerequisite validation and individual
-  stages but not a released end-to-end orchestration driver.
+- **Level C -- Frozen locked-evaluation replay:** uses the published 32-file
+  bootstrap package and a CUDA-capable PyTorch environment. The public driver
+  stages the frozen assets, runs all seven methods, analyzes the results, and
+  executes the formal audit. Repeating the separate Alibaba study additionally
+  requires its original trace.
 
 ## 7. Quick verification
 
@@ -148,32 +149,39 @@ written under `tables/csv/` and `tables/latex/`.
 
 ## 9. Full experiment reproduction
 
-First verify the archived model files:
+Download and extract the v1.1.2 bootstrap asset documented in
+`assets/README.md`, then verify the package and plan without running models:
 
 ```powershell
-python .\scripts\verify_assets.py --asset-dir <path>
-python .\scripts\run_full_reproduction.py --asset-dir <path> --plan-only
-python .\scripts\run_full_reproduction.py --asset-dir <path> `
-  --alibaba-archive .\data\alibaba2018\raw\machine_usage.tar.gz
+python .\scripts\stage_level_c_bootstrap.py `
+  --bundle-root <extracted-bundle-directory> --verify-only
+python .\scripts\run_full_reproduction.py `
+  --bootstrap-dir <extracted-bundle-directory> --plan-only
 ```
 
-The permanent model-asset archive URL and public end-to-end driver are not yet
-available. Consequently, this repository does not claim Level C from a fresh
-clone. `--plan-only` validates supplied assets and writes a non-executing plan.
-Without `--plan-only`, the wrapper requires the exact Alibaba archive and an
-available CUDA device, then returns an explicit blocked status while the public
-driver is unavailable; it never reports that training ran when it did not.
+For a CUDA path check or the complete frozen locked evaluation:
+
+```powershell
+python .\scripts\run_full_reproduction.py `
+  --bootstrap-dir <extracted-bundle-directory> --smoke
+python .\scripts\run_full_reproduction.py `
+  --bootstrap-dir <extracted-bundle-directory>
+```
+
+The released package has passed all checksum checks and the formal locked
+preflight. The current CPU-only Python environment has not newly executed the
+seven-method CUDA replay, so that runtime result is not claimed. The historical
+outputs remain the actual frozen experiment results; source training is not
+repeated by this evaluation replay.
 
 The exact remaining bootstrap contents, orchestration stages, and acceptance
 criteria are listed in `docs/LEVEL_C_COMPLETION_PLAN.md`.
 
 ## 10. Model assets
 
-Large weights are not stored in ordinary Git history. Expected filenames and
-SHA-256 values are listed in `assets/model_assets.csv`. See
-`assets/README.md` for the expected directory tree and verification behavior.
-Until a permanent archive URL is published, Level C remains externally
-blocked.
+Large weights are not stored in ordinary Git history. The published bootstrap
+archive, exact SHA-256, complete 32-file destination manifest, and staging
+commands are documented in `assets/README.md`.
 
 ## 11. Synthetic data
 
@@ -206,16 +214,16 @@ outputs/paper_outputs/
 `-- paper_outputs_manifest.json
 ```
 
-Generated outputs and checkpoints are ignored by Git. Level C writes only
-below `outputs/full_reproduction/` unless an explicit output directory is
-supplied.
+Generated outputs and checkpoints are ignored by Git. The Level-C driver
+writes its ledger and logs below `outputs/full_reproduction/`; frozen method
+outputs retain the repository paths required by the formal audit.
 
 ## 14. Citation
 
 Use the release metadata in `CITATION.cff`. The source repository is
-`https://github.com/w924871681/paper-code-DT-Twin`. Releases `v1.1.0` and
-`v1.1.1` record the public revision workflow; author and DOI metadata remain
-pending.
+`https://github.com/w924871681/paper-code-DT-Twin`. Releases `v1.1.0`,
+`v1.1.1`, and `v1.1.2` record the public revision and reproducibility workflow;
+author and DOI metadata remain pending.
 
 ## 15. License
 

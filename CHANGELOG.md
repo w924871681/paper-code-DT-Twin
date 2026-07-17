@@ -7,9 +7,25 @@ dates are recorded only after a version is actually published.
 
 - Replace the anonymous author placeholder, add the paper DOI, and add the
   release date once the publication metadata are final.
-- Publish a permanent archive URL for the checksum-tracked model assets and a
-  public end-to-end training/evaluation driver before claiming Level C
-  reproduction from a fresh clone.
+- Execute and archive the released frozen-evaluation driver on a CUDA-enabled
+  environment before claiming a newly executed Level-C replay.
+
+## [1.1.2] - 2026-07-17
+
+### Added
+
+- A checksum-bound 32-file Level-C bootstrap manifest plus public build and
+  staging commands.
+- A working frozen locked-main-evaluation driver for all seven methods with a
+  resumable machine-readable execution ledger and per-stage log hashes.
+- A release bootstrap archive whose staged contents pass the formal frozen
+  main-evaluation preflight.
+
+### Clarified
+
+- Existing frozen outputs remain evidence from the actual historical runs.
+  The remaining validation item is a new CUDA replay of the published path,
+  not proof that the historical results or code were fabricated.
 
 ## [1.1.1] - 2026-07-17
 

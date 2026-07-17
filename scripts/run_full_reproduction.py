@@ -3,8 +3,11 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 import torch
 
@@ -12,7 +15,12 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.verify_assets import verify_asset_directory
+from configs.methods.main_evaluation_cfg import CFG
+from scripts.level_c_bootstrap import stage_bundle, verify_bundle
+
+
+def _now() -> str:
+    return datetime.now(timezone.utc).isoformat()
 
 
 def _sha256(path: Path) -> str:
@@ -23,45 +31,112 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _commands(device: str, safe_mode: str, smoke: bool) -> list[dict[str, Any]]:
+    py = sys.executable
+    commands: list[dict[str, Any]] = [
+        {"stage": "locked_preflight", "argv": [py, "scripts/preflight_main_evaluation.py"]}
+    ]
+    for method in CFG.methods:
+        argv = [py, "scripts/run_main_evaluation_method.py", "--method", method,
+                "--device", device, "--safe_mode", safe_mode]
+        if smoke:
+            argv.append("--smoke")
+        commands.append({"stage": f"method_{method}", "argv": argv})
+    if not smoke:
+        commands.extend([
+            {"stage": "analyze_locked_evaluation", "argv": [py, "scripts/analyze_main_evaluation.py"]},
+            {"stage": "audit_locked_evaluation", "argv": [py, "scripts/audit_main_evaluation.py"]},
+        ])
+    return commands
+
+
+def _write_ledger(path: Path, ledger: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(ledger, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Validate Level-C prerequisites and write a non-retuning execution plan.")
-    parser.add_argument("--asset-dir", type=Path, required=True)
-    parser.add_argument("--alibaba-archive", type=Path)
+    parser = argparse.ArgumentParser(
+        description="Verify, stage, and replay the frozen locked main evaluation without retraining source assets."
+    )
+    parser.add_argument("--bootstrap-dir", type=Path)
+    parser.add_argument("--asset-dir", type=Path, help="Deprecated alias for --bootstrap-dir")
+    parser.add_argument("--alibaba-archive", type=Path, help="Optional checksum check; not used by the main-evaluation replay")
     parser.add_argument("--device", default="cuda")
+    parser.add_argument("--safe-mode", default="gru-native")
     parser.add_argument("--output-root", type=Path, default=ROOT / "outputs/full_reproduction")
     parser.add_argument("--plan-only", action="store_true")
+    parser.add_argument("--smoke", action="store_true", help="Run two locked cases per method; skip formal analysis/audit")
     args = parser.parse_args()
-    assets = verify_asset_directory(args.asset_dir)
-    if assets["failure_count"]:
-        print(json.dumps(assets, ensure_ascii=False, indent=2)); return 2
-    expected = "3e6ee87fd204bb85b9e234c5c75a5096580fdabc8f085b224033080090753a7a"
-    alibaba: dict[str, object] = {"provided": False, "required_for": "Alibaba semi-real evaluation"}
-    if args.alibaba_archive:
-        archive = args.alibaba_archive.resolve()
-        if not archive.is_file(): raise FileNotFoundError(archive)
-        actual = _sha256(archive)
-        if actual.lower() != expected:
-            print("Full reproduction cannot start: Alibaba archive SHA-256 mismatch."); return 2
-        alibaba = {"provided": True, "file": archive.name, "sha256": actual, "expected_sha256": expected, "hash_verified": True}
-    errors = []
-    if not args.plan_only and not alibaba["provided"]: errors.append("--alibaba-archive is required")
-    if not args.plan_only and not args.device.lower().startswith("cuda"): errors.append("Level C requires CUDA")
-    if not args.plan_only and not torch.cuda.is_available(): errors.append("PyTorch cannot access a CUDA GPU")
-    if args.plan_only: decision = "PASS_LEVEL_C_PREREQUISITES_AND_PLAN_ONLY"
-    elif errors: decision = "BLOCKED_LEVEL_C_PREREQUISITES"
-    else: decision = "BLOCKED_LEVEL_C_PUBLIC_DRIVER_UNAVAILABLE"
-    plan = {
-        "decision": decision, "execution_started": False,
-        "reason": "The public package validates archived inputs, but the end-to-end orchestration driver is not released.",
-        "prerequisite_errors": errors, "device": args.device, "asset_verification": assets, "alibaba": alibaba,
-        "frozen_stages": ["source-initialization asset staging", "reference-based selector verification", "locked main evaluation", "component and robustness evaluations", "Alibaba preprocessing, real source-bank build, and semi-real evaluation", "paper-output reconstruction and audits"],
-        "available_entry_points": ["scripts/preflight_source_prior_bank.py", "scripts/preflight_anchor_safe_selector.py", "scripts/preflight_main_evaluation.py", "scripts/run_main_evaluation_method.py", "scripts/run_component_ablation.py", "scripts/run_seed_reproducibility.py", "scripts/run_controlled_source_scale.py", "scripts/prepare_alibaba2018_trace.py", "scripts/build_alibaba2018_bank.py", "scripts/run_alibaba2018_evaluation.py", "scripts/generate_paper_outputs.py"],
+
+    bundle = args.bootstrap_dir or args.asset_dir
+    if bundle is None:
+        parser.error("--bootstrap-dir is required")
+    output_root = args.output_root.resolve()
+    ledger_path = output_root / "frozen_main_evaluation_ledger.json"
+    commands = _commands(args.device, args.safe_mode, args.smoke)
+    bundle_check = verify_bundle(bundle)
+    ledger: dict[str, Any] = {
+        "schema": "frozen-main-evaluation-ledger-v1",
+        "scope": "frozen locked main-evaluation replay",
+        "source_training_repeated": False,
+        "started_at": _now(), "ended_at": None,
+        "plan_only": args.plan_only, "smoke": args.smoke,
+        "device": args.device, "bootstrap_verification": bundle_check,
+        "alibaba": {"provided": False, "required_for_this_scope": False},
+        "commands": [{"stage": item["stage"], "argv": item["argv"]} for item in commands],
+        "stages": [], "decision": "PENDING",
     }
-    out = args.output_root.resolve(); out.mkdir(parents=True, exist_ok=True)
-    (out / "full_reproduction_plan.json").write_text(json.dumps(plan, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps(plan, ensure_ascii=False, indent=2))
-    if args.plan_only: print(decision); return 0
-    print(decision); return 2 if errors else 3
+    if args.alibaba_archive:
+        expected = "3e6ee87fd204bb85b9e234c5c75a5096580fdabc8f085b224033080090753a7a"
+        archive = args.alibaba_archive.resolve()
+        actual = _sha256(archive) if archive.is_file() else None
+        ledger["alibaba"] = {
+            "provided": True, "required_for_this_scope": False,
+            "filename": archive.name, "sha256": actual,
+            "expected_sha256": expected, "hash_verified": actual == expected,
+        }
+        if actual != expected:
+            ledger["decision"] = "FAIL_ALIBABA_ARCHIVE_CHECK"
+    if bundle_check["failure_count"]:
+        ledger["decision"] = "FAIL_LEVEL_C_BOOTSTRAP"
+    if ledger["decision"].startswith("FAIL_"):
+        ledger["ended_at"] = _now(); _write_ledger(ledger_path, ledger)
+        print(json.dumps(ledger, ensure_ascii=False, indent=2)); return 2
+
+    if args.plan_only:
+        ledger["decision"] = "PASS_BOOTSTRAP_AND_EXECUTION_PLAN"
+        ledger["ended_at"] = _now(); _write_ledger(ledger_path, ledger)
+        print(json.dumps(ledger, ensure_ascii=False, indent=2)); return 0
+
+    if not args.device.lower().startswith("cuda") or not torch.cuda.is_available():
+        ledger["decision"] = "BLOCKED_CUDA_RUNTIME_UNAVAILABLE"
+        ledger["ended_at"] = _now(); _write_ledger(ledger_path, ledger)
+        print(json.dumps(ledger, ensure_ascii=False, indent=2)); return 2
+
+    staged = stage_bundle(bundle, ROOT)
+    ledger["bootstrap_stage"] = staged
+    _write_ledger(ledger_path, ledger)
+    logs = output_root / "logs"; logs.mkdir(parents=True, exist_ok=True)
+    for item in commands:
+        started = _now()
+        completed = subprocess.run(item["argv"], cwd=ROOT, text=True, capture_output=True)
+        log_path = logs / f"{item['stage']}.log"
+        log_path.write_text(completed.stdout + completed.stderr, encoding="utf-8")
+        record = {
+            "stage": item["stage"], "argv": item["argv"], "started_at": started,
+            "ended_at": _now(), "return_code": completed.returncode,
+            "log": str(log_path), "log_sha256": _sha256(log_path),
+        }
+        ledger["stages"].append(record); _write_ledger(ledger_path, ledger)
+        if completed.returncode != 0:
+            ledger["decision"] = f"FAIL_STAGE_{item['stage'].upper()}"
+            ledger["ended_at"] = _now(); _write_ledger(ledger_path, ledger)
+            print(json.dumps(ledger, ensure_ascii=False, indent=2)); return completed.returncode
+
+    ledger["decision"] = "PASS_FROZEN_MAIN_EVALUATION_SMOKE" if args.smoke else "PASS_FROZEN_MAIN_EVALUATION_REPLAY"
+    ledger["ended_at"] = _now(); _write_ledger(ledger_path, ledger)
+    print(json.dumps(ledger, ensure_ascii=False, indent=2)); return 0
 
 
 if __name__ == "__main__":
