@@ -105,6 +105,13 @@ The equivalent Conda specification is provided in `environment.yml`.
   executes the formal audit. Repeating the separate Alibaba study additionally
   requires its original trace.
 
+Status: The reported CUDA experiments and their frozen outputs are complete.
+The public bootstrap, staging process, formal preflight, and orchestration
+driver are also complete. A fresh CUDA replay through the published public
+entry point has also been completed. Its ledger and formal audit outputs are
+archived in the local v1.1.3 delivery and prepared for authorized Release
+publication.
+
 ## 7. Quick verification
 
 From the repository root:
@@ -143,9 +150,10 @@ python .\scripts\plot_reproducible_figures.py
 ```
 
 The revised manuscript's exact Table 1--6 data are written under
-`tables/paper_csv/` and `tables/paper_latex/`; this includes the
-optimizer-matched control in Table 6. The broader checked public tables are
-written under `tables/csv/` and `tables/latex/`.
+`tables/paper_csv/` and `tables/paper_latex/`. Table 4 is the
+optimizer-matched control, Table 5 is the component ablation, and Table 6 is
+target-side runtime and model complexity. The broader checked public tables
+are written under `tables/csv/` and `tables/latex/`.
 
 ## 9. Full experiment reproduction
 
@@ -168,11 +176,12 @@ python .\scripts\run_full_reproduction.py `
   --bootstrap-dir <extracted-bundle-directory>
 ```
 
-The released package has passed all checksum checks and the formal locked
-preflight. The current CPU-only Python environment has not newly executed the
-seven-method CUDA replay, so that runtime result is not claimed. The historical
-outputs remain the actual frozen experiment results; source training is not
-repeated by this evaluation replay.
+The released package passed all checksum checks and the formal locked
+preflight. A fresh seven-method CUDA replay through the public driver completed
+with ledger decision `PASS_FROZEN_MAIN_EVALUATION_REPLAY`; the formal audit
+returned `PASS_C33_LOCKED_EVALUATION_COMPLETE_AND_AUDITED`. All non-timing
+case records and reported metrics matched the historical frozen outputs.
+Source training was not repeated by this evaluation replay.
 
 The exact remaining bootstrap contents, orchestration stages, and acceptance
 criteria are listed in `docs/LEVEL_C_COMPLETION_PLAN.md`.
@@ -222,8 +231,10 @@ outputs retain the repository paths required by the formal audit.
 
 Use the release metadata in `CITATION.cff`. The source repository is
 `https://github.com/w924871681/paper-code-DT-Twin`. Releases `v1.1.0`,
-`v1.1.1`, and `v1.1.2` record the public revision and reproducibility workflow;
-author and DOI metadata remain pending.
+`v1.1.1`, and `v1.1.2` record the published revision and reproducibility
+workflow. The local v1.1.3 preparation is not a published release until its
+tag and Release are explicitly authorized. Author and DOI metadata remain
+pending.
 
 ## 15. License
 

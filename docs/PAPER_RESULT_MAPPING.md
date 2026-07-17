@@ -8,9 +8,9 @@ paper outputs.
 | Experimental configuration | `configs/main_cfg.py`, main evaluation/experiment configs, and corrected mechanism summary | exact revised-paper `table1_configuration.csv` |
 | Compared methods and fairness | `results/main/baseline_fairness.csv` | exact revised-paper `table2_fairness.csv` |
 | Overall accuracy and complexity | `results/main/overall_comparison.csv` | exact revised-paper `table3_overall.csv`; public Table 3; 3D figure data |
-| Component ablation | `results/main/component_ablation.csv` | exact revised-paper `table4_component_analysis.csv`; public Table 4 |
-| Repeated target-side time | `results/supplementary/repeated_runtime_summary.csv` | exact revised-paper Table 5; runtime columns and 3D marker sizes |
-| Optimizer-matched control | `results/supplementary/optimizer_matched_control_summary.csv` | exact revised-paper `table6_matched_control.csv` |
+| Optimizer-matched control | `results/supplementary/optimizer_matched_control_summary.csv` | exact revised-paper `table4_matched_control.csv`; Table 4 |
+| Component ablation | `results/main/component_ablation.csv` | exact revised-paper `table5_component_analysis.csv`; Table 5 |
+| Repeated target-side time and model complexity | `results/supplementary/repeated_runtime_summary.csv`, frozen selected-model complexity | exact revised-paper `table6_runtime_cost.csv`; Table 6 and 3D marker sizes |
 | Selection mechanism | corrected `results/main/mechanism_and_cost.csv` | public Table 5a |
 | Horizon/support and center-type robustness | `results/main/horizon_support_robustness.csv`, `center_type_robustness.csv` | robustness table and radar data |
 | Controlled source-center scale | `results/robustness/controlled_source_scale.csv` | Table S2 and source-scale figure data |

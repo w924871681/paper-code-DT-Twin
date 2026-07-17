@@ -57,9 +57,9 @@ PAPER_TABLE_NAMES = (
     "table1_configuration",
     "table2_fairness",
     "table3_overall",
-    "table4_component_analysis",
-    "table5_runtime_cost",
-    "table6_matched_control",
+    "table4_matched_control",
+    "table5_component_analysis",
+    "table6_runtime_cost",
 )
 
 REVISED_FIGURES: Mapping[str, tuple[float, float]] = OrderedDict(
@@ -598,11 +598,11 @@ def paper_table_rows(project_root: str | Path) -> OrderedDict[str, list[dict[str
             }
         )
     cost_by = {row["Method"]: row for row in public["table5b_online_cost"]}
-    table5 = []
+    runtime_cost = []
     for internal in PAPER_METHOD_ORDER:
         method = METHOD_META[internal][0]
         row = cost_by[method]
-        table5.append(
+        runtime_cost.append(
             {
                 "Method": method,
                 "Time (s)": row["Target-side time (s)"],
@@ -622,7 +622,7 @@ def paper_table_rows(project_root: str | Path) -> OrderedDict[str, list[dict[str
         )
     )
     matched = {row["method"]: row for row in _read_csv(root / "results/supplementary/optimizer_matched_control_summary.csv")}
-    table6 = [
+    matched_control = [
         {
             "Method": label,
             "WMSE": _fmt(_float(matched[key], "test_wmse_mean"), 6),
@@ -637,9 +637,9 @@ def paper_table_rows(project_root: str | Path) -> OrderedDict[str, list[dict[str
             ("table1_configuration", public["table1_experimental_configuration"]),
             ("table2_fairness", public["table2_baseline_fairness"]),
             ("table3_overall", table3),
-            ("table4_component_analysis", public["table4_component_ablation"]),
-            ("table5_runtime_cost", table5),
-            ("table6_matched_control", table6),
+            ("table4_matched_control", matched_control),
+            ("table5_component_analysis", public["table4_component_ablation"]),
+            ("table6_runtime_cost", runtime_cost),
         )
     )
 
@@ -727,7 +727,7 @@ def _figure_data(root: Path) -> OrderedDict[str, list[dict[str, str]]]:
             {
                 "Target setting": label,
                 "PT+FT relative WMSE score": _fmt(100, 8),
-                "Proposed relative WMSE score": _fmt(100 / (1 - reduction), 8),
+                "Proposed score from mean paired WMSE reduction": _fmt(100 / (1 - reduction), 8),
                 "WMSE reduction vs PT+FT (%)": _fmt(100 * reduction, 8),
             }
         )
@@ -899,7 +899,7 @@ def _plot_accuracy(out: Path, rows: Sequence[Mapping[str, str]]) -> None:
 def _plot_radar(out: Path, rows: Sequence[Mapping[str, str]]) -> None:
     _style()
     labels = [row["Target setting"] for row in rows]
-    values = np.asarray([float(row["Proposed relative WMSE score"]) for row in rows])
+    values = np.asarray([float(row["Proposed score from mean paired WMSE reduction"]) for row in rows])
     baseline = np.full(len(rows), 100.0)
     angles = np.linspace(0, 2 * np.pi, len(rows), endpoint=False)
     angles_c = np.r_[angles, angles[0]]
@@ -966,12 +966,14 @@ CAPTIONS = """# Generated figure captions
 - **fig_source_scale_line:** Effect of source-center scale. Points show WMSE
   reduction relative to the matched reference candidate; error bars are 95%
   center-cluster bootstrap confidence intervals over 80 cases at each scale.
-- **fig_accuracy_complexity_3d:** Accuracy--complexity landscape. Axes show
-  WMSE, estimated operation count, and parameter count; marker area is scaled
-  by `log1p` of repeated synchronized target-side time. Complexity values are
-  architecture-level measures, not direct latency or memory measurements.
+- **fig_accuracy_complexity_3d:** Accuracy--complexity landscape. Each point
+  uses mean test WMSE and the average estimated operation and parameter counts
+  of the models selected across held-out target cases; marker area is scaled
+  by `log1p` of mean target-side time. Complexity values are architecture-level
+  measures, not direct latency, memory, or energy measurements.
 - **fig_target_robustness_radar:** Robustness profile across target settings.
-  Every spoke uses the same relative WMSE score, with PT+FT fixed at 100.
+  Every spoke uses `100 / (1 - mean case-level paired WMSE reduction)`, with
+  PT+FT fixed at 100.
 - **fig_generalization_forest:** WMSE reduction relative to the matched
   reference candidate. Error bars are 95% center-cluster bootstrap confidence
   intervals. The Alibaba point uses real workload observations with

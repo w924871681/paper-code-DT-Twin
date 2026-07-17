@@ -5,10 +5,18 @@ dates are recorded only after a version is actually published.
 
 ## [Unreleased]
 
+- Prepare v1.1.3 with corrected revised-paper Table 4--6 filenames and Level B
+  mappings: optimizer-matched control, component ablation, then runtime and
+  model complexity.
+- Align the Fig. 7 score definition, Fig. 11 averaging description, data
+  availability statement, and Level-C status with the final manuscript.
+- Extend the release workflow to publish a checksum sidecar and verify the
+  uploaded bootstrap by downloading it again.
+- Execute the seven-method frozen main-evaluation replay on CUDA, complete the
+  formal audit, and archive the ledger, environment, logs, output manifest,
+  and historical-output comparison for the prepared v1.1.3 delivery.
 - Replace the anonymous author placeholder, add the paper DOI, and add the
   release date once the publication metadata are final.
-- Execute and archive the released frozen-evaluation driver on a CUDA-enabled
-  environment before claiming a newly executed Level-C replay.
 
 ## [1.1.2] - 2026-07-17
 

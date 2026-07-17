@@ -42,7 +42,7 @@ CORRECTED_FILES = {
 }
 REQUIRED_FILES = {
     "README.md", "CITATION.cff", "LICENSE", "pyproject.toml", "environment.yml",
-    "CHANGELOG.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
+    "CHANGELOG.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", "RELEASE_NOTES_v1.1.3.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
     "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md", "docs/LEVEL_C_COMPLETION_PLAN.md",
     "assets/README.md", "assets/model_assets.csv", "assets/level_c_bootstrap_files.csv", "data/README.md", "data/alibaba2018/README.md",
     "results/README.md", "results/audited_provenance/SANITIZATION_MANIFEST.json",
@@ -50,6 +50,7 @@ REQUIRED_FILES = {
     "scripts/generate_paper_outputs.py", "scripts/verify_repository.py", "scripts/verify_assets.py",
     "scripts/run_smoke_test.py", "scripts/run_full_reproduction.py", "scripts/build_alibaba2018_bank.py",
     "scripts/level_c_bootstrap.py", "scripts/build_level_c_bootstrap.py", "scripts/stage_level_c_bootstrap.py",
+    "scripts/finalize_cuda_replay.py",
     "scripts/plot_reproducible_figures.py", "scripts/derive_reproducible_figure_data.py",
     "reporting/reproducible_figures.py",
     "scripts/validate_paper_outputs.py", "reporting/frozen.py", "paper_assets/legacy_figures/manifest.json",
@@ -154,7 +155,7 @@ def check_numbers() -> list[str]:
     retained = next((row for row in _csv(ROOT / "results/robustness/architecture_coverage.csv") if row["Dataset"]=="C33Locked980-999" and row["ArchIdx"]=="57"), None)
     if not retained or int(retained["SelectedCount"])!=33 or int(retained["SelectedBeneficialCount"])!=0 or int(retained["SelectedHarmfulCount"])!=0: errors.append("retained references are not neutral")
     paper = paper_table_rows(ROOT)
-    if set(paper) != set(PAPER_TABLE_NAMES) or len(paper["table6_matched_control"]) != 6: errors.append("exact revised-paper table set is incomplete")
+    if tuple(paper) != PAPER_TABLE_NAMES or len(paper["table4_matched_control"]) != 6: errors.append("exact revised-paper table set or order is incomplete")
     fig6 = _csv(ROOT / "results/figure_data/fig6_paired_instantiation_data.csv")
     fig6_counts = {name: sum(row["selection_category"] == name for row in fig6) for name in ("beneficial alternative", "reference retained", "harmful alternative")}
     if len(fig6) != 80 or fig6_counts != {"beneficial alternative": 44, "reference retained": 33, "harmful alternative": 3}: errors.append("Fig. 6 public paired data changed")

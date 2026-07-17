@@ -17,13 +17,15 @@ into a now-completed publication path and a separate new-execution check.
 - The released package was built from the custodian workspace with every hash
   matching and passed `PASS_C33_LOCKED_PREFLIGHT_READY` after staging.
 
-## What has not been newly rerun
+## New public-path CUDA replay completed
 
-The current Python installation is CPU-only even though the machine has an
-NVIDIA GPU. Therefore the seven-method CUDA replay has not been executed in
-this release session. This is a runtime validation gap for the newly published
-path; it is not a claim that the frozen historical outputs are unverified or
-that their model assets are absent.
+Status: The reported CUDA experiments and their frozen outputs are complete.
+The public bootstrap, staging process, formal preflight, and orchestration
+driver are also complete. A fresh CUDA replay through the published public
+entry point completed on an NVIDIA GeForce RTX 3060 Laptop GPU. The ledger is
+`PASS_FROZEN_MAIN_EVALUATION_REPLAY`, and the formal audit is
+`PASS_C33_LOCKED_EVALUATION_COMPLETE_AND_AUDITED`. All non-timing case records
+and reported metrics matched the historical frozen outputs.
 
 The original Alibaba trace is a separate external prerequisite. It is not
 redistributed. Repeating the Alibaba preprocessing, real source-bank build,
@@ -57,9 +59,11 @@ The formal run is complete only when the ledger decision is
 training is not repeated by this driver because the released archive freezes
 the source initializations used by the reported evaluation.
 
-## Remaining acceptance item
+## Release publication boundary
 
-To claim a newly executed Level-C replay, archive the CUDA environment, GPU and
-driver versions, runtime ledger, stage logs, output manifest, and successful
-formal audit. Full from-raw Alibaba repetition should be reported separately
-because its license-controlled source archive is external to this release.
+The CUDA environment, GPU and driver versions, runtime ledger, stage logs,
+output manifest, formal audit, and historical comparison are archived in the
+local v1.1.3 delivery. Publishing that archive with a GitHub Release remains a
+remote action and requires explicit authorization. Full from-raw Alibaba
+repetition remains separate because its license-controlled source archive is
+external to this release.

@@ -58,6 +58,13 @@ case/configuration records per method. It writes a machine-readable ledger and
 per-stage logs. It replays the target evaluation from frozen real weights; it
 does not retrain the source-initialization bank.
 
+Status: The reported CUDA experiments and their frozen outputs are complete.
+The public bootstrap, staging process, formal preflight, and orchestration
+driver are also complete. A fresh CUDA replay through the published public
+entry point has also been completed. Its ledger, formal audit, environment,
+logs, and historical comparison are archived in the local v1.1.3 delivery and
+prepared for authorized Release publication.
+
 Alibaba evaluation is separate because the original trace is not
 redistributed. Follow `data/alibaba2018/README.md` for its checksum,
 preprocessing, real-bank build, and evaluation commands.

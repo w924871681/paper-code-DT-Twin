@@ -13,6 +13,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare checksum-bound bootstrap assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p source-assets release-assets
+          gh release download v1.1.2 \
+            --pattern "level_c_bootstrap_v1.1.2.zip" \
+            --dir source-assets
+          test "$(stat -c%s source-assets/level_c_bootstrap_v1.1.2.zip)" = "64258937"
+          echo "365df44a8cf4de1cabb21dd21aa6e865aff83a3f30d083e91caf18ed744ef650  source-assets/level_c_bootstrap_v1.1.2.zip" | sha256sum -c -
+          cp source-assets/level_c_bootstrap_v1.1.2.zip \
+            "release-assets/level_c_bootstrap_${GITHUB_REF_NAME}.zip"
+          cd release-assets
+          sha256sum "level_c_bootstrap_${GITHUB_REF_NAME}.zip" > \
+            "level_c_bootstrap_${GITHUB_REF_NAME}.zip.sha256"
       - name: Publish GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -32,3 +47,21 @@ jobs:
               --title "${GITHUB_REF_NAME}" \
               --notes-file "${NOTES_FILE}"
           fi
+      - name: Upload bootstrap and checksum sidecar
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload "${GITHUB_REF_NAME}" \
+            "release-assets/level_c_bootstrap_${GITHUB_REF_NAME}.zip" \
+            "release-assets/level_c_bootstrap_${GITHUB_REF_NAME}.zip.sha256" \
+            --clobber
+      - name: Download and verify published assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p downloaded-assets
+          gh release download "${GITHUB_REF_NAME}" \
+            --pattern "level_c_bootstrap_${GITHUB_REF_NAME}.zip*" \
+            --dir downloaded-assets
+          cd downloaded-assets
+          sha256sum -c "level_c_bootstrap_${GITHUB_REF_NAME}.zip.sha256"
