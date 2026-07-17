@@ -23,8 +23,9 @@ published assets, and verifies the checksum. The frozen payload remains
 64,258,937 bytes with SHA-256
 `365df44a8cf4de1cabb21dd21aa6e865aff83a3f30d083e91caf18ed744ef650`.
 
-This file prepares v1.1.3 locally. No tag or GitHub Release is created until
-remote publication is explicitly authorized.
+The v1.1.3 tag and GitHub Release are published. The byte-identical bootstrap,
+its SHA-256 sidecar, the CUDA replay evidence archive, and its SHA-256 sidecar
+are attached to the Release. Tags v1.1.0--v1.1.2 remain unchanged.
 
 ## CUDA public-path validation
 
@@ -33,6 +34,7 @@ Verify-only, plan-only, the seven-method CUDA smoke, and the complete frozen
 main-evaluation replay passed. The final ledger is
 `PASS_FROZEN_MAIN_EVALUATION_REPLAY`, the formal audit is
 `PASS_C33_LOCKED_EVALUATION_COMPLETE_AND_AUDITED`, and all non-timing case
-records and reported metrics match the historical frozen outputs. The local
-archive is prepared for upload after explicit authorization. Source training
-was not repeated.
+records and reported metrics match the historical frozen outputs. The replay
+ledger, formal audit, environment record, historical comparison, per-stage
+logs, and SHA-256 manifest are archived in the published CUDA evidence asset.
+Source training was not repeated.
