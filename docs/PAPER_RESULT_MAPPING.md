@@ -31,3 +31,8 @@ earlier one-pass diagnostic retained in historical provenance.
 Some immutable audits and frozen source schemas retain historical identifiers.
 See `results/audited_provenance/SANITIZATION_MANIFEST.json` and
 `NUMERICAL_CORRECTIONS.json` for the exact integrity boundary.
+
+The frozen numerical mapping above is unchanged by the v1.1.4 public-packaging
+patch. The latest archived release supplies the portable Level-C bootstrap,
+the sanitized CUDA replay evidence, and checksum sidecars; smoke and formal
+replay outputs are isolated by the public orchestration driver.

@@ -14,10 +14,22 @@ def main():
     ap.add_argument("--device", default="cuda")
     ap.add_argument("--safe_mode", default="gru-native")
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument(
+        "--output-root",
+        default=os.path.join(ROOT, CFG.output_root),
+        help="Root containing preflight/ and methods/ for this run mode",
+    )
     args = ap.parse_args()
-    out = os.path.join(ROOT, CFG.output_root, "methods", args.method + ".json")
+    output_root = os.path.abspath(args.output_root)
+    out = os.path.join(output_root, "methods", args.method + ".json")
     result = run_method(
-        ROOT, args.method, out, args.device, args.safe_mode, args.smoke
+        ROOT,
+        args.method,
+        out,
+        args.device,
+        args.safe_mode,
+        args.smoke,
+        result_root=output_root,
     )
     print(
         json.dumps(

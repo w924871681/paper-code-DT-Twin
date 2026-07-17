@@ -5,9 +5,11 @@ import hashlib
 import json
 import os
 import platform
+import re
 import shutil
 import subprocess
 import sys
+import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -47,6 +49,17 @@ OVERALL_FIELDS = (
     "flops_mean",
 )
 
+CODE_MANIFEST_ENTRIES = (
+    "scripts/run_full_reproduction.py",
+    "scripts/run_main_evaluation_method.py",
+    "scripts/analyze_main_evaluation.py",
+    "scripts/audit_main_evaluation.py",
+    "main_evaluation/pipeline.py",
+    "configs/methods/main_evaluation_cfg.py",
+    "core",
+    "shared",
+)
+
 
 def _load(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -63,6 +76,84 @@ def _sha256(path: Path) -> str:
 def _run(*argv: str) -> str:
     completed = subprocess.run(argv, text=True, capture_output=True, check=False)
     return completed.stdout.strip() if completed.returncode == 0 else ""
+
+
+def sanitize_public_value(value: object, roots: dict[str, Path]) -> object:
+    """Recursively replace machine-specific paths while preserving evidence values."""
+    if isinstance(value, dict):
+        return {key: sanitize_public_value(item, roots) for key, item in value.items()}
+    if isinstance(value, list):
+        return [sanitize_public_value(item, roots) for item in value]
+    if not isinstance(value, str):
+        return value
+
+    sanitized = value
+    replacements: list[tuple[str, str]] = []
+    for placeholder, path in roots.items():
+        raw = str(path)
+        variants = {
+            raw,
+            raw.replace("\\", "/"),
+            raw.replace("/", "\\"),
+            raw.replace("\\", "\\\\"),
+        }
+        replacements.extend((variant, placeholder) for variant in variants if variant)
+    for source, placeholder in sorted(replacements, key=lambda item: len(item[0]), reverse=True):
+        sanitized = re.sub(re.escape(source), lambda _match: placeholder, sanitized, flags=re.IGNORECASE)
+    # Third-party warnings can contain build-machine paths outside every known
+    # evidence root. Keep the warning while replacing only the path token.
+    sanitized = re.sub(
+        r"(?<![A-Za-z])[A-Za-z]:(?:\\\\|\\|/)[^\s\"'<>]*",
+        "<REPO_ROOT>",
+        sanitized,
+    )
+    sanitized = re.sub(r"/(?:home|Users)/[^/\s]+/[^\s\"'<>]*", "<REPO_ROOT>", sanitized)
+    return sanitized
+
+
+def _sanitize_json(value: Any, roots: dict[str, Path]) -> Any:
+    if isinstance(value, dict):
+        sanitized: dict[str, Any] = {}
+        for key, item in value.items():
+            new_item = _sanitize_json(item, roots)
+            if key == "python_executable" and isinstance(item, str):
+                new_item = "<PYTHON_EXECUTABLE>"
+            elif key == "bundle_root" and isinstance(item, str):
+                new_item = "<BOOTSTRAP_ROOT>"
+            if key == "log" and isinstance(new_item, str):
+                portable_log = new_item.replace("\\", "/")
+                new_item = f"logs/{Path(portable_log).name}"
+            sanitized[key] = new_item
+        return sanitized
+    if isinstance(value, list):
+        return [_sanitize_json(item, roots) for item in value]
+    return sanitize_public_value(value, roots)
+
+
+def _named_values(value: Any, key_name: str) -> list[Any]:
+    found: list[Any] = []
+    if isinstance(value, dict):
+        for key, item in value.items():
+            if key == key_name:
+                found.append(item)
+            found.extend(_named_values(item, key_name))
+    elif isinstance(value, list):
+        for item in value:
+            found.extend(_named_values(item, key_name))
+    return found
+
+
+def _numeric_values(value: Any, prefix: str = "$") -> dict[str, int | float]:
+    found: dict[str, int | float] = {}
+    if isinstance(value, dict):
+        for key, item in value.items():
+            found.update(_numeric_values(item, f"{prefix}.{key}"))
+    elif isinstance(value, list):
+        for index, item in enumerate(value):
+            found.update(_numeric_values(item, f"{prefix}[{index}]"))
+    elif isinstance(value, (int, float)) and not isinstance(value, bool):
+        found[prefix] = value
+    return found
 
 
 def _same_selected(record_a: dict[str, Any], record_b: dict[str, Any], fields: tuple[str, ...]) -> bool:
@@ -218,8 +309,8 @@ def capture_environment(repo_root: Path, bootstrap_zip: Path, ledger: dict[str, 
         "git_worktree_dirty": bool(worktree_status),
         "git_worktree_status": worktree_status.splitlines(),
         "git_worktree_diff_sha256": hashlib.sha256(worktree_diff.encode("utf-8")).hexdigest(),
-        "prepared_release": "v1.1.3",
-        "published_bootstrap_release": "v1.1.2",
+        "prepared_release": "v1.1.4",
+        "published_bootstrap_release": "v1.1.3",
         "bootstrap_path": str(bootstrap_zip),
         "bootstrap_bytes": bootstrap_zip.stat().st_size,
         "bootstrap_sha256": _sha256(bootstrap_zip),
@@ -259,6 +350,72 @@ def write_manifest(archive_root: Path) -> None:
     (archive_root / "SHA256SUMS.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def write_code_manifest(repo_root: Path, archive_root: Path) -> None:
+    paths: list[Path] = []
+    for entry in CODE_MANIFEST_ENTRIES:
+        candidate = repo_root / entry
+        if candidate.is_dir():
+            paths.extend(path for path in candidate.rglob("*.py") if path.is_file())
+        elif candidate.is_file():
+            paths.append(candidate)
+        else:
+            raise FileNotFoundError(f"Code-manifest entry is missing: {candidate}")
+    files = [
+        {
+            "path": path.relative_to(repo_root).as_posix(),
+            "bytes": path.stat().st_size,
+            "sha256": _sha256(path),
+        }
+        for path in sorted(set(paths))
+    ]
+    payload = {"schema": "main-evaluation-code-manifest-v1", "files": files}
+    (archive_root / "CODE_MANIFEST.json").write_text(
+        json.dumps(payload, indent=2) + "\n", encoding="utf-8"
+    )
+
+
+def sanitize_archive(private_root: Path, public_root: Path, roots: dict[str, Path]) -> None:
+    if public_root.exists():
+        shutil.rmtree(public_root)
+    shutil.copytree(private_root, public_root)
+    for stale in ("OUTPUT_MANIFEST.json", "SHA256SUMS.txt"):
+        (public_root / stale).unlink(missing_ok=True)
+
+    private_json = {
+        path.relative_to(private_root): _load(path)
+        for path in private_root.rglob("*.json")
+        if path.name not in {"OUTPUT_MANIFEST.json"}
+    }
+    for relative, raw in private_json.items():
+        sanitized = _sanitize_json(raw, roots)
+        if _named_values(raw, "decision") != _named_values(sanitized, "decision"):
+            raise RuntimeError(f"Sanitization changed decision fields in {relative}")
+        if _numeric_values(raw) != _numeric_values(sanitized):
+            raise RuntimeError(f"Sanitization changed numeric evidence in {relative}")
+        (public_root / relative).write_text(
+            json.dumps(sanitized, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
+    text_suffixes = {".md", ".txt", ".log", ".csv", ".cff"}
+    for path in public_root.rglob("*"):
+        if path.is_file() and path.suffix.lower() in text_suffixes:
+            raw = path.read_text(encoding="utf-8", errors="replace")
+            path.write_text(str(sanitize_public_value(raw, roots)), encoding="utf-8")
+    write_manifest(public_root)
+
+
+def write_public_zip(public_root: Path, public_zip: Path) -> None:
+    public_zip.parent.mkdir(parents=True, exist_ok=True)
+    public_zip.unlink(missing_ok=True)
+    with zipfile.ZipFile(public_zip, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as handle:
+        for path in sorted(item for item in public_root.rglob("*") if item.is_file()):
+            archive_name = (Path(public_root.name) / path.relative_to(public_root)).as_posix()
+            handle.write(path, archive_name)
+    sidecar = public_zip.with_name(public_zip.name + ".sha256")
+    sidecar.write_text(f"{_sha256(public_zip)}  {public_zip.name}\n", encoding="utf-8")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Compare and archive a completed frozen CUDA replay.")
     parser.add_argument("--repo-root", type=Path, required=True)
@@ -266,10 +423,27 @@ def main() -> int:
     parser.add_argument("--current-root", type=Path, required=True)
     parser.add_argument("--replay-root", type=Path, required=True)
     parser.add_argument("--bootstrap-zip", type=Path, required=True)
-    parser.add_argument("--archive-root", type=Path, required=True)
+    parser.add_argument("--private-root", type=Path)
+    parser.add_argument("--archive-root", type=Path, help="Deprecated alias for --private-root")
+    parser.add_argument("--public-root", type=Path, required=True)
+    parser.add_argument("--public-zip", type=Path, required=True)
     args = parser.parse_args()
-    paths = {name: value.resolve() for name, value in vars(args).items()}
-    archive_root = paths["archive_root"]
+    private_arg = args.private_root or args.archive_root
+    if private_arg is None:
+        parser.error("--private-root is required")
+    paths = {
+        "repo_root": args.repo_root.resolve(),
+        "historical_root": args.historical_root.resolve(),
+        "current_root": args.current_root.resolve(),
+        "replay_root": args.replay_root.resolve(),
+        "bootstrap_zip": args.bootstrap_zip.resolve(),
+        "private_root": private_arg.resolve(),
+        "public_root": args.public_root.resolve(),
+        "public_zip": args.public_zip.resolve(),
+    }
+    archive_root = paths["private_root"]
+    if archive_root.exists():
+        shutil.rmtree(archive_root)
     archive_root.mkdir(parents=True, exist_ok=True)
 
     ledger = _load(paths["replay_root"] / "frozen_main_evaluation_ledger.json")
@@ -296,13 +470,31 @@ def main() -> int:
         "The public bootstrap was verified and staged, all seven frozen methods ran on CUDA, "
         "the locked analysis and formal audit passed, and all non-timing outputs matched the "
         "historical frozen run. Source-initialization training was not repeated.\n\n"
+        "The replay ledger records environment-dependent per-case wall-clock fields. "
+        "The manuscript runtime table is produced by a separate five-repeat, "
+        "GPU-synchronized timing protocol. These values are not expected to be "
+        "numerically identical. Online runtime fields are retained for transparency, "
+        "but excluded from the exact non-timing comparison.\n\n"
         f"- Ledger: `{ledger['decision']}`\n"
         f"- Formal audit: `{audit['decision']}`\n"
         f"- Historical comparison: `{comparison['decision']}`\n",
         encoding="utf-8",
     )
+    write_code_manifest(paths["repo_root"], archive_root)
     write_manifest(archive_root)
-    print("PASS_FINALIZED_CUDA_REPLAY_ARCHIVE")
+
+    roots = {
+        "<HISTORICAL_RESULT_ROOT>": paths["historical_root"],
+        "<CURRENT_RESULT_ROOT>": paths["current_root"],
+        "<REPLAY_ROOT>": paths["replay_root"],
+        "<BOOTSTRAP_ROOT>": paths["bootstrap_zip"].parent,
+        "<REPO_ROOT>": paths["repo_root"],
+        "<PYTHON_EXECUTABLE>": Path(sys.executable).parent,
+    }
+    sanitize_archive(archive_root, paths["public_root"], roots)
+    write_public_zip(paths["public_root"], paths["public_zip"])
+    print("PASS_FINALIZED_PRIVATE_CUDA_REPLAY_ARCHIVE")
+    print("PASS_FINALIZED_PUBLIC_CUDA_REPLAY_ARCHIVE")
     return 0
 
 

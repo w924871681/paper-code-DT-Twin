@@ -1,4 +1,4 @@
-# Level C status and completion boundary
+# Level C public-path validation completed
 
 The historical results and code are retained from actual runs. A mandatory
 full retraining is not needed to establish that provenance. Level C is split
@@ -59,11 +59,11 @@ The formal run is complete only when the ledger decision is
 training is not repeated by this driver because the released archive freezes
 the source initializations used by the reported evaluation.
 
-## Release publication boundary
+## Completion boundary
 
 The CUDA environment, GPU and driver versions, runtime ledger, stage logs,
-output manifest, formal audit, and historical comparison are archived in the
-local v1.1.3 delivery. Publishing that archive with a GitHub Release remains a
-remote action and requires explicit authorization. Full from-raw Alibaba
-repetition remains separate because its license-controlled source archive is
-external to this release.
+output manifest, formal audit, and historical comparison are archived with
+Release v1.1.4. The historical experiment is complete, public packaging is
+complete, and the fresh CUDA replay is complete. Source-initialization training
+was not repeated. Full from-raw Alibaba repetition remains separate because
+its license-controlled source archive is external to this release.

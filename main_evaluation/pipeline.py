@@ -688,12 +688,19 @@ def run_method(
     device: str,
     safe_mode: str,
     smoke: bool = False,
+    result_root: Optional[str] = None,
 ) -> Dict[str, Any]:
     if method not in CFG.methods:
         raise ValueError(f"Unknown C3-3 method: {method}")
     root = os.path.abspath(project_root)
+    out_path = os.path.abspath(out_path)
+    resolved_result_root = (
+        os.path.abspath(result_root)
+        if result_root is not None
+        else os.path.dirname(os.path.dirname(out_path))
+    )
     preflight_path = os.path.join(
-        root, CFG.output_root, "preflight", "c33_preflight.json"
+        resolved_result_root, "preflight", "c33_preflight.json"
     )
     if not os.path.isfile(preflight_path):
         raise FileNotFoundError("Run C3-3 preflight first")
@@ -715,7 +722,6 @@ def run_method(
     L = int(cfg.main.task.L)
     jobs = _jobs(smoke)
     run_mode = "smoke" if smoke else "formal"
-    out_path = os.path.abspath(out_path)
 
     upstream_hashes = {
         "preflight": file_sha256(preflight_path),

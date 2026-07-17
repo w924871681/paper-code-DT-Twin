@@ -51,3 +51,52 @@ def test_level_c_bootstrap_manifest_is_portable() -> None:
     assert len(rows) == 32
     assert len({row["artifact"] for row in rows}) == 32
     assert all(len(row["sha256"]) == 64 for row in rows)
+
+
+def test_smoke_then_formal_output_isolation(tmp_path: Path) -> None:
+    from scripts.run_full_reproduction import _commands, resolve_output_roots
+
+    smoke_orchestration, smoke_methods = resolve_output_roots(
+        smoke=True, repo_root=tmp_path
+    )
+    formal_orchestration, formal_methods = resolve_output_roots(
+        smoke=False, repo_root=tmp_path
+    )
+
+    assert smoke_orchestration != formal_orchestration
+    assert smoke_methods != formal_methods
+    assert smoke_methods.name == "main_evaluation_smoke_d2904_t2904"
+    assert formal_methods.name == "main_evaluation_eval_d2904_t2904"
+
+    smoke_marker = smoke_methods / "methods" / "ours_c32_locked.json"
+    smoke_marker.parent.mkdir(parents=True)
+    smoke_marker.write_text('{"run_mode":"smoke"}\n', encoding="utf-8")
+
+    formal_commands = _commands("cuda", "gru-native", False, formal_methods)
+    formal_argv = "\n".join(
+        " ".join(item["argv"]) for item in formal_commands
+    )
+    assert str(smoke_methods) not in formal_argv
+    assert str(formal_methods) in formal_argv
+    assert smoke_marker.read_text(encoding="utf-8") == '{"run_mode":"smoke"}\n'
+
+
+def test_public_evidence_sanitization_is_recursive(tmp_path: Path) -> None:
+    from scripts.finalize_cuda_replay import sanitize_public_value
+
+    roots = {
+        "<REPO_ROOT>": tmp_path / "repo",
+        "<PYTHON_EXECUTABLE>": tmp_path / "venv" / "python.exe",
+    }
+    raw = {
+        "argv": [str(roots["<PYTHON_EXECUTABLE>"]), str(roots["<REPO_ROOT>"] / "scripts" / "run.py")],
+        "decision": "PASS_FROZEN_MAIN_EVALUATION_REPLAY",
+        "nested": {"values": [80, 5.676]},
+    }
+    sanitized = sanitize_public_value(raw, roots)
+    assert sanitized["argv"] == [
+        "<PYTHON_EXECUTABLE>",
+        str(Path("<REPO_ROOT>") / "scripts" / "run.py"),
+    ]
+    assert sanitized["decision"] == raw["decision"]
+    assert sanitized["nested"] == raw["nested"]

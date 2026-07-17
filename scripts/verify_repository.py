@@ -42,7 +42,7 @@ CORRECTED_FILES = {
 }
 REQUIRED_FILES = {
     "README.md", "CITATION.cff", "LICENSE", "pyproject.toml", "environment.yml",
-    "CHANGELOG.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", "RELEASE_NOTES_v1.1.3.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
+    "CHANGELOG.md", "AUTHOR_METADATA_REQUIRED.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", "RELEASE_NOTES_v1.1.3.md", "RELEASE_NOTES_v1.1.4.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
     "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md", "docs/LEVEL_C_COMPLETION_PLAN.md",
     "assets/README.md", "assets/model_assets.csv", "assets/level_c_bootstrap_files.csv", "data/README.md", "data/alibaba2018/README.md",
     "results/README.md", "results/audited_provenance/SANITIZATION_MANIFEST.json",
@@ -50,7 +50,7 @@ REQUIRED_FILES = {
     "scripts/generate_paper_outputs.py", "scripts/verify_repository.py", "scripts/verify_assets.py",
     "scripts/run_smoke_test.py", "scripts/run_full_reproduction.py", "scripts/build_alibaba2018_bank.py",
     "scripts/level_c_bootstrap.py", "scripts/build_level_c_bootstrap.py", "scripts/stage_level_c_bootstrap.py",
-    "scripts/finalize_cuda_replay.py",
+    "scripts/finalize_cuda_replay.py", "scripts/verify_release_evidence.py",
     "scripts/plot_reproducible_figures.py", "scripts/derive_reproducible_figure_data.py",
     "reporting/reproducible_figures.py",
     "scripts/validate_paper_outputs.py", "reporting/frozen.py", "paper_assets/legacy_figures/manifest.json",
@@ -188,6 +188,26 @@ def check_privacy() -> list[str]:
     return errors
 
 
+def check_version_metadata() -> list[str]:
+    errors = []
+    pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+    workflow = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
+    if 'version = "1.1.4"' not in pyproject:
+        errors.append("pyproject version is not 1.1.4")
+    if not re.search(r"(?m)^version:\s*1\.1\.4\s*$", citation):
+        errors.append("CITATION.cff version is not 1.1.4")
+    for asset in (
+        "level_c_bootstrap_${GITHUB_REF_NAME}.zip",
+        "level_c_bootstrap_${GITHUB_REF_NAME}.zip.sha256",
+        "cuda_replay_evidence_${GITHUB_REF_NAME}.zip",
+        "cuda_replay_evidence_${GITHUB_REF_NAME}.zip.sha256",
+    ):
+        if asset not in workflow:
+            errors.append(f"release workflow does not handle {asset}")
+    return errors
+
+
 def check_generated(root: Path | None) -> list[str]:
     if root is None: return []
     manifest_path=root/"paper_outputs_manifest.json"
@@ -206,7 +226,7 @@ def check_generated(root: Path | None) -> list[str]:
 
 
 def run_verification(generated_root: Path | None=None) -> dict[str,Any]:
-    checks: list[tuple[str,Callable[[],list[str]]]]=[("required_files",check_required_files),("imports",check_imports),("json",check_json),("checksums",check_checksums),("asset_manifest",check_asset_manifest),("frozen_protocol",check_frozen_protocol),("numerical_consistency",check_numbers),("public_terminology",check_public_terms),("privacy",check_privacy),("generated_outputs",lambda:check_generated(generated_root))]
+    checks: list[tuple[str,Callable[[],list[str]]]]=[("required_files",check_required_files),("imports",check_imports),("json",check_json),("checksums",check_checksums),("asset_manifest",check_asset_manifest),("frozen_protocol",check_frozen_protocol),("numerical_consistency",check_numbers),("public_terminology",check_public_terms),("privacy",check_privacy),("version_metadata",check_version_metadata),("generated_outputs",lambda:check_generated(generated_root))]
     errors=[]; status={}
     for name,fn in checks:
         found=fn(); status[name]="PASS" if not found else "FAIL"; errors.extend(found)

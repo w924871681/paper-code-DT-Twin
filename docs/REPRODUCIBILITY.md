@@ -32,8 +32,9 @@ python .\scripts\plot_reproducible_figures.py
 
 ## Level C: frozen locked-evaluation replay
 
-Download and extract the v1.1.2 bootstrap release asset documented in
-`assets/README.md`. First perform a no-training package and plan check:
+Download and extract the bootstrap asset from the latest archived release
+documented in `assets/README.md`. First perform a no-training package and plan
+check:
 
 ```powershell
 python .\scripts\stage_level_c_bootstrap.py `
@@ -52,6 +53,9 @@ python .\scripts\run_full_reproduction.py `
   --bootstrap-dir <extracted-bundle-directory>
 ```
 
+The smoke and formal replay use isolated method and orchestration output
+directories, so they can run sequentially without manual cleanup.
+
 The driver stages the exact archived files, performs the frozen preflight,
 runs the seven locked methods, and—for a formal run—analyzes and audits all 80
 case/configuration records per method. It writes a machine-readable ledger and
@@ -61,9 +65,9 @@ does not retrain the source-initialization bank.
 Status: The reported CUDA experiments and their frozen outputs are complete.
 The public bootstrap, staging process, formal preflight, and orchestration
 driver are also complete. A fresh CUDA replay through the published public
-entry point has also been completed. Its ledger, formal audit, environment,
-logs, and historical comparison are archived in the local v1.1.3 delivery and
-prepared for authorized Release publication.
+entry point has also been completed. Its sanitized ledger, formal audit,
+environment, logs, and historical comparison are archived with Release
+v1.1.4.
 
 Alibaba evaluation is separate because the original trace is not
 redistributed. Follow `data/alibaba2018/README.md` for its checksum,

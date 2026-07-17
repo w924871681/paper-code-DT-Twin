@@ -5,7 +5,17 @@ dates are recorded only after a version is actually published.
 
 ## [Unreleased]
 
-- Prepare v1.1.3 with corrected revised-paper Table 4--6 filenames and Level B
+- Prepare v1.1.4 as a public-packaging and privacy patch without changing the
+  frozen protocol or reported results.
+- Sanitize machine-specific paths from public CUDA evidence, add ZIP privacy
+  and checksum verification, and record a main-evaluation code manifest.
+- Isolate CUDA smoke and formal output roots so both modes can run in sequence
+  without manual cleanup.
+- Synchronize repository, manuscript availability, Release, and asset status.
+
+## [1.1.3] - 2026-07-17
+
+- Correct revised-paper Table 4--6 filenames and Level B
   mappings: optimizer-matched control, component ablation, then runtime and
   model complexity.
 - Align the Fig. 7 score definition, Fig. 11 averaging description, data
@@ -14,7 +24,7 @@ dates are recorded only after a version is actually published.
   uploaded bootstrap by downloading it again.
 - Execute the seven-method frozen main-evaluation replay on CUDA, complete the
   formal audit, and archive the ledger, environment, logs, output manifest,
-  and historical-output comparison for the prepared v1.1.3 delivery.
+  and historical-output comparison for the v1.1.3 delivery.
 - Replace the anonymous author placeholder, add the paper DOI, and add the
   release date once the publication metadata are final.
 

@@ -19,6 +19,11 @@ from configs.methods.main_evaluation_cfg import CFG
 from scripts.level_c_bootstrap import stage_bundle, verify_bundle
 
 
+SMOKE_METHOD_ROOT = Path("outputs/main_evaluation_smoke_d2904_t2904")
+FORMAL_METHOD_ROOT = Path(CFG.output_root)
+DEFAULT_ORCHESTRATION_ROOT = Path("outputs/full_reproduction")
+
+
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
@@ -31,21 +36,65 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _commands(device: str, safe_mode: str, smoke: bool) -> list[dict[str, Any]]:
+def _absolute(path: Path, repo_root: Path = ROOT) -> Path:
+    return path.resolve() if path.is_absolute() else (repo_root / path).resolve()
+
+
+def resolve_output_roots(
+    *,
+    smoke: bool,
+    output_root: Path | None = None,
+    method_output_root: Path | None = None,
+    repo_root: Path = ROOT,
+) -> tuple[Path, Path]:
+    """Resolve orchestration and method outputs without changing frozen protocol."""
+    run_mode = "smoke" if smoke else "formal"
+    orchestration = _absolute(
+        output_root or DEFAULT_ORCHESTRATION_ROOT / run_mode, repo_root
+    )
+    method_default = SMOKE_METHOD_ROOT if smoke else FORMAL_METHOD_ROOT
+    method_root = _absolute(method_output_root or method_default, repo_root)
+    if smoke and method_root == _absolute(FORMAL_METHOD_ROOT, repo_root):
+        raise ValueError("Smoke output root must not equal the frozen formal output root")
+    return orchestration, method_root
+
+
+def _commands(
+    device: str,
+    safe_mode: str,
+    smoke: bool,
+    method_output_root: Path,
+) -> list[dict[str, Any]]:
     py = sys.executable
+    preflight_out = method_output_root / "preflight" / "c33_preflight.json"
     commands: list[dict[str, Any]] = [
-        {"stage": "locked_preflight", "argv": [py, "scripts/preflight_main_evaluation.py"]}
+        {
+            "stage": "locked_preflight",
+            "argv": [
+                py,
+                "scripts/preflight_main_evaluation.py",
+                "--out",
+                str(preflight_out),
+            ],
+        }
     ]
     for method in CFG.methods:
         argv = [py, "scripts/run_main_evaluation_method.py", "--method", method,
-                "--device", device, "--safe_mode", safe_mode]
+                "--device", device, "--safe_mode", safe_mode,
+                "--output-root", str(method_output_root)]
         if smoke:
             argv.append("--smoke")
         commands.append({"stage": f"method_{method}", "argv": argv})
     if not smoke:
         commands.extend([
-            {"stage": "analyze_locked_evaluation", "argv": [py, "scripts/analyze_main_evaluation.py"]},
-            {"stage": "audit_locked_evaluation", "argv": [py, "scripts/audit_main_evaluation.py"]},
+            {
+                "stage": "analyze_locked_evaluation",
+                "argv": [py, "scripts/analyze_main_evaluation.py", "--root", str(method_output_root)],
+            },
+            {
+                "stage": "audit_locked_evaluation",
+                "argv": [py, "scripts/audit_main_evaluation.py", "--root", str(method_output_root)],
+            },
         ])
     return commands
 
@@ -64,7 +113,16 @@ def main() -> int:
     parser.add_argument("--alibaba-archive", type=Path, help="Optional checksum check; not used by the main-evaluation replay")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--safe-mode", default="gru-native")
-    parser.add_argument("--output-root", type=Path, default=ROOT / "outputs/full_reproduction")
+    parser.add_argument(
+        "--output-root",
+        type=Path,
+        help="Orchestration ledger/log root (defaults to a mode-specific directory)",
+    )
+    parser.add_argument(
+        "--method-output-root",
+        type=Path,
+        help="Method/preflight/analysis root; smoke and formal defaults are isolated",
+    )
     parser.add_argument("--plan-only", action="store_true")
     parser.add_argument("--smoke", action="store_true", help="Run two locked cases per method; skip formal analysis/audit")
     args = parser.parse_args()
@@ -72,9 +130,13 @@ def main() -> int:
     bundle = args.bootstrap_dir or args.asset_dir
     if bundle is None:
         parser.error("--bootstrap-dir is required")
-    output_root = args.output_root.resolve()
+    output_root, method_output_root = resolve_output_roots(
+        smoke=args.smoke,
+        output_root=args.output_root,
+        method_output_root=args.method_output_root,
+    )
     ledger_path = output_root / "frozen_main_evaluation_ledger.json"
-    commands = _commands(args.device, args.safe_mode, args.smoke)
+    commands = _commands(args.device, args.safe_mode, args.smoke, method_output_root)
     bundle_check = verify_bundle(bundle)
     ledger: dict[str, Any] = {
         "schema": "frozen-main-evaluation-ledger-v1",
@@ -82,6 +144,10 @@ def main() -> int:
         "source_training_repeated": False,
         "started_at": _now(), "ended_at": None,
         "plan_only": args.plan_only, "smoke": args.smoke,
+        "run_mode": "smoke" if args.smoke else "formal",
+        "orchestration_output_root": str(output_root),
+        "method_output_root": str(method_output_root),
+        "output_isolation": True,
         "device": args.device, "bootstrap_verification": bundle_check,
         "alibaba": {"provided": False, "required_for_this_scope": False},
         "commands": [{"stage": item["stage"], "argv": item["argv"]} for item in commands],

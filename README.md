@@ -108,9 +108,11 @@ The equivalent Conda specification is provided in `environment.yml`.
 Status: The reported CUDA experiments and their frozen outputs are complete.
 The public bootstrap, staging process, formal preflight, and orchestration
 driver are also complete. A fresh CUDA replay through the published public
-entry point has also been completed. Its ledger and formal audit outputs are
-archived in the local v1.1.3 delivery and prepared for authorized Release
-publication.
+entry point has also been completed. The historical reported experiments, the
+public reproducibility package, and a fresh CUDA replay through the released
+public orchestration path are complete. The sanitized replay ledger, formal
+audit, environment record, stage logs, and historical-output comparison are
+archived with Release v1.1.4.
 
 ## 7. Quick verification
 
@@ -157,8 +159,9 @@ are written under `tables/csv/` and `tables/latex/`.
 
 ## 9. Full experiment reproduction
 
-Download and extract the v1.1.2 bootstrap asset documented in
-`assets/README.md`, then verify the package and plan without running models:
+Download the bootstrap asset from the latest archived release documented in
+`assets/README.md`, extract it, then verify the package and plan without
+running models:
 
 ```powershell
 python .\scripts\stage_level_c_bootstrap.py `
@@ -176,12 +179,20 @@ python .\scripts\run_full_reproduction.py `
   --bootstrap-dir <extracted-bundle-directory>
 ```
 
+The smoke and formal replay use isolated output directories and may be run
+sequentially without manual cleanup.
+
 The released package passed all checksum checks and the formal locked
 preflight. A fresh seven-method CUDA replay through the public driver completed
 with ledger decision `PASS_FROZEN_MAIN_EVALUATION_REPLAY`; the formal audit
 returned `PASS_C33_LOCKED_EVALUATION_COMPLETE_AND_AUDITED`. All non-timing
 case records and reported metrics matched the historical frozen outputs.
 Source training was not repeated by this evaluation replay.
+
+The replay ledger records environment-dependent per-case wall-clock fields.
+The manuscript runtime table is produced by a separate five-repeat,
+GPU-synchronized timing protocol. These values are not expected to be
+numerically identical.
 
 The exact remaining bootstrap contents, orchestration stages, and acceptance
 criteria are listed in `docs/LEVEL_C_COMPLETION_PLAN.md`.
@@ -224,17 +235,19 @@ outputs/paper_outputs/
 ```
 
 Generated outputs and checkpoints are ignored by Git. The Level-C driver
-writes its ledger and logs below `outputs/full_reproduction/`; frozen method
-outputs retain the repository paths required by the formal audit.
+writes mode-specific ledgers and logs below `outputs/full_reproduction/`.
+Smoke method outputs use `outputs/main_evaluation_smoke_d2904_t2904/`, while
+formal method outputs retain `outputs/main_evaluation_eval_d2904_t2904/` as
+required by the frozen audit.
 
 ## 14. Citation
 
 Use the release metadata in `CITATION.cff`. The source repository is
 `https://github.com/w924871681/paper-code-DT-Twin`. Releases `v1.1.0`,
-`v1.1.1`, and `v1.1.2` record the published revision and reproducibility
-workflow. The local v1.1.3 preparation is not a published release until its
-tag and Release are explicitly authorized. Author and DOI metadata remain
-pending.
+`v1.1.1`, `v1.1.2`, `v1.1.3`, and `v1.1.4` record the public revision and
+reproducibility workflow. Use the latest archived release for the portable
+bootstrap, sanitized CUDA replay evidence, and checksum files. Author and DOI
+metadata remain pending.
 
 ## 15. License
 
