@@ -31,6 +31,8 @@ unify the v1.1.5 asset set:
 - matching `.sha256` sidecars
 - `paper_alignment_v1.1.5.zip` and its sidecar, containing generated
   Tables 1--5, Fig. 1--12, figure data, validation report, and manifest
+- the finalized paper-alignment audit is available in the repository at
+  `CODEX_V1_1_5_PAPER_ALIGNMENT_AUDIT.md`
 
 ## Verification
 

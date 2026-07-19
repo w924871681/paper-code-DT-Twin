@@ -1,7 +1,7 @@
 # v1.1.5 paper-alignment audit
 
-Status: in progress until the tag, Release, and asset URLs are published and
-post-publication checks pass.
+Status: complete. The tag, Release, six versioned assets, workflow verification,
+and independent post-publication download checks all passed.
 
 ## Frozen boundary
 
@@ -22,8 +22,8 @@ core reported metrics.
 - [x] paper-output generation and validation
 - [x] full pytest (13 passed)
 - [x] clean second generation with 106 identical generated-file hashes
-- [ ] tag and GitHub Release v1.1.5 published
-- [ ] all Release assets downloaded and checksum verified
+- [x] tag and GitHub Release v1.1.5 published
+- [x] all Release assets downloaded and checksum verified
 
 ## Publication record
 
@@ -35,3 +35,15 @@ core reported metrics.
   - `level_c_bootstrap_v1.1.5.zip` and sidecar
   - `cuda_replay_evidence_v1.1.5.zip` and sidecar
   - `paper_alignment_v1.1.5.zip` and sidecar
+
+## Published asset checksums
+
+- `level_c_bootstrap_v1.1.5.zip`:
+  `365df44a8cf4de1cabb21dd21aa6e865aff83a3f30d083e91caf18ed744ef650`
+- `cuda_replay_evidence_v1.1.5.zip`:
+  `40c2bca3909142326df77f7af5c1698c6bbcc152eb7d36b28c147f0d4aa8a215`
+- `paper_alignment_v1.1.5.zip`:
+  `302a834d05560db5b886ff720c8d9383accd077f333e1f06636106364c304a82`
+
+Release workflow:
+https://github.com/w924871681/paper-code-DT-Twin/actions/runs/29697500846
