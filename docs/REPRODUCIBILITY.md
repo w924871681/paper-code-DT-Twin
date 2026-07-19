@@ -19,12 +19,12 @@ path. Model weights are not required.
 python .\scripts\generate_paper_outputs.py
 ```
 
-This reads only released repository sources. It rebuilds eight code-generated
-figures, including Fig. 6, Fig. 8, and Fig. 9 from six public derived CSVs;
-checksum-copies unchanged Fig. 2--5; and reconstructs the manuscript tables.
+This reads only released repository sources. It rebuilds Fig. 6--12 from
+public derived CSVs, checksum-copies the current Fig. 1--5 PDF/PNG assets, and
+reconstructs the exact manuscript Tables 1--5.
 No training or model weights are required.
 
-The three reconstructed historical-result figures can also be built directly:
+The seven data-driven figures can also be built directly:
 
 ```powershell
 python .\scripts\plot_reproducible_figures.py
@@ -67,7 +67,8 @@ The public bootstrap, staging process, formal preflight, and orchestration
 driver are also complete. A fresh CUDA replay through the published public
 entry point has also been completed. Its sanitized ledger, formal audit,
 environment, logs, and historical comparison are archived with Release
-v1.1.4.
+v1.1.5. Its Level-C ZIP payloads are byte-identical to the verified v1.1.4
+payloads and retain the same SHA-256 values.
 
 Alibaba evaluation is separate because the original trace is not
 redistributed. Follow `data/alibaba2018/README.md` for its checksum,

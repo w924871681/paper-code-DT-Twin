@@ -1,0 +1,43 @@
+{
+  "paper_version": "v1.1.5",
+  "purpose": "Checksum-bound fixed assets for the current manuscript Fig. 1--5.",
+  "policy": "The generator copies these assets byte-for-byte. Fig. 1 is the latest synchronized scenario figure; Fig. 2--5 remain the current manuscript assets.",
+  "files": {
+    "fig1": {
+      "pdf_sha256": "64d5eda602a1fe06853e3554f7dc4de63a50b4b5df7d490759cfc304680ab05a",
+      "png_sha256": "65161ae6b55c8d7006fc2a1024ed28d5873f8ebea3cb3accdefecb052890f0d3",
+      "pdf_size_inches": [46.8067, 33.0],
+      "png_pixels": [7021, 4950],
+      "png_dpi": 150,
+      "status": "latest manuscript asset synchronized for v1.1.5"
+    },
+    "fig2": {
+      "pdf_sha256": "3b752f2094a9a570f46ee7eed049261b3f1d2a304dabeef6ef3a08d7cb10387f",
+      "png_sha256": "0faef79b5a5d3c14f986bb1dd397bee0037f15f1837bca30cf367950009fed7a",
+      "pdf_size_inches": [8.2677, 11.6929],
+      "png_pixels": [1241, 1754],
+      "png_dpi": 150
+    },
+    "fig3": {
+      "pdf_sha256": "1047e7768f631c33855f1cc4db1af815261fc752c463b8368deee1de38834073",
+      "png_sha256": "2235377c777617c560900f345b39dbb3091a727cace2bc9ce656044ae4d2068f",
+      "pdf_size_inches": [46.8067, 33.0],
+      "png_pixels": [7021, 4950],
+      "png_dpi": 150
+    },
+    "fig4": {
+      "pdf_sha256": "beb666c16a4262bb1fe016d4609c0e6ad8e4972eca810f2e3363dce43281080d",
+      "png_sha256": "dfdfe3903561429834d6a60a0df6f08159fa5c0a9d6f2d1cef749c4f33c27300",
+      "pdf_size_inches": [46.8067, 33.0],
+      "png_pixels": [7021, 4950],
+      "png_dpi": 150
+    },
+    "fig5": {
+      "pdf_sha256": "69d11fb949213e697a342aa2c98cb7ceeb6e0527876d91ed3303fe6a6a1463bc",
+      "png_sha256": "42054c314116e4e4fb6d389ebeeea92ea0bb16f8ccd8a34fde081180f313f3b4",
+      "pdf_size_inches": [46.8067, 33.0],
+      "png_pixels": [7021, 4950],
+      "png_dpi": 150
+    }
+  }
+}

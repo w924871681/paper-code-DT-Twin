@@ -6,20 +6,23 @@ and external-baseline records required by the locked main-evaluation preflight.
 
 Release assets:
 
-`https://github.com/w924871681/paper-code-DT-Twin/releases/download/v1.1.4/level_c_bootstrap_v1.1.4.zip`
+`https://github.com/w924871681/paper-code-DT-Twin/releases/download/v1.1.5/level_c_bootstrap_v1.1.5.zip`
 
 - Size: `64,258,937` bytes
 - SHA-256: `365df44a8cf4de1cabb21dd21aa6e865aff83a3f30d083e91caf18ed744ef650`
-- Sidecar: `level_c_bootstrap_v1.1.4.zip.sha256`
+- Sidecar: `level_c_bootstrap_v1.1.5.zip.sha256`
 - File records: `32`
 
-`https://github.com/w924871681/paper-code-DT-Twin/releases/download/v1.1.4/cuda_replay_evidence_v1.1.4.zip`
+`https://github.com/w924871681/paper-code-DT-Twin/releases/download/v1.1.5/cuda_replay_evidence_v1.1.5.zip`
 
 - Size: `239,612` bytes
 - SHA-256: `40c2bca3909142326df77f7af5c1698c6bbcc152eb7d36b28c147f0d4aa8a215`
-- Sidecar: `cuda_replay_evidence_v1.1.4.zip.sha256`
+- Sidecar: `cuda_replay_evidence_v1.1.5.zip.sha256`
 
-The bootstrap payload remains byte-identical to the v1.1.2/v1.1.3 assets.
+Both v1.1.5 ZIP payloads are byte-identical to their verified v1.1.4
+counterparts. They are renamed and given v1.1.5 sidecars so every current
+release asset uses the same version label; the payload SHA-256 values above
+remain unchanged.
 Verify either downloaded archive with its sidecar:
 
 ```powershell
@@ -31,7 +34,7 @@ The recorded digest and computed hash must match. The evidence archive can be
 checked more deeply with:
 
 ```powershell
-python .\scripts\verify_release_evidence.py .\cuda_replay_evidence_v1.1.4.zip
+python .\scripts\verify_release_evidence.py .\cuda_replay_evidence_v1.1.5.zip
 ```
 
 `model_assets.csv` retains the flat 13-weight inventory. The complete portable
