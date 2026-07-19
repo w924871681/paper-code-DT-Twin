@@ -42,7 +42,8 @@ passes the reference-based improvement test.
 - `scripts/`: verification, reconstruction, smoke-test, and full-run entry
   points.
 - `assets/`: model-asset manifest and checksum instructions.
-- `paper_assets/`: checksum-pinned unchanged paper-figure assets.
+- `paper_assets/`: checksum-pinned current Fig. 1--5 assets and historical
+  figure provenance.
 - `data/`: synthetic-data and Alibaba Cluster Trace instructions.
 - `source_prior_bank/` and `anchor_safe_selector/`: historical internal module
   paths retained so archived experiments remain import-compatible.
@@ -93,10 +94,9 @@ The equivalent Conda specification is provided in `environment.yml`.
   terminology, privacy rules, and numerical consistency. It does not require
   model weights.
 - **Level B -- Rebuild paper tables and figures:** uses only released
-  repository files. It regenerates eight code-native figures, including
-  Fig. 6, Fig. 8, and Fig. 9 from their public derived CSVs, and
-  checksum-verifies and copies the four unchanged Fig. 2--5 PDFs,
-  rebuilds the exact structured data for revised-manuscript Tables 1--6, and
+  repository files. It regenerates current-manuscript Fig. 6--12 from public
+  derived CSVs, checksum-verifies and copies the current Fig. 1--5 PDF/PNG
+  assets, rebuilds the exact structured data for manuscript Tables 1--5, and
   rebuilds the broader fifteen-table public result layer. It requires neither
   model weights nor Alibaba raw data.
 - **Level C -- Frozen locked-evaluation replay:** uses the published 32-file
@@ -112,7 +112,9 @@ entry point has also been completed. The historical reported experiments, the
 public reproducibility package, and a fresh CUDA replay through the released
 public orchestration path are complete. The sanitized replay ledger, formal
 audit, environment record, stage logs, and historical-output comparison are
-archived with Release v1.1.4.
+archived with Release v1.1.5. The four Level-C archive files in v1.1.5 are
+byte-identical copies of the verified v1.1.4 payloads, renamed for a unified
+v1.1.5 asset set; their SHA-256 payload hashes are unchanged.
 
 ## 7. Quick verification
 
@@ -135,27 +137,26 @@ python .\scripts\generate_paper_outputs.py --help
 python .\scripts\generate_paper_outputs.py
 ```
 
-The default output directory is `outputs/paper_outputs`. The command rebuilds
-the code-native scenario schematic, source-center-scale line plot,
-accuracy--complexity 3D scatter, target robustness radar plot, and
-generalization forest plot. It also rebuilds Fig. 6, Fig. 8, and Fig. 9 from
-the six versioned CSVs under `results/figure_data/`. Each data-driven figure
-has public source data, and all eight generated figures receive vector-PDF,
-600-DPI PNG, grayscale, and layout checks. Fig. 2--5 are checksum-verified and
-copied from `paper_assets/legacy_figures/`, yielding the complete 12-figure
-set cited by the revised paper.
+The default output directory is `outputs/paper_outputs`. The command copies
+the checksum-bound current Fig. 1--5 assets and rebuilds Fig. 6--12 from
+versioned CSVs under `results/figure_data/`. The generated data figures
+receive vector-PDF, 600-DPI PNG, grayscale, and layout checks. Fig. 10 is the
+six-axis deployment trade-off radar, Fig. 11 is the two-dimensional
+architecture complexity--performance map, and Fig. 12 combines the controlled
+source-center-scale diagnostic with all 320 released case-level gains.
 
-To rebuild only Fig. 6, Fig. 8, and Fig. 9:
+To rebuild only the data-driven Fig. 6--12:
 
 ```powershell
 python .\scripts\plot_reproducible_figures.py
 ```
 
-The revised manuscript's exact Table 1--6 data are written under
-`tables/paper_csv/` and `tables/paper_latex/`. Table 4 is the
-optimizer-matched control, Table 5 is the component ablation, and Table 6 is
-target-side runtime and model complexity. The broader checked public tables
-are written under `tables/csv/` and `tables/latex/`.
+The current manuscript's exact Table 1--5 data are written under
+`tables/paper_csv/` and `tables/paper_latex/`: configuration, baseline
+fairness, overall comparison, optimizer-matched control, and component
+ablation. Target-side runtime and model complexity remain in the broader
+checked public result layer under `tables/csv/` and `tables/latex/`; they
+are not mapped to a manuscript Table 6.
 
 ## 9. Full experiment reproduction
 
@@ -243,9 +244,9 @@ required by the frozen audit.
 ## 14. Citation
 
 Use the release metadata in `CITATION.cff`. The source repository is
-`https://github.com/w924871681/paper-code-DT-Twin`. Releases `v1.1.0`,
-`v1.1.1`, `v1.1.2`, `v1.1.3`, and `v1.1.4` record the public revision and
-reproducibility workflow. Use the latest archived release for the portable
+`https://github.com/w924871681/paper-code-DT-Twin`. Release `v1.1.5` is the
+paper-aligned frozen version; earlier releases record the preceding public
+revision and reproducibility workflow. Use v1.1.5 for the portable
 bootstrap, sanitized CUDA replay evidence, and checksum files. Author and DOI
 metadata remain pending.
 

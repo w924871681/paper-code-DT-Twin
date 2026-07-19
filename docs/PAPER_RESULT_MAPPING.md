@@ -1,38 +1,39 @@
 # Paper-result mapping
 
-The following released files are the numerical sources of truth for public
-paper outputs.
+The released files below are the numerical and asset sources of truth for
+v1.1.5 paper outputs.
 
 | Paper content | Frozen or checksum-tracked source | Rebuilt output |
 |---|---|---|
-| Experimental configuration | `configs/main_cfg.py`, main evaluation/experiment configs, and corrected mechanism summary | exact revised-paper `table1_configuration.csv` |
-| Compared methods and fairness | `results/main/baseline_fairness.csv` | exact revised-paper `table2_fairness.csv` |
-| Overall accuracy and complexity | `results/main/overall_comparison.csv` | exact revised-paper `table3_overall.csv`; public Table 3; 3D figure data |
-| Optimizer-matched control | `results/supplementary/optimizer_matched_control_summary.csv` | exact revised-paper `table4_matched_control.csv`; Table 4 |
-| Component ablation | `results/main/component_ablation.csv` | exact revised-paper `table5_component_analysis.csv`; Table 5 |
-| Repeated target-side time and model complexity | `results/supplementary/repeated_runtime_summary.csv`, frozen selected-model complexity | exact revised-paper `table6_runtime_cost.csv`; Table 6 and 3D marker sizes |
-| Selection mechanism | corrected `results/main/mechanism_and_cost.csv` | public Table 5a |
-| Horizon/support and center-type robustness | `results/main/horizon_support_robustness.csv`, `center_type_robustness.csv` | robustness table and radar data |
-| Controlled source-center scale | `results/robustness/controlled_source_scale.csv` | Table S2 and source-scale figure data |
-| Source-initialization seeds | `results/robustness/source_bank_seed.csv` | Table S3, generalization table, and forest data |
-| Alibaba semi-real evaluation | `results/main/alibaba_semi_real.csv` and `results/robustness/alibaba_oracle_diagnostics.csv` | Table S6, generalization output, and forest data |
-| Architecture coverage | corrected `results/robustness/architecture_coverage.csv` | Table S7 |
-| Bank size | `results/main/bank_size.csv` | Table S4 |
-| Fig. 6 paired instantiation | locked proposed-method and PT+FT records | `results/figure_data/fig6_paired_instantiation_data.csv` and regenerated vector/PNG figure |
-| Fig. 8 budget and architecture behavior | locked proposed-method records | candidate-filtering and architecture-selection CSVs and regenerated vector/PNG figure |
-| Fig. 9 diagnostic protocols | bank-size CSV, adaptation-trajectory CSV, and sanitized margin audit | three Fig. 9 CSVs and regenerated vector/PNG figure |
+| Table 1: experimental configuration | `configs/main_cfg.py`, frozen method configs, corrected mechanism summary | `table1_configuration.csv` |
+| Table 2: compared methods and fairness | `results/main/baseline_fairness.csv` | `table2_fairness.csv` |
+| Table 3: overall comparison | `results/main/overall_comparison.csv` | `table3_overall.csv` |
+| Table 4: optimizer-matched control | `results/supplementary/optimizer_matched_control_summary.csv` from the independent control target pool | `table4_matched_control.csv` |
+| Table 5: component ablation | `results/main/component_ablation.csv` | `table5_component_analysis.csv` |
+| Runtime and model complexity (public supplementary layer) | `results/supplementary/repeated_runtime_summary.csv`, selected-model complexity | broader public CSV/LaTeX outputs; not a manuscript Table 6 |
+| Fig. 1: scenario | `paper_assets/current_figures/fig1.pdf` and `.png` | checksum-verified copy |
+| Fig. 2--5: method, bank, filtering, adaptation/selection | `paper_assets/current_figures/fig2`--`fig5` PDF/PNG assets | checksum-verified copies |
+| Fig. 6: paired instantiation | locked proposed-method and PT+FT records | `fig6_paired_instantiation_data.csv` |
+| Fig. 7: heterogeneity | `tableS1_robustness_details.csv` | `fig7_heterogeneity_data.csv` |
+| Fig. 8: filtering and selection | locked proposed-method records | candidate-filtering and architecture-selection CSVs |
+| Fig. 9: bank/steps/threshold | bank-size, adaptation-trajectory, and sanitized margin results | three Fig. 9 CSVs |
+| Fig. 10: deployment trade-off | overall comparison plus repeated target-side runtime | `fig10_deployment_tradeoff_data.csv` |
+| Fig. 11: complexity--performance map | locked architecture coverage plus frozen architecture complexity | `fig11_architecture_complexity_data.csv` |
+| Fig. 12(a): controlled source scale | `tableS2_controlled_source_scale.csv` | source-scale panel |
+| Fig. 12(b): seed and Alibaba case distributions | frozen 240 source-seed and 80 anonymized Alibaba evaluation records | `fig12_case_level_gains.csv` and `fig12_group_summary.csv` |
 
-The exact six-table manuscript layer is generated under
-`tables/paper_csv/` and `tables/paper_latex/`. The broader presentation layer is
-under `results/figure_data/`. Cross-file values are derived before rounding.
-In particular, the public proposed runtime is `5.676 +/- 0.059 s`, not the
-earlier one-pass diagnostic retained in historical provenance.
+The exact five-table manuscript layer is generated under `tables/paper_csv/`
+and `tables/paper_latex/`. The broader checked presentation layer remains
+under `tables/csv/`, `tables/latex/`, and `results/figure_data/`. Cross-file
+values are derived before rounding. The public proposed runtime is
+`5.676 +/- 0.059 s`; the earlier one-pass diagnostic remains historical
+provenance only.
 
-Some immutable audits and frozen source schemas retain historical identifiers.
-See `results/audited_provenance/SANITIZATION_MANIFEST.json` and
-`NUMERICAL_CORRECTIONS.json` for the exact integrity boundary.
+Table 4 uses a disjoint optimizer-control target pool. The controlled
+source-scale, source-seed, and Alibaba studies are separate diagnostic pools;
+none is used to tune a reported method.
 
-The frozen numerical mapping above is unchanged by the v1.1.4 public-packaging
-patch. The latest archived release supplies the portable Level-C bootstrap,
-the sanitized CUDA replay evidence, and checksum sidecars; smoke and formal
-replay outputs are isolated by the public orchestration driver.
+Release v1.1.5 changes paper mapping, fixed-figure assets, reporting code, and
+public documentation only. It does not change frozen configurations, model
+weights, seeds, data splits, candidate bank, optimizer, adaptation budget,
+selection threshold, or core numerical results.

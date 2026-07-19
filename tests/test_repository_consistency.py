@@ -42,6 +42,17 @@ def test_reproducible_figures_have_public_data() -> None:
     assert sum(row["selection_category"] == "beneficial alternative" for row in rows) == 44
     assert (ROOT / "results/figure_data/fig8_architecture_selection_data.csv").is_file()
     assert (ROOT / "results/figure_data/fig9_margin_data.csv").is_file()
+    assert (ROOT / "results/figure_data/fig10_deployment_tradeoff_data.csv").is_file()
+    assert (ROOT / "results/figure_data/fig11_architecture_complexity_data.csv").is_file()
+    with (ROOT / "results/figure_data/fig12_case_level_gains.csv").open(
+        encoding="utf-8-sig", newline=""
+    ) as handle:
+        fig12 = list(csv.DictReader(handle))
+    assert len(fig12) == 320
+    assert sum(
+        row["group"] == "Alibaba" and float(row["gain_percent"]) < -25
+        for row in fig12
+    ) == 4
 
 
 def test_level_c_bootstrap_manifest_is_portable() -> None:

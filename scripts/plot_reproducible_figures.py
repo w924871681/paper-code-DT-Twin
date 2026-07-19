@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Rebuild Fig. 6, Fig. 8, and Fig. 9 from their public derived CSV files."""
+"""Rebuild current-manuscript Fig. 6--12 from public derived CSV files."""
 
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ def main() -> int:
     args = parser.parse_args()
     result = plot_all(args.data_dir, args.output_dir)
     print(json.dumps(result, indent=2))
-    print("PASS_REPRODUCIBLE_FIGURES_6_8_9")
+    print("PASS_REPRODUCIBLE_FIGURES_6_TO_12")
     return 0
 
 

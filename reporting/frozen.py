@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Deterministic Level-B reconstruction from released repository results.
+"""Deterministic paper-alignment reconstruction from released repository results.
 
 This module deliberately does not import experiment runners or load model
 weights.  It converts the checksum-tracked CSV sources into the public table
-layer, the six exact revised-manuscript tables, and eight code-native figures.
-Four unchanged historical figure PDFs are checksum verified and copied from
-``paper_assets/legacy_figures``.  Fig. 6, Fig. 8, and Fig. 9 are reconstructed
-from their released derived CSVs by the same plotting code exposed through the
-standalone public CLI.
+layer, the five exact current-manuscript tables, and the complete Fig. 1--12
+set. Fig. 1--5 are checksum-bound fixed manuscript assets; Fig. 6--12 are
+reconstructed from released derived CSVs by the same plotting code exposed
+through the standalone public CLI.
 """
 
 from __future__ import annotations
@@ -15,21 +14,23 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
-import math
 import shutil
 from collections import OrderedDict
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
-import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Rectangle
 from PIL import Image
 
-from reporting.reproducible_figures import FIGURE_SIZES, plot_fig6, plot_fig8, plot_fig9
+from reporting.reproducible_figures import (
+    FIGURE_SIZES,
+    plot_fig6,
+    plot_fig7,
+    plot_fig8,
+    plot_fig9,
+    plot_fig10,
+    plot_fig11,
+    plot_fig12,
+)
 
 
 DECISION = "PASS_FROZEN_TABLES_AND_FIGURES"
@@ -59,28 +60,14 @@ PAPER_TABLE_NAMES = (
     "table3_overall",
     "table4_matched_control",
     "table5_component_analysis",
-    "table6_runtime_cost",
 )
 
 REVISED_FIGURES: Mapping[str, tuple[float, float]] = OrderedDict(
-    (
-        ("fig1_scenario_redesigned", (7.48, 2.65)),
-        ("fig_source_scale_line", (3.54, 2.75)),
-        ("fig_accuracy_complexity_3d", (7.48, 4.85)),
-        ("fig_target_robustness_radar", (5.50, 4.75)),
-        ("fig_generalization_forest", (7.48, 3.25)),
-        ("fig6_paired_instantiation", FIGURE_SIZES["fig6_paired_instantiation"]),
-        ("fig8_budget_architecture", FIGURE_SIZES["fig8_budget_architecture"]),
-        ("fig9_bank_adaptation_margin", FIGURE_SIZES["fig9_bank_adaptation_margin"]),
-    )
+    (name, FIGURE_SIZES[name]) for name in (f"fig{index}" for index in range(6, 13))
 )
 
-LEGACY_FIGURES = (
-    "fig2.pdf",
-    "fig3.pdf",
-    "fig4.pdf",
-    "fig5.pdf",
-)
+FIXED_FIGURES = tuple(f"fig{index}" for index in range(1, 6))
+LEGACY_FIGURES = tuple(f"{name}.pdf" for name in FIXED_FIGURES)
 
 REPRODUCIBLE_FIGURE_DATA = (
     "fig6_paired_instantiation_data.csv",
@@ -89,6 +76,11 @@ REPRODUCIBLE_FIGURE_DATA = (
     "fig9_bank_size_data.csv",
     "fig9_adaptation_steps_data.csv",
     "fig9_margin_data.csv",
+    "fig7_heterogeneity_data.csv",
+    "fig10_deployment_tradeoff_data.csv",
+    "fig11_architecture_complexity_data.csv",
+    "fig12_case_level_gains.csv",
+    "fig12_group_summary.csv",
 )
 
 # This set is intentionally explicit.  It is audited by Level A and recorded
@@ -98,8 +90,8 @@ CANONICAL_SOURCES = (
     "configs/main_cfg.py",
     "configs/methods/main_evaluation_cfg.py",
     "configs/methods/main_experiments_cfg.py",
-    *(f"paper_assets/legacy_figures/{name}" for name in LEGACY_FIGURES),
-    "paper_assets/legacy_figures/manifest.json",
+    *(f"paper_assets/current_figures/{name}.{suffix}" for name in FIXED_FIGURES for suffix in ("pdf", "png")),
+    "paper_assets/current_figures/manifest.json",
     *(f"results/figure_data/{name}.csv" for name in PUBLIC_TABLE_NAMES),
     *(f"results/figure_data/{name}" for name in REPRODUCIBLE_FIGURE_DATA),
     "results/main/alibaba_semi_real.csv",
@@ -114,6 +106,7 @@ CANONICAL_SOURCES = (
     "results/robustness/source_bank_seed.csv",
     "results/supplementary/optimizer_matched_control_summary.csv",
     "results/supplementary/repeated_runtime_summary.csv",
+    "results/audited_provenance/fig12_case_level_gain_manifest.json",
 )
 
 DYNAMIC_TABLES = (
@@ -133,19 +126,11 @@ DYNAMIC_TABLES = (
 
 def _expected_generated_files() -> tuple[str, ...]:
     files: list[str] = ["FIGURE_CAPTIONS.md"]
-    files.extend(
-        [
-            "figure_data/fig_accuracy_complexity_3d_data.csv",
-            "figure_data/fig_generalization_forest_data.csv",
-            "figure_data/fig_source_scale_line_data.csv",
-            "figure_data/fig_target_robustness_radar_data.csv",
-        ]
-    )
     files.extend(f"figure_data/{name}" for name in REPRODUCIBLE_FIGURE_DATA)
     files.extend(f"figure_data/{name}.csv" for name in PUBLIC_TABLE_NAMES)
     files.extend(f"figures/{name}.pdf" for name in REVISED_FIGURES)
     files.extend(f"figures/{name}.png" for name in REVISED_FIGURES)
-    files.extend(f"figures/{name}" for name in LEGACY_FIGURES)
+    files.extend(f"figures/{name}.{suffix}" for name in FIXED_FIGURES for suffix in ("pdf", "png"))
     for name in REVISED_FIGURES:
         files.append(f"figures/qa/{name}_grayscale.png")
         files.append(f"figures/qa/{name}_layout_audit.json")
@@ -639,7 +624,6 @@ def paper_table_rows(project_root: str | Path) -> OrderedDict[str, list[dict[str
             ("table3_overall", table3),
             ("table4_matched_control", matched_control),
             ("table5_component_analysis", public["table4_component_ablation"]),
-            ("table6_runtime_cost", runtime_cost),
         )
     )
 
@@ -683,307 +667,60 @@ def _write_latex(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def _figure_data(root: Path) -> OrderedDict[str, list[dict[str, str]]]:
-    scale = []
-    for row in sorted(_read_csv(root / "results/robustness/controlled_source_scale.csv"), key=lambda x: int(x["SourceCenters"])):
-        scale.append(
-            {
-                "Source centers": row["SourceCenters"],
-                "WMSE reduction vs matched reference (%)": _fmt(100 * _float(row, "WMSEGainVsA57"), 8),
-                "95% CI low (%)": _fmt(100 * _float(row, "CI_low"), 8),
-                "95% CI high (%)": _fmt(100 * _float(row, "CI_high"), 8),
-                "Cases": str(int(_float(row, "N"))),
-                "Updates per asset": str(int(_float(row, "FixedUpdatesPerAsset"))),
-            }
-        )
-    overall = _overall_source(root)
-    runtime = _runtime_rows(root)
-    accuracy = []
-    for internal in PUBLIC_METHOD_ORDER:
-        row = overall[internal]
-        public, runtime_key, category = METHOD_META[internal]
-        timing = runtime[runtime_key]
-        accuracy.append(
-            {
-                "Method": public,
-                "Category": category,
-                "Estimated operation count": _fmt(_float(row, "FLOPs"), 8),
-                "Parameter count": _fmt(_float(row, "Params"), 8),
-                "WMSE": _fmt(_float(row, "WMSE"), 10),
-                "Target-side time mean (s)": _fmt(_float(timing, "mean_seconds"), 10),
-                "Target-side repeat-mean std (s)": _fmt(_float(timing, "repeat_mean_std_seconds"), 10),
-            }
-        )
-    robustness = []
-    hk = _read_csv(root / "results/main/horizon_support_robustness.csv")
-    center = _read_csv(root / "results/main/center_type_robustness.csv")
-    settings: list[tuple[str, float]] = []
-    for row in hk:
-        settings.append((row["Group"].replace(",", ", "), _float(row, "WMSEGainVsPT")))
-    for row in center:
-        settings.append((f"Type {row['Group']}", _float(row, "WMSEGainVsPT")))
-    for label, reduction in settings:
-        robustness.append(
-            {
-                "Target setting": label,
-                "PT+FT relative WMSE score": _fmt(100, 8),
-                "Proposed score from mean paired WMSE reduction": _fmt(100 / (1 - reduction), 8),
-                "WMSE reduction vs PT+FT (%)": _fmt(100 * reduction, 8),
-            }
-        )
-    forest = []
-    for row in _seed_source(root):
-        forest.append(
-            {
-                "Setting": f"Source-initialization seed {row['SourceSeed']}",
-                "Study type": "synthetic training-seed robustness",
-                "WMSE reduction vs matched reference (%)": _fmt(100 * _float(row, "WMSEGainVsA57"), 8),
-                "95% CI low (%)": _fmt(100 * _float(row, "CI_low"), 8),
-                "95% CI high (%)": _fmt(100 * _float(row, "CI_high"), 8),
-            }
-        )
-    real = _real_measures(root)
-    forest.append(
-        {
-            "Setting": "Alibaba v2018 semi-real",
-            "Study type": "real workload; semi-synthetic complexity-limit tiers",
-            "WMSE reduction vs matched reference (%)": _fmt(100 * real["Selected gain vs A57"], 8),
-            "95% CI low (%)": _fmt(100 * real["Selected gain CI low"], 8),
-            "95% CI high (%)": _fmt(100 * real["Selected gain CI high"], 8),
-        }
-    )
-    return OrderedDict(
-        (
-            ("fig_source_scale_line_data", scale),
-            ("fig_accuracy_complexity_3d_data", accuracy),
-            ("fig_target_robustness_radar_data", robustness),
-            ("fig_generalization_forest_data", forest),
-        )
-    )
 
 
-def _style() -> None:
-    matplotlib.rcParams.update(
-        {
-            "font.family": "DejaVu Sans",
-            "font.size": 8,
-            "axes.titlesize": 9,
-            "axes.labelsize": 8,
-            "xtick.labelsize": 7,
-            "ytick.labelsize": 7,
-            "legend.fontsize": 7,
-            "axes.linewidth": 0.65,
-            "pdf.fonttype": 42,
-            "ps.fonttype": 42,
-            "figure.facecolor": "white",
-            "axes.facecolor": "white",
-            "savefig.facecolor": "white",
-        }
-    )
 
 
-def _save_figure(fig: plt.Figure, out: Path, stem: str) -> None:
-    figure_dir = out / "figures"
-    qa_dir = figure_dir / "qa"
-    figure_dir.mkdir(parents=True, exist_ok=True)
-    qa_dir.mkdir(parents=True, exist_ok=True)
-    pdf = figure_dir / f"{stem}.pdf"
-    png = figure_dir / f"{stem}.png"
-    # Suppressing time metadata is essential for byte-for-byte repeatability.
-    metadata = {
-        "Title": stem,
-        "Author": "Released deterministic reporting code",
-        "Subject": "Frozen paper output reconstruction",
-        "CreationDate": None,
-        "ModDate": None,
-    }
-    fig.savefig(pdf, format="pdf", metadata=metadata)
-    fig.savefig(png, format="png", dpi=600, pil_kwargs={"compress_level": 6})
-    plt.close(fig)
-    with Image.open(png) as image:
-        image.convert("L").save(qa_dir / f"{stem}_grayscale.png", dpi=(600, 600))
-    audit = {
-        "figure": stem,
-        "out_of_bounds_text": [],
-        "tick_label_overlaps": [],
-        "status": "PASS",
-    }
-    (qa_dir / f"{stem}_layout_audit.json").write_text(
-        json.dumps(audit, indent=2) + "\n", encoding="utf-8"
-    )
 
 
-def _plot_scenario(out: Path) -> None:
-    _style()
-    fig, ax = plt.subplots(figsize=REVISED_FIGURES["fig1_scenario_redesigned"])
-    fig.subplots_adjust(left=0.012, right=0.988, top=0.96, bottom=0.08)
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
-    ax.axis("off")
-    teal, orange = "#007C68", "#C57A00"
-
-    def box(x: float, y: float, w: float, h: float, edge: str) -> None:
-        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.008,rounding_size=0.012", ec=edge, fc="white", lw=1.0))
-
-    box(0.015, 0.14, 0.22, 0.72, "#606060")
-    box(0.31, 0.08, 0.40, 0.84, teal)
-    box(0.79, 0.14, 0.195, 0.72, teal)
-    ax.text(0.125, 0.79, "Heterogeneous source centers", ha="center", weight="bold")
-    for x, w, h, bands in ((0.045, 0.13, 0.20, 3), (0.112, 0.085, 0.26, 2), (0.164, 0.055, 0.32, 4)):
-        ax.add_patch(Rectangle((x, 0.48 - h / 2), w, h, fill=False, ec="#707070", lw=0.75))
-        for band in range(1, bands):
-            y = 0.48 - h / 2 + band * h / bands
-            ax.plot((x, x + w), (y, y), color="#A0A0A0", lw=0.5)
-    ax.text(0.125, 0.25, "Existing DT models", ha="center")
-    ax.add_patch(FancyArrowPatch((0.245, 0.50), (0.302, 0.50), arrowstyle="-|>", mutation_scale=10, lw=1, color=orange))
-    ax.text(0.273, 0.555, "Direct reuse may\nbe unsuitable", ha="center", va="bottom", color="#835200", fontsize=6.2)
-    ax.text(0.51, 0.84, "New or reconfigured target center", ha="center", weight="bold", color=teal)
-    ax.text(0.51, 0.705, "Few target observations", ha="center")
-    ax.scatter((0.445, 0.485, 0.525, 0.565), (0.64, 0.625, 0.645, 0.63), s=(12, 8, 11, 7), color=teal)
-    ax.text(0.51, 0.535, "Local complexity limits", ha="center", weight="bold")
-    ax.text(0.405, 0.405, "Inference computation", ha="center", weight="bold")
-    ax.text(0.405, 0.325, "Estimated operations", ha="center", color="#555555")
-    ax.text(0.615, 0.405, "Model size", ha="center", weight="bold")
-    ax.text(0.615, 0.325, "Parameters", ha="center", color="#555555")
-    for x in (0.355, 0.565):
-        ax.add_patch(Rectangle((x, 0.215), 0.10, 0.028, fill=False, ec="#999999", lw=0.65))
-        ax.add_patch(Rectangle((x, 0.215), 0.058, 0.028, fc="#BFE4D8", ec="none"))
-        ax.plot((x + 0.082, x + 0.082), (0.205, 0.255), color=teal, lw=0.9)
-    ax.add_patch(FancyArrowPatch((0.72, 0.50), (0.782, 0.50), arrowstyle="-|>", mutation_scale=10, lw=1, color=teal))
-    ax.text(0.8875, 0.79, "Target-specific DT model", ha="center", weight="bold", color=teal)
-    for index, (w, h) in enumerate(((0.105, 0.18), (0.078, 0.14), (0.052, 0.10))):
-        x = 0.835 + index * 0.018
-        ax.add_patch(Rectangle((x, 0.48 - h / 2), w, h, fill=False, ec=teal, lw=0.8))
-    ax.text(0.824, 0.282, "✓  Fits target behavior", ha="left", color=teal)
-    ax.text(0.824, 0.202, "✓  Satisfies both limits", ha="left", color=teal)
-    _save_figure(fig, out, "fig1_scenario_redesigned")
-
-
-def _plot_source_scale(out: Path, rows: Sequence[Mapping[str, str]]) -> None:
-    _style()
-    fig, ax = plt.subplots(figsize=REVISED_FIGURES["fig_source_scale_line"], constrained_layout=True)
-    x = np.asarray([float(row["Source centers"]) for row in rows])
-    y = np.asarray([float(row["WMSE reduction vs matched reference (%)"]) for row in rows])
-    low = np.asarray([float(row["95% CI low (%)"]) for row in rows])
-    high = np.asarray([float(row["95% CI high (%)"]) for row in rows])
-    ax.fill_between(x, low, high, color="#0072B2", alpha=0.16, linewidth=0)
-    ax.plot(x, y, color="#0072B2", marker="o", markerfacecolor="white", lw=1.25)
-    ax.axhline(0, color="#555555", ls=(0, (3, 2)), lw=0.8)
-    ax.set_title("Effect of source-center scale")
-    ax.set_xlabel("Number of source centers")
-    ax.set_ylabel("WMSE reduction relative to\nthe matched reference (%)")
-    ax.set_xticks(x)
-    ax.grid(axis="y", color="#D9D9D9", lw=0.5, ls=(0, (2, 2)))
-    ax.spines[["top", "right"]].set_visible(False)
-    _save_figure(fig, out, "fig_source_scale_line")
-
-
-def _plot_accuracy(out: Path, rows: Sequence[Mapping[str, str]]) -> None:
-    _style()
-    fig = plt.figure(figsize=REVISED_FIGURES["fig_accuracy_complexity_3d"])
-    ax = fig.add_subplot(111, projection="3d")
-    fig.subplots_adjust(left=0.06, right=0.88, top=0.93, bottom=0.12)
-    colors = {"proposed method": "#007C68", "single-model adaptation": "#777777", "search baseline": "#C57A00"}
-    for row in rows:
-        size = 28 + 20 * math.log1p(float(row["Target-side time mean (s)"]))
-        ax.scatter(float(row["Estimated operation count"]), float(row["Parameter count"]), float(row["WMSE"]), s=size, marker="D" if row["Category"] == "proposed method" else "o", facecolors="white", edgecolors=colors[row["Category"]], depthshade=False)
-        ax.text(float(row["Estimated operation count"]), float(row["Parameter count"]), float(row["WMSE"]), " " + row["Method"], fontsize=6)
-    ax.set_xlabel("Estimated operation count", labelpad=8)
-    ax.set_ylabel("Parameter count", labelpad=8)
-    ax.set_zlabel("WMSE", labelpad=7)
-    ax.set_title("Accuracy--complexity landscape")
-    ax.view_init(elev=23, azim=-56)
-    _save_figure(fig, out, "fig_accuracy_complexity_3d")
-
-
-def _plot_radar(out: Path, rows: Sequence[Mapping[str, str]]) -> None:
-    _style()
-    labels = [row["Target setting"] for row in rows]
-    values = np.asarray([float(row["Proposed score from mean paired WMSE reduction"]) for row in rows])
-    baseline = np.full(len(rows), 100.0)
-    angles = np.linspace(0, 2 * np.pi, len(rows), endpoint=False)
-    angles_c = np.r_[angles, angles[0]]
-    fig, ax = plt.subplots(figsize=REVISED_FIGURES["fig_target_robustness_radar"], subplot_kw={"projection": "polar"})
-    fig.subplots_adjust(left=0.14, right=0.86, top=0.82, bottom=0.22)
-    ax.set_theta_offset(np.pi / 2)
-    ax.set_theta_direction(-1)
-    ax.set_xticks(angles, labels)
-    ax.set_ylim(0, 130)
-    ax.set_yticks((50, 100, 125))
-    ax.plot(angles_c, np.r_[baseline, baseline[0]], color="#777777", ls=(0, (4, 2)), marker="s", markerfacecolor="white", label="PT+FT")
-    ax.plot(angles_c, np.r_[values, values[0]], color="#007C68", marker="o", markerfacecolor="white", label="Proposed method")
-    ax.fill(angles_c, np.r_[values, values[0]], color="#007C68", alpha=0.12)
-    fig.suptitle("Robustness profile across target settings", y=0.965)
-    fig.legend(frameon=False, loc="lower center", bbox_to_anchor=(0.5, 0.06), ncol=2)
-    fig.text(0.5, 0.018, "Relative WMSE score (PT+FT = 100); radial scale starts at 0.", ha="center", fontsize=7)
-    _save_figure(fig, out, "fig_target_robustness_radar")
-
-
-def _plot_forest(out: Path, rows: Sequence[Mapping[str, str]]) -> None:
-    _style()
-    fig, ax = plt.subplots(figsize=REVISED_FIGURES["fig_generalization_forest"])
-    fig.subplots_adjust(left=0.23, right=0.78, bottom=0.23, top=0.93)
-    y = np.asarray((3.4, 2.4, 1.4, -0.1))
-    for index, row in enumerate(rows):
-        mean = float(row["WMSE reduction vs matched reference (%)"])
-        low = float(row["95% CI low (%)"])
-        high = float(row["95% CI high (%)"])
-        external = "Alibaba" in row["Setting"]
-        color = "#C57A00" if external else "#007C68"
-        ax.errorbar(mean, y[index], xerr=np.asarray([[mean - low], [high - mean]]), fmt="D" if external else "o", mfc="white", mec=color, ecolor=color, capsize=2.5)
-        ax.text(1.03, y[index], f"{mean:.2f} [{low:.2f}, {high:.2f}]", transform=ax.get_yaxis_transform(), va="center", fontsize=6.5, clip_on=False)
-    ax.axvline(0, color="#555555", ls=(0, (3, 2)), lw=0.8)
-    ax.set_yticks(y, [row["Setting"] for row in rows])
-    ax.set_xlim(-7, 21)
-    ax.set_ylim(-0.7, 4.05)
-    ax.set_xlabel("WMSE reduction relative to the matched reference (%)")
-    ax.grid(axis="x", color="#D9D9D9", lw=0.5, ls=(0, (2, 2)))
-    ax.spines[["top", "right"]].set_visible(False)
-    _save_figure(fig, out, "fig_generalization_forest")
-
-
-def _copy_legacy_figures(root: Path, out: Path) -> None:
-    source_dir = root / "paper_assets/legacy_figures"
+def _copy_fixed_figures(root: Path, out: Path) -> None:
+    source_dir = root / "paper_assets/current_figures"
     manifest = json.loads((source_dir / "manifest.json").read_text(encoding="utf-8"))
-    if not set(LEGACY_FIGURES).issubset(manifest.get("files", {})):
-        raise ValueError("Legacy-figure manifest is missing a required historical file")
     figure_dir = out / "figures"
     figure_dir.mkdir(parents=True, exist_ok=True)
-    for name in LEGACY_FIGURES:
-        source = source_dir / name
-        expected = manifest["files"][name]["sha256"].lower()
-        if _sha256(source).lower() != expected:
-            raise ValueError(f"Legacy figure checksum mismatch: {name}")
-        shutil.copyfile(source, figure_dir / name)
+    for stem in FIXED_FIGURES:
+        info = manifest.get("files", {}).get(stem)
+        if not info:
+            raise ValueError(f"Current-figure manifest is missing {stem}")
+        for suffix in ("pdf", "png"):
+            source = source_dir / f"{stem}.{suffix}"
+            expected = info[f"{suffix}_sha256"].lower()
+            if _sha256(source).lower() != expected:
+                raise ValueError(f"Current figure checksum mismatch: {stem}.{suffix}")
+            shutil.copyfile(source, figure_dir / f"{stem}.{suffix}")
 
 
 CAPTIONS = """# Generated figure captions
 
-- **fig1_scenario_redesigned:** New-target DT instantiation scenario. Existing
-  heterogeneous source models, few target observations, and separate limits
-  on inference computation and model size lead to one target-specific model
-  that fits target behavior while satisfying both limits.
-- **fig_source_scale_line:** Effect of source-center scale. Points show WMSE
-  reduction relative to the matched reference candidate; error bars are 95%
-  center-cluster bootstrap confidence intervals over 80 cases at each scale.
-- **fig_accuracy_complexity_3d:** Accuracy--complexity landscape. Each point
-  uses mean test WMSE and the average estimated operation and parameter counts
-  of the models selected across held-out target cases; marker area is scaled
-  by `log1p` of mean target-side time. Complexity values are architecture-level
-  measures, not direct latency, memory, or energy measurements.
-- **fig_target_robustness_radar:** Robustness profile across target settings.
-  Every spoke uses `100 / (1 - mean case-level paired WMSE reduction)`, with
-  PT+FT fixed at 100.
-- **fig_generalization_forest:** WMSE reduction relative to the matched
-  reference candidate. Error bars are 95% center-cluster bootstrap confidence
-  intervals. The Alibaba point uses real workload observations with
-  deterministic semi-synthetic complexity-limit tiers and its interval crosses
-  zero.
+- **Fig. 1:** Current new-target instantiation scenario, synchronized from the
+  latest manuscript asset.
+- **Fig. 2:** Complexity-constrained few-shot instantiation method.
+- **Fig. 3:** Multi-architecture source model bank.
+- **Fig. 4:** Target-side complexity filtering.
+- **Fig. 5:** Few-shot adaptation and minimum-improvement selection.
+- **Fig. 6:** Paired case-level MSE and worst-10% error. The diagonal denotes
+  equality with PT+FT; all 80 locked cases are shown.
+- **Fig. 7:** Heterogeneity robustness across horizon/support combinations and
+  target-center types. Error bars are 95% center-cluster bootstrap confidence
+  intervals.
+- **Fig. 8:** Candidate filtering and final architecture selection by
+  complexity-limit tier.
+- **Fig. 9:** Candidate-bank size, fixed adaptation budget, and
+  minimum-improvement threshold diagnostics.
+- **Fig. 10:** Deployment trade-off radar for four representative methods.
+  Every raw metric is lower-is-better and is transformed as
+  `100 * best / method`.
+- **Fig. 11:** Two-dimensional architecture complexity--performance map.
+  Color encodes parameter count, marker area encodes selected cases, and marker
+  shape distinguishes alternative from reference configurations. `h` is the
+  harmful selected-case count.
+- **Fig. 12:** Controlled source-center scale and case-level gain
+  distributions. Points show every released case; diamonds and error bars show
+  means and 95% center-cluster bootstrap confidence intervals. Four Alibaba
+  cases below -25% are explicitly marked and their minimum is reported.
 
-The output directory also contains Fig. 2--5 as checksum-verified historical
-PDFs from `paper_assets/legacy_figures/manifest.json`. Fig. 6, Fig. 8, and
-Fig. 9 are reconstructed from released derived CSVs with independent plotting
-code; no model weights or private experiment paths are needed.
+Fig. 1--5 are checksum-verified fixed manuscript assets. Fig. 6--12 are
+reconstructed from released CSV data without model weights or private paths.
 """
 
 
@@ -1027,8 +764,8 @@ def validate_output(output_root: str | Path) -> dict[str, Any]:
     exact = sorted(path.stem for path in paper_csv.glob("*.csv"))
     exact_tex = sorted(path.stem for path in paper_tex.glob("*.tex"))
     if exact != sorted(PAPER_TABLE_NAMES) or exact_tex != sorted(PAPER_TABLE_NAMES):
-        errors.append("Exact revised-paper Table 1--6 file set is incomplete")
-    checks["exact_revised_paper_tables"] = {"expected_count": 6, "status": "PASS" if not errors else "FAIL"}
+        errors.append("Exact current-paper Table 1--5 file set is incomplete")
+    checks["exact_current_paper_tables"] = {"expected_count": 5, "status": "PASS" if not errors else "FAIL"}
     for stem, expected_size in REVISED_FIGURES.items():
         try:
             size, images, type3 = _pdf_summary(out / f"figures/{stem}.pdf")
@@ -1058,17 +795,27 @@ def validate_output(output_root: str | Path) -> dict[str, Any]:
             }
         except Exception as exc:  # collect every figure failure in one report
             errors.append(f"{stem}: {exc}")
-    legacy_manifest_path = out.parent / "__never__"
-    del legacy_manifest_path
-    for filename in LEGACY_FIGURES:
-        stem = Path(filename).stem
+    fixed_manifest = json.loads(
+        (Path(__file__).resolve().parents[1] / "paper_assets/current_figures/manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    for stem in FIXED_FIGURES:
         try:
-            size, images, type3 = _pdf_summary(out / f"figures/{filename}")
+            pdf_path = out / f"figures/{stem}.pdf"
+            png_path = out / f"figures/{stem}.png"
+            info = fixed_manifest["files"][stem]
+            if _sha256(pdf_path) != info["pdf_sha256"] or _sha256(png_path) != info["png_sha256"]:
+                raise ValueError("fixed-asset checksum mismatch")
+            size, images, type3 = _pdf_summary(pdf_path)
+            with Image.open(png_path) as image:
+                pixels = list(image.size)
             checks[stem] = {
-                "scope": "unchanged release asset; checksum-verified by generator",
+                "scope": "current fixed manuscript asset; checksum verified",
                 "pdf_size_inches": size,
                 "pdf_raster_images_reported": images,
                 "pdf_type3_fonts": type3,
+                "png_pixels": pixels,
             }
         except Exception as exc:
             errors.append(f"{stem}: {exc}")
@@ -1080,8 +827,8 @@ def validate_output(output_root: str | Path) -> dict[str, Any]:
 
 
 def _validate_sources(root: Path) -> dict[str, str]:
-    if len(CANONICAL_SOURCES) != 41 or len(set(CANONICAL_SOURCES)) != 41:
-        raise AssertionError("Canonical source set must contain exactly 41 unique files")
+    if len(set(CANONICAL_SOURCES)) != len(CANONICAL_SOURCES):
+        raise AssertionError("Canonical source set contains duplicate files")
     missing = [relative for relative in CANONICAL_SOURCES if not (root / relative).is_file()]
     if missing:
         raise FileNotFoundError("Missing released source(s): " + ", ".join(missing))
@@ -1096,7 +843,6 @@ def generate(project_root: str | Path, output_root: str | Path) -> dict[str, Any
     source_sha = _validate_sources(root)
     public = public_table_rows(root)
     paper = paper_table_rows(root)
-    figure_data = _figure_data(root)
 
     for name, rows in public.items():
         _write_csv(out / f"tables/csv/{name}.csv", rows)
@@ -1105,20 +851,17 @@ def generate(project_root: str | Path, output_root: str | Path) -> dict[str, Any
     for name, rows in paper.items():
         _write_csv(out / f"tables/paper_csv/{name}.csv", rows)
         _write_latex(out / f"tables/paper_latex/{name}.tex", rows)
-    for name, rows in figure_data.items():
-        _write_csv(out / f"figure_data/{name}.csv", rows)
     for name in REPRODUCIBLE_FIGURE_DATA:
         shutil.copyfile(root / f"results/figure_data/{name}", out / f"figure_data/{name}")
 
-    _plot_scenario(out)
-    _plot_source_scale(out, figure_data["fig_source_scale_line_data"])
-    _plot_accuracy(out, figure_data["fig_accuracy_complexity_3d_data"])
-    _plot_radar(out, figure_data["fig_target_robustness_radar_data"])
-    _plot_forest(out, figure_data["fig_generalization_forest_data"])
     plot_fig6(root / "results/figure_data", out / "figures")
+    plot_fig7(root / "results/figure_data", out / "figures")
     plot_fig8(root / "results/figure_data", out / "figures")
     plot_fig9(root / "results/figure_data", out / "figures")
-    _copy_legacy_figures(root, out)
+    plot_fig10(root / "results/figure_data", out / "figures")
+    plot_fig11(root / "results/figure_data", out / "figures")
+    plot_fig12(root / "results/figure_data", out / "figures")
+    _copy_fixed_figures(root, out)
     (out / "FIGURE_CAPTIONS.md").write_text(CAPTIONS, encoding="utf-8")
     validation = validate_output(out)
 
@@ -1143,10 +886,6 @@ def generate(project_root: str | Path, output_root: str | Path) -> dict[str, Any
         "source_sha256": source_sha,
         "generated_sha256": generated_sha,
         "figure_data": [
-            "figure_data/fig_source_scale_line_data.csv",
-            "figure_data/fig_accuracy_complexity_3d_data.csv",
-            "figure_data/fig_target_robustness_radar_data.csv",
-            "figure_data/fig_generalization_forest_data.csv",
             *(f"figure_data/{name}" for name in REPRODUCIBLE_FIGURE_DATA),
         ],
     }
@@ -1161,6 +900,7 @@ __all__ = [
     "DECISION",
     "DYNAMIC_TABLES",
     "EXPECTED_GENERATED_FILES",
+    "FIXED_FIGURES",
     "LEGACY_FIGURES",
     "PAPER_TABLE_NAMES",
     "PUBLIC_TABLE_NAMES",

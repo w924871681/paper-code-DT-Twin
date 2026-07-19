@@ -5,6 +5,21 @@ dates are recorded only after a version is actually published.
 
 ## [Unreleased]
 
+## [1.1.5] - 2026-07-20
+
+- Align the exact manuscript layer to Tables 1--5; keep runtime and model
+  complexity in the broader public supplementary layer.
+- Synchronize the latest Fig. 1 asset and publish checksum-bound PDF/PNG
+  assets for current Fig. 1--5.
+- Replace the previous paper-figure mapping with reproducible Fig. 6--12,
+  including the current deployment radar, two-dimensional architecture
+  complexity--performance map, and exact case-level Fig. 12 distributions.
+- Release all 320 Fig. 12 case-level gains and explicitly verify the four
+  Alibaba cases below -25%.
+- Unify README, Data Availability, citation metadata, release notes, and
+  Release assets at v1.1.5 without changing the frozen protocol or core
+  reported results.
+
 ## [1.1.4] - 2026-07-17
 
 - Prepare v1.1.4 as a public-packaging and privacy patch without changing the

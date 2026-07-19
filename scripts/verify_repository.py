@@ -40,9 +40,12 @@ CORRECTED_FILES = {
     "results/figure_data/table1_experimental_configuration.csv",
     "results/figure_data/table2_baseline_fairness.csv",
 }
+DERIVED_AUDIT_FILES = {
+    "results/audited_provenance/fig12_case_level_gain_manifest.json",
+}
 REQUIRED_FILES = {
     "README.md", "CITATION.cff", "LICENSE", "pyproject.toml", "environment.yml",
-    "CHANGELOG.md", "AUTHOR_METADATA_REQUIRED.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", "RELEASE_NOTES_v1.1.3.md", "RELEASE_NOTES_v1.1.4.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
+    "CHANGELOG.md", "AUTHOR_METADATA_REQUIRED.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", "RELEASE_NOTES_v1.1.3.md", "RELEASE_NOTES_v1.1.4.md", "RELEASE_NOTES_v1.1.5.md", "CODEX_V1_1_5_PAPER_ALIGNMENT_AUDIT.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
     "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md", "docs/LEVEL_C_COMPLETION_PLAN.md",
     "assets/README.md", "assets/model_assets.csv", "assets/level_c_bootstrap_files.csv", "data/README.md", "data/alibaba2018/README.md",
     "results/README.md", "results/audited_provenance/SANITIZATION_MANIFEST.json",
@@ -53,7 +56,7 @@ REQUIRED_FILES = {
     "scripts/finalize_cuda_replay.py", "scripts/verify_release_evidence.py",
     "scripts/plot_reproducible_figures.py", "scripts/derive_reproducible_figure_data.py",
     "reporting/reproducible_figures.py",
-    "scripts/validate_paper_outputs.py", "reporting/frozen.py", "paper_assets/legacy_figures/manifest.json",
+    "scripts/validate_paper_outputs.py", "reporting/frozen.py", "paper_assets/legacy_figures/manifest.json", "paper_assets/current_figures/manifest.json",
     *CANONICAL_SOURCES,
 }
 MODULES = ["core.data.sim", "core.space.profile", "source_prior_bank.pipeline", "anchor_safe_selector.pipeline", "main_evaluation.pipeline", "experiments.main.pipeline", "experiments.robustness.pipeline", "experiments.supplementary.pipeline", "reporting.frozen", "reporting.reproducible_figures"]
@@ -113,7 +116,7 @@ def check_checksums() -> list[str]:
         if not (ROOT / name).is_file() or _sha256_release_text(ROOT / name) != info.get("corrected_sha256"): errors.append(f"corrected checksum mismatch: {name}")
     for path in (ROOT / "results/audited_provenance").glob("*.json"):
         name = path.relative_to(ROOT).as_posix()
-        if path.name in {"SANITIZATION_MANIFEST.json", "NUMERICAL_CORRECTIONS.json"} or name in SANITIZED_FILES: continue
+        if path.name in {"SANITIZATION_MANIFEST.json", "NUMERICAL_CORRECTIONS.json"} or name in SANITIZED_FILES or name in DERIVED_AUDIT_FILES: continue
         if index.get(name) != _sha256(path): errors.append(f"immutable audit checksum mismatch: {name}")
     return errors
 
@@ -165,6 +168,18 @@ def check_numbers() -> list[str]:
     if len(selection) != 15 or any(sum(int(row["selection_count"]) for row in selection if row["budget_tier"] == tier) != n for tier, n in (("tight", 20), ("medium", 52), ("loose", 8))): errors.append("Fig. 8 architecture-selection data changed")
     margin = {float(row["minimum_improvement"]): row for row in _csv(ROOT / "results/figure_data/fig9_margin_data.csv")}
     if float(margin[0.1]["harmful_selection_rate"]) != 0.05 or margin[0.1]["eligible_under_5pct_criterion"] != "true": errors.append("Fig. 9 margin data changed")
+    tradeoff = _csv(ROOT / "results/figure_data/fig10_deployment_tradeoff_data.csv")
+    if [row["method"] for row in tradeoff] != ["PT+FT", "Few-shot NAS", "Zero-shot NAS+FT", "Proposed method"]:
+        errors.append("Fig. 10 representative-method mapping changed")
+    architecture = {row["configuration"]: row for row in _csv(ROOT / "results/figure_data/fig11_architecture_complexity_data.csv")}
+    if set(architecture) != {"MLP3-32", "MLP4-32", "Alt GRU16", "Alt GRU32", "Ref GRU32"}:
+        errors.append("Fig. 11 architecture mapping changed")
+    if architecture.get("Alt GRU32", {}).get("harmful_selected_cases") != "2" or architecture.get("Alt GRU16", {}).get("harmful_selected_cases") != "1":
+        errors.append("Fig. 11 harmful-case annotations changed")
+    cases = _csv(ROOT / "results/figure_data/fig12_case_level_gains.csv")
+    alibaba_gains = [float(row["gain_percent"]) for row in cases if row["group"] == "Alibaba"]
+    if len(cases) != 320 or len(alibaba_gains) != 80 or sum(value < -25 for value in alibaba_gains) != 4:
+        errors.append("Fig. 12 exact case-level distribution changed")
     return errors
 
 
@@ -193,15 +208,17 @@ def check_version_metadata() -> list[str]:
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
     workflow = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
-    if 'version = "1.1.4"' not in pyproject:
-        errors.append("pyproject version is not 1.1.4")
-    if not re.search(r"(?m)^version:\s*1\.1\.4\s*$", citation):
-        errors.append("CITATION.cff version is not 1.1.4")
+    if 'version = "1.1.5"' not in pyproject:
+        errors.append("pyproject version is not 1.1.5")
+    if not re.search(r"(?m)^version:\s*1\.1\.5\s*$", citation):
+        errors.append("CITATION.cff version is not 1.1.5")
     for asset in (
         "level_c_bootstrap_${GITHUB_REF_NAME}.zip",
         "level_c_bootstrap_${GITHUB_REF_NAME}.zip.sha256",
         "cuda_replay_evidence_${GITHUB_REF_NAME}.zip",
         "cuda_replay_evidence_${GITHUB_REF_NAME}.zip.sha256",
+        "paper_alignment_${GITHUB_REF_NAME}.zip",
+        "paper_alignment_${GITHUB_REF_NAME}.zip.sha256",
     ):
         if asset not in workflow:
             errors.append(f"release workflow does not handle {asset}")

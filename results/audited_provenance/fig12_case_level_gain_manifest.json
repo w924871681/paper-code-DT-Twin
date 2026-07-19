@@ -1,0 +1,22 @@
+{
+  "study": "fig12_case_level_gain_release",
+  "decision": "PASS_FIG12_CASE_LEVEL_DATA_FROZEN",
+  "derivation": "100 * (matched_reference_mse - proposed_mse) / matched_reference_mse",
+  "source_sha256": {
+    "source_seed_eval.json": "42db96c986d906e197ea4bba4699d63bd9705b3b0be659b32ee97865ce59545a",
+    "real_eval.json": "67d140432c4f3f1d70607f8a385eeb66991a8af3b0e99a25c123b0da1f5794aa"
+  },
+  "records": {
+    "source_seed": 240,
+    "alibaba": 80,
+    "total": 320
+  },
+  "group_mean_gain_percent": {
+    "Source seed 2904": 10.52274902239512,
+    "Source seed 2905": 13.207856064844497,
+    "Source seed 2906": 11.25362479290699,
+    "Alibaba": 1.9927963290380142
+  },
+  "alibaba_gain_below_minus_25_percent_count": 4,
+  "selection_uses_test": false
+}
