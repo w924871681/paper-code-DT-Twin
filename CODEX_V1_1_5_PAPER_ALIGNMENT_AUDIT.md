@@ -27,8 +27,11 @@ core reported metrics.
 
 ## Publication record
 
-- Commit: pending
-- Tag: pending
-- Release: pending
-- Pull request: pending
-- Release assets: pending
+- Release commit: https://github.com/w924871681/paper-code-DT-Twin/commits/v1.1.5
+- Tag: https://github.com/w924871681/paper-code-DT-Twin/tree/v1.1.5
+- Release: https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.1.5
+- Pull request: https://github.com/w924871681/paper-code-DT-Twin/pull/1
+- Release assets:
+  - `level_c_bootstrap_v1.1.5.zip` and sidecar
+  - `cuda_replay_evidence_v1.1.5.zip` and sidecar
+  - `paper_alignment_v1.1.5.zip` and sidecar
