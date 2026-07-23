@@ -38,8 +38,8 @@
       "status": "PASS",
       "decision": "PASS_FROZEN_TABLES_AND_FIGURES",
       "validation": "PASS_PAPER_OUTPUT_VALIDATION",
-      "manifest_sha256": "58e3e74e3c8175945b1dc528282afc980cc44b3db792b3c6c689c4c56e791eae",
-      "validation_sha256": "6231e7efa8a2e9ed5dddf844e8d866901b8813ae918875c61694f89a908fdf0d"
+      "manifest_sha256": "9801270f8b5526bd8b30735afcccf2b7edf6e4c233da2d1459dc1f36bbbb5ad7",
+      "validation_sha256": "246659b12f10b877c11a503822b5235347c18be877898acf76e703213d5ecbbd"
     },
     "manuscript": {
       "status": "PASS",
@@ -50,13 +50,13 @@
       "release_reference": "v1.1.9",
       "visually_reviewed": true,
       "source_sha256": "fe90a0063ba8027fdd9ace380415f8c3abdae6801c6cbe9680df5f8034d124af",
-      "pdf_sha256": "5a5edca31622b6045693a6b371aa2ae3c87b49c57b08223b326b24a9055ca655"
+      "pdf_sha256": "e51d3f098a045f16b3b67fba3bb9fd409503d25b724f0dfdc7a6692991780ec4"
     },
     "fig10": {
       "status": "PASS",
       "normalization": "100 * minimum raw value / method raw value",
       "supplied_pdf_sha256": "e93716a0c8dd5a43d3f16b62bdbb1eb98c93c3a7d3dbdc8312cc55d47c8e4731",
-      "generated_pdf_sha256": "827aa830b8344c0bd6b7e031bbc91e114635dfefb250ea756af53ca4daa9de8d",
+      "generated_pdf_sha256": "b88c5972b5b9fa2d15e1f24a5b8208ab8a6b51718081504cfee3e990417d4f78",
       "layout_audit": "PASS",
       "vector_pdf": true,
       "type3_fonts": 0

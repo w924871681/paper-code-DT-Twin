@@ -24,14 +24,14 @@ from PIL import Image
 
 
 FIGURE_SIZES: Mapping[str, tuple[float, float]] = {
-    "fig6": (5.868, 2.883),
-    "fig7": (6.605, 2.530),
-    "fig8": (6.458, 1.886),
-    "fig9": (7.516, 2.283),
+    "fig6": (5.914, 2.883),
+    "fig7": (6.747, 2.531),
+    "fig8": (6.503, 1.887),
+    "fig9": (7.554, 2.284),
     # Final cropped size produced by the journal-layout Fig. 10 canvas.
-    "fig10": (3.445, 3.407),
-    "fig11": (5.946, 3.490),
-    "fig12": (7.247, 2.590),
+    "fig10": (3.526, 3.420),
+    "fig11": (6.142, 3.497),
+    "fig12": (7.279, 2.590),
 }
 
 CANVAS_SIZES: Mapping[str, tuple[float, float]] = {
@@ -57,7 +57,7 @@ def _style() -> None:
     plt.rcParams.update(
         {
             "font.family": "serif",
-            "font.serif": ["Tinos", "Times New Roman", "DejaVu Serif"],
+            "font.serif": ["DejaVu Serif", "Tinos", "Times New Roman"],
             "mathtext.fontset": "stix",
             "font.size": 9.0,
             "axes.titlesize": 9.0,
@@ -400,7 +400,7 @@ def plot_fig10(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     plt.rcParams.update(
         {
             "font.family": "serif",
-            "font.serif": ["Tinos", "Times New Roman", "DejaVu Serif"],
+            "font.serif": ["DejaVu Serif", "Tinos", "Times New Roman"],
             "font.size": 9.0,
             "xtick.labelsize": 8.0,
             "ytick.labelsize": 8.0,
