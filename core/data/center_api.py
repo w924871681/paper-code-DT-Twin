@@ -397,7 +397,7 @@ def get_center_support_validation_from_cache(
     :func:`get_center_split_from_cache`, but Check and Test windows are never
     materialized or returned. Support is the only optimization split;
     Validation is evaluation-only and cannot determine a stopping point because
-    Stage 3 always uses the frozen 50-step checkpoint.
+    Stage 3 always uses the frozen 50-update checkpoint.
     """
     cfg.main.task.validate_split()
     rec = cache.centers[int(center_id)]
@@ -460,7 +460,7 @@ def get_center_support_validation_check_from_cache(
 
     The chronological boundaries are identical to :func:`get_center_split_from_cache`.
     Support is the only optimization split. Validation is used only to select one
-    final adapted twin. Check is materialized only after the frozen 50-step
+    final adapted twin. Check is materialized only after the frozen 50-update
     adaptation and is used solely for independent Stage-4 evaluation. Test is
     neither windowed nor returned.
     """

@@ -1,5 +1,5 @@
 Variant,WMSE,Worst-10%,Gain vs reference (%),Harmful alternative selection / all cases (%),Complexity-feasible outputs (%)
-Proposed method,0.004063,0.015764,15.79,15.00,100.00
+RCF-DTI,0.004063,0.015764,15.79,15.00,100.00
 Shared pooled initialization,0.004876,0.019044,1.75,2.50,100.00
 Reference candidate only,0.005051,0.019512,0.00,0.00,100.00
 Two reference-architecture initializations,0.004917,0.019136,1.29,1.25,100.00

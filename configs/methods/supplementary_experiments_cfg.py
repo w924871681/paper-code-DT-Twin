@@ -10,7 +10,7 @@ class SupplementaryEvidenceCfg:
     """Frozen supplementary experiment protocol for the final JNCA paper.
 
     This protocol does not retune the final method. It adds four diagnostics:
-    (1) a fixed 50-step adaptation trajectory on an untouched pool;
+    (1) a fixed 50-update adaptation trajectory on an untouched pool;
     (2) Full-vs-No-anchor risk analysis from existing candidate-level results;
     (3) five-repeat CUDA-synchronized online-time measurement;
     (4) an optional optimizer-matched 12-candidate search control.

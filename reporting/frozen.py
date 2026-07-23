@@ -21,7 +21,7 @@ from typing import Any, Iterable, Mapping, Sequence
 
 from PIL import Image
 
-from reporting.reproducible_figures import (
+from reporting.final_figures import (
     FIGURE_SIZES,
     plot_fig6,
     plot_fig7,
@@ -61,6 +61,23 @@ PAPER_TABLE_NAMES = (
     "table4_matched_control",
     "table5_component_analysis",
 )
+
+PAPER_TABLE_META: Mapping[str, tuple[str, str]] = {
+    "table1_configuration": ("Main experimental configuration.", "tab:configuration"),
+    "table2_fairness": ("Baseline comparison settings.", "tab:fairness"),
+    "table3_overall": (
+        "Predictive performance on the held-out target centers.",
+        "tab:overall",
+    ),
+    "table4_matched_control": (
+        "Optimizer-matched comparison on the separate diagnostic target pool.",
+        "tab:matched_control",
+    ),
+    "table5_component_analysis": (
+        "Component ablation on the independent diagnostic target pool.",
+        "tab:ablation",
+    ),
+}
 
 REVISED_FIGURES: Mapping[str, tuple[float, float]] = OrderedDict(
     (name, FIGURE_SIZES[name]) for name in (f"fig{index}" for index in range(6, 13))
@@ -203,7 +220,7 @@ def _runtime_rows(root: Path) -> dict[str, dict[str, str]]:
 
 
 METHOD_META: Mapping[str, tuple[str, str, str]] = {
-    "Ours": ("Proposed method", "ours_c32_locked", "proposed method"),
+    "Ours": ("RCF-DTI", "ours_c32_locked", "RCF-DTI"),
     "PT+FT": ("PT+FT", "pt_ft", "single-model adaptation"),
     "MeDeT-style": ("MeDeT-based adaptation", "medet_style", "single-model adaptation"),
     "Scratch50": ("Random initialization", "scratch50", "single-model adaptation"),
@@ -247,7 +264,7 @@ def _table1() -> list[dict[str, str]]:
         ("Model", "Feasible candidates", "4--7 after filtering; mean 6.25"),
         ("Model", "Reference architecture", "One-layer GRU; 32 hidden units; dropout 0.1"),
         ("Model", "Reference initialization", "Pretrained on pooled source-center data"),
-        ("Adaptation", "Optimizer / loss / update budget", "SGD / MSE / 50 steps"),
+        ("Adaptation", "Optimizer / loss / update budget", "SGD / MSE / 50 updates"),
         ("Adaptation", "Learning rate / gradient clipping", "0.01 / 1.0"),
         ("Selection", "Selection rule", "Select an alternative only when validation WMSE is at least 10% lower than the reference"),
         ("Selection", "Threshold calibration", "Disjoint development centers; development check sets only"),
@@ -269,7 +286,7 @@ def _table2(root: Path) -> list[dict[str, str]]:
         ("Meta+NAS-lite", "Few-shot NAS", "Top-12 shortlist", "Baseline-specific initialization bank", "Adam/Huber-50", "<=12", "Before candidate evaluation"),
         ("Zero-NAS", "Zero-shot NAS", "Top-ranked model", "Baseline-specific initialization", "None", "0", "Before candidate evaluation"),
         ("Zero-NAS+FT", "Zero-shot NAS + fine-tuning", "Top-12 shortlist", "Baseline-specific initialization bank", "Adam/Huber-50", "<=12", "Before candidate evaluation"),
-        ("Ours", "Proposed method", "Source-initialization bank (six architectures)", "Architecture-matched source initializations", "SGD/MSE-50", "4--7", "Before adaptation and output"),
+        ("Ours", "RCF-DTI", "Source-initialization bank (six architectures)", "Architecture-matched source initializations", "SGD/MSE-50", "4--7", "Before adaptation and output"),
     )
     missing = [internal for internal, *_ in rows if internal not in source]
     if missing:
@@ -316,7 +333,7 @@ def _table3(root: Path) -> list[dict[str, str]]:
 def _table4(root: Path) -> list[dict[str, str]]:
     labels = OrderedDict(
         (
-            ("full_method", "Proposed method"),
+            ("full_method", "RCF-DTI"),
             ("legacy_source_bank", "Shared pooled initialization"),
             ("pt_a57_only", "Reference candidate only"),
             ("dual_init_a57", "Two reference-architecture initializations"),
@@ -378,7 +395,7 @@ def _table5b(root: Path) -> list[dict[str, str]]:
     runtime = _runtime_rows(root)
     rows: list[dict[str, str]] = []
     for internal in PAPER_METHOD_ORDER:
-        # The broader public table historically starts with the proposed method.
+        # The broader public table starts with RCF-DTI.
         pass
     for internal in ("Ours", "PT+FT", "MeDeT-style", "Scratch50", "Meta+NAS-lite", "Zero-NAS", "Zero-NAS+FT"):
         row = source[internal]
@@ -443,7 +460,7 @@ def _real_rows(root: Path) -> list[dict[str, str]]:
     measures = _real_measures(root)
     oracle_wmse = measures["Test-oracle WMSE"]
     rows = [
-        {"Method": "Proposed method", "WMSE": _fmt(_float(main["Ours"], "WMSE"), 6), "MAE": _fmt(_float(main["Ours"], "MAE"), 5), "W10": _fmt(_float(main["Ours"], "Worst10"), 6)},
+        {"Method": "RCF-DTI", "WMSE": _fmt(_float(main["Ours"], "WMSE"), 6), "MAE": _fmt(_float(main["Ours"], "MAE"), 5), "W10": _fmt(_float(main["Ours"], "Worst10"), 6)},
         {"Method": "Reference candidate", "WMSE": _fmt(_float(main["PT+FT"], "WMSE"), 6), "MAE": _fmt(_float(main["PT+FT"], "MAE"), 5), "W10": _fmt(_float(main["PT+FT"], "Worst10"), 6)},
         {"Method": "Test oracle (diagnostic)", "WMSE": _fmt(oracle_wmse, 6), "MAE": _fmt(measures.get("Test-oracle MAE", 0.02028), 5), "W10": _fmt(measures.get("Test-oracle Worst10", 0.006884), 6)},
         {"Method": "Selected gain vs reference", "WMSE": f"{100 * measures['Selected gain vs A57']:.2f}%", "MAE": "--", "W10": "--"},
@@ -598,7 +615,7 @@ def paper_table_rows(project_root: str | Path) -> OrderedDict[str, list[dict[str
         )
     matched_labels = OrderedDict(
         (
-            ("ours_compact_anchor_safe", "Proposed method"),
+            ("ours_compact_anchor_safe", "RCF-DTI"),
             ("pt_a57", "PT+FT (reference model)"),
             ("meta_top12_sgd_mse50_valbest", "Few-shot NAS (matched)"),
             ("zero_top12_sgd_mse50_valbest", "Zero-shot NAS (matched)"),
@@ -651,18 +668,35 @@ def _latex_escape(value: Any) -> str:
 def _write_latex(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
     fields = list(rows[0])
     align = "l" + "c" * (len(fields) - 1)
+    environment = "table" if path.stem in PAPER_TABLE_META else "table*"
     lines = [
-        r"\begin{table*}[t]",
+        f"\\begin{{{environment}}}[t]",
         r"\centering",
         r"\small",
-        f"\\begin{{tabular}}{{{align}}}",
-        r"\toprule",
-        " & ".join(_latex_escape(field) for field in fields) + " \\\\",
-        r"\midrule",
     ]
+    if path.stem in PAPER_TABLE_META:
+        caption, label = PAPER_TABLE_META[path.stem]
+        lines.extend(
+            (
+                f"\\caption{{{caption}}}",
+                f"\\label{{{label}}}",
+                r"\resizebox{\textwidth}{!}{%",
+            )
+        )
+    lines.extend(
+        (
+            f"\\begin{{tabular}}{{{align}}}",
+            r"\toprule",
+            " & ".join(_latex_escape(field) for field in fields) + " \\\\",
+            r"\midrule",
+        )
+    )
     for row in rows:
         lines.append(" & ".join(_latex_escape(row.get(field, "--")) for field in fields) + " \\\\")
-    lines.extend((r"\bottomrule", r"\end{tabular}", r"\end{table*}"))
+    lines.extend((r"\bottomrule", r"\end{tabular}"))
+    if path.stem in PAPER_TABLE_META:
+        lines.append("}")
+    lines.append(f"\\end{{{environment}}}")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -705,8 +739,9 @@ CAPTIONS = """# Generated figure captions
   intervals.
 - **Fig. 8:** Candidate filtering and final architecture selection by
   complexity-limit tier.
-- **Fig. 9:** Candidate-bank size, fixed adaptation budget, and
-  minimum-improvement threshold diagnostics.
+- **Fig. 9:** Retained architecture count, fixed 50-update adaptation budget,
+  and selection-threshold diagnostics. Held-out target cases are not used to
+  choose these settings.
 - **Fig. 10:** Deployment trade-off radar for four representative methods.
   Every raw metric is lower-is-better and is transformed as
   `100 * best / method`.

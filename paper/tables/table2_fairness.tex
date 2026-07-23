@@ -1,0 +1,21 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Baseline comparison settings.}
+\label{tab:fairness}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccc}
+\toprule
+Method & Structure & Source initialization & Target update & Adapted models & Complexity-limit check \\
+\midrule
+PT+FT & Fixed reference architecture & Pooled source pretraining & SGD/MSE-50 & 1 & Before output \\
+MeDeT-based adaptation & Fixed reference architecture & Meta initialization & SGD/MSE-50 & 1 & Before output \\
+Random initialization & Fixed reference architecture & Random initialization & SGD/MSE-50 & 1 & Before output \\
+Few-shot NAS & Top-12 shortlist & Baseline-specific initialization bank & Adam/Huber-50 & $<$=12 & Before candidate evaluation \\
+Zero-shot NAS & Top-ranked model & Baseline-specific initialization & None & 0 & Before candidate evaluation \\
+Zero-shot NAS + fine-tuning & Top-12 shortlist & Baseline-specific initialization bank & Adam/Huber-50 & $<$=12 & Before candidate evaluation \\
+RCF-DTI & Source-initialization bank (six architectures) & Architecture-matched source initializations & SGD/MSE-50 & 4--7 & Before adaptation and output \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

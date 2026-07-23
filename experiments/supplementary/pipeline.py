@@ -401,7 +401,7 @@ def _require_preflight(root: str) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Experiment 1: 50-step adaptation trajectory
+# Experiment 1: 50-update adaptation trajectory
 # ---------------------------------------------------------------------------
 
 
@@ -986,7 +986,7 @@ def summarize_adaptation_trajectory(
         "claim_boundary": (
             "The result may support sufficiency under the evaluated fixed "
             "protocol if the 20-to-50 loss and ranking changes are small. "
-            "It does not establish global optimality of 50 steps."
+            "It does not establish global optimality of 50 updates."
         ),
         "test_used": False,
     }
@@ -2220,7 +2220,7 @@ def generate_report(project_root: str) -> str:
         [
             "## Claim boundaries",
             "",
-            "- Trajectory evidence may support that 50 steps are sufficient under the evaluated protocol; it cannot establish global optimality.",
+            "- Trajectory evidence may support that 50 updates are sufficient under the evaluated protocol; it cannot establish global optimality.",
             "- Anchor protection is justified through switching-risk metrics, not only mean WMSE.",
             "- Runtime comparisons are valid only for the recorded hardware/software environment and synchronized timer scope.",
             "- Optimizer-matched controls are enhancement evidence and do not isolate the compact bank as the sole causal factor.",

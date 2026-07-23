@@ -15,8 +15,8 @@
     },
     "results/figure_data/tableS6_alibaba_semi_real.csv": {
       "original_sha256": "f359191c43ace927d9c607e0b00cf7e7db6957bca6daa1220d03382cae0b80fd",
-      "corrected_sha256": "c98c2bb53f03e174caa1770374e0adf68d50739636118f1763c515ecaaeee53a",
-      "correction": "Use the V2 mean captured oracle headroom of 65.42% and public-facing method names."
+      "corrected_sha256": "8738fbffd2255d447a461de15120cadf64a27087048aad7099a1d1a312be6acc",
+      "correction": "Use the V2 mean captured oracle headroom of 65.42% and the final RCF-DTI public name."
     },
     "results/figure_data/tableS5_oracle_diagnostics.csv": {
       "original_sha256": "3a00b57a6f30a4471ac36c54423720857c0aca5692836f0130473f5121210b43",
@@ -35,8 +35,8 @@
     },
     "results/figure_data/table4_component_ablation.csv": {
       "original_sha256": "2a910569b40f9d53399d7c411d322d43fa8ebdc2bb5ed3e910ec63bd44e3b203",
-      "corrected_sha256": "76bdd9bf8ee3e87793765723039e27cc7163ccbef72fe6099f99cf712a6c5391",
-      "correction": "Rebuild complete paper Table 4, including harmful alternative selection and 96.25% limit satisfaction."
+      "corrected_sha256": "dd8754ffe051e6f3cc04a26791ec114a9c0c02f5060872aa3cb6e0227e17d5db",
+      "correction": "Rebuild complete paper Table 4, including harmful alternative selection, 96.25% limit satisfaction, and the final RCF-DTI label."
     },
     "results/figure_data/tableS4_bank_size.csv": {
       "original_sha256": "04c273edb89578726571dfc30b0fab33e959fe20d5ba0379a7fb44d8f589b3a6",
@@ -45,13 +45,13 @@
     },
     "results/figure_data/table1_experimental_configuration.csv": {
       "original_sha256": "ce51a42b2a2212b82ce7fa5d0cc6c08abcdbc6e4ebfdeb846d9a5d377a8bcbed",
-      "corrected_sha256": "e12c3b8c5340297f278edbb463511d4ecc623deb4ff944c24df4a9993d51b7a9",
-      "correction": "Synchronize the public configuration table with revised-paper Table 1."
+      "corrected_sha256": "4d0ead4ddf9414f4725bac90e8270d799c22911afe14e8f5637263c8100a1f37",
+      "correction": "Synchronize the public configuration table with revised-paper Table 1 and the final 50-update wording."
     },
     "results/figure_data/table2_baseline_fairness.csv": {
       "original_sha256": "970202f403e146875280196712e65ca9bc70b2e1a107492e125fcdcd95bfe8d3",
-      "corrected_sha256": "81753d237d7e7e178c186ff91e2870d308eacd380b5d98ceb83a3854647c1071",
-      "correction": "Synchronize public method names and target-side protocol descriptions with revised-paper Table 2."
+      "corrected_sha256": "99a86e907d728f392bd83fda4a0f8c6abc7acb56775ba2e80694fb686a1f0956",
+      "correction": "Synchronize the RCF-DTI public name and target-side protocol descriptions with revised-paper Table 2."
     }
   }
 }

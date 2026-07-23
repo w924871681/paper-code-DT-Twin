@@ -1,5 +1,5 @@
 ﻿Method,Target-side time (s),Candidates,Parameters,Estimated operations,Complexity-feasible outputs (%)
-Proposed method,5.676 ± 0.059,6.25,"14,892","751,433",100.0
+RCF-DTI,5.676 ± 0.059,6.25,"14,892","751,433",100.0
 PT+FT,0.204 ± 0.004,1.00,"5,746","1,050,784",100.0
 MeDeT-based adaptation,0.204 ± 0.004,1.00,"5,746","1,050,784",100.0
 Random initialization,0.198 ± 0.009,1.00,"5,746","1,050,784",100.0

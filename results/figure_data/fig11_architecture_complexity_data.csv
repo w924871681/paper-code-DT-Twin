@@ -1,6 +1,6 @@
 architecture_index,configuration,role,parameter_count,estimated_operation_count,selected_cases,beneficial_selected_cases,harmful_selected_cases,mean_paired_mse_reduction_percent
-6,MLP3-32,alternative,79026.5,157856,9,9,0,30.49986776
-13,MLP4-32,alternative,80082.5,159904,2,2,0,17.4325056
-55,Alt GRU16,alternative,2106.5,377936,21,20,1,27.66420167
-56,Alt GRU32,alternative,5746.5,1050784,15,13,2,18.52406048
-57,Ref GRU32,reference,5746.5,1050784,33,0,0,0
+6,3-layer MLP-32,alternative,79026.5,157856,9,9,0,30.49986776
+13,4-layer MLP-32,alternative,80082.5,159904,2,2,0,17.4325056
+55,Alt. GRU-16,alternative,2106.5,377936,21,20,1,27.66420167
+56,Alt. GRU-32,alternative,5746.5,1050784,15,13,2,18.52406048
+57,Ref. GRU-32,reference,5746.5,1050784,33,0,0,0

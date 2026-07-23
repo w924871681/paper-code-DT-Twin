@@ -1,0 +1,95 @@
+{
+  "version": "v1.1.6",
+  "date": "2026-07-23",
+  "decision": "PASS_V1_1_6_LOCAL_VERIFICATION",
+  "scientific_protocol_changed": false,
+  "core_experimental_values_changed": false,
+  "checks": {
+    "pytest": {
+      "status": "PASS",
+      "tests": 13
+    },
+    "cpu_smoke_test": {
+      "status": "PASS",
+      "decision": "PASS_CPU_SMOKE_TEST"
+    },
+    "repository_verification": {
+      "status": "PASS",
+      "decision": "PASS_PUBLIC_REPOSITORY_VERIFICATION",
+      "subchecks": [
+        "required_files",
+        "imports",
+        "json",
+        "checksums",
+        "asset_manifest",
+        "frozen_protocol",
+        "numerical_consistency",
+        "test_leakage",
+        "unique_figure_implementation",
+        "public_terminology",
+        "privacy",
+        "version_metadata",
+        "generated_outputs"
+      ]
+    },
+    "paper_outputs": {
+      "status": "PASS",
+      "decision": "PASS_FROZEN_TABLES_AND_FIGURES",
+      "validation": "PASS_PAPER_OUTPUT_VALIDATION",
+      "manifest_sha256": "360cce770224c07956fcd7d2f8d744d416f5dfb05be84c58d0e80f0518accf2f",
+      "validation_sha256": "5918b1625bf80b66a58948c7faa4d24bd938445866d8c9571a0ab10490a351cc"
+    },
+    "manuscript": {
+      "status": "PASS",
+      "engine": "Tectonic 0.16.9",
+      "pages": 21,
+      "undefined_references": 0,
+      "visually_reviewed": true,
+      "pdf_sha256": "0689f6b643ff319877afd0ad261c272837723855f1ee2f618f253de1f08528e1"
+    },
+    "git_diff_check": {
+      "status": "PASS"
+    }
+  },
+  "key_values": {
+    "main_cases": 80,
+    "alternative_selections": 47,
+    "beneficial_alternatives": 44,
+    "harmful_alternatives": 3,
+    "reference_retained": 33,
+    "mean_paired_mse_reduction_percent": 14.602159705445189,
+    "complexity_limit_satisfaction_percent": 100.0,
+    "retained_architectures": 6,
+    "initialized_candidates": 7,
+    "mean_feasible_candidates": 6.25,
+    "target_updates": 50,
+    "selection_threshold_percent": 10,
+    "reference_architecture_index": 57
+  },
+  "handoff_reconciliation": {
+    "missing_from_extracted_final_figures": [
+      "fig6",
+      "fig7",
+      "fig8",
+      "fig9",
+      "fig10",
+      "fig11",
+      "fig12"
+    ],
+    "manifest_mismatches": {
+      "manuscript/manuscript_latest.pdf": {
+        "manifest_size": 955997,
+        "actual_size": 956284,
+        "manifest_sha256": "9d4c0da7c0f59b64eff769f66a6911143d7a02cbfc969bb0977695d5cc3f0148",
+        "actual_sha256": "3542c9913fc253d6ee99a040f74af091c52c7956b38e2b75f84a9124d8d6b733"
+      },
+      "manuscript/manuscript_latest.tex.txt": {
+        "manifest_size": 67059,
+        "actual_size": 67643,
+        "manifest_sha256": "c720f111ff6dc91fc3884530e2bb79cab03acb5636b8d70616cc525722d36c44",
+        "actual_sha256": "34aa1a14e81aa9debf72c68342773edcc4ff497b58bf5df3a23e14ae94e9189b"
+      }
+    },
+    "resolution": "Used the handoff instructions and manuscript as authority, the corrected Fig. 1--5 versions embedded in that manuscript, and frozen plot-ready evidence for Fig. 6--12. Historical inputs did not overwrite final assets."
+  }
+}

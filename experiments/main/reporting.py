@@ -465,7 +465,7 @@ def generate_report(project_root: str, result_root: str) -> Dict[str, Any]:
     # Bank size.
     fig, ax = plt.subplots(figsize=(6.5, 4.3))
     ax.plot([r["UniqueArchitectures"] for r in bank_rows], [r["WMSE"] for r in bank_rows], marker="o")
-    ax.set_xlabel("Unique architectures in compact bank"); ax.set_ylabel("Test WMSE"); ax.set_title("Candidate-bank size")
+    ax.set_xlabel("Retained architectures"); ax.set_ylabel("Test WMSE"); ax.set_title("Retained architecture count")
     _save_figure(fig, os.path.join(figures_dir, "fig_bank_size.pdf"))
 
     # Oracle diagnostics.

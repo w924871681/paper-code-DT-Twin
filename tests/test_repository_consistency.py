@@ -21,7 +21,7 @@ def test_exact_paper_table_set() -> None:
 
 def test_runtime_value() -> None:
     rows = public_table_rows(ROOT)["table3_overall_comparison"]
-    proposed = next(row for row in rows if row["Method"] == "Proposed method")
+    proposed = next(row for row in rows if row["Method"] == "RCF-DTI")
     assert proposed["Target-side time (s)"] == "5.676 ± 0.059"
 
 

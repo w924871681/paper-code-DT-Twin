@@ -1,0 +1,33 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Main experimental configuration.}
+\label{tab:configuration}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcc}
+\toprule
+Category & Item & Setting \\
+\midrule
+Data & Source / held-out target centers & 20 / 20 \\
+Data & Observations per center; input length & 3000; L=96 \\
+Data & Main paired cases & 80 \\
+Target & Horizons; support sizes & H in \{1, 4\}; K in \{10, 20\} \\
+Target & Validation / check / test windows & 80 / 60 / 200 \\
+Model & Full architecture space; retained architectures & 66 architectures; six retained architectures \\
+Model & Candidate models & 7 before filtering \\
+Model & Feasible candidates & 4--7 after filtering; mean 6.25 \\
+Model & Reference architecture & One-layer GRU; 32 hidden units; dropout 0.1 \\
+Model & Reference initialization & Pretrained on pooled source-center data \\
+Adaptation & Optimizer / loss / update budget & SGD / MSE / 50 updates \\
+Adaptation & Learning rate / gradient clipping & 0.01 / 1.0 \\
+Selection & Selection rule & Select an alternative only when validation WMSE is at least 10\% lower than the reference \\
+Selection & Threshold calibration & Disjoint development centers; development check sets only \\
+Model complexity limits & Tight: estimated operation count; parameter count & 1.5e6 / 3e4 \\
+Model complexity limits & Medium: estimated operation count; parameter count & 5e6 / 1e5 \\
+Model complexity limits & Loose: estimated operation count; parameter count & 2e7 / 5e5 \\
+Statistics & Confidence interval & Center-cluster bootstrap; 4000 repeats \\
+Protocol & Test usage & Opened only after the architecture and parameters are fixed \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

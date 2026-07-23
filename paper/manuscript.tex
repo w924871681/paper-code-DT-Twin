@@ -1,0 +1,1503 @@
+\documentclass[a4paper,fleqn]{cas-sc}
+
+% References and mathematics
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{amsmath,amssymb}
+
+% Figures
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{capt-of}
+
+% Tables
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+
+% Algorithms
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% Figure paths
+\graphicspath{{figures/}{./figures/}{./}}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg}
+
+% Table column types
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{Z}[1]{>{\centering\arraybackslash}p{#1}}
+
+% A compact non-floating figure command used throughout the paper.
+% Usage:
+% \paperfig[trim={...},clip]{0.92\linewidth}{fig.pdf}{Caption.}{fig:label}
+\newcommand{\paperfig}[5][]{%
+  \begin{center}
+  \begin{minipage}{\linewidth}
+  \centering
+  \includegraphics[
+    width=#2,
+    max height=0.52\textheight,
+    keepaspectratio,
+    #1
+  ]{#3}%
+  \vspace{-0.35em}
+  \captionof{figure}{#4}
+  \label{#5}
+  \end{minipage}
+  \vspace{-0.65em}
+  \end{center}
+}
+
+\let\printorcid\relax
+
+\begin{document}
+\let\WriteBookmarks\relax
+
+\shorttitle{Complexity-Constrained Few-Shot DT Instantiation}
+
+\title[mode=title]{Complexity-Constrained Few-Shot Digital Twin Model Instantiation for Heterogeneous Multi-Center Computing Networks}
+
+\begin{abstract}
+Shared edge--cloud digital twin platforms maintain target-specific models
+for heterogeneous computing centers. Because the platform hosts several
+model instances, it assigns each instance limits on inference computation
+and model size. A new or reconfigured center may provide only a few
+observations. The platform must therefore select a suitable architecture and
+adapt its parameters from limited data while meeting both limits. Existing
+methods usually adapt one fixed architecture or compare several
+architectures without jointly handling model limits and unreliable model selection
+from a small validation set. We propose the Reference-Regularized
+Complexity-Constrained Few-Shot Digital Twin Instantiation algorithm
+(RCF-DTI). It removes candidate models that exceed the assigned limits,
+adapts the remaining source-trained candidates with the same update budget,
+and selects among them using a fixed reference candidate. An alternative is
+selected only when it gives sufficient validation improvement. Experiments
+show that RCF-DTI reduces mean squared error by 14.60\% relative to
+pretraining and fine-tuning, while every selected model satisfies both
+assigned limits.
+\end{abstract}
+
+\begin{highlights}
+\item RCF-DTI instantiates digital twin models from limited target data.
+\item A compact candidate set supports several source-trained architectures.
+\item Models above the assigned complexity limits are removed before adaptation.
+\item A fixed reference reduces changes caused by small validation gains.
+\item RCF-DTI lowers mean squared error while every selected model meets both limits.
+\end{highlights}
+
+\begin{keywords}
+digital twin
+\sep few-shot learning
+\sep model instantiation
+\sep architecture selection
+\sep model complexity
+\sep edge--cloud computing
+\end{keywords}
+
+
+\maketitle
+
+
+\section{Introduction}
+\label{sec:introduction}
+
+Digital twin platforms maintain virtual model instances of physical systems
+to support monitoring, prediction, analysis, and decision making
+\cite{ref1,ref2,ref3,ref4}. In a heterogeneous multi-center computing
+network, a shared edge--cloud platform maintains a target-specific digital
+twin model instance for each physical center. The centers may differ in
+monitored variables, workload dynamics, and data distributions. They may
+therefore require different model architectures. Since the platform serves
+several model instances at the same time, it assigns each instance limits on
+inference computation and model size according to its hosting conditions and
+service requirements. We measure these two properties by estimated operation
+count and parameter count, respectively.
+
+A new or reconfigured center may provide only a few observations. An
+existing platform instance may not fit the target center or satisfy the
+complexity limits assigned to the target instance. Direct reuse is therefore
+not always suitable. The platform must select a suitable architecture and
+adapt its parameters under both limits. We call this joint process
+target-specific digital twin model instantiation. The main challenge is to
+make this decision reliably from limited target data.
+Figure~\ref{fig:scenario} illustrates this setting.
+
+\paperfig[trim={30bp 760bp 320bp 40bp},clip]{0.68\linewidth}
+{fig1.pdf}
+{Background of platform-side target-specific digital twin model
+instantiation in a heterogeneous multi-center computing network. The shared
+edge--cloud platform maintains model instances for heterogeneous physical
+centers. For a new or reconfigured target center, only a few observations
+may be available, and an existing instance may not fit the target center or
+satisfy the assigned limits on estimated operation count and parameter
+count. The platform must therefore determine a target-specific digital twin
+instance.}
+{fig:scenario}
+
+Existing studies address the main parts of this problem separately. Digital
+twin research studies system architecture, model construction, lifecycle
+management, and service control, but it usually assumes a predefined model
+structure or one general model for a class of entities
+\cite{ref1,ref3,ref5,ref7}. Few-shot and meta-learning methods transfer
+knowledge to new tasks with limited data, but most of them retain one fixed
+architecture \cite{ref9,ref10,ref11,ref27}. Deployment-aware architecture search considers model accuracy and execution
+cost \cite{ref12,ref13}. Few-shot, zero-shot, training-free, and
+multi-objective methods reduce repeated training or improve architecture
+ranking \cite{ref14,ref15,ref16,ref28}. However, they do not focus on
+reliable target-specific selection from a small validation set. Existing methods therefore provide
+limited support for jointly selecting an architecture and adapting its
+parameters under platform-assigned complexity limits. They also do not
+directly control changes caused by small validation differences.
+
+To address this problem, we propose the Reference-Regularized
+Complexity-Constrained Few-Shot Digital Twin Instantiation algorithm, termed
+RCF-DTI. It formulates target-specific instantiation as a constrained
+two-level optimization problem. The inner level adapts each feasible
+candidate. The outer level selects one candidate using a
+reference-regularized validation score. An offline stage constructs a
+compact set of source-trained candidates with different architectures. For
+each target center, RCF-DTI removes infeasible candidates, adapts the
+remaining candidates with the same update budget, and selects a
+non-reference candidate only when it gives sufficient validation
+improvement. The output is the selected architecture and its adapted
+parameters. Multi-center workload prediction \cite{ref17,ref18,ref19} is used only for
+evaluation.
+
+The main contributions are as follows.
+
+\begin{itemize}
+
+\item We formulate target-specific digital twin model instantiation as a
+constrained two-level optimization problem. The formulation jointly
+considers few-shot parameter adaptation, architecture selection, and hard
+limits on estimated operation count and parameter count. A
+reference-regularized objective requires sufficient validation improvement
+over a fixed reference candidate.
+
+\item We design RCF-DTI to solve the constrained problem over a finite
+candidate bank. It separates complexity filtering from parameter adaptation
+because model complexity is fixed by architecture. It also uses a common
+adaptation budget to make candidate losses comparable and a calibrated
+reference rule to avoid replacements based on small validation differences.
+
+\item We establish output feasibility and the minimum validation improvement
+of accepted alternatives. Under bounded validation error, we derive a
+sufficient condition for an accepted alternative to improve the expected
+loss on future target observations. We also give the target-stage
+computational complexity. Experiments confirm improved prediction accuracy
+and full satisfaction of the assigned limits.
+
+\end{itemize}
+
+The remainder of this paper is organized as follows.
+Section~\ref{sec:related} reviews related work.
+Section~\ref{sec:problem} defines the system model and problem.
+Section~\ref{sec:method} presents RCF-DTI.
+Section~\ref{sec:experiments} reports the experiments, and
+Section~\ref{sec:conclusion} concludes the paper.
+
+\section{Related Work}
+\label{sec:related}
+
+\subsection{Digital Twin Modeling and Platform Deployment}
+
+Digital twins maintain virtual representations of physical entities through
+continuous data exchange. They support monitoring, prediction, simulation,
+and control \cite{ref1,ref2,ref3}. In industrial and networked systems,
+data-driven models capture system states and support management decisions
+\cite{ref4,ref5,ref6}. Related time-series studies estimate missing observations with probabilistic
+models \cite{ref20} and transfer forecasting knowledge across related data
+sources \cite{ref21}. Digital twin
+networks further extend this idea to network elements, computing nodes, and
+services. Their models may be hosted by cloud or edge platforms while
+remaining associated with individual physical entities
+\cite{ref7,ref8}. Service orchestration and computation offloading also
+consider task placement, delay, and resource use in edge--cloud systems
+\cite{ref29,ref30}.
+
+These studies establish the roles of data-driven modeling and platform-side
+deployment. However, they mainly focus on system architecture, model
+construction, lifecycle management, data processing, or service control.
+They usually use a predefined model structure or one general model for a
+class of entities. They therefore provide limited support for selecting
+different architectures for newly observed heterogeneous centers under
+instance-specific complexity limits.
+
+\subsection{Few-Shot Learning and Meta-Learning}
+
+Few-shot learning aims to learn a target task from a small number of target
+examples. Meta-learning further learns transferable knowledge,
+initializations, or update rules from related tasks
+\cite{ref9,ref10}. These methods have been applied to digital twin
+construction, context adaptation, and cross-domain transfer
+\cite{ref11,ref22,ref23}. Prompt-based and memory-based methods improve transfer from limited target
+data \cite{ref24,ref25}. Online and transfer-learning studies further
+address sequential tasks and workload changes \cite{ref26,ref27}.
+
+These methods improve parameter adaptation from limited target data.
+However, most of them retain one fixed architecture during target
+adaptation. They do not jointly determine the architecture and parameters of
+a target-specific digital twin model. They also do not enforce
+platform-assigned model complexity limits during this joint decision.
+
+\subsection{Deployment-Aware Architecture Selection}
+
+Neural architecture search selects a model structure from a predefined
+architecture space. Platform-aware and hardware-aware methods consider model
+accuracy and execution cost during search \cite{ref12,ref13}. Few-shot
+neural architecture search reduces repeated candidate training by sharing
+knowledge among architectures \cite{ref14}. Zero-shot and training-free
+methods estimate architecture quality without fully training each candidate
+\cite{ref15,ref16}. Multi-objective search further considers several
+performance and complexity measures \cite{ref28}.
+
+These methods reduce architecture search cost, but they mainly focus on
+search efficiency or architecture ranking. They are not designed for
+target-specific digital twin instantiation with both a small support set and
+a small validation set. They also do not jointly handle hard
+instance-specific limits and unreliable choices caused by small validation
+differences.
+
+Overall, existing work provides limited support for jointly handling
+architecture selection, few-shot parameter adaptation, hard model complexity
+limits, and unreliable comparison based on limited validation data. RCF-DTI addresses this gap by removing models that exceed the limits,
+adapting the remaining models with the same update budget, and requiring
+sufficient validation improvement before selecting an alternative.
+
+\section{System Model and Problem Formulation}
+\label{sec:problem}
+
+\subsection{Platform Setting}
+
+We consider a shared edge--cloud digital twin platform that maintains model
+instances for heterogeneous computing centers. Let
+$\mathcal{C}_{\mathrm{src}}$ denote the source centers that provide
+historical data for offline training. During each instantiation process, we
+consider one new or reconfigured target center $c$ with limited
+observations.
+
+Each physical center is associated with one model instance hosted by the
+shared platform. The centers may differ in monitored variables, workload
+patterns, and data distributions. They may therefore require different
+model architectures.
+
+Let $\mathcal{A}$ denote the predefined architecture space. For an
+architecture $a\in\mathcal{A}$, let $f_{a,\theta}$ denote a data-driven
+digital twin model with parameter vector $\theta$. The digital twin model
+instance for target center $c$ is represented by
+
+\begin{equation}
+\mathrm{DT}_{c}
+=
+\left(
+a_c,\theta_c
+\right),
+\label{eq:dt-instance}
+\end{equation}
+
+where $a_c$ is the selected model architecture and $\theta_c$ is its
+target-adapted parameter vector. Model instantiation must therefore
+determine both the architecture and the model parameters.
+
+\subsection{Candidate Models and Complexity Limits}
+
+The target observations are divided in chronological order into a support
+set $\mathcal{D}_{c}^{\mathrm{sup}}$ and a validation set
+$\mathcal{D}_{c}^{\mathrm{val}}$. The support set is used for target adaptation. The validation set is used
+for candidate selection.
+
+A candidate model is denoted by
+$q=(a_q,\theta_q^{0})$. Here, $a_q$ is the candidate architecture and
+$\theta_q^{0}$ is its source-trained initialization. We call a finite set
+of candidate models a candidate bank. Let $\mathcal{Q}$ denote the candidate
+bank constructed before target instantiation.
+Different candidates may use different architectures or different
+source-trained initializations.
+
+The platform assigns two complexity limits to the digital twin instance of
+target center $c$. The first limit controls the computation required for
+one inference. The second limit controls the model size. For architecture
+$a_q$, let $F_c(a_q)$ denote its estimated operation count under the target
+input setting. Let $P(a_q)$ denote its parameter count. Their platform-
+assigned upper bounds are denoted by $B_c^{F}$ and $B_c^{P}$, respectively.
+
+The feasible candidate set is
+
+\begin{equation}
+\mathcal{Q}_{c}^{\mathrm{fea}}
+=
+\left\{
+q\in\mathcal{Q}
+\;\middle|\;
+F_c(a_q)\leq B_c^{F},
+\;
+P(a_q)\leq B_c^{P}
+\right\}.
+\label{eq:feasible-candidate-set}
+\end{equation}
+
+A candidate belongs to $\mathcal{Q}_{c}^{\mathrm{fea}}$ only when it
+satisfies both limits. The two limits are hard constraints. They are not
+added to the prediction loss as penalty terms.
+
+One candidate $q^{\mathrm{ref}}$ is fixed as the reference candidate before
+target instantiation. We assume that
+$q^{\mathrm{ref}}\in\mathcal{Q}_{c}^{\mathrm{fea}}$
+for each target center to which the algorithm is applied. The reference candidate provides a fixed default
+choice when an alternative candidate does not provide enough validation
+improvement.
+
+\subsection{Problem Formulation}
+
+Let $\mathcal{L}(\mathcal{D};a,\theta)$ denote the mean task loss of model
+$f_{a,\theta}$ on dataset $\mathcal{D}$. The task loss used in the
+experiments is given in Section~\ref{sec:experiments}.
+
+Let $T$ denote the fixed number of target parameter updates. For each
+feasible candidate $q$, let $\theta_{c,q}^{(T)}$ denote its parameter
+vector after $T$ updates on $\mathcal{D}_{c}^{\mathrm{sup}}$. The concrete
+update rule is given in Section~\ref{sec:method}. The post-adaptation
+validation loss is
+
+\begin{equation}
+J_c(q)
+=
+\mathcal{L}
+\left(
+\mathcal{D}_{c}^{\mathrm{val}};
+a_q,
+\theta_{c,q}^{(T)}
+\right).
+\label{eq:validation-loss}
+\end{equation}
+
+Directly returning the candidate with the lowest value of $J_c(q)$ may be
+unreliable when the validation set is small. A small difference on the validation set may disappear on unseen target
+data. We therefore add a relative selection
+cost when a non-reference candidate is selected. We call this cost
+reference regularization.
+
+Let $\tau\in[0,1)$ denote the required relative improvement over the
+reference candidate. The regularized selection score is defined as
+
+\begin{equation}
+S_c(q;\tau)
+=
+\begin{cases}
+J_c(q),
+&
+q=q^{\mathrm{ref}},
+\\[1mm]
+J_c(q)
++
+\tau J_c(q^{\mathrm{ref}}),
+&
+q\neq q^{\mathrm{ref}}.
+\end{cases}
+\label{eq:regularized-score}
+\end{equation}
+
+The added term is used only for candidate selection. It does not change the
+parameter adaptation loss. A larger value of $\tau$ requires a larger validation improvement before
+the algorithm selects a non-reference candidate.
+
+The target-specific instantiation problem is
+
+\begin{equation}
+q_c^{*}
+\in
+\underset{q\in\mathcal{Q}_{c}^{\mathrm{fea}}}
+{\arg\min}
+\;
+S_c(q;\tau).
+\label{eq:instantiation-problem}
+\end{equation}
+
+The problem has two levels. For each feasible candidate, the inner level
+adapts its continuous parameter vector using the target support set. The
+outer level selects one candidate under the complexity limits using the
+score in Eq.~\eqref{eq:regularized-score}. We therefore formulate
+target-specific model instantiation as a constrained two-level optimization
+problem.
+
+
+\section{RCF-DTI Method}
+\label{sec:method}
+
+\subsection{Overview}
+
+RCF-DTI uses a candidate bank prepared offline together with a fixed
+reference candidate and a calibrated selection threshold. For each target
+center, the algorithm receives the target data and assigned complexity
+limits. It first removes candidates that violate either limit, then adapts
+the feasible candidates with a fixed update budget, and finally performs
+reference-regularized selection. The selected architecture and its adapted
+parameters form the target-specific digital twin instance.
+Figure~\ref{fig:method-overview} summarizes the overall RCF-DTI workflow
+and its relation to digital twin operation. The offline bank preparation
+and the target-side stages are detailed in the following subsections.
+
+\paperfig[trim={40bp 300bp 40bp 300bp},clip]{0.68\linewidth}
+{fig2.pdf}
+{Overview of RCF-DTI. A candidate bank prepared offline and the target data
+with assigned limits are provided to the algorithm. RCF-DTI performs
+complexity filtering, fixed-budget adaptation, and reference-regularized
+selection. The selected candidate forms the target-specific digital twin
+instance, which exchanges monitoring data and state estimates with the
+target center during digital twin operation.}
+{fig:method-overview}
+
+\subsection{Offline Bank Construction}
+
+The candidate-bank input in Figure~\ref{fig:method-overview} is prepared
+offline in two steps. First, a compact architecture set is retained from
+the predefined space using separate development data.
+
+Let
+$\mathcal{A}_{\mathrm{bank}}=\{a_m\}_{m=1}^{M}$ denote the retained
+architecture set, where $M$ is the number of retained architectures.
+Second, let $\mathcal{D}_{\mathrm{src}}$ denote the pooled source-center
+training data. For each retained architecture $a_m$, the offline stage
+trains one or more source initializations. The $r$-th initialization is trained by
+
+\begin{equation}
+\theta_{m,r}^{0}
+\in
+\underset{\theta}{\arg\min}
+\;
+\mathcal{L}
+\left(
+\mathcal{D}_{\mathrm{src}};
+a_m,\theta
+\right),
+\qquad
+m=1,\ldots,M,
+\quad
+r=1,\ldots,R_m,
+\label{eq:source-initialization-training}
+\end{equation}
+
+where $\theta$ is the parameter variable during source training and $R_m$
+is the number of stored initializations for architecture $a_m$. In
+practice, the source optimizer gives an approximate solution to
+Eq.~\eqref{eq:source-initialization-training}.
+
+Each pair
+$q_{m,r}=(a_m,\theta_{m,r}^{0})$ forms one candidate. The complete bank is
+$\mathcal{Q}=\{q_{m,r}\}$ for
+$m=1,\ldots,M$ and $r=1,\ldots,R_m$. Because each initialization is trained
+with its own architecture, it is called an architecture-matched source
+initialization.
+
+The reference candidate $q^{\mathrm{ref}}$ is fixed from this bank before
+target instantiation and is not changed across target centers.
+Figure~\ref{fig:source-bank} details the offline construction of the
+candidate bank shown in Figure~\ref{fig:method-overview}.
+
+\paperfig[trim={200bp 1250bp 280bp 180bp},clip]{0.98\linewidth}
+{fig3.pdf}
+{Offline construction of the candidate bank used by RCF-DTI. A compact
+architecture set $\mathcal{A}_{\mathrm{bank}}$ is retained from the
+predefined architecture space using separate development data. For each
+retained architecture $a_m$, pooled source-center data are used to train
+one or more architecture-matched source initializations
+$\theta_{m,r}^{0}$. Each pair
+$q_{m,r}=(a_m,\theta_{m,r}^{0})$ forms one candidate, and one bank member
+is fixed as the reference candidate $q^{\mathrm{ref}}$ before target
+instantiation.}
+{fig:source-bank}
+
+\subsection{Candidate Filtering}
+
+For target center $c$, RCF-DTI computes the feasible set using
+Eq.~\eqref{eq:feasible-candidate-set}. Filtering compares the estimated
+operation count $F_c(a_q)$ and parameter count $P(a_q)$ with their assigned
+upper bounds $B_c^{F}$ and $B_c^{P}$, respectively. It does not use the
+target support or validation data. Because architecture complexity does not
+change during parameter adaptation, a candidate that violates either limit
+is removed before target updates. This avoids unnecessary adaptation. The
+feasible reference candidate ensures at least one valid output.
+Figure~\ref{fig:candidate-filtering} illustrates representative
+complexity-filtering outcomes.
+
+\paperfig[trim={240bp 1300bp 40bp 180bp},clip]{0.98\linewidth}
+{fig4.pdf}
+{Complexity filtering under platform-assigned instance limits. A candidate
+$q$ remains feasible only when its estimated operation count $F_c(a_q)$ and
+parameter count $P(a_q)$ do not exceed the assigned upper bounds
+$B_c^{F}$ and $B_c^{P}$, respectively. Violation of either limit makes the
+candidate infeasible. The fixed reference candidate $q^{\mathrm{ref}}$ is
+highlighted in blue.}
+{fig:candidate-filtering}
+
+\subsection{Target Adaptation}
+
+Each feasible candidate starts from its architecture-matched source
+initialization. Let $\eta>0$ denote the target learning rate, and let $G>0$
+denote the maximum gradient norm. The parameters are updated by
+
+\begin{equation}
+\begin{aligned}
+\theta_{c,q}^{(0)}
+&=
+\theta_q^{0},
+\\
+\theta_{c,q}^{(t+1)}
+&=
+\theta_{c,q}^{(t)}
+-
+\eta\,
+\operatorname{Clip}_{G}
+\left(
+\nabla_{\theta}
+\mathcal{L}
+\left(
+\mathcal{D}_{c}^{\mathrm{sup}};
+a_q,
+\theta_{c,q}^{(t)}
+\right)
+\right),
+\\[-1mm]
+&\hspace{42mm}
+t=0,\ldots,T-1.
+\end{aligned}
+\label{eq:target-update}
+\end{equation}
+
+Here, $t$ is the update index, and $\nabla_{\theta}$ denotes the gradient
+with respect to the model parameters. The function $\operatorname{Clip}_{G}(\cdot)$ limits the
+Euclidean norm of the gradient to $G$. It leaves the gradient unchanged
+when the norm does not exceed $G$ and rescales it otherwise. The
+architecture $a_q$ remains fixed during all updates.
+
+All feasible candidates use the same support set, task loss, optimizer,
+learning rate, gradient clipping rule, and update budget $T$. Candidate-
+specific early stopping is not used. These common settings make the
+post-adaptation losses comparable.
+
+After the final update, the algorithm computes $J_c(q)$ using
+Eq.~\eqref{eq:validation-loss}. The validation set is used only for model
+selection. It is not used for parameter updates.
+
+\subsection{Candidate Selection}
+
+Let
+$\mathcal{Q}_{c}^{\mathrm{alt}}
+=
+\mathcal{Q}_{c}^{\mathrm{fea}}
+\setminus\{q^{\mathrm{ref}}\}$
+denote the set of feasible alternatives. If this set is empty, the
+algorithm returns the reference candidate.
+
+Otherwise, let $\widetilde q_c$ denote a feasible alternative with the
+lowest post-adaptation validation loss:
+
+\[
+\widetilde q_c
+\in
+\underset{q\in\mathcal{Q}_{c}^{\mathrm{alt}}}
+{\arg\min}
+\;
+J_c(q).
+\]
+
+The final candidate is selected by
+
+\begin{equation}
+q_c^{*}
+=
+\begin{cases}
+\widetilde q_c,
+&
+J_c(\widetilde q_c)
+\leq
+(1-\tau)J_c(q^{\mathrm{ref}}),
+\\[1mm]
+q^{\mathrm{ref}},
+&
+\text{otherwise}.
+\end{cases}
+\label{eq:reference-regularized-selection}
+\end{equation}
+
+For the computed post-adaptation losses,
+Eq.~\eqref{eq:reference-regularized-selection} gives a minimizer of the
+selection problem in Eq.~\eqref{eq:instantiation-problem}. All alternatives
+receive the same added cost $\tau J_c(q^{\mathrm{ref}})$. Therefore, the
+alternative with the lowest value of $J_c(q)$ also has the lowest
+regularized score among the alternatives. It is selected only when the
+condition in Eq.~\eqref{eq:reference-regularized-selection} is satisfied.
+
+Figure~\ref{fig:adaptation-selection} illustrates the fixed-budget
+adaptation and reference-regularized selection stages.
+
+\paperfig[trim={100bp 600bp 200bp 140bp},clip]{0.96\linewidth}
+{fig5.pdf}
+{Fixed-budget target adaptation and reference-regularized selection.
+(a) Each feasible candidate starts from its architecture-matched source
+initialization and updates only its parameters for $T$ steps using the same
+support data and update procedure.
+(b) The best feasible alternative is selected only when
+$J_c(\widetilde q_c)\leq(1-\tau)J_c(q^{\mathrm{ref}})$; otherwise, the
+fixed reference candidate is retained.}
+{fig:adaptation-selection}
+
+Algorithm~\ref{alg:rcf-dti} summarizes RCF-DTI for one target center.
+
+\begin{algorithm}[t]
+\caption{RCF-DTI for Target-Specific Model Instantiation}
+\label{alg:rcf-dti}
+\begin{algorithmic}[1]
+\Require Candidate bank $\mathcal{Q}$, reference candidate
+$q^{\mathrm{ref}}$, support set $\mathcal{D}_{c}^{\mathrm{sup}}$, and
+validation set $\mathcal{D}_{c}^{\mathrm{val}}$
+\Require Limits $B_c^{F}$ and $B_c^{P}$, update budget $T$, learning rate
+$\eta$, gradient bound $G$, and calibrated threshold $\tau$
+\Ensure Target-specific digital twin model $\mathrm{DT}_{c}^{*}$
+
+\State Compute $\mathcal{Q}_{c}^{\mathrm{fea}}$ using
+Eq.~\eqref{eq:feasible-candidate-set}
+
+\ForAll{$q\in\mathcal{Q}_{c}^{\mathrm{fea}}$}
+    \State $\theta_{c,q}^{(0)}\gets\theta_q^{0}$
+    \For{$t=0$ to $T-1$}
+        \State
+        $g\gets
+        \nabla_{\theta}
+        \mathcal{L}
+        \left(
+        \mathcal{D}_{c}^{\mathrm{sup}};
+        a_q,\theta_{c,q}^{(t)}
+        \right)$
+        \State $g\gets\operatorname{Clip}_{G}(g)$
+        \State
+        $\theta_{c,q}^{(t+1)}
+        \gets
+        \theta_{c,q}^{(t)}-\eta g$
+    \EndFor
+    \State Compute $J_c(q)$ using Eq.~\eqref{eq:validation-loss}
+\EndFor
+
+\ForAll{$q\in\mathcal{Q}_{c}^{\mathrm{fea}}$}
+    \State Compute $S_c(q;\tau)$ using
+    Eq.~\eqref{eq:regularized-score}
+\EndFor
+
+\State Choose
+$q_c^{*}\in
+\underset{q\in\mathcal{Q}_{c}^{\mathrm{fea}}}
+{\arg\min}
+\;
+S_c(q;\tau)$
+
+\State
+$\mathrm{DT}_{c}^{*}
+\gets
+\left(
+a_{q_c^{*}},
+\theta_{c,q_c^{*}}^{(T)}
+\right)$
+
+\State \Return $\mathrm{DT}_{c}^{*}$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Threshold Calibration}
+
+The threshold $\tau$ is fixed before target instantiation. It is selected
+from a finite set $\mathcal{T}$ using a separate set of development cases,
+denoted by $\mathcal{C}_{\mathrm{dev}}$. Each development case contains
+support, validation, and check data. The support and validation data are
+used by RCF-DTI. The check data are used only for threshold calibration.
+
+For each case $d\in\mathcal{C}_{\mathrm{dev}}$, let $h_d(\tau)=1$ when
+RCF-DTI selects a non-reference candidate whose check loss is higher than
+that of the reference candidate. Otherwise, let $h_d(\tau)=0$. The empirical
+harmful-selection rate is
+
+\begin{equation}
+\widehat R_{\mathrm{harm}}(\tau)
+=
+\frac{1}{|\mathcal{C}_{\mathrm{dev}}|}
+\sum_{d\in\mathcal{C}_{\mathrm{dev}}}
+h_d(\tau).
+\label{eq:harmful-selection-rate}
+\end{equation}
+
+Calibration also requires positive development gains. Let
+$\widehat G_{\mathrm{ref}}(\tau)$ denote the mean relative check-loss
+reduction over the fixed reference candidate. To distinguish gains from
+architecture selection from gains caused only by a different source
+initialization, we define a reference-architecture control. This control
+applies the same selection rule only to candidates that use the reference
+architecture. Let $\widehat G_{\mathrm{arch}}(\tau)$ denote the mean
+additional reduction over this control.
+
+Let $\underline G_{\mathrm{ref}}(\tau)$ and
+$\underline G_{\mathrm{arch}}(\tau)$ denote the lower confidence bounds of
+the two gains. Let $\rho$ denote the allowed harmful-selection rate, and let
+$\gamma_{\mathrm{ref}}$ and $\gamma_{\mathrm{arch}}$ denote the required
+minimum gains. The eligible threshold set and the calibrated threshold are
+
+\begin{equation}
+\begin{aligned}
+\mathcal{T}_{\mathrm{elig}}
+=
+\bigl\{
+\tau\in\mathcal{T}
+\;\bigm|\;&
+\widehat R_{\mathrm{harm}}(\tau)\leq\rho,
+\\
+&
+\widehat G_{\mathrm{ref}}(\tau)\geq\gamma_{\mathrm{ref}},
+\quad
+\underline G_{\mathrm{ref}}(\tau)>0,
+\\
+&
+\widehat G_{\mathrm{arch}}(\tau)\geq\gamma_{\mathrm{arch}},
+\quad
+\underline G_{\mathrm{arch}}(\tau)>0
+\bigr\},
+\\
+\tau^{*}
+&=
+\min \mathcal{T}_{\mathrm{elig}}.
+\end{aligned}
+\label{eq:threshold-calibration}
+\end{equation}
+
+We assume that $\mathcal{T}_{\mathrm{elig}}$ is nonempty. The smallest
+eligible threshold is used because it satisfies the development criteria
+without requiring a larger validation improvement than necessary. The tested values, gain requirements, and confidence procedure are reported in
+Section~\ref{subsec:experimental-setup}.
+
+This calibration controls the observed behavior on the development cases.
+It does not guarantee improvement for every unseen target center.
+
+\subsection{Algorithm Analysis and Complexity}
+
+\textbf{Complexity feasibility.}
+Algorithm~\ref{alg:rcf-dti} selects a candidate only from
+$\mathcal{Q}_{c}^{\mathrm{fea}}$. Therefore, its output always satisfies
+
+\[
+F_c(a_{q_c^{*}})\leq B_c^{F},
+\qquad
+P(a_{q_c^{*}})\leq B_c^{P}.
+\]
+
+This property follows directly from the hard filtering step.
+
+\textbf{Minimum validation improvement.}
+Suppose that the algorithm returns a non-reference candidate and that
+$J_c(q^{\mathrm{ref}})>0$. Equation~\eqref{eq:reference-regularized-selection}
+gives
+
+\[
+\frac{
+J_c(q^{\mathrm{ref}})
+-
+J_c(q_c^{*})
+}{
+J_c(q^{\mathrm{ref}})
+}
+\geq
+\tau.
+\]
+
+Thus, every accepted alternative reaches at least the required relative
+validation improvement.
+
+\textbf{Selection under bounded validation error.}
+Let $R_c(q)$ denote the expected loss of the adapted candidate $q$ on future
+observations from target center $c$. Suppose that the validation loss
+approximates this expected loss with error at most $\epsilon_c$ for the
+selected alternative and the reference candidate:
+
+\[
+\left|R_c(q)-J_c(q)\right|
+\leq
+\epsilon_c,
+\qquad
+q\in\{q_c^{*},q^{\mathrm{ref}}\}.
+\]
+
+If RCF-DTI selects a non-reference candidate, then
+Eq.~\eqref{eq:reference-regularized-selection} gives
+
+\begin{equation}
+R_c(q_c^{*})
+-
+R_c(q^{\mathrm{ref}})
+\leq
+-\tau J_c(q^{\mathrm{ref}})
++
+2\epsilon_c.
+\label{eq:bounded-validation-error}
+\end{equation}
+
+Therefore, when
+$\tau J_c(q^{\mathrm{ref}})>2\epsilon_c$, the selected alternative has a
+lower expected loss than the reference candidate on future target
+observations. This is a sufficient condition under the stated validation
+error bound. It does not provide an unconditional guarantee for every
+target center.
+
+\textbf{Target-stage computation.}
+Let $C_q^{\mathrm{grad}}$ denote the cost of one gradient update for
+candidate $q$, and let $C_q^{\mathrm{val}}$ denote its validation cost. The
+target-stage computation is
+
+\begin{equation}
+O
+\left(
+|\mathcal{Q}|
++
+\sum_{q\in\mathcal{Q}_{c}^{\mathrm{fea}}}
+\left(
+T C_q^{\mathrm{grad}}
++
+C_q^{\mathrm{val}}
+\right)
+\right).
+\label{eq:target-complexity}
+\end{equation}
+
+Here, $O(\cdot)$ denotes asymptotic computational complexity. The first term
+is the filtering cost. The remaining terms are the adaptation and validation
+costs of the feasible candidates. Filtering before adaptation avoids the
+update cost of candidates that cannot satisfy the platform-assigned limits.
+
+The final model is
+$\mathrm{DT}_{c}^{*}
+=
+(a_{q_c^{*}},\theta_{c,q_c^{*}}^{(T)})$.
+The platform also records
+$F_c(a_{q_c^{*}})$ and $P(a_{q_c^{*}})$
+for the selected architecture.
+
+\section{Experimental Evaluation}
+\label{sec:experiments}
+
+This section evaluates predictive accuracy, errors on difficult cases,
+whether selected models satisfy the assigned limits, target-side cost, and
+generalization. It also examines the main components and settings of
+RCF-DTI.
+
+\subsection{Experimental Setup}
+\label{subsec:experimental-setup}
+
+\subsubsection{Benchmark and Evaluation Protocol}
+
+We use a controlled synthetic benchmark for heterogeneous multi-center
+workloads. The benchmark varies sampling intervals, missing-data patterns,
+noise levels, workload dynamics, target data sizes, and model complexity
+limits. Each center contains 3000 workload observations. The input window
+length is $L=96$.
+
+The main evaluation uses 20 source centers and 20 held-out target centers.
+For each target center, we consider two prediction horizons,
+$H\in\{1,4\}$, and two support sizes, $K\in\{10,20\}$. A target case is one
+combination of a target center, a prediction horizon, and a support size.
+The main evaluation therefore contains 80 target cases.
+
+The target centers are grouped into types A, B, and C. These groups differ
+in sampling intervals, missing-data patterns, noise levels, and workload
+dynamics. The group label is used only for result analysis. It is not an
+input to RCF-DTI or any baseline.
+
+We use four disjoint center groups: source, development, diagnostic, and
+held-out target. Source centers train the source initializations.
+Development centers are used for architecture retention and threshold
+calibration. The diagnostic group contains three disjoint pools for the
+ablation, optimizer-matched, and source-scale studies. Held-out target
+centers are used only for the main comparison.
+
+Each target case is divided in chronological order into support, validation,
+check, and test sets. Support data are used for adaptation, and validation
+data are used for candidate selection. On development cases, validation and
+check data support architecture retention, and check data also calibrate the
+threshold. On diagnostic and held-out cases, check data are used only after
+candidate selection. Test data are used only for final evaluation. Neither
+check nor test data affect target adaptation or within-case candidate
+selection.
+
+The reference architecture is a one-layer gated recurrent unit (GRU) with
+32 hidden units and a dropout rate of 0.1. Its parameters are pretrained on
+the pooled source-center data. The resulting source-trained model is used as
+the reference candidate in all later experiments.
+
+An alternative architecture is retained when it gives lower error than the
+reference architecture in at least two development cases on either the
+validation set or the development check set. This rule fixes the compact
+architecture set before diagnostic and held-out target evaluation.
+
+The selection threshold is fixed on the development cases. A harmful
+selection occurs when RCF-DTI selects a non-reference candidate whose check
+loss is higher than that of the reference candidate. We test thresholds of
+5\%, 7.5\%, 10\%, 12.5\%, 15\%, and 20\%.
+
+A threshold is eligible only when all development criteria are satisfied.
+First, its harmful-selection rate must not exceed 5\%. Second, its mean
+check-loss reduction over the reference candidate must be at least 3\%,
+and the lower bound of its 95\% confidence interval must be positive.
+The additional reduction over the reference-architecture control must
+satisfy the same gain and confidence requirements. The smallest eligible
+threshold is 10\%. The main candidate bank, reference candidate, selection threshold, and other
+main settings are fixed before the ablation, optimizer-matched, and held-out
+evaluations. Table~\ref{tab:configuration} lists the main experimental configuration.
+
+\input{tables/table1_configuration.tex}
+
+
+\subsubsection{Task, Metrics, and Implementation}
+
+We use workload prediction only as the evaluation task. It tests whether an
+instantiated digital twin model captures the temporal behavior of the target
+center.
+
+Let $\mathbf{X}_{c,t}$ denote an input window of length $L$. The model
+predicts the next $H$ workload states as
+
+\begin{equation}
+\widehat{\mathbf{y}}_{c,t+1:t+H}
+=
+f_{a,\theta}
+\left(
+\mathbf{X}_{c,t}
+\right),
+\label{eq:prediction-task}
+\end{equation}
+
+where $t$ is the current time index,
+$\widehat{\mathbf{y}}_{c,t+1:t+H}$ is the predicted workload vector, and
+$\mathbf{y}_{c,t+1:t+H}$ is the corresponding observed vector.
+
+We use mean squared error (MSE) as the task loss. For a dataset
+$\mathcal{D}$ of input--output pairs, it is defined as
+
+\begin{equation}
+\mathcal{L}
+\left(
+\mathcal{D};a,\theta
+\right)
+=
+\frac{1}{|\mathcal{D}|}
+\sum_{(\mathbf{X},\mathbf{y})\in\mathcal{D}}
+\frac{1}{H}
+\left\|
+f_{a,\theta}(\mathbf{X})-\mathbf{y}
+\right\|_{2}^{2}.
+\label{eq:prediction-loss}
+\end{equation}
+
+Here, $|\mathcal{D}|$ is the number of prediction windows, $H$ is the
+prediction horizon, and $\|\cdot\|_2$ is the Euclidean norm. The loss
+averages the squared error over all prediction windows and prediction
+steps. It is the task loss introduced in Section~\ref{sec:problem}.
+
+We report mean absolute error (MAE), MSE, Worst-10\% error, conditional value
+at risk at the 90th percentile (CVaR90), target-side instantiation time, and
+limit satisfaction. For each target case, MAE and MSE are averaged over all
+test windows and prediction steps. Worst-10\% error is the mean window-level
+MSE over the 10\% of test windows with the largest errors. CVaR90 is the
+mean case-level MSE over the 10\% of target cases with the largest MSE
+values. Limit satisfaction is the percentage of selected models that meet
+both assigned model complexity limits.
+
+The main results report averages over the held-out target cases. Since all
+methods are evaluated on the same target cases, relative gains are first
+computed for each paired case. The four $(H,K)$ cases from the same target center are treated as one group.
+The 95\% confidence intervals are obtained by resampling target centers
+4000 times.
+
+All methods are implemented in Python and PyTorch and run on the same NVIDIA
+RTX 3060 Laptop GPU. The main source initializations are trained with the
+Adam optimizer for 50 epochs. The learning rate is $10^{-3}$, and the batch
+size is 64.
+
+Each target update uses the complete support set. The updates are implemented
+with the SGD optimizer and MSE loss. All feasible RCF-DTI candidates use the
+same learning rate, gradient clipping rule, and fixed budget of 50 updates.
+Candidate-specific early stopping is not used.
+
+GPU execution is synchronized before runtime measurement. The timer
+includes candidate construction, loading of source initializations, target
+adaptation, validation evaluation, and final candidate selection. It
+excludes source training, data generation, and post-selection check and test
+evaluation.
+
+The main candidate bank uses source-training seed 2904. Seeds 2905 and 2906
+are used only in the additional training-seed study.
+
+
+\subsubsection{Baselines and Comparison Settings}
+
+We compare RCF-DTI with six baselines: pretraining and fine-tuning (PT+FT),
+MeDeT-based adaptation, random initialization, few-shot neural architecture
+search, zero-shot neural architecture search, and zero-shot neural
+architecture search with fine-tuning.
+
+PT+FT adapts the source-trained reference candidate using the same SGD, MSE,
+and 50-update protocol as RCF-DTI. Random initialization uses the same
+reference architecture and adaptation protocol without source training.
+MeDeT-based adaptation follows the meta-initialization idea of
+MeDeT~\cite{ref11} and uses the reference architecture.
+
+Few-shot neural architecture search follows the candidate-ranking idea in
+\cite{ref14}. It retains and adapts the Top-12 candidates. The two zero-shot
+baselines use architecture scores that do not require full target training
+\cite{ref15,ref16}. One selects a model without target adaptation. The other
+adapts its Top-12 candidates before final selection.
+
+The MeDeT and architecture-search baselines are adapted to the common
+workload prediction setting. They are not full reproductions of the original
+systems. All methods use the same target cases, chronological splits,
+complexity limits, and architecture definitions. No method uses the target
+test set for training, selection, or stopping.
+
+PT+FT is the main controlled baseline because it adapts the same reference
+candidate as RCF-DTI. We also conduct an optimizer-matched comparison on a
+separate diagnostic pool. In this comparison, all adapted candidates use
+SGD, MSE, and 50 updates, and each matched search baseline evaluates 12
+candidates. The pool is not used to tune any method.
+Table~\ref{tab:fairness} summarizes the comparison settings.
+
+\input{tables/table2_fairness.tex}
+
+\subsection{Overall Performance}
+\label{subsec:overall}
+
+Table~\ref{tab:overall} reports the predictive performance on the held-out
+target cases. All compared methods use the same model complexity limits and
+the same feasibility check. Therefore, every selected model in this table
+satisfies both limits. The effect of removing complexity filtering is
+examined separately in Section~\ref{subsec:component}.
+
+\input{tables/table3_overall.tex}
+
+RCF-DTI gives the lowest MAE, MSE, Worst-10\% error, and CVaR90 among all
+compared methods. PT+FT is the strongest baseline. Relative to PT+FT,
+RCF-DTI reduces MAE, MSE, and Worst-10\% error by 8.55\%, 14.60\%, and
+13.76\%, respectively.
+
+These reductions are first computed for each paired target case and then
+averaged. They are not computed from the aggregate values in
+Table~\ref{tab:overall}. The corresponding 95\% confidence intervals are
+$[5.42\%,11.85\%]$, $[9.41\%,20.14\%]$, and
+$[8.44\%,19.25\%]$. All three intervals remain above zero.
+
+We next examine the case-level results against PT+FT. Since PT+FT adapts the
+reference candidate, it also provides the test result of the reference
+model under the common target adaptation settings. For post-selection
+analysis, an alternative selection is called beneficial when its test MSE
+is lower than that of PT+FT. It is called harmful when its test MSE is
+higher. These labels are assigned after candidate selection using the test set.
+They do not affect the algorithm. Figure~\ref{fig:paired_instantiation}
+shows the paired comparison. Points below the diagonal favor RCF-DTI.
+
+\paperfig{0.98\linewidth}
+{fig6.pdf}
+{Paired case-level comparison between RCF-DTI and PT+FT on the held-out
+target cases. (a) Test MSE. (b) Test Worst-10\% error. Points below the
+diagonal favor RCF-DTI. The beneficial and harmful labels are determined
+from post-selection test MSE, while reference-retained cases are those in
+which RCF-DTI keeps the reference candidate. The same outcome categories
+are used in both panels and do not affect candidate selection.}
+{fig:paired_instantiation}
+
+RCF-DTI selects an alternative in 47 cases. Among them, 44 are beneficial
+and 3 are harmful. Thus, 93.62\% of the alternative selections improve test
+MSE, while harmful selections account for 3.75\% of all held-out cases. The
+reference is retained in the other 33 cases. Reference regularization
+therefore reduces, but does not remove, harmful selections.
+
+Table~\ref{tab:matched_control} reports the optimizer-matched comparison on
+the separate diagnostic target pool.
+
+\input{tables/table4_matched_control.tex}
+
+RCF-DTI still gives the lowest MSE, Worst-10\% error, and CVaR90. It adapts
+6.10 candidates on average, while each matched search baseline adapts 12
+candidates. RCF-DTI's advantage therefore remains after matching the optimizer, task
+loss, and number of target updates.
+
+This comparison does not isolate one component of RCF-DTI. The compared methods
+still differ in their source initializations and candidate-selection
+procedures.
+
+\subsection{Performance under Target Heterogeneity}
+\label{subsec:heterogeneity}
+
+We first examine whether the gain of RCF-DTI is limited to one target
+setting.
+Figure~\ref{fig:heterogeneity_robustness} reports the paired MSE reduction
+relative to PT+FT under different prediction horizons, support sizes, and
+target-center types. A positive value means that RCF-DTI gives lower MSE
+than PT+FT. The confidence intervals are obtained by resampling target
+centers.
+
+\paperfig{0.88\linewidth}
+{fig7.pdf}
+{Performance across heterogeneous target settings. Points show the mean
+paired MSE reduction relative to PT+FT. Horizontal bars show 95\%
+confidence intervals obtained by resampling target centers.
+(a) Results by prediction horizon and support size.
+(b) Results by target-center type.}
+{fig:heterogeneity_robustness}
+
+RCF-DTI gives positive mean reductions in all four $(H,K)$ settings and all
+three target-center types. The reductions range from 11.57\% to 18.03\%
+across the $(H,K)$ settings and from 13.03\% to 16.80\% across the center
+types. All seven confidence intervals remain above zero. Thus, the
+gain is not limited to one prediction horizon, support size, or center type.
+
+
+\subsection{Effect of Complexity Limits}
+\label{subsec:complexity-limits}
+
+We next examine how the assigned complexity limits affect target-side
+instantiation. The benchmark includes tight, medium, and loose limit
+settings. The tight setting uses the smallest upper bounds on estimated operation
+count and parameter count. The medium setting uses intermediate bounds, and
+the loose setting uses the largest bounds.
+
+Figure~\ref{fig:budget_architecture} compares the number of candidates
+before and after complexity filtering. It also reports the selection rates
+of the final model configurations under the three limit settings. Here, a model configuration refers to an architecture and its source
+initialization before target adaptation.
+
+\paperfig{0.98\linewidth}
+{fig8.pdf}
+{Effect of model complexity limits on target-side instantiation.
+(a) Mean numbers of candidates before and after complexity filtering.
+(b) Percentages of held-out cases selecting each final model configuration
+within the tight, medium, and loose limit settings.}
+{fig:budget_architecture}
+
+Under the tight setting, filtering reduces the mean candidate count from
+seven to four. The medium and loose settings keep all seven candidates.
+Five model configurations are selected across the held-out cases. The tight
+setting selects only GRU configurations, while the medium setting also
+selects two multilayer perceptron configurations. Under the loose setting,
+the alternative GRU configurations are selected most often.
+
+These results show that the assigned limits affect both adaptation cost and
+the final model choice. Because filtering is applied first, every selected
+model satisfies both limits.
+
+\subsection{Ablation Study}
+\label{subsec:component}
+
+Table~\ref{tab:ablation} reports the ablation results on an independent
+diagnostic target pool. This pool does not affect the main candidate bank,
+reference candidate, selection threshold, or other main settings. Gain is
+the paired MSE reduction relative to the reference candidate on the same
+pool.
+
+\input{tables/table5_ablation.tex}
+
+We first examine the source-training procedure and architecture choices.
+The earlier pooled-source-training variant keeps the candidate architectures
+and the two reference-architecture initializations unchanged. It replaces
+only the non-reference initializations. This variant, the reference-only
+variant, and the two-reference-initialization variant all give higher MSE
+than RCF-DTI. These results indicate that both the source-training procedure
+and selection across different architectures affect target adaptation.
+Because the earlier variant changes the complete procedure used to train the
+non-reference initializations, this comparison does not isolate one
+source-training factor.
+
+Removing reference regularization slightly reduces mean MSE, but increases
+the harmful-selection rate from 15.00\% to 17.50\%. Both rates are higher
+than the 5\% rate used during development calibration. Reference
+regularization therefore trades a small change in mean MSE for fewer harmful
+selections, although it does not remove them completely.
+
+Removing complexity filtering slightly reduces mean MSE, but lowers limit
+satisfaction from 100\% to 96.25\%. Complexity filtering therefore enforces
+the assigned hard limits rather than directly reducing prediction error.
+
+\subsection{Parameter and Cost Analysis}
+\label{subsec:compact-cost}
+
+Figure~\ref{fig:bank_adaptation_margin} studies the number of retained
+architectures, the number of target updates, and the selection threshold. These studies use
+only development or diagnostic cases.
+
+\paperfig{0.99\linewidth}
+{fig9.pdf}
+{Parameter studies for RCF-DTI.
+(a) Diagnostic MSE under different numbers of retained architectures.
+(b) Check MSE and candidate-selection agreement relative to the 50-update
+result.
+(c) Alternative-selection and harmful-selection rates under different
+selection thresholds. Held-out target cases are not used to choose these
+settings.}
+{fig:bank_adaptation_margin}
+
+Figure~\ref{fig:bank_adaptation_margin}(a) shows that diagnostic MSE
+decreases from 0.004917 with one retained architecture to 0.004063 with
+four retained architectures, and then remains unchanged. We retain all six
+architectures because the retained architecture set was fixed before the
+diagnostic results were observed. This result supports a compact retained
+architecture set, but does not identify a globally optimal size.
+
+Figure~\ref{fig:bank_adaptation_margin}(b) shows that check MSE decreases
+mainly during the first ten updates. Selection agreement with the
+50-update result reaches 77.5\% at 20 updates. The corresponding rank
+correlation with the 50-update result is 0.913. We use 50 updates as a
+fixed common budget, not as a claimed optimal value.
+Figure~\ref{fig:bank_adaptation_margin}(c) shows how the alternative-selection
+and harmful-selection rates change with the threshold. The 10\% threshold is
+the smallest tested value that satisfies all development criteria defined in
+Section~\ref{subsec:experimental-setup}. It is then fixed for held-out
+evaluation.
+
+Figure~\ref{fig:deployment_profile} compares MSE, Worst-10\% error, CVaR90,
+target-side time, and model complexity. Each axis is normalized so that the
+best displayed value receives a score of 100. The raw values remain the
+basis of the comparison.
+
+\paperfig{0.40\linewidth}
+{fig10.pdf}
+{Target-side trade-offs of representative methods. The axes show MSE,
+Worst-10\% error, CVaR90, target-side time, parameter count, and estimated
+operation count. Each axis is normalized across the displayed methods so
+that the lowest raw value receives a score of 100. Larger normalized scores
+are better.}
+{fig:deployment_profile}
+
+RCF-DTI gives the lowest MSE, Worst-10\% error, and CVaR90 among the
+displayed methods, but it is not the fastest. It adapts 6.25 candidates on average and
+takes $5.676\pm0.059$ seconds per case. Single-model methods are faster
+because they adapt one candidate. Few-shot NAS and zero-shot NAS with
+fine-tuning are slower because they adapt 12 candidates. Their target-side
+times are $2.37\times$ and $3.10\times$ that of RCF-DTI, respectively.
+
+Figure~\ref{fig:architecture-tradeoff} summarizes the final model
+configurations selected by RCF-DTI. Test results in this figure are used only
+for post-selection analysis.
+
+\paperfig{0.78\linewidth}
+{fig11.pdf}
+{Complexity and test performance of the selected model configurations.
+Estimated operation count is shown on the horizontal axis, paired MSE
+reduction on the vertical axis, parameter count by marker color, and the
+number of selected cases by marker area. Circles denote alternative
+configurations, and the square denotes the reference configuration. The
+label $h$ shows the number of harmful selections.}
+{fig:architecture-tradeoff}
+
+The five selected configurations show different operation-count and
+parameter-count trade-offs. The two multilayer perceptron configurations use
+fewer estimated operations but more parameters than the GRU configurations.
+The reference configuration is retained in 33 cases, while four alternative
+configurations cover the remaining 47 cases. Their mean paired MSE
+reductions range from 17.43\% to 30.50\%.
+
+All four alternatives give positive mean reductions, so the overall gain is
+not produced by one fixed architecture. The three harmful selections occur
+on the two alternative GRU configurations. Reference-regularized selection
+therefore reduces, but does not remove, harmful selections.
+
+\subsection{Generalization Study}
+\label{subsec:generalization}
+
+We examine RCF-DTI under changes in source-center scale, source-training
+seed, and workload data. These studies use the same target-side adaptation
+and selection procedure as the main evaluation.
+
+\textbf{Source-center scale.}
+We rebuild the candidate bank using 10, 20, 30, 40, and 50 source centers.
+Each source-trained model receives 2000 source-training updates at every
+scale. At each scale, RCF-DTI is compared with a reference candidate trained
+using the same source-center set and the same source-training budget. The
+evaluation uses the separate source-scale diagnostic target pool.
+
+Figure~\ref{fig:generalization}(a) reports the paired MSE reduction relative
+to the reference candidate trained at the same source scale. The
+20-source-center result belongs to this diagnostic study. It is therefore
+not directly comparable with the 14.60\% main result, which is obtained on
+the held-out target centers.
+
+The mean reduction is positive at all five source scales, but it does not
+increase monotonically. Under a fixed source-training budget, adding more
+source centers distributes the same number of updates across more source
+workloads. More source centers therefore do not always produce a larger
+target-side gain.
+
+\textbf{Source-training seeds and external data.}
+We rebuild the candidate bank using source-training seeds 2904, 2905, and
+2906. The three banks use the same source centers, architecture set,
+source-training budget, and data-generation seed. They are evaluated on the
+same separate target pool with identical target adaptation seeds and the
+same target-side protocol. The only changed factor is the source-training
+seed. This study therefore examines the sensitivity of the candidate bank
+to source-training randomness.
+
+We also apply the fixed RCF-DTI configuration to machine-usage data from
+Alibaba Cluster Trace v2018~\cite{ref31}. The workload observations are
+real, while the complexity limits are generated by a fixed rule. The
+candidate bank, adaptation procedure, filtering rule, and selection
+threshold are not retuned.
+
+\paperfig{0.98\linewidth}
+{fig12.pdf}
+{Generalization under changed source conditions and Alibaba v2018.
+(a) Mean paired MSE reduction relative to a reference trained at the same
+source scale. Shading shows 95\% confidence intervals. The vertical dotted
+line marks the main source scale, and the horizontal dashed line marks zero
+gain.
+(b) Case-level reductions for three source-training seeds and Alibaba
+v2018. The same target cases and target adaptation seeds are used for all
+three source-training seeds. Violin shapes show distributions, boxes show
+medians and interquartile ranges, dots show cases, and diamonds with bars
+show means and 95\% confidence intervals. Four Alibaba cases with reductions
+below $-25\%$ are clipped to the left plotting boundary only for
+visualization; their original values are retained in the released data.}
+{fig:generalization}
+
+Across the three source-training seeds, the mean paired MSE reduction ranges
+from 10.52\% to 13.21\%, and all three confidence intervals remain above
+zero. Some cases still have zero or negative gains.
+
+On Alibaba v2018, the mean reduction is 1.99\%, but its confidence interval
+includes zero. The distribution is also wider, with four cases below
+$-25\%$. Thus, the fixed RCF-DTI configuration can be applied without
+retuning, but it does not show a consistent improvement on this dataset.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper studied complexity-constrained few-shot digital twin model
+instantiation for heterogeneous multi-center computing networks. We
+formulated joint architecture selection and parameter adaptation under
+limits on inference computation and model size, and proposed RCF-DTI. The
+algorithm uses a compact source-trained candidate bank, removes infeasible
+candidates, adapts the remaining candidates with the same target update
+budget, and applies reference-regularized selection. Experiments show that
+RCF-DTI reduces MSE by 14.60\% relative to pretraining and fine-tuning,
+while all selected models satisfy both limits. Positive gains remain across
+heterogeneous target settings and source-training seeds. The fixed
+configuration can also be applied to Alibaba v2018, although the gain is not
+statistically clear. Future work will study more operational datasets and
+measure latency, memory use, and energy consumption on real platforms.
+
+\section*{CRediT Authorship Contribution Statement}
+
+\textit{The final author contribution statement will be added after the
+author list is confirmed.}
+
+\section*{Funding}
+
+\textit{Funding information will be added after confirmation.}
+
+\section*{Declaration of Competing Interest}
+
+The authors declare that they have no known competing financial
+interests or personal relationships that could have appeared to
+influence the work reported in this paper.
+
+\section*{Data Availability}
+
+The source code, frozen configurations, processed tables, figure data, and
+reproduction scripts are available at
+\url{https://github.com/w924871681/paper-code-DT-Twin}.
+The manuscript version is archived in Release v1.1.6:
+\url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.1.6}.
+The release includes checksums and the files needed to reproduce
+Tables~1--5 and Figures~1--12. Figures~1--5 are checksum-bound final
+manuscript assets; Figures~6--12 are regenerated from the released
+plot-ready data by one public entry point. Synthetic data can be regenerated
+using the released simulator, configurations, and seeds. The anonymized
+case-level data used in Figure~12(b) are also included in the release.
+
+The original Alibaba Cluster Trace v2018 is available from Alibaba Group
+and is not redistributed. The repository provides its source, checksum,
+file layout, preprocessing procedure, and evaluation entry point. Released
+Alibaba-derived records contain only anonymized identifiers and processed
+evaluation values.
+
+\begin{thebibliography}{00}
+
+\bibitem{ref1} L. U. Khan, Z. Han, W. Saad, E. Hossain, M. Guizani, and C. S. Hong, ``Digital twin of wireless systems: Overview, taxonomy, challenges, and opportunities,'' \emph{IEEE Communications Surveys \& Tutorials}, vol. 24, no. 4, pp. 2230--2254, Fourth Quarter 2022, doi: 10.1109/COMST.2022.3198273.
+
+\bibitem{ref2} S. Mihai, M. Yaqoob, D. V. Hung, W. Davis, P. Towakel, M. Raza, M. Karamanoglu, B. Barn, D. Shetve, R. V. Prasad, H. Venkataraman, R. Trestian, and H. X. Nguyen, ``Digital twins: A survey on enabling technologies, challenges, trends and future prospects,'' \emph{IEEE Communications Surveys \& Tutorials}, vol. 24, no. 4, pp. 2255--2291, Fourth Quarter 2022, doi: 10.1109/COMST.2022.3208773.
+
+\bibitem{ref3} H. Xu, J. Wu, Q. Pan, X. Guan, and M. Guizani, ``A survey on digital twin for Industrial Internet of Things: Applications, technologies and tools,'' \emph{IEEE Communications Surveys \& Tutorials}, vol. 25, no. 4, pp. 2569--2598, Fourth Quarter 2023, doi: 10.1109/COMST.2023.3297395.
+
+\bibitem{ref4} F. Tao, H. Zhang, A. Liu, and A. Y. C. Nee, ``Digital twin in industry: State-of-the-art,'' \emph{IEEE Transactions on Industrial Informatics}, vol. 15, no. 4, pp. 2405--2415, 2019, doi: 10.1109/TII.2018.2873186.
+
+\bibitem{ref5} B. Qin, H. Pan, Y. Dai, X. Si, X. Huang, C. Yuen, and Y. Zhang, ``Machine and deep learning for digital twin networks: A survey,'' \emph{IEEE Internet of Things Journal}, vol. 11, no. 21, pp. 34694--34716, Nov. 2024, doi: 10.1109/JIOT.2024.3416733.
+
+\bibitem{ref6} A. Hakiri, A. Gokhale, S. Ben Yahia, and N. Mellouli, ``A comprehensive survey on digital twin for future networks and emerging Internet of Things industry,'' \emph{Computer Networks}, vol. 244, Art. no. 110350, 2024, doi: 10.1016/j.comnet.2024.110350.
+
+\bibitem{ref7} Y. Wu, K. Zhang, and Y. Zhang, ``Digital twin networks: A survey,'' \emph{IEEE Internet of Things Journal}, vol. 8, no. 18, pp. 13789--13804, Sept. 2021, doi: 10.1109/JIOT.2021.3079510.
+
+\bibitem{ref8} J. Li, S. Guo, W. Liang, J. Wang, Q. Chen, Y. Zeng, B. Ye, and X. Jia, ``Digital twin-enabled service provisioning in edge computing via continual learning,'' \emph{IEEE Transactions on Mobile Computing}, vol. 23, no. 6, pp. 7335--7350, 2024, doi: 10.1109/TMC.2023.3332668.
+
+\bibitem{ref9} A. Vettoruzzo, M.-R. Bouguelia, J. Vanschoren, T. R{\"o}gnvaldsson, and K. C. Santosh, ``Advances and challenges in meta-learning: A technical review,'' \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, vol. 46, no. 7, pp. 4763--4779, 2024, doi: 10.1109/TPAMI.2024.3357847.
+
+\bibitem{ref10} H. Gharoun, F. Momenifar, F. Chen, and A. H. Gandomi, ``Meta-learning approaches for few-shot learning: A survey of recent advances,'' \emph{ACM Computing Surveys}, vol. 56, no. 12, Art. no. 294, pp. 1--41, 2024, doi: 10.1145/3659943.
+
+\bibitem{ref11} H. Sartaj, S. Ali, and J. M. Gj{\o}by, ``MeDeT: Medical device digital twins creation with few-shot meta-learning,'' \emph{ACM Transactions on Software Engineering and Methodology}, vol. 34, no. 6, Art. no. 158, pp. 1--36, 2025, doi: 10.1145/3708534.
+
+\bibitem{ref12} M. Tan, B. Chen, R. Pang, V. Vasudevan, M. Sandler, A. Howard, and Q. V. Le, ``MnasNet: Platform-aware neural architecture search for mobile,'' in \emph{Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2019, pp. 2820--2828, doi: 10.1109/CVPR.2019.00293.
+
+\bibitem{ref13} B. Wu, X. Dai, P. Zhang, Y. Wang, F. Sun, Y. Wu, Y. Tian, P. Vajda, Y. Jia, and K. Keutzer, ``FBNet: Hardware-aware efficient ConvNet design via differentiable neural architecture search,'' in \emph{Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2019, pp. 10734--10742, doi: 10.1109/CVPR.2019.01099.
+
+\bibitem{ref14} Y. Zhao, L. Wang, Y. Tian, R. Fonseca, and T. Guo, ``Few-shot neural architecture search,'' in \emph{Proc. 38th Int. Conf. Mach. Learn. (ICML)}, vol. 139 of \emph{Proc. Mach. Learn. Res.}, pp. 12707--12718, 2021.
+
+\bibitem{ref15} G. Li, D. Hoang, K. Bhardwaj, M. Lin, Z. Wang, and R. Marculescu, ``Zero-shot neural architecture search: Challenges, solutions, and opportunities,'' \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, vol. 46, no. 12, pp. 7618--7635, Dec. 2024, doi: 10.1109/TPAMI.2024.3395423.
+
+\bibitem{ref16} M.-T. Wu, H.-I. Lin, and C.-W. Tsai, ``A training-free neural architecture search algorithm based on search economics,'' \emph{IEEE Transactions on Evolutionary Computation}, vol. 28, no. 2, pp. 445--459, Apr. 2024, doi: 10.1109/TEVC.2023.3264533.
+
+\bibitem{ref17} Y.-M. Kim, S. Song, B.-M. Koo, J. Son, Y. Lee, and J.-G. Baek, ``Enhancing long-term cloud workload forecasting framework: Anomaly handling and ensemble learning in multivariate time series,'' \emph{IEEE Transactions on Cloud Computing}, vol. 12, no. 2, pp. 789--799, Apr.--Jun. 2024, doi: 10.1109/TCC.2024.3400859.
+
+\bibitem{ref18} F. Zhao, W. Lin, S. Lin, S. Tang, and K. Li, ``MSCNet: Multi-scale network with convolutions for long-term cloud workload prediction,'' \emph{IEEE Transactions on Services Computing}, vol. 18, no. 2, pp. 969--982, Mar.--Apr. 2025, doi: 10.1109/TSC.2025.3536313.
+
+\bibitem{ref19} B. Feng and Z. Ding, ``Application-oriented cloud workload prediction: A survey and new perspectives,'' \emph{Tsinghua Science and Technology}, vol. 30, no. 1, pp. 34--54, Feb. 2025, doi: 10.26599/TST.2024.9010024.
+
+\bibitem{ref20} Y. Tashiro, J. Song, Y. Song, and S. Ermon,
+``CSDI: Conditional score-based diffusion models for probabilistic time
+series imputation,'' in \emph{Advances in Neural Information Processing
+Systems (NeurIPS)}, vol. 34, pp. 24804--24816, 2021.
+
+\bibitem{ref21} Y. Zhu, W. Yu, and X. Li, ``A multi-objective transfer learning framework for time series forecasting with Concept Echo State Networks,'' \emph{Neural Networks}, vol. 186, Art. no. 107272, 2025, doi: 10.1016/j.neunet.2025.107272.
+
+\bibitem{ref22} L. M. Zintgraf, K. Shiarlis, V. Kurin, K. Hofmann, and S. Whiteson, ``Fast context adaptation via meta-learning,'' in \emph{Proc. 36th Int. Conf. Mach. Learn. (ICML)}, vol. 97 of \emph{Proc. Mach. Learn. Res.}, pp. 7693--7702, 2019.
+
+\bibitem{ref23} Y. Zhao, T. Zhang, J. Li, and Y. Tian, ``Dual adaptive representation alignment for cross-domain few-shot learning,'' \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, vol. 45, no. 10, pp. 11720--11732, 2023, doi: 10.1109/TPAMI.2023.3272697.
+
+\bibitem{ref24} J. Wu, X. Liu, X. Yin, T. Zhang, and Y. Zhang, ``Task-adaptive prompted transformer for cross-domain few-shot learning,'' in \emph{Proc. AAAI Conf. Artif. Intell.}, vol. 38, no. 6, pp. 6012--6020, 2024, doi: 10.1609/aaai.v38i6.28416.
+
+\bibitem{ref25} W. Wang, L. Duan, Y. Wang, J. Fan, and Z. Zhang, ``MMT: Cross domain few-shot learning via meta-memory transfer,'' \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, vol. 45, no. 12, pp. 15018--15035, Dec. 2023, doi: 10.1109/TPAMI.2023.3306352.
+
+\bibitem{ref26} J. Son, S. Lee, and G. Kim, ``When meta-learning meets online and continual learning: A survey,'' \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, vol. 47, no. 1, pp. 413--432, 2025, doi: 10.1109/TPAMI.2024.3463709.
+
+\bibitem{ref27} Z. Zuo, Y. Huang, Z. Li, Y. Jiang, and C. Liu, ``Mixed contrastive transfer learning for few-shot workload prediction in the cloud,'' \emph{Computing}, vol. 107, no. 1, Art. no. 5, 2025, doi: 10.1007/s00607-024-01366-y.
+
+\bibitem{ref28} Y. Zhao, L. Wang, and T. Guo, ``Multi-objective neural architecture search by learning search space partitions,'' \emph{Journal of Machine Learning Research}, vol. 25, no. 177, pp. 1--41, 2024.
+
+\bibitem{ref29} M. E. Khansari and S. Sharifian, ``A deep reinforcement learning approach towards distributed Function as a Service (FaaS) based edge application orchestration in cloud-edge continuum,'' \emph{Journal of Network and Computer Applications}, vol. 233, Art. no. 104042, 2025, doi: 10.1016/j.jnca.2024.104042.
+
+\bibitem{ref30} D. Hortelano, I. de Miguel, R. J. Dur{\'a}n Barroso,
+J. C. Aguado, N. Merayo, L. Ruiz, A. Asensio, X. Masip-Bruin,
+P. Fern{\'a}ndez, R. M. Lorenzo, and E. J. Abril,
+``A comprehensive survey on reinforcement-learning-based computation
+offloading techniques in Edge Computing Systems,''
+\emph{Journal of Network and Computer Applications}, vol. 216,
+Art. no. 103669, 2023, doi: 10.1016/j.jnca.2023.103669.
+
+\bibitem{ref31}
+[dataset] Alibaba Group, ``Alibaba Cluster Trace Program: Cluster Trace
+v2018,'' GitHub repository, 2018. [Online]. Available:
+\url{https://github.com/alibaba/clusterdata/tree/master/cluster-trace-v2018}.
+Accessed: Jul. 3, 2026.
+
+\end{thebibliography}
+
+\end{document}

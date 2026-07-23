@@ -6,7 +6,7 @@ Target,Prediction horizons,"H ∈ {1, 4}"
 Target,Support sizes,"K ∈ {10, 20}"
 Model,Offline architecture space,66
 Model,Frozen compact architectures,"A1, A6, A13, A55, A56, and the reference candidate"
-Adaptation,Common target adaptation,"SGD/MSE, 50 steps"
+Adaptation,Common target adaptation,"SGD/MSE, 50 updates"
 Adaptation,Learning rate / clipping,0.01 / 1.0
 Selection,Reference candidate,Internal architecture index 57
 Selection,Frozen improvement margin,10% validation-loss improvement

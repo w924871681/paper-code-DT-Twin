@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """C2 prior-preserving fixed-step adaptation.
 
-The prediction objective remains Adam + Huber for exactly 50 steps. C2 adds a
+The prediction objective remains Adam + Huber for exactly 50 updates. C2 adds a
 single normalized parameter-preservation term around the architecture-indexed
 source initialization. The normalization is per parameter tensor with a scale
 floor so zero or near-zero biases cannot dominate the penalty.

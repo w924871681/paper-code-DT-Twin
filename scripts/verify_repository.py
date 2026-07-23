@@ -45,8 +45,8 @@ DERIVED_AUDIT_FILES = {
 }
 REQUIRED_FILES = {
     "README.md", "CITATION.cff", "LICENSE", "pyproject.toml", "environment.yml",
-    "CHANGELOG.md", "AUTHOR_METADATA_REQUIRED.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", "RELEASE_NOTES_v1.1.3.md", "RELEASE_NOTES_v1.1.4.md", "RELEASE_NOTES_v1.1.5.md", "CODEX_V1_1_5_PAPER_ALIGNMENT_AUDIT.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
-    "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md", "docs/LEVEL_C_COMPLETION_PLAN.md",
+    "CHANGELOG.md", "AUTHOR_METADATA_REQUIRED.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", "RELEASE_NOTES_v1.1.3.md", "RELEASE_NOTES_v1.1.4.md", "RELEASE_NOTES_v1.1.5.md", "RELEASE_NOTES_v1.1.6.md", "CODEX_V1_1_5_PAPER_ALIGNMENT_AUDIT.md", "CODEX_V1_1_6_RELEASE_AUDIT.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
+    "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md", "docs/LEVEL_C_COMPLETION_PLAN.md", "docs/FIGURE_REPRODUCTION.md", "docs/INTERNAL_PROVENANCE_NAMES.md",
     "assets/README.md", "assets/model_assets.csv", "assets/level_c_bootstrap_files.csv", "data/README.md", "data/alibaba2018/README.md",
     "results/README.md", "results/audited_provenance/SANITIZATION_MANIFEST.json",
     "results/audited_provenance/NUMERICAL_CORRECTIONS.json",
@@ -55,11 +55,13 @@ REQUIRED_FILES = {
     "scripts/level_c_bootstrap.py", "scripts/build_level_c_bootstrap.py", "scripts/stage_level_c_bootstrap.py",
     "scripts/finalize_cuda_replay.py", "scripts/verify_release_evidence.py",
     "scripts/plot_reproducible_figures.py", "scripts/derive_reproducible_figure_data.py",
-    "reporting/reproducible_figures.py",
+    "reporting/final_figures.py", "reporting/reproducible_figures.py",
     "scripts/validate_paper_outputs.py", "reporting/frozen.py", "paper_assets/legacy_figures/manifest.json", "paper_assets/current_figures/manifest.json",
+    "paper/manuscript.tex", "paper/manuscript.pdf",
+    *{f"paper/figures/fig{i}.pdf" for i in range(1, 13)},
     *CANONICAL_SOURCES,
 }
-MODULES = ["core.data.sim", "core.space.profile", "source_prior_bank.pipeline", "anchor_safe_selector.pipeline", "main_evaluation.pipeline", "experiments.main.pipeline", "experiments.robustness.pipeline", "experiments.supplementary.pipeline", "reporting.frozen", "reporting.reproducible_figures"]
+MODULES = ["core.data.sim", "core.space.profile", "source_prior_bank.pipeline", "anchor_safe_selector.pipeline", "main_evaluation.pipeline", "experiments.main.pipeline", "experiments.robustness.pipeline", "experiments.supplementary.pipeline", "reporting.frozen", "reporting.final_figures", "reporting.reproducible_figures"]
 
 
 def _sha256(path: Path) -> str:
@@ -138,7 +140,27 @@ def check_frozen_protocol() -> list[str]:
     expected = {"data_seed":2904,"source_bank_training_seeds":[2904,2905,2906],"H":[1,4],"K":[10,20],"locked_main_centers":[980,999],"trajectory_centers":[1080,1099],"optimizer_control_centers":[1100,1119]}
     if split != expected: errors.append("synthetic split manifest differs from frozen protocol")
     from configs.methods.main_experiments_cfg import CFG
-    if tuple(CFG.H_list)!=(1,4) or tuple(CFG.K_list)!=(10,20) or CFG.target_steps!=50 or abs(CFG.frozen_margin_rel-.10)>1e-12: errors.append("frozen method protocol changed")
+    expected_cfg = {
+        "data_seed": 2904,
+        "train_seed": 2904,
+        "target_seeds": (2904, 2905, 2906),
+        "H_list": (1, 4),
+        "K_list": (10, 20),
+        "architecture_count": 66,
+        "anchor_arch_idx": 57,
+        "compact_arch_indices": (1, 6, 13, 55, 56, 57),
+        "frozen_margin_rel": 0.10,
+        "target_steps": 50,
+        "target_lr": 0.01,
+        "target_grad_clip": 1.0,
+        "bank_sizes": (1, 2, 3, 4, 5, 6),
+        "source_scales": (10, 20, 30, 40, 50),
+        "bootstrap_repeats": 4000,
+    }
+    for field, value in expected_cfg.items():
+        actual = getattr(CFG, field)
+        if actual != value:
+            errors.append(f"frozen protocol changed: {field}={actual!r}")
     return errors
 
 
@@ -161,7 +183,13 @@ def check_numbers() -> list[str]:
     if tuple(paper) != PAPER_TABLE_NAMES or len(paper["table4_matched_control"]) != 6: errors.append("exact revised-paper table set or order is incomplete")
     fig6 = _csv(ROOT / "results/figure_data/fig6_paired_instantiation_data.csv")
     fig6_counts = {name: sum(row["selection_category"] == name for row in fig6) for name in ("beneficial alternative", "reference retained", "harmful alternative")}
+    paired_gain = 100 * sum(
+        (float(row["pt_ft_wmse"]) - float(row["proposed_wmse"])) / float(row["pt_ft_wmse"])
+        for row in fig6
+    ) / len(fig6)
     if len(fig6) != 80 or fig6_counts != {"beneficial alternative": 44, "reference retained": 33, "harmful alternative": 3}: errors.append("Fig. 6 public paired data changed")
+    if abs(paired_gain - 14.602159705445189) > 1e-12:
+        errors.append("main paired MSE reduction changed")
     filtering = _csv(ROOT / "results/figure_data/fig8_candidate_filtering_data.csv")
     if [(row["budget_tier"], row["case_count"], row["initialized_candidates_per_case"], row["feasible_candidates_per_case_mean"]) for row in filtering] != [("tight", "20", "7", "4"), ("medium", "52", "7", "7"), ("loose", "8", "7", "7")]: errors.append("Fig. 8 candidate-filtering data changed")
     selection = _csv(ROOT / "results/figure_data/fig8_architecture_selection_data.csv")
@@ -169,12 +197,12 @@ def check_numbers() -> list[str]:
     margin = {float(row["minimum_improvement"]): row for row in _csv(ROOT / "results/figure_data/fig9_margin_data.csv")}
     if float(margin[0.1]["harmful_selection_rate"]) != 0.05 or margin[0.1]["eligible_under_5pct_criterion"] != "true": errors.append("Fig. 9 margin data changed")
     tradeoff = _csv(ROOT / "results/figure_data/fig10_deployment_tradeoff_data.csv")
-    if [row["method"] for row in tradeoff] != ["PT+FT", "Few-shot NAS", "Zero-shot NAS+FT", "Proposed method"]:
+    if [row["method"] for row in tradeoff] != ["PT+FT", "Few-shot NAS", "Zero-shot NAS+FT", "RCF-DTI"]:
         errors.append("Fig. 10 representative-method mapping changed")
     architecture = {row["configuration"]: row for row in _csv(ROOT / "results/figure_data/fig11_architecture_complexity_data.csv")}
-    if set(architecture) != {"MLP3-32", "MLP4-32", "Alt GRU16", "Alt GRU32", "Ref GRU32"}:
+    if set(architecture) != {"3-layer MLP-32", "4-layer MLP-32", "Alt. GRU-16", "Alt. GRU-32", "Ref. GRU-32"}:
         errors.append("Fig. 11 architecture mapping changed")
-    if architecture.get("Alt GRU32", {}).get("harmful_selected_cases") != "2" or architecture.get("Alt GRU16", {}).get("harmful_selected_cases") != "1":
+    if architecture.get("Alt. GRU-32", {}).get("harmful_selected_cases") != "2" or architecture.get("Alt. GRU-16", {}).get("harmful_selected_cases") != "1":
         errors.append("Fig. 11 harmful-case annotations changed")
     cases = _csv(ROOT / "results/figure_data/fig12_case_level_gains.csv")
     alibaba_gains = [float(row["gain_percent"]) for row in cases if row["group"] == "Alibaba"]
@@ -184,8 +212,23 @@ def check_numbers() -> list[str]:
 
 
 def check_public_terms() -> list[str]:
-    files = [ROOT / "README.md", ROOT / "CITATION.cff", *(ROOT / "docs").glob("*.md"), ROOT / "assets/README.md", ROOT / "data/README.md", ROOT / "data/alibaba2018/README.md", *(ROOT / "results/figure_data").glob("*.csv")]
-    patterns = [re.compile(p, re.I) for p in [r"\bresource[- ]constraints?\b", r"\bsource[- ]prior(?: bank)?\b", r"\bhard resource feasibility\b", r"\bPT-A57\b", r"\banchor[- ]safe selector\b"]]
+    files = [
+        ROOT / "README.md",
+        ROOT / "CITATION.cff",
+        *(path for path in (ROOT / "docs").glob("*.md") if path.name != "INTERNAL_PROVENANCE_NAMES.md"),
+        ROOT / "assets/README.md",
+        ROOT / "data/README.md",
+        ROOT / "data/alibaba2018/README.md",
+        *(ROOT / "results/figure_data").glob("*.csv"),
+    ]
+    patterns = [re.compile(p, re.I) for p in [
+        r"\bresource[- ]constraints?\b",
+        r"\bsource[- ]prior(?: bank)?\b",
+        r"\bhard resource feasibility\b",
+        r"\bPT-A57\b",
+        r"\banchor[- ]safe selector\b",
+        r"\bproposed method\b",
+    ]]
     errors=[]
     for path in files:
         text=path.read_text(encoding="utf-8-sig", errors="replace")
@@ -194,12 +237,68 @@ def check_public_terms() -> list[str]:
 
 
 def check_privacy() -> list[str]:
-    patterns=[re.compile(r"(?<![A-Za-z])[A-Za-z]:[\\/]"),re.compile(r"/(?:home|Users)/[^/\s]+/"),re.compile(r"/tmp/"),re.compile(r"924871681@qq\.com",re.I),re.compile(r"\b(?:ghp_|github_pat_)[A-Za-z0-9_]+\b"),re.compile(r"\bpassword\s*[:=]",re.I),re.compile(r"\b[0-9a-f]{5}-[0-9a-f]{5}\b",re.I)]
+    patterns=[
+        re.compile(r"(?<![A-Za-z])[A-Za-z]:[\\/]"),
+        re.compile(r"/(?:home|Users|mnt|tmp)/[^\\s\"']*", re.I),
+        re.compile(r"\b[A-Z0-9._%+-]+@(?!example\.)[A-Z0-9.-]+\.[A-Z]{2,}\b", re.I),
+        re.compile(r"\b(?:ghp_|github_pat_|sk-[A-Za-z0-9_-]{16})[A-Za-z0-9_-]*\b"),
+        re.compile(r"\b(?:password|passwd|api[_-]?key|secret)\s*[:=]\s*[^\s<]+", re.I),
+        re.compile(r"\b(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})\b"),
+        re.compile(r"\b[0-9a-f]{5}-[0-9a-f]{5}\b",re.I),
+    ]
     errors=[]
     for path in ROOT.rglob("*"):
-        if not path.is_file() or path.suffix.lower() not in {".json",".csv",".md",".txt",".log",".cff"} or "outputs" in path.parts: continue
+        if (
+            not path.is_file()
+            or path.suffix.lower() not in {".json",".csv",".md",".txt",".log",".cff",".py",".tex",".yml",".yaml",".toml"}
+            or "outputs" in path.parts
+            or ".git" in path.parts
+            or "__pycache__" in path.parts
+            or path.name in {"verify_repository.py", "verify_release_evidence.py"}
+        ):
+            continue
         text=path.read_text(encoding="utf-8-sig",errors="replace")
         if any(p.search(text) for p in patterns): errors.append(f"private path or credential pattern in {path.relative_to(ROOT)}")
+    return errors
+
+
+def check_test_leakage() -> list[str]:
+    errors: list[str] = []
+    selector = json.loads(
+        (ROOT / "results/audited_provenance/anchor_safe_selector_manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    expected = {
+        "decision": "PASS_C32_SELECTOR_FROZEN",
+        "selected_margin_rel": 0.1,
+        "selection_uses": "development Check only for finite-grid calibration",
+        "final_pool_opened": False,
+        "test_used": False,
+    }
+    for field, value in expected.items():
+        if selector.get(field) != value:
+            errors.append(f"selector leakage invariant changed: {field}")
+    fig9_caption = (ROOT / "reporting/frozen.py").read_text(encoding="utf-8")
+    if "Held-out target cases are not used" not in fig9_caption:
+        errors.append("Fig. 9 held-out isolation disclosure is missing")
+    return errors
+
+
+def check_unique_figure_implementation() -> list[str]:
+    errors: list[str] = []
+    canonical = ROOT / "reporting/final_figures.py"
+    if not canonical.is_file():
+        return ["canonical final figure module is missing"]
+    for path in (ROOT / "reporting").glob("*.py"):
+        if path == canonical:
+            continue
+        text = path.read_text(encoding="utf-8")
+        if re.search(r"(?m)^def\s+plot_fig(?:6|7|8|9|10|11|12)\b", text):
+            errors.append(f"duplicate final figure implementation: {path.relative_to(ROOT)}")
+    wrapper = (ROOT / "scripts/plot_reproducible_figures.py").read_text(encoding="utf-8")
+    if "from reporting.final_figures import plot_all" not in wrapper:
+        errors.append("compatibility plotting wrapper does not delegate to canonical module")
     return errors
 
 
@@ -208,10 +307,10 @@ def check_version_metadata() -> list[str]:
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
     workflow = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
-    if 'version = "1.1.5"' not in pyproject:
-        errors.append("pyproject version is not 1.1.5")
-    if not re.search(r"(?m)^version:\s*1\.1\.5\s*$", citation):
-        errors.append("CITATION.cff version is not 1.1.5")
+    if 'version = "1.1.6"' not in pyproject:
+        errors.append("pyproject version is not 1.1.6")
+    if not re.search(r"(?m)^version:\s*1\.1\.6\s*$", citation):
+        errors.append("CITATION.cff version is not 1.1.6")
     for asset in (
         "level_c_bootstrap_${GITHUB_REF_NAME}.zip",
         "level_c_bootstrap_${GITHUB_REF_NAME}.zip.sha256",
@@ -219,6 +318,11 @@ def check_version_metadata() -> list[str]:
         "cuda_replay_evidence_${GITHUB_REF_NAME}.zip.sha256",
         "paper_alignment_${GITHUB_REF_NAME}.zip",
         "paper_alignment_${GITHUB_REF_NAME}.zip.sha256",
+        "rcf_dti_${GITHUB_REF_NAME}_complete.zip",
+        "rcf_dti_${GITHUB_REF_NAME}_complete.zip.sha256",
+        "RCF_DTI_FIGURE_CODE_FINAL_V1_1_6.zip",
+        "RCF_DTI_FIGURE_CODE_FINAL_V1_1_6.zip.sha256",
+        "SHA256SUMS.txt",
     ):
         if asset not in workflow:
             errors.append(f"release workflow does not handle {asset}")
@@ -243,7 +347,21 @@ def check_generated(root: Path | None) -> list[str]:
 
 
 def run_verification(generated_root: Path | None=None) -> dict[str,Any]:
-    checks: list[tuple[str,Callable[[],list[str]]]]=[("required_files",check_required_files),("imports",check_imports),("json",check_json),("checksums",check_checksums),("asset_manifest",check_asset_manifest),("frozen_protocol",check_frozen_protocol),("numerical_consistency",check_numbers),("public_terminology",check_public_terms),("privacy",check_privacy),("version_metadata",check_version_metadata),("generated_outputs",lambda:check_generated(generated_root))]
+    checks: list[tuple[str,Callable[[],list[str]]]]=[
+        ("required_files",check_required_files),
+        ("imports",check_imports),
+        ("json",check_json),
+        ("checksums",check_checksums),
+        ("asset_manifest",check_asset_manifest),
+        ("frozen_protocol",check_frozen_protocol),
+        ("numerical_consistency",check_numbers),
+        ("test_leakage",check_test_leakage),
+        ("unique_figure_implementation",check_unique_figure_implementation),
+        ("public_terminology",check_public_terms),
+        ("privacy",check_privacy),
+        ("version_metadata",check_version_metadata),
+        ("generated_outputs",lambda:check_generated(generated_root)),
+    ]
     errors=[]; status={}
     for name,fn in checks:
         found=fn(); status[name]="PASS" if not found else "FAIL"; errors.extend(found)

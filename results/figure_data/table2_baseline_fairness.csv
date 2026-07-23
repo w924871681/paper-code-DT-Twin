@@ -5,4 +5,4 @@ Random initialization,Fixed reference architecture,Random initialization,SGD/MSE
 Few-shot NAS,Top-12 shortlist,Baseline-specific initialization bank,Adam/Huber-50,<=12,Before candidate evaluation
 Zero-shot NAS,Top-ranked model,Baseline-specific initialization,None,0,Before candidate evaluation
 Zero-shot NAS + fine-tuning,Top-12 shortlist,Baseline-specific initialization bank,Adam/Huber-50,<=12,Before candidate evaluation
-Proposed method,Source-initialization bank (six architectures),Architecture-matched source initializations,SGD/MSE-50,4--7,Before adaptation and output
+RCF-DTI,Source-initialization bank (six architectures),Architecture-matched source initializations,SGD/MSE-50,4--7,Before adaptation and output

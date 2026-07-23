@@ -5,6 +5,20 @@ dates are recorded only after a version is actually published.
 
 ## [Unreleased]
 
+## [1.1.6] - 2026-07-23
+
+- Synchronize the final manuscript source/PDF, captions, Data Availability,
+  and checksum-bound Fig. 1--5 assets.
+- Consolidate Fig. 6--12 into `reporting/final_figures.py` with one formal
+  reviewer command and plot-ready CSV inputs.
+- Align figure terminology, panel-label placement, 50-update wording,
+  trade-off normalization, architecture labels, and Alibaba clipping
+  disclosure without changing experimental values.
+- Add protocol, key-number, test-leakage, duplicate implementation,
+  terminology, absolute-path, privacy, manuscript, and release audits.
+- Publish the paper, complete figure/table package, frozen evidence, audit
+  reports, and SHA-256 manifest in Release v1.1.6.
+
 ## [1.1.5] - 2026-07-20
 
 - Align the exact manuscript layer to Tables 1--5; keep runtime and model

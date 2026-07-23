@@ -34,7 +34,7 @@ class PriorResponseProfileCfg:
     families: Tuple[str, ...] = ("MLP", "TCN", "GRU")
 
     # Support-internal prior-response trace. These steps do not replace the
-    # formal 50-step adaptation; they only measure early compatibility.
+    # formal 50-update adaptation; they only measure early compatibility.
     trace_steps: Tuple[int, ...] = (0, 1, 3, 5)
     trace_lr: float = 3e-4
     trace_weight_decay: float = 0.0

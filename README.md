@@ -1,74 +1,47 @@
-# Complexity-Constrained Few-Shot Digital Twin Model Instantiation for Heterogeneous Multi-Center Computing Networks
+# Complexity-Constrained Few-Shot Digital Twin Model Instantiation
 
-## 1. Paper and scope
-
-This repository releases the code, frozen configurations, processed result
-tables, and reproducibility utilities for the paper **Complexity-Constrained
+This repository is the reproducibility archive for **Complexity-Constrained
 Few-Shot Digital Twin Model Instantiation for Heterogeneous Multi-Center
-Computing Networks**.
+Computing Networks**. Release `v1.1.6` synchronizes the manuscript, captions,
+Fig. 1--12, plot-ready data, frozen protocols, audit evidence, and public
+reproduction commands.
 
-The task is to instantiate a target-specific digital twin model for a new or
-reconfigured computing center. The center supplies few target observations and
-sets local model complexity limits. Estimated operation count represents
-inference computation, and parameter count represents model size; neither is a
-direct measurement of latency, memory use, or energy consumption. Workload
-prediction is used only as the evaluation task.
+## What is frozen
 
-## 2. Method overview
+The following scientific choices are unchanged in v1.1.6:
 
-```text
-Source-initialization bank
--> filtering by target model complexity limits
--> common few-shot target adaptation
--> reference-based candidate selection
--> target-specific digital twin model
-```
+- data seed `2904` and source-training seeds `2904`, `2905`, `2906`;
+- source, development, diagnostic, and held-out target splits;
+- six retained architectures and seven initialized candidates;
+- reference candidate (internal architecture index `57`);
+- SGD/MSE target adaptation with exactly 50 updates and learning rate `0.01`;
+- the preset 10% reference-based selection threshold;
+- the optimizer, candidate bank, complexity limits, and all reported values.
 
-Each candidate couples an architecture with its matched source-trained
-initialization. Candidates that exceed either target limit are removed. The
-remaining feasible candidates use the same target data and adaptation
-procedure. An alternative replaces the fixed reference candidate only when it
-passes the reference-based improvement test.
+The main evaluation contains 80 held-out cases. RCF-DTI selects an alternative
+in 47 cases: 44 beneficial and 3 harmful under the post-selection test-MSE
+audit; the reference is retained in 33 cases. These test-derived labels are
+used only for reporting and never for candidate selection.
 
-## 3. Repository layout
+## Repository map
 
-- `core/`: synthetic data, architecture models, complexity profiling, and
-  adaptation utilities.
-- `configs/`: frozen public configurations.
-- `experiments/`: locked main, robustness, and supplementary protocols.
-- `reporting/`: table and figure reconstruction from released frozen results.
-- `results/`: frozen results, immutable provenance where publishable, and
-  checksum-tracked sanitized or narrowly corrected public copies.
-- `scripts/`: verification, reconstruction, smoke-test, and full-run entry
-  points.
-- `assets/`: model-asset manifest and checksum instructions.
-- `paper_assets/`: checksum-pinned current Fig. 1--5 assets and historical
-  figure provenance.
-- `data/`: synthetic-data and Alibaba Cluster Trace instructions.
-- `source_prior_bank/` and `anchor_safe_selector/`: historical internal module
-  paths retained so archived experiments remain import-compatible.
+- `paper/`: compilable manuscript source, final PDF, tables, and Fig. 1--12.
+- `paper_assets/current_figures/`: checksum-bound final Fig. 1--5 assets.
+- `reporting/final_figures.py`: the only maintained Fig. 6--12 implementation.
+- `results/figure_data/`: reviewer-ready CSV data for every table and
+  data-driven figure.
+- `configs/`, `core/`, `experiments/`: frozen protocol and experiment code.
+- `results/audited_provenance/`: publishable immutable audit records.
+- `scripts/`: verification, reconstruction, smoke-test, and replay commands.
+- `docs/`: method, figure, provenance, availability, and reproducibility notes.
+- `audit/v1.1.6/`: machine-readable and human-readable release audit evidence.
 
-Some immutable audit files, frozen source schemas, and internal implementation
-identifiers retain historical experiment names for reproducibility. They are
-not the public terminology used in the paper. See `results/README.md`.
+Historical internal identifiers remain only where changing them would break
+the provenance chain. Their public meaning is documented in
+`docs/INTERNAL_PROVENANCE_NAMES.md`; archived plotting code lives under
+`reporting/legacy/` and is not a paper-figure entry point.
 
-## 4. Frozen protocol
-
-- Data seed: `2904`.
-- Source-initialization training seeds: `2904`, `2905`, and `2906`.
-- Prediction horizons: `H in {1, 4}`.
-- Support sizes: `K in {10, 20}`.
-- Common target adaptation: SGD/MSE, 50 steps, learning rate `0.01`.
-- Reference candidate: internal architecture index `57`.
-- Reference-based improvement test: frozen `10%` validation-loss margin.
-- Locked main evaluation centers: `980--999`.
-- Adaptation-trajectory centers: `1080--1099`.
-- Optimizer-matched-control centers: `1100--1119`.
-
-These settings are frozen. The released scripts do not retune the candidate
-bank, target updates, selection margin, seeds, or data splits.
-
-## 5. Installation
+## Installation
 
 Python 3.11 is the reference environment.
 
@@ -76,152 +49,40 @@ Python 3.11 is the reference environment.
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install -e .
-```
-
-For repository tests, install the optional test dependency:
-
-```powershell
 python -m pip install -e ".[test]"
 ```
 
-The equivalent Conda specification is provided in `environment.yml`.
+The equivalent Conda environment is in `environment.yml`.
 
-## 6. Reproducibility levels
-
-- **Level A -- Repository verification:** checks imports, required frozen
-  files, JSON/config structure, original and public-copy checksums, public
-  terminology, privacy rules, and numerical consistency. It does not require
-  model weights.
-- **Level B -- Rebuild paper tables and figures:** uses only released
-  repository files. It regenerates current-manuscript Fig. 6--12 from public
-  derived CSVs, checksum-verifies and copies the current Fig. 1--5 PDF/PNG
-  assets, rebuilds the exact structured data for manuscript Tables 1--5, and
-  rebuilds the broader fifteen-table public result layer. It requires neither
-  model weights nor Alibaba raw data.
-- **Level C -- Frozen locked-evaluation replay:** uses the published 32-file
-  bootstrap package and a CUDA-capable PyTorch environment. The public driver
-  stages the frozen assets, runs all seven methods, analyzes the results, and
-  executes the formal audit. Repeating the separate Alibaba study additionally
-  requires its original trace.
-
-Status: The reported CUDA experiments and their frozen outputs are complete.
-The public bootstrap, staging process, formal preflight, and orchestration
-driver are also complete. A fresh CUDA replay through the published public
-entry point has also been completed. The historical reported experiments, the
-public reproducibility package, and a fresh CUDA replay through the released
-public orchestration path are complete. The sanitized replay ledger, formal
-audit, environment record, stage logs, and historical-output comparison are
-archived with Release v1.1.5. The four Level-C archive files in v1.1.5 are
-byte-identical copies of the verified v1.1.4 payloads, renamed for a unified
-v1.1.5 asset set; their SHA-256 payload hashes are unchanged.
-
-## 7. Quick verification
-
-From the repository root:
+## Verify the repository
 
 ```powershell
 python .\scripts\verify_repository.py
+python -m pytest
 python .\scripts\run_smoke_test.py
 ```
 
-The smoke test runs on CPU without archived weights. It builds feasible and
-infeasible candidates, applies two common target-adaptation steps, executes the
-reference-based improvement test, and checks that the selected candidate
-satisfies both complexity limits.
+The repository audit checks frozen protocol fields, main numerical
+relationships, test-set isolation, plot-ready data, checksums, imports,
+version metadata, terminology, absolute paths, and privacy-sensitive strings.
+The CPU smoke test does not use archived weights and does not change the
+frozen experiment.
 
-## 8. Rebuild tables and figures
+## Rebuild all paper outputs
+
+There is one formal Level-B entry point:
 
 ```powershell
-python .\scripts\generate_paper_outputs.py --help
 python .\scripts\generate_paper_outputs.py
 ```
 
-The default output directory is `outputs/paper_outputs`. The command copies
-the checksum-bound current Fig. 1--5 assets and rebuilds Fig. 6--12 from
-versioned CSVs under `results/figure_data/`. The generated data figures
-receive vector-PDF, 600-DPI PNG, grayscale, and layout checks. Fig. 10 is the
-six-axis deployment trade-off radar, Fig. 11 is the two-dimensional
-architecture complexity--performance map, and Fig. 12 combines the controlled
-source-center-scale diagnostic with all 320 released case-level gains.
+It checksum-copies final Fig. 1--5 and regenerates Fig. 6--12 from
+`results/figure_data/`. No training, selection, adaptation, bootstrap
+resampling, private paths, model weights, or Alibaba raw data are required.
+Generated data figures include vector PDF, 600-DPI PNG, grayscale previews,
+layout audits, source hashes, and an output manifest.
 
-To rebuild only the data-driven Fig. 6--12:
-
-```powershell
-python .\scripts\plot_reproducible_figures.py
-```
-
-The current manuscript's exact Table 1--5 data are written under
-`tables/paper_csv/` and `tables/paper_latex/`: configuration, baseline
-fairness, overall comparison, optimizer-matched control, and component
-ablation. Target-side runtime and model complexity remain in the broader
-checked public result layer under `tables/csv/` and `tables/latex/`; they
-are not mapped to a manuscript Table 6.
-
-## 9. Full experiment reproduction
-
-Download the bootstrap asset from the latest archived release documented in
-`assets/README.md`, extract it, then verify the package and plan without
-running models:
-
-```powershell
-python .\scripts\stage_level_c_bootstrap.py `
-  --bundle-root <extracted-bundle-directory> --verify-only
-python .\scripts\run_full_reproduction.py `
-  --bootstrap-dir <extracted-bundle-directory> --plan-only
-```
-
-For a CUDA path check or the complete frozen locked evaluation:
-
-```powershell
-python .\scripts\run_full_reproduction.py `
-  --bootstrap-dir <extracted-bundle-directory> --smoke
-python .\scripts\run_full_reproduction.py `
-  --bootstrap-dir <extracted-bundle-directory>
-```
-
-The smoke and formal replay use isolated output directories and may be run
-sequentially without manual cleanup.
-
-The released package passed all checksum checks and the formal locked
-preflight. A fresh seven-method CUDA replay through the public driver completed
-with ledger decision `PASS_FROZEN_MAIN_EVALUATION_REPLAY`; the formal audit
-returned `PASS_C33_LOCKED_EVALUATION_COMPLETE_AND_AUDITED`. All non-timing
-case records and reported metrics matched the historical frozen outputs.
-Source training was not repeated by this evaluation replay.
-
-The replay ledger records environment-dependent per-case wall-clock fields.
-The manuscript runtime table is produced by a separate five-repeat,
-GPU-synchronized timing protocol. These values are not expected to be
-numerically identical.
-
-The exact remaining bootstrap contents, orchestration stages, and acceptance
-criteria are listed in `docs/LEVEL_C_COMPLETION_PLAN.md`.
-
-## 10. Model assets
-
-Large weights are not stored in ordinary Git history. The published bootstrap
-archive, exact SHA-256, complete 32-file destination manifest, and staging
-commands are documented in `assets/README.md`.
-
-## 11. Synthetic data
-
-Synthetic centers are generated by `core/data/sim.py` from frozen code,
-configurations, and seeds. The public split summary is
-`data/synthetic/split_manifest.json`. The smoke test uses a smaller independent
-synthetic center and never changes the frozen main experiment.
-
-## 12. Alibaba Cluster Trace
-
-The original Alibaba Cluster Trace v2018 is not redistributed. The released
-experiment uses real `machine_usage` observations and deterministic
-semi-synthetic model-complexity-limit tiers. Download, checksum,
-preprocessing, real-bank construction, and evaluation instructions are in
-`data/alibaba2018/README.md`.
-
-## 13. Expected outputs
-
-Level A prints `PASS_PUBLIC_REPOSITORY_VERIFICATION`. Level B creates:
+The output tree is:
 
 ```text
 outputs/paper_outputs/
@@ -235,21 +96,59 @@ outputs/paper_outputs/
 `-- paper_outputs_manifest.json
 ```
 
-Generated outputs and checkpoints are ignored by Git. The Level-C driver
-writes mode-specific ledgers and logs below `outputs/full_reproduction/`.
-Smoke method outputs use `outputs/main_evaluation_smoke_d2904_t2904/`, while
-formal method outputs retain `outputs/main_evaluation_eval_d2904_t2904/` as
-required by the frozen audit.
+See `docs/FIGURE_REPRODUCTION.md` for the source-to-figure map and acceptance
+checks. `scripts/plot_reproducible_figures.py` is retained only as a deprecated
+compatibility wrapper; it calls the same canonical implementation.
 
-## 14. Citation
+## Reproducibility levels
 
-Use the release metadata in `CITATION.cff`. The source repository is
-`https://github.com/w924871681/paper-code-DT-Twin`. Release `v1.1.5` is the
-paper-aligned frozen version; earlier releases record the preceding public
-revision and reproducibility workflow. Use v1.1.5 for the portable
-bootstrap, sanitized CUDA replay evidence, and checksum files. Author and DOI
-metadata remain pending.
+- **Level A — repository verification:** CPU-only structural, numerical,
+  protocol, leakage, terminology, privacy, and checksum checks.
+- **Level B — paper reconstruction:** all tables and Fig. 1--12 from released
+  files, without weights or raw Alibaba data.
+- **Level C — locked evaluation replay:** the seven frozen methods from the
+  checksum-bound bootstrap assets in Release `v1.1.6`, requiring CUDA.
 
-## 15. License
+For Level C, first verify and stage the downloaded bundle:
 
-The repository code is released under the MIT License. See `LICENSE`.
+```powershell
+python .\scripts\stage_level_c_bootstrap.py `
+  --bundle-root <extracted-bundle-directory> --verify-only
+python .\scripts\run_full_reproduction.py `
+  --bootstrap-dir <extracted-bundle-directory> --plan-only
+```
+
+Then run either the CUDA path check or the complete locked replay:
+
+```powershell
+python .\scripts\run_full_reproduction.py `
+  --bootstrap-dir <extracted-bundle-directory> --smoke
+python .\scripts\run_full_reproduction.py `
+  --bootstrap-dir <extracted-bundle-directory>
+```
+
+The replay uses frozen source-trained weights and does not retrain the source
+bank. Its environment-dependent per-case wall-clock fields are distinct from
+the manuscript's separate five-repeat, GPU-synchronized timing protocol.
+
+## Data availability
+
+Synthetic centers can be regenerated from `core/data/sim.py`, the frozen
+configuration, and fixed seeds. Plot-ready table and figure data are tracked
+in `results/figure_data/`, including all 320 case-level gains for Fig. 12(b).
+
+The original Alibaba Cluster Trace v2018 is not redistributed. Its official
+source, expected checksum and layout, preprocessing, real-bank construction,
+and evaluation instructions are in `data/alibaba2018/README.md`. Released
+Alibaba-derived records contain anonymized identifiers and processed
+evaluation values only.
+
+## Citation and release integrity
+
+Use `CITATION.cff` and Release
+[`v1.1.6`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.1.6).
+Every release asset is covered by `SHA256SUMS.txt`; the audit report records
+the Git commit, annotated tag target, release state, and asset hashes.
+Author and DOI metadata remain explicitly pending.
+
+The code is released under the MIT License.

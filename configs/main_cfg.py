@@ -14,7 +14,7 @@ import os
 class CenterTypeCfg:
     """Parameters used to build one center type.
 
-    The three types are evaluation strata only. The proposed method must not
+    The three types are evaluation strata only. RCF-DTI must not
     use the type label as an input feature.
     """
     name: str

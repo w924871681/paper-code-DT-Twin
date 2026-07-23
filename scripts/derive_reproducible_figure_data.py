@@ -34,7 +34,7 @@ FIG10_METHODS = (
     ("PT+FT", "pt_ft", "PT+FT"),
     ("Meta+NAS-lite", "meta_nas_lite", "Few-shot NAS"),
     ("Zero-NAS+FT", "zero_nas_ft", "Zero-shot NAS+FT"),
-    ("Ours", "ours_c32_locked", "Proposed method"),
+    ("Ours", "ours_c32_locked", "RCF-DTI"),
 )
 
 

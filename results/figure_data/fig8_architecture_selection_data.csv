@@ -1,16 +1,16 @@
 budget_tier,case_count,architecture_order,architecture_index,model_configuration,selection_count,selection_rate
-tight,20,0,57,Reference GRU,10,0.5
-tight,20,1,56,"GRU (32 units, no dropout)",4,0.2
-tight,20,2,55,GRU (16 units),6,0.3
-tight,20,3,6,3-layer MLP,0,0.0
-tight,20,4,13,4-layer MLP,0,0.0
-medium,52,0,57,Reference GRU,22,0.4230769230769231
-medium,52,1,56,"GRU (32 units, no dropout)",7,0.1346153846153846
-medium,52,2,55,GRU (16 units),12,0.23076923076923078
-medium,52,3,6,3-layer MLP,9,0.17307692307692307
-medium,52,4,13,4-layer MLP,2,0.038461538461538464
-loose,8,0,57,Reference GRU,1,0.125
-loose,8,1,56,"GRU (32 units, no dropout)",4,0.5
-loose,8,2,55,GRU (16 units),3,0.375
-loose,8,3,6,3-layer MLP,0,0.0
-loose,8,4,13,4-layer MLP,0,0.0
+tight,20,0,57,Ref. GRU-32,10,0.5
+tight,20,1,56,Alt. GRU-32,4,0.2
+tight,20,2,55,Alt. GRU-16,6,0.3
+tight,20,3,6,3-layer MLP-32,0,0.0
+tight,20,4,13,4-layer MLP-32,0,0.0
+medium,52,0,57,Ref. GRU-32,22,0.4230769230769231
+medium,52,1,56,Alt. GRU-32,7,0.1346153846153846
+medium,52,2,55,Alt. GRU-16,12,0.23076923076923078
+medium,52,3,6,3-layer MLP-32,9,0.17307692307692307
+medium,52,4,13,4-layer MLP-32,2,0.038461538461538464
+loose,8,0,57,Ref. GRU-32,1,0.125
+loose,8,1,56,Alt. GRU-32,4,0.5
+loose,8,2,55,Alt. GRU-16,3,0.375
+loose,8,3,6,3-layer MLP-32,0,0.0
+loose,8,4,13,4-layer MLP-32,0,0.0
