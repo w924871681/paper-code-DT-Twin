@@ -59,22 +59,25 @@ PAPER_TABLE_NAMES = (
     "table2_fairness",
     "table3_overall",
     "table4_matched_control",
-    "table5_component_analysis",
+    "table5_ablation",
 )
 
 PAPER_TABLE_META: Mapping[str, tuple[str, str]] = {
-    "table1_configuration": ("Main experimental configuration.", "tab:configuration"),
-    "table2_fairness": ("Baseline comparison settings.", "tab:fairness"),
+    "table1_configuration": ("Experimental configuration.", "tab:configuration"),
+    "table2_fairness": (
+        "Compared methods and target-side protocols.",
+        "tab:fairness",
+    ),
     "table3_overall": (
-        "Predictive performance on the held-out target centers.",
+        "Overall predictive performance on the held-out target cases.",
         "tab:overall",
     ),
     "table4_matched_control": (
-        "Optimizer-matched comparison on the separate diagnostic target pool.",
+        "Optimizer-matched comparison on a separate diagnostic target pool.",
         "tab:matched_control",
     ),
-    "table5_component_analysis": (
-        "Component ablation on the independent diagnostic target pool.",
+    "table5_ablation": (
+        "Ablation results on the independent diagnostic target pool.",
         "tab:ablation",
     ),
 }
@@ -264,15 +267,30 @@ def _table1() -> list[dict[str, str]]:
         ("Model", "Feasible candidates", "4--7 after filtering; mean 6.25"),
         ("Model", "Reference architecture", "One-layer GRU; 32 hidden units; dropout 0.1"),
         ("Model", "Reference initialization", "Pretrained on pooled source-center data"),
-        ("Adaptation", "Optimizer / loss / update budget", "SGD / MSE / 50 updates"),
-        ("Adaptation", "Learning rate / gradient clipping", "0.01 / 1.0"),
-        ("Selection", "Selection rule", "Select an alternative only when validation WMSE is at least 10% lower than the reference"),
-        ("Selection", "Threshold calibration", "Disjoint development centers; development check sets only"),
+        ("Source training", "Optimizer / epochs", "Adam / 50"),
+        ("Source training", "Learning rate / batch size", "1e-3 / 64"),
+        ("Target adaptation", "Optimizer / loss / update budget", "SGD / MSE / 50 steps"),
+        ("Target adaptation", "Data used in each update", "Complete target support set"),
+        ("Target adaptation", "Learning rate / gradient clipping", "0.01 / 1.0"),
+        (
+            "Selection",
+            "Selection rule",
+            "Select an alternative candidate only when its validation MSE is at least 10% lower than that of the reference candidate",
+        ),
+        (
+            "Selection",
+            "Threshold calibration",
+            "Finite development grid; smallest value satisfying the harmful-selection, gain, and confidence criteria",
+        ),
         ("Model complexity limits", "Tight: estimated operation count; parameter count", "1.5e6 / 3e4"),
         ("Model complexity limits", "Medium: estimated operation count; parameter count", "5e6 / 1e5"),
         ("Model complexity limits", "Loose: estimated operation count; parameter count", "2e7 / 5e5"),
         ("Statistics", "Confidence interval", "Center-cluster bootstrap; 4000 repeats"),
-        ("Protocol", "Test usage", "Opened only after the architecture and parameters are fixed"),
+        (
+            "Protocol",
+            "Test usage",
+            "Used only after architecture selection and parameter adaptation are complete",
+        ),
     )
     return [{"Category": a, "Item": b, "Setting": c} for a, b, c in values]
 
@@ -593,10 +611,9 @@ def paper_table_rows(project_root: str | Path) -> OrderedDict[str, list[dict[str
             {
                 "Method": METHOD_META[internal][0],
                 "MAE": _fmt(_float(row, "MAE"), 5),
-                "WMSE": _fmt(_float(row, "WMSE"), 6),
+                "MSE": _fmt(_float(row, "WMSE"), 6),
                 "Worst-10%": _fmt(_float(row, "Worst10"), 6),
                 "CVaR90": _fmt(_float(row, "CVaR90_WMSE"), 6),
-                "Limit satisfaction (%)": _fmt(100 * _float(row, "FeasibleRate"), 1),
             }
         )
     cost_by = {row["Method"]: row for row in public["table5b_online_cost"]}
@@ -620,19 +637,42 @@ def paper_table_rows(project_root: str | Path) -> OrderedDict[str, list[dict[str
             ("meta_top12_sgd_mse50_valbest", "Few-shot NAS (matched)"),
             ("zero_top12_sgd_mse50_valbest", "Zero-shot NAS (matched)"),
             ("common12_sgd_mse50_valbest", "Common 12-candidate shortlist, lowest validation loss"),
-            ("common12_sgd_mse50_anchor_safe", "Common 12-candidate shortlist, minimum-improvement rule"),
+            (
+                "common12_sgd_mse50_anchor_safe",
+                "Common 12-candidate shortlist, reference-regularized selection",
+            ),
         )
     )
     matched = {row["method"]: row for row in _read_csv(root / "results/supplementary/optimizer_matched_control_summary.csv")}
     matched_control = [
         {
             "Method": label,
-            "WMSE": _fmt(_float(matched[key], "test_wmse_mean"), 6),
+            "MSE": _fmt(_float(matched[key], "test_wmse_mean"), 6),
             "Worst-10%": _fmt(_float(matched[key], "test_worst10_mean"), 6),
             "CVaR90": _fmt(_float(matched[key], "case_cvar90_wmse"), 6),
-            "Adapted models": _fmt(_float(matched[key], "adapted_candidate_count"), 2),
+            "Adapted candidates": _fmt(
+                _float(matched[key], "adapted_candidate_count"), 2
+            ),
         }
         for key, label in matched_labels.items()
+    ]
+    ablation_labels = {
+        "Shared pooled initialization": "Earlier pooled-source training for non-reference models",
+        "Without minimum-improvement rule": "Without reference regularization",
+        "Without complexity-limit filtering": "Without complexity filtering",
+    }
+    ablation = [
+        {
+            "Variant": ablation_labels.get(row["Variant"], row["Variant"]),
+            "MSE": row["WMSE"],
+            "Worst-10%": row["Worst-10%"],
+            "Gain (%)": row["Gain vs reference (%)"],
+            "Harmful selection (%)": row[
+                "Harmful alternative selection / all cases (%)"
+            ],
+            "Limit satisfaction (%)": row["Complexity-feasible outputs (%)"],
+        }
+        for row in public["table4_component_ablation"]
     ]
     return OrderedDict(
         (
@@ -640,7 +680,7 @@ def paper_table_rows(project_root: str | Path) -> OrderedDict[str, list[dict[str
             ("table2_fairness", public["table2_baseline_fairness"]),
             ("table3_overall", table3),
             ("table4_matched_control", matched_control),
-            ("table5_component_analysis", public["table4_component_ablation"]),
+            ("table5_ablation", ablation),
         )
     )
 
@@ -801,6 +841,23 @@ def validate_output(output_root: str | Path) -> dict[str, Any]:
     if exact != sorted(PAPER_TABLE_NAMES) or exact_tex != sorted(PAPER_TABLE_NAMES):
         errors.append("Exact current-paper Table 1--5 file set is incomplete")
     checks["exact_current_paper_tables"] = {"expected_count": 5, "status": "PASS" if not errors else "FAIL"}
+    tracked_table_root = Path(__file__).resolve().parents[1] / "paper/tables"
+    for stem in PAPER_TABLE_NAMES:
+        generated_table = paper_tex / f"{stem}.tex"
+        tracked_table = tracked_table_root / f"{stem}.tex"
+        try:
+            if generated_table.read_bytes() != tracked_table.read_bytes():
+                raise ValueError("generated table does not match the tracked manuscript asset")
+            table_text = generated_table.read_text(encoding="utf-8")
+            if stem in {"table1_configuration", "table3_overall", "table4_matched_control", "table5_ablation"}:
+                if "WMSE" in table_text or "MSE" not in table_text:
+                    raise ValueError("formal paper table does not use the manuscript MSE terminology")
+            checks[stem] = {
+                "tracked_asset_sha256": _sha256(tracked_table),
+                "terminology": "MSE" if "MSE" in table_text else "not applicable",
+            }
+        except Exception as exc:
+            errors.append(f"{stem}: {exc}")
     for stem, expected_size in REVISED_FIGURES.items():
         try:
             size, images, type3 = _pdf_summary(out / f"figures/{stem}.pdf")
@@ -885,7 +942,12 @@ def generate(project_root: str | Path, output_root: str | Path) -> dict[str, Any
         _write_latex(out / f"tables/latex/{name}.tex", rows)
     for name, rows in paper.items():
         _write_csv(out / f"tables/paper_csv/{name}.csv", rows)
-        _write_latex(out / f"tables/paper_latex/{name}.tex", rows)
+        source_table = root / f"paper/tables/{name}.tex"
+        if not source_table.is_file():
+            raise FileNotFoundError(f"Missing current-paper table asset: {source_table}")
+        target_table = out / f"tables/paper_latex/{name}.tex"
+        target_table.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source_table, target_table)
     for name in REPRODUCIBLE_FIGURE_DATA:
         shutil.copyfile(root / f"results/figure_data/{name}", out / f"figure_data/{name}")
 

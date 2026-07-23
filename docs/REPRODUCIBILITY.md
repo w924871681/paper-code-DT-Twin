@@ -21,7 +21,8 @@ python .\scripts\generate_paper_outputs.py
 
 This is the only formal figure/table command. It reads released repository
 files, checksum-copies Fig. 1--5, regenerates Fig. 6--12 from plot-ready CSVs,
-and rebuilds the manuscript's structured Tables 1--5. It does not run
+reconstructs the manuscript Table 1--5 CSVs, and copies the exact
+checksum-audited Table 1--5 LaTeX presentation assets. It does not run
 training, target adaptation, candidate selection, or bootstrap resampling.
 
 `reporting/final_figures.py` is the only maintained Fig. 6--12
@@ -37,7 +38,7 @@ All table inputs and Fig. 1--12 are tracked beside the source. The checked
 
 ## Level C: frozen locked-evaluation replay
 
-Download the v1.1.6 bootstrap asset and verify it before execution:
+Download the v1.1.7 bootstrap asset and verify it before execution:
 
 ```powershell
 python .\scripts\stage_level_c_bootstrap.py `

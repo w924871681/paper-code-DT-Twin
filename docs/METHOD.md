@@ -8,7 +8,7 @@ RCF-DTI instantiates a target-specific digital twin model in five stages:
 3. Adapt every feasible candidate on the same target support data using
    SGD/MSE for exactly 50 updates.
 4. Compare the best alternative with the fixed reference candidate using
-   validation WMSE and the preset 10% threshold.
+   validation MSE and the preset 10% threshold.
 5. Return the selected feasible architecture and adapted parameters.
 
 Estimated operation count is a model-level proxy for inference computation,
@@ -17,13 +17,13 @@ of device latency, memory use, or energy consumption.
 
 ## Invariants
 
-v1.1.6 changes presentation, packaging, audits, and public reproducibility
+v1.1.7 changes presentation, packaging, audits, and public reproducibility
 code only. It does not change the data split, seeds, six-architecture bank,
 seven candidates, reference candidate, optimizer, loss, 50-update budget,
 10% threshold, complexity limits, or any core experimental value.
 
 The held-out test set is opened only after the candidate and adapted
-parameters are fixed. “Beneficial alternative” and “harmful alternative” are
+parameters are fixed. "Beneficial alternative" and "harmful alternative" are
 post-selection test-MSE labels used in Fig. 6 and Fig. 11; they never enter
 filtering, adaptation, threshold calibration, or selection.
 

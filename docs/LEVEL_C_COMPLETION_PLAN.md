@@ -63,7 +63,7 @@ the source initializations used by the reported evaluation.
 
 The CUDA environment, GPU and driver versions, runtime ledger, stage logs,
 output manifest, formal audit, and historical comparison are archived with
-Release v1.1.6. The historical experiment is complete, public packaging is
+Release v1.1.7. The historical experiment is complete, public packaging is
 complete, and the fresh CUDA replay is complete. Source-initialization training
 was not repeated. Full from-raw Alibaba repetition remains separate because
 its license-controlled source archive is external to this release.

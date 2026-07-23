@@ -67,12 +67,12 @@ jobs:
           cp docs/FIGURE_REPRODUCTION.md requirements.txt \
             figure-code-package/
           cd figure-code-package
-          zip -X -r "../release-assets/RCF_DTI_FIGURE_CODE_FINAL_V1_1_6.zip" .
+          zip -X -r "../release-assets/RCF_DTI_FIGURE_CODE_FINAL_V1_1_7.zip" .
           cd ../release-assets
           sha256sum "rcf_dti_${GITHUB_REF_NAME}_complete.zip" > \
             "rcf_dti_${GITHUB_REF_NAME}_complete.zip.sha256"
-          sha256sum "RCF_DTI_FIGURE_CODE_FINAL_V1_1_6.zip" > \
-            "RCF_DTI_FIGURE_CODE_FINAL_V1_1_6.zip.sha256"
+          sha256sum "RCF_DTI_FIGURE_CODE_FINAL_V1_1_7.zip" > \
+            "RCF_DTI_FIGURE_CODE_FINAL_V1_1_7.zip.sha256"
           sha256sum *.zip > SHA256SUMS.txt
       - name: Publish GitHub release
         env:
@@ -108,8 +108,8 @@ jobs:
             "release-assets/paper_alignment_${GITHUB_REF_NAME}.zip.sha256" \
             "release-assets/rcf_dti_${GITHUB_REF_NAME}_complete.zip" \
             "release-assets/rcf_dti_${GITHUB_REF_NAME}_complete.zip.sha256" \
-            "release-assets/RCF_DTI_FIGURE_CODE_FINAL_V1_1_6.zip" \
-            "release-assets/RCF_DTI_FIGURE_CODE_FINAL_V1_1_6.zip.sha256" \
+            "release-assets/RCF_DTI_FIGURE_CODE_FINAL_V1_1_7.zip" \
+            "release-assets/RCF_DTI_FIGURE_CODE_FINAL_V1_1_7.zip.sha256" \
             "release-assets/SHA256SUMS.txt" \
             --clobber
       - name: Download and verify published assets
@@ -125,7 +125,7 @@ jobs:
           sha256sum -c "cuda_replay_evidence_${GITHUB_REF_NAME}.zip.sha256"
           sha256sum -c "paper_alignment_${GITHUB_REF_NAME}.zip.sha256"
           sha256sum -c "rcf_dti_${GITHUB_REF_NAME}_complete.zip.sha256"
-          sha256sum -c "RCF_DTI_FIGURE_CODE_FINAL_V1_1_6.zip.sha256"
+          sha256sum -c "RCF_DTI_FIGURE_CODE_FINAL_V1_1_7.zip.sha256"
           sha256sum -c SHA256SUMS.txt
           python ../scripts/verify_release_evidence.py \
             "cuda_replay_evidence_${GITHUB_REF_NAME}.zip"

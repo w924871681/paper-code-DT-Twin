@@ -45,7 +45,7 @@ DERIVED_AUDIT_FILES = {
 }
 REQUIRED_FILES = {
     "README.md", "CITATION.cff", "LICENSE", "pyproject.toml", "environment.yml",
-    "CHANGELOG.md", "AUTHOR_METADATA_REQUIRED.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", "RELEASE_NOTES_v1.1.3.md", "RELEASE_NOTES_v1.1.4.md", "RELEASE_NOTES_v1.1.5.md", "RELEASE_NOTES_v1.1.6.md", "CODEX_V1_1_5_PAPER_ALIGNMENT_AUDIT.md", "CODEX_V1_1_6_RELEASE_AUDIT.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
+    "CHANGELOG.md", "AUTHOR_METADATA_REQUIRED.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", "RELEASE_NOTES_v1.1.3.md", "RELEASE_NOTES_v1.1.4.md", "RELEASE_NOTES_v1.1.5.md", "RELEASE_NOTES_v1.1.6.md", "RELEASE_NOTES_v1.1.7.md", "CODEX_V1_1_5_PAPER_ALIGNMENT_AUDIT.md", "CODEX_V1_1_6_RELEASE_AUDIT.md", "CODEX_V1_1_7_PAPER_ALIGNMENT_AUDIT.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
     "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md", "docs/LEVEL_C_COMPLETION_PLAN.md", "docs/FIGURE_REPRODUCTION.md", "docs/INTERNAL_PROVENANCE_NAMES.md",
     "assets/README.md", "assets/model_assets.csv", "assets/level_c_bootstrap_files.csv", "data/README.md", "data/alibaba2018/README.md",
     "results/README.md", "results/audited_provenance/SANITIZATION_MANIFEST.json",
@@ -58,6 +58,7 @@ REQUIRED_FILES = {
     "reporting/final_figures.py", "reporting/reproducible_figures.py",
     "scripts/validate_paper_outputs.py", "reporting/frozen.py", "paper_assets/legacy_figures/manifest.json", "paper_assets/current_figures/manifest.json",
     "paper/manuscript.tex", "paper/manuscript.pdf",
+    "audit/v1.1.7/README.md", "audit/v1.1.7/local_verification.json",
     *{f"paper/figures/fig{i}.pdf" for i in range(1, 13)},
     *CANONICAL_SOURCES,
 }
@@ -302,15 +303,77 @@ def check_unique_figure_implementation() -> list[str]:
     return errors
 
 
+def check_paper_alignment() -> list[str]:
+    errors: list[str] = []
+    tex = (ROOT / "paper/manuscript.tex").read_text(encoding="utf-8")
+    required_source = (
+        "Each instance is assigned",
+        "\\section{Proposed Method}",
+        "step sizes",
+        "We use mean squared error (MSE)",
+        "Release v1.1.7",
+        "releases/tag/v1.1.7",
+    )
+    for phrase in required_source:
+        if phrase not in tex:
+            errors.append(f"current manuscript source is missing: {phrase}")
+    for phrase in (
+        "Because the platform hosts several model instances",
+        "\\section{RCF-DTI Method}",
+        "\\operatorname{Clip}_{G}",
+        "\\bibitem{ref20}",
+        "\\bibitem{ref21}",
+    ):
+        if phrase in tex:
+            errors.append(f"superseded manuscript content remains: {phrase}")
+    citations = set(
+        key.strip()
+        for group in re.findall(r"\\cite\{([^}]+)\}", tex)
+        for key in group.split(",")
+    )
+    bibliography = set(re.findall(r"\\bibitem\{([^}]+)\}", tex))
+    if citations != bibliography:
+        errors.append(
+            "manuscript citation/bibliography mismatch: "
+            f"uncited={sorted(bibliography-citations)}, missing={sorted(citations-bibliography)}"
+        )
+    for name in PAPER_TABLE_NAMES:
+        table_text = (ROOT / f"paper/tables/{name}.tex").read_text(encoding="utf-8")
+        if name != "table2_fairness" and ("WMSE" in table_text or "MSE" not in table_text):
+            errors.append(f"formal table terminology mismatch: {name}")
+    try:
+        from pypdf import PdfReader
+
+        reader = PdfReader(str(ROOT / "paper/manuscript.pdf"))
+        pdf_text = "\n".join(page.extract_text() or "" for page in reader.pages)
+        if len(reader.pages) != 21:
+            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 21")
+        for phrase in ("Each instance is assigned", "Proposed Method", "v1.1.7"):
+            if phrase not in pdf_text:
+                errors.append(f"current manuscript PDF is missing: {phrase}")
+        if "WMSE" in pdf_text:
+            errors.append("current manuscript PDF still contains WMSE")
+    except Exception as exc:
+        errors.append(f"cannot inspect current manuscript PDF: {exc}")
+    return errors
+
+
 def check_version_metadata() -> list[str]:
     errors = []
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
     workflow = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
-    if 'version = "1.1.6"' not in pyproject:
-        errors.append("pyproject version is not 1.1.6")
-    if not re.search(r"(?m)^version:\s*1\.1\.6\s*$", citation):
-        errors.append("CITATION.cff version is not 1.1.6")
+    fixed_manifest = json.loads(
+        (ROOT / "paper_assets/current_figures/manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    if 'version = "1.1.7"' not in pyproject:
+        errors.append("pyproject version is not 1.1.7")
+    if not re.search(r"(?m)^version:\s*1\.1\.7\s*$", citation):
+        errors.append("CITATION.cff version is not 1.1.7")
+    if fixed_manifest.get("paper_version") != "v1.1.7":
+        errors.append("fixed-figure manifest version is not v1.1.7")
     for asset in (
         "level_c_bootstrap_${GITHUB_REF_NAME}.zip",
         "level_c_bootstrap_${GITHUB_REF_NAME}.zip.sha256",
@@ -320,8 +383,8 @@ def check_version_metadata() -> list[str]:
         "paper_alignment_${GITHUB_REF_NAME}.zip.sha256",
         "rcf_dti_${GITHUB_REF_NAME}_complete.zip",
         "rcf_dti_${GITHUB_REF_NAME}_complete.zip.sha256",
-        "RCF_DTI_FIGURE_CODE_FINAL_V1_1_6.zip",
-        "RCF_DTI_FIGURE_CODE_FINAL_V1_1_6.zip.sha256",
+        "RCF_DTI_FIGURE_CODE_FINAL_V1_1_7.zip",
+        "RCF_DTI_FIGURE_CODE_FINAL_V1_1_7.zip.sha256",
         "SHA256SUMS.txt",
     ):
         if asset not in workflow:
@@ -357,6 +420,7 @@ def run_verification(generated_root: Path | None=None) -> dict[str,Any]:
         ("numerical_consistency",check_numbers),
         ("test_leakage",check_test_leakage),
         ("unique_figure_implementation",check_unique_figure_implementation),
+        ("paper_alignment",check_paper_alignment),
         ("public_terminology",check_public_terms),
         ("privacy",check_privacy),
         ("version_metadata",check_version_metadata),
