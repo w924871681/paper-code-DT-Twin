@@ -1,7 +1,7 @@
 # Paper-result mapping
 
 The released files below are the numerical and asset sources of truth for
-v1.1.7 paper outputs.
+v1.1.8 paper outputs.
 
 | Paper content | Frozen or checksum-tracked source | Rebuilt output |
 |---|---|---|
@@ -33,7 +33,7 @@ Table 4 uses a disjoint optimizer-control target pool. The controlled
 source-scale, source-seed, and Alibaba studies are separate diagnostic pools;
 none is used to tune a reported method.
 
-Release v1.1.7 changes paper mapping, fixed-figure assets, reporting code, and
+Release v1.1.8 changes paper mapping, fixed-figure assets, reporting code, and
 public documentation only. It does not change frozen configurations, model
 weights, seeds, data splits, candidate bank, optimizer, adaptation budget,
 selection threshold, or core numerical results.
