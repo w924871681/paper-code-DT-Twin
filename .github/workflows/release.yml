@@ -118,7 +118,7 @@ jobs:
         run: |
           mkdir -p downloaded-assets
           gh release download "${GITHUB_REF_NAME}" \
-            --pattern "*.zip*" \
+            --pattern "*" \
             --dir downloaded-assets
           cd downloaded-assets
           sha256sum -c "level_c_bootstrap_${GITHUB_REF_NAME}.zip.sha256"
