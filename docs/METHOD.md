@@ -17,8 +17,8 @@ of device latency, memory use, or energy consumption.
 
 ## Invariants
 
-v1.1.8 changes presentation, packaging, audits, and public reproducibility
-code only. It does not change the data split, seeds, six-architecture bank,
+v1.1.9 changes the revised manuscript presentation and Fig. 10 labels/layout
+only. It does not change the data split, seeds, six-architecture bank,
 seven candidates, reference candidate, optimizer, loss, 50-update budget,
 10% threshold, complexity limits, or any core experimental value.
 

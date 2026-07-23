@@ -24,13 +24,24 @@ from PIL import Image
 
 
 FIGURE_SIZES: Mapping[str, tuple[float, float]] = {
-    "fig6": (7.48, 3.18),
-    "fig7": (7.48, 2.90),
-    "fig8": (7.48, 3.18),
-    "fig9": (7.48, 3.32),
-    "fig10": (3.54, 3.72),
-    "fig11": (7.48, 4.85),
-    "fig12": (7.48, 3.05),
+    "fig6": (5.868, 2.883),
+    "fig7": (6.605, 2.530),
+    "fig8": (6.458, 1.886),
+    "fig9": (7.516, 2.283),
+    # Final cropped size produced by the journal-layout Fig. 10 canvas.
+    "fig10": (3.445, 3.407),
+    "fig11": (5.946, 3.490),
+    "fig12": (7.247, 2.590),
+}
+
+CANVAS_SIZES: Mapping[str, tuple[float, float]] = {
+    "fig6": (7.48, 3.0),
+    "fig7": (6.75, 2.7),
+    "fig8": (7.05, 1.95),
+    "fig9": (7.85, 2.4),
+    "fig10": (3.35, 3.55),
+    "fig11": (6.7, 3.75),
+    "fig12": (7.4, 2.85),
 }
 
 
@@ -45,15 +56,16 @@ def _read(path: Path) -> list[dict[str, str]]:
 def _style() -> None:
     plt.rcParams.update(
         {
-            "font.family": "sans-serif",
-            "font.sans-serif": ["Arial", "DejaVu Sans"],
-            "font.size": 7.2,
-            "axes.titlesize": 8.0,
-            "axes.labelsize": 7.2,
-            "xtick.labelsize": 6.6,
-            "ytick.labelsize": 6.6,
-            "legend.fontsize": 6.5,
-            "axes.linewidth": 0.7,
+            "font.family": "serif",
+            "font.serif": ["Tinos", "Times New Roman", "DejaVu Serif"],
+            "mathtext.fontset": "stix",
+            "font.size": 9.0,
+            "axes.titlesize": 9.0,
+            "axes.labelsize": 9.0,
+            "xtick.labelsize": 8.0,
+            "ytick.labelsize": 8.0,
+            "legend.fontsize": 7.7,
+            "axes.linewidth": 0.8,
             "lines.linewidth": 1.1,
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
@@ -93,11 +105,25 @@ def _layout_audit(fig: plt.Figure) -> dict[str, Any]:
     }
 
 
-def _save(fig: plt.Figure, output_dir: Path, stem: str) -> dict[str, Any]:
+def _save(
+    fig: plt.Figure,
+    output_dir: Path,
+    stem: str,
+    *,
+    tight: bool = False,
+) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     qa_dir = output_dir / "qa"
     qa_dir.mkdir(parents=True, exist_ok=True)
     audit = {"figure": stem, **_layout_audit(fig)}
+    if tight and audit["out_of_bounds_text"]:
+        # These labels are intentionally included by bbox_inches="tight";
+        # preserve the audit trace while distinguishing it from clipping.
+        audit["included_by_tight_bbox"] = audit["out_of_bounds_text"]
+        audit["out_of_bounds_text"] = []
+        audit["status"] = (
+            "PASS" if not audit["tick_label_overlaps"] else "FAIL"
+        )
     metadata = {
         "Title": stem,
         "Author": "Released deterministic reporting code",
@@ -105,8 +131,15 @@ def _save(fig: plt.Figure, output_dir: Path, stem: str) -> dict[str, Any]:
         "CreationDate": None,
         "ModDate": None,
     }
-    fig.savefig(output_dir / f"{stem}.pdf", format="pdf", metadata=metadata)
-    fig.savefig(output_dir / f"{stem}.png", format="png", dpi=600, pil_kwargs={"compress_level": 6})
+    crop = {"bbox_inches": "tight", "pad_inches": 0.03} if tight else {}
+    fig.savefig(output_dir / f"{stem}.pdf", format="pdf", metadata=metadata, **crop)
+    fig.savefig(
+        output_dir / f"{stem}.png",
+        format="png",
+        dpi=600,
+        pil_kwargs={"compress_level": 6},
+        **crop,
+    )
     plt.close(fig)
     with Image.open(output_dir / f"{stem}.png") as image:
         image.convert("L").convert("RGB").save(
@@ -131,7 +164,7 @@ def plot_fig6(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     )
     counts = Counter(row["selection_category"] for row in rows)
     _style()
-    fig, axes = plt.subplots(1, 2, figsize=FIGURE_SIZES["fig6"])
+    fig, axes = plt.subplots(1, 2, figsize=CANVAS_SIZES["fig6"])
     fig.subplots_adjust(left=0.085, right=0.985, top=0.78, bottom=0.25, wspace=0.28)
     for ax, reference_key, proposed_key in (
         (axes[0], "pt_ft_wmse", "proposed_wmse"),
@@ -164,7 +197,7 @@ def plot_fig6(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     fig.legend(handles, labels, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 0.985))
     fig.text(0.277, 0.035, "(a) Test MSE", ha="center")
     fig.text(0.760, 0.035, "(b) Test Worst-10% error", ha="center")
-    return _save(fig, output_dir, "fig6")
+    return _save(fig, output_dir, "fig6", tight=True)
 
 
 def plot_fig8(data_dir: Path, output_dir: Path) -> dict[str, Any]:
@@ -186,7 +219,7 @@ def plot_fig8(data_dir: Path, output_dir: Path) -> dict[str, Any]:
         ]
     )
     _style()
-    fig, axes = plt.subplots(1, 2, figsize=FIGURE_SIZES["fig8"], gridspec_kw={"width_ratios": [0.85, 1.35]})
+    fig, axes = plt.subplots(1, 2, figsize=CANVAS_SIZES["fig8"], gridspec_kw={"width_ratios": [0.85, 1.35]})
     fig.subplots_adjust(left=0.075, right=0.925, top=0.79, bottom=0.25, wspace=0.42)
     x = np.arange(len(budgets))
     width = 0.34
@@ -230,7 +263,7 @@ def plot_fig8(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     )
     fig.text(0.245, 0.035, "(a) Complexity filtering", ha="center")
     fig.text(0.720, 0.035, "(b) Selected model configurations", ha="center")
-    return _save(fig, output_dir, "fig8")
+    return _save(fig, output_dir, "fig8", tight=True)
 
 
 def plot_fig9(data_dir: Path, output_dir: Path) -> dict[str, Any]:
@@ -238,7 +271,7 @@ def plot_fig9(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     steps = _read(data_dir / "fig9_adaptation_steps_data.csv")
     margin = _read(data_dir / "fig9_margin_data.csv")
     _style()
-    fig = plt.figure(figsize=FIGURE_SIZES["fig9"])
+    fig = plt.figure(figsize=CANVAS_SIZES["fig9"])
     outer = fig.add_gridspec(1, 3, width_ratios=(1.0, 1.10, 1.0), left=0.070, right=0.965, top=0.83, bottom=0.26, wspace=0.48)
     ax_a = fig.add_subplot(outer[0, 0])
     ax_b1 = fig.add_subplot(outer[0, 1])
@@ -291,13 +324,13 @@ def plot_fig9(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     fig.text(0.190, 0.035, "(a) Retained architectures", ha="center")
     fig.text(0.515, 0.035, "(b) Fixed 50-update budget", ha="center")
     fig.text(0.835, 0.035, "(c) Threshold calibration", ha="center")
-    return _save(fig, output_dir, "fig9")
+    return _save(fig, output_dir, "fig9", tight=True)
 
 
 def plot_fig7(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     rows = _read(data_dir / "fig7_heterogeneity_data.csv")
     _style()
-    fig, axes = plt.subplots(1, 2, figsize=FIGURE_SIZES["fig7"])
+    fig, axes = plt.subplots(1, 2, figsize=CANVAS_SIZES["fig7"])
     fig.subplots_adjust(left=0.105, right=0.985, top=0.94, bottom=0.27, wspace=0.48)
     for ax, panel, color in (
         (axes[0], "H/K", "#0072B2"),
@@ -331,7 +364,7 @@ def plot_fig7(data_dir: Path, output_dir: Path) -> dict[str, Any]:
         ax.spines[["top", "right"]].set_visible(False)
     fig.text(0.280, 0.035, "(a) Prediction horizon and support size", ha="center")
     fig.text(0.755, 0.035, "(b) Target-center type", ha="center")
-    return _save(fig, output_dir, "fig7")
+    return _save(fig, output_dir, "fig7", tight=True)
 
 
 def plot_fig10(data_dir: Path, output_dir: Path) -> dict[str, Any]:
@@ -340,9 +373,9 @@ def plot_fig10(data_dir: Path, output_dir: Path) -> dict[str, Any]:
         ("mse", "MSE"),
         ("worst10", "Worst-10%"),
         ("cvar90", "CVaR90"),
-        ("target_time_seconds", "Time"),
-        ("parameter_count", "Parameters"),
-        ("estimated_operation_count", "Operations"),
+        ("target_time_seconds", "Target-side\ntime"),
+        ("parameter_count", "Parameter\ncount"),
+        ("estimated_operation_count", "Estimated\noperation count"),
     )
     angles = np.linspace(0, 2 * np.pi, len(axes_meta), endpoint=False)
     closed = np.r_[angles, angles[0]]
@@ -355,22 +388,39 @@ def plot_fig10(data_dir: Path, output_dir: Path) -> dict[str, Any]:
         for key, values in raw.items()
     }
     styles = (
-        ("#0072B2", "s", "-", 1.2),
-        ("#E69F00", "^", "-", 1.2),
-        ("#009E73", "D", "-", 1.2),
-        ("#D55E00", "o", "-", 2.0),
+        ("#1F77B4", "s"),
+        ("#FF7F0E", "^"),
+        ("#2CA02C", "D"),
+        ("#D62728", "o"),
     )
+    display_names = {
+        "Zero-shot NAS+FT": "Zero-shot NAS + FT",
+    }
     _style()
-    fig, ax = plt.subplots(figsize=FIGURE_SIZES["fig10"], subplot_kw={"projection": "polar"})
-    fig.subplots_adjust(left=0.12, right=0.88, top=0.91, bottom=0.25)
+    plt.rcParams.update(
+        {
+            "font.family": "serif",
+            "font.serif": ["Tinos", "Times New Roman", "DejaVu Serif"],
+            "font.size": 9.0,
+            "xtick.labelsize": 8.0,
+            "ytick.labelsize": 8.0,
+            "legend.fontsize": 7.7,
+        }
+    )
+    fig, ax = plt.subplots(figsize=CANVAS_SIZES["fig10"], subplot_kw={"projection": "polar"})
+    fig.subplots_adjust(left=0.04, right=0.96, top=0.96, bottom=0.24)
     ax.set_theta_offset(0)
     ax.set_theta_direction(1)
-    ax.set_xticks(angles, [label for _, label in axes_meta])
+    ax.set_xticks(angles)
+    ax.set_xticklabels([label for _, label in axes_meta], fontsize=7.0)
     ax.set_ylim(0, 100)
     ax.set_yticks((25, 50, 75, 100))
-    ax.set_rlabel_position(3)
-    ax.grid(color="#B9C0C7", lw=0.55, ls=(0, (2, 2)))
-    for index, (row, (color, marker, linestyle, linewidth)) in enumerate(zip(rows, styles)):
+    ax.set_yticklabels(("25", "50", "75", "100"))
+    ax.set_rlabel_position(5)
+    ax.tick_params(axis="x", pad=8)
+    ax.grid(color="#BDBDBD", lw=0.6, ls=":")
+    ax.spines["polar"].set_linewidth(0.9)
+    for index, (row, (color, marker)) in enumerate(zip(rows, styles)):
         values = np.asarray([scores[key][index] for key, _ in axes_meta])
         values = np.r_[values, values[0]]
         ax.plot(
@@ -378,34 +428,26 @@ def plot_fig10(data_dir: Path, output_dir: Path) -> dict[str, Any]:
             values,
             color=color,
             marker=marker,
-            ls=linestyle,
-            lw=linewidth,
-            ms=4.0,
-            label=row["method"],
+            lw=1.5,
+            ms=3.7,
+            label=display_names.get(row["method"], row["method"]),
         )
-        ax.fill(closed, values, color=color, alpha=0.045)
-    fig.legend(
-        frameon=False,
-        loc="lower center",
-        bbox_to_anchor=(0.5, 0.035),
+        ax.fill(closed, values, color=color, alpha=0.035)
+    ax.legend(
+        loc="upper center",
+        bbox_to_anchor=(0.5, -0.12),
         ncol=2,
-        columnspacing=1.1,
-        handlelength=2.1,
+        frameon=False,
+        handlelength=1.7,
+        columnspacing=1.2,
     )
-    fig.text(
-        0.5,
-        0.005,
-        "Normalized score = 100 × best / method; all six raw metrics are lower-is-better.",
-        ha="center",
-        fontsize=5.8,
-    )
-    return _save(fig, output_dir, "fig10")
+    return _save(fig, output_dir, "fig10", tight=True)
 
 
 def plot_fig11(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     rows = _read(data_dir / "fig11_architecture_complexity_data.csv")
     _style()
-    fig, ax = plt.subplots(figsize=FIGURE_SIZES["fig11"])
+    fig, ax = plt.subplots(figsize=CANVAS_SIZES["fig11"])
     fig.subplots_adjust(left=0.105, right=0.75, top=0.95, bottom=0.14)
     x = np.asarray([float(row["estimated_operation_count"]) / 1e6 for row in rows])
     y = np.asarray([float(row["mean_paired_mse_reduction_percent"]) for row in rows])
@@ -478,7 +520,7 @@ def plot_fig11(data_dir: Path, output_dir: Path) -> dict[str, Any]:
         loc="center left",
         bbox_to_anchor=(0.79, 0.14),
     )
-    return _save(fig, output_dir, "fig11")
+    return _save(fig, output_dir, "fig11", tight=True)
 
 
 def plot_fig12(data_dir: Path, output_dir: Path) -> dict[str, Any]:
@@ -489,7 +531,7 @@ def plot_fig12(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     fig, (ax_a, ax_b) = plt.subplots(
         1,
         2,
-        figsize=FIGURE_SIZES["fig12"],
+        figsize=CANVAS_SIZES["fig12"],
         gridspec_kw={"width_ratios": (0.82, 1.18)},
     )
     fig.subplots_adjust(left=0.075, right=0.985, top=0.95, bottom=0.24, wspace=0.40)
@@ -595,7 +637,7 @@ def plot_fig12(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     ax_b.spines[["top", "right"]].set_visible(False)
     fig.text(0.265, 0.07, "(a) Source-center scale", ha="center", fontsize=7.2)
     fig.text(0.75, 0.07, "(b) Case-level gain distributions", ha="center", fontsize=7.2)
-    return _save(fig, output_dir, "fig12")
+    return _save(fig, output_dir, "fig12", tight=True)
 
 
 def plot_all(data_dir: str | Path, output_dir: str | Path) -> dict[str, dict[str, Any]]:
@@ -613,6 +655,7 @@ def plot_all(data_dir: str | Path, output_dir: str | Path) -> dict[str, dict[str
 
 
 __all__ = [
+    "CANVAS_SIZES",
     "FIGURE_SIZES",
     "plot_all",
     "plot_fig6",
