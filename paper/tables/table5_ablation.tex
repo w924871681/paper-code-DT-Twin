@@ -1,20 +1,86 @@
-\begin{table}[t]
-\centering
-\small
-\caption{Component ablation on the independent diagnostic target pool.}
+\begin{center}
+\begin{minipage}{\linewidth}
+
+\captionof{table}{Ablation results on the independent diagnostic target
+pool. Gain is the paired MSE reduction relative to the reference candidate.}
 \label{tab:ablation}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lccccc}
+
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{3.0pt}
+
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccccc@{}}
 \toprule
-Variant & WMSE & Worst-10\% & Gain vs reference (\%) & Harmful alternative selection / all cases (\%) & Complexity-feasible outputs (\%) \\
+
+Variant
+& MSE$\downarrow$
+& Worst-10\%$\downarrow$
+& Gain (\%)$\uparrow$
+& \shortstack{Harmful selection\\(\%)$\downarrow$}
+& \shortstack{Limit satisfaction\\(\%)$\uparrow$}
+\\
+
 \midrule
-RCF-DTI & 0.004063 & 0.015764 & 15.79 & 15.00 & 100.00 \\
-Shared pooled initialization & 0.004876 & 0.019044 & 1.75 & 2.50 & 100.00 \\
-Reference candidate only & 0.005051 & 0.019512 & 0.00 & 0.00 & 100.00 \\
-Two reference-architecture initializations & 0.004917 & 0.019136 & 1.29 & 1.25 & 100.00 \\
-Without minimum-improvement rule & 0.004055 & 0.015690 & 16.16 & 17.50 & 100.00 \\
-Without complexity-limit filtering & 0.004037 & 0.015635 & 16.13 & 13.75 & 96.25 \\
+
+\textbf{RCF-DTI}
+& \textbf{0.004063}
+& \textbf{0.015764}
+& \textbf{15.79}
+& \textbf{15.00}
+& \textbf{100.00}
+\\
+
+\shortstack[l]{Earlier pooled-source training\\for non-reference models}
+& 0.004876
+& 0.019044
+& 1.75
+& 2.50
+& 100.00
+\\
+
+Reference candidate only
+& 0.005051
+& 0.019512
+& 0.00
+& 0.00
+& 100.00
+\\
+
+Two reference-architecture initializations
+& 0.004917
+& 0.019136
+& 1.29
+& 1.25
+& 100.00
+\\
+
+Without reference regularization$^{\dagger}$
+& 0.004055
+& 0.015690
+& 16.16
+& 17.50
+& 100.00
+\\
+
+Without complexity filtering$^{\dagger}$
+& 0.004037
+& 0.015635
+& 16.13
+& 13.75
+& 96.25
+\\
+
 \bottomrule
-\end{tabular}
-}
-\end{table}
+\end{tabular*}
+
+\vspace{2pt}
+\footnotesize
+
+$^{\dagger}$ Diagnostic variants only.
+The harmful-selection rate is computed over all diagnostic cases.
+Without complexity filtering, a selected model may exceed an assigned
+limit.
+
+\end{minipage}
+\end{center}

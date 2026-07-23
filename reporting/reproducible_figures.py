@@ -1,4 +1,4 @@
-"""Backward-compatible import shim for the v1.1.6 final figure module.
+"""Backward-compatible import shim for the v1.1.7 final figure module.
 
 New code must import :mod:`reporting.final_figures`.  This module intentionally
 contains no plotting implementation.

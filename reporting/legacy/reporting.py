@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Legacy pre-v1.1.6 reporting implementation.
+"""Legacy pre-v1.1.7 reporting implementation.
 
 Retained only to audit archived workflows. It is not a formal paper-figure
-entry point and must not be used to replace v1.1.6 assets.
+entry point and must not be used to replace v1.1.7 assets.
 """
 from __future__ import annotations
 

@@ -1,20 +1,58 @@
-\begin{table}[t]
-\centering
-\small
-\caption{Optimizer-matched comparison on the separate diagnostic target pool.}
+\begin{center}
+\begin{minipage}{\linewidth}
+\captionof{table}{Optimizer-matched comparison on a separate diagnostic
+target pool.}
 \label{tab:matched_control}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lcccc}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{3.0pt}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lcccc@{}}
 \toprule
-Method & WMSE & Worst-10\% & CVaR90 & Adapted models \\
+Method & MSE$\downarrow$ & Worst-10\%$\downarrow$ &
+CVaR90$\downarrow$ & Adapted candidates \\
 \midrule
-RCF-DTI & 0.003809 & 0.015094 & 0.008696 & 6.10 \\
-PT+FT (reference model) & 0.004497 & 0.017144 & 0.011878 & 1.00 \\
-Few-shot NAS (matched) & 0.006715 & 0.025246 & 0.019653 & 12.00 \\
-Zero-shot NAS (matched) & 0.007402 & 0.028099 & 0.020402 & 12.00 \\
-Common 12-candidate shortlist, lowest validation loss & 0.006707 & 0.025240 & 0.019653 & 12.00 \\
-Common 12-candidate shortlist, minimum-improvement rule & 0.006819 & 0.025562 & 0.020547 & 12.00 \\
+\textbf{RCF-DTI}
+& \textbf{0.003809}
+& \textbf{0.015094}
+& \textbf{0.008696}
+& \textbf{6.10} \\
+
+PT+FT (reference model)
+& 0.004497
+& 0.017144
+& 0.011878
+& 1.00 \\
+
+Few-shot NAS (matched)
+& 0.006715
+& 0.025246
+& 0.019653
+& 12.00 \\
+
+Zero-shot NAS (matched)
+& 0.007402
+& 0.028099
+& 0.020402
+& 12.00 \\
+
+Common 12-candidate shortlist, lowest validation loss
+& 0.006707
+& 0.025240
+& 0.019653
+& 12.00 \\
+
+Common 12-candidate shortlist, reference-regularized selection
+& 0.006819
+& 0.025562
+& 0.020547
+& 12.00 \\
 \bottomrule
-\end{tabular}
-}
-\end{table}
+\end{tabular*}
+
+\vspace{2pt}
+\par\footnotesize
+RCF-DTI uses its fixed compact candidate bank and reference-regularized
+selection. No method is tuned on this pool.
+\end{minipage}
+\end{center}

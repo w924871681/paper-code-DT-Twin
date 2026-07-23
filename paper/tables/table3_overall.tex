@@ -1,21 +1,24 @@
-\begin{table}[t]
-\centering
-\small
-\caption{Predictive performance on the held-out target centers.}
+\begin{center}
+\begin{minipage}{\linewidth}
+\captionof{table}{Overall predictive performance on the held-out target cases.}
 \label{tab:overall}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lccccc}
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{4.0pt}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lcccc@{}}
 \toprule
-Method & MAE & WMSE & Worst-10\% & CVaR90 & Limit satisfaction (\%) \\
+Method & MAE$\downarrow$ & MSE$\downarrow$ & Worst-10\%$\downarrow$ & CVaR90$\downarrow$ \\
 \midrule
-PT+FT & 0.05382 & 0.005120 & 0.019078 & 0.013874 & 100.0 \\
-MeDeT-based adaptation & 0.06409 & 0.007115 & 0.024170 & 0.022398 & 100.0 \\
-Random initialization & 0.12562 & 0.026202 & 0.073298 & 0.086879 & 100.0 \\
-Few-shot NAS & 0.06428 & 0.007105 & 0.026501 & 0.019089 & 100.0 \\
-Zero-shot NAS & 0.13500 & 0.030387 & 0.075192 & 0.110634 & 100.0 \\
-Zero-shot NAS + fine-tuning & 0.06654 & 0.007527 & 0.028539 & 0.018781 & 100.0 \\
-RCF-DTI & 0.04866 & 0.004219 & 0.015755 & 0.011706 & 100.0 \\
+PT+FT & 0.05382 & 0.005120 & 0.019078 & 0.013874 \\
+MeDeT-based adaptation & 0.06409 & 0.007115 & 0.024170 & 0.022398 \\
+Random initialization & 0.12562 & 0.026202 & 0.073298 & 0.086879 \\
+Few-shot NAS & 0.06428 & 0.007105 & 0.026501 & 0.019089 \\
+Zero-shot NAS & 0.13500 & 0.030387 & 0.075192 & 0.110634 \\
+Zero-shot NAS + fine-tuning & 0.06654 & 0.007527 & 0.028539 & 0.018781 \\
+\textbf{RCF-DTI} & \textbf{0.04866} & \textbf{0.004219} &
+\textbf{0.015755} & \textbf{0.011706} \\
 \bottomrule
-\end{tabular}
-}
-\end{table}
+\end{tabular*}
+\end{minipage}
+\end{center}

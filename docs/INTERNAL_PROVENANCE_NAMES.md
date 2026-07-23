@@ -10,7 +10,7 @@ checksums and audit chain remain valid. They are not current paper terms.
 | `source_prior_bank` | source-initialization bank |
 | `anchor_safe_selector` | reference-regularized candidate selection |
 | `hard_feasibility` | filtering by both model complexity limits |
-| `WMSE` in frozen schemas | validation-weighted MSE where the schema explicitly says so |
+| `WMSE` in frozen schemas | historical field name for the uniformly horizon-weighted value; with the released uniform weights it equals the MSE reported in the paper |
 
 These identifiers may occur in immutable provenance JSON, archived experiment
 paths, compatibility modules, and checksum manifests. Public captions,

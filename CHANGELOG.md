@@ -5,6 +5,19 @@ dates are recorded only after a version is actually published.
 
 ## [Unreleased]
 
+## [1.1.7] - 2026-07-23
+
+- Replace the archived manuscript source with the current journal draft,
+  including its revised abstract, Introduction, Related Work, proposed-method
+  presentation, algorithm, conclusion, and Data Availability statement.
+- Synchronize the exact current Table 1--5 LaTeX assets and use `MSE` in the
+  formal manuscript layer while retaining documented historical schema names.
+- Remove the two uncited bibliography entries and verify one-to-one agreement
+  between citation keys and bibliography items.
+- Update version metadata, repository audits, release packaging, and
+  manuscript/PDF checks without changing any frozen experiment setting or
+  reported numerical value.
+
 ## [1.1.6] - 2026-07-23
 
 - Synchronize the final manuscript source/PDF, captions, Data Availability,
