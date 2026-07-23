@@ -1,7 +1,7 @@
 {
-  "paper_version": "v1.1.7",
+  "paper_version": "v1.1.8",
   "purpose": "Checksum-bound final manuscript assets for Fig. 1--5.",
-  "policy": "The canonical generator copies these manually designed assets byte-for-byte. They are the versions embedded in the v1.1.7 manuscript and may not be replaced by historical inputs.",
+  "policy": "The canonical generator copies these manually designed assets byte-for-byte. They are the versions embedded in the v1.1.8 manuscript and may not be replaced by historical inputs.",
   "files": {
     "fig1": {
       "pdf_sha256": "61cee93770c3e372cdba7f552e4c51cce3d2e21532865e91798ac202b61327e7",

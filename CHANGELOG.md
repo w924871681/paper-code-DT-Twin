@@ -5,6 +5,17 @@ dates are recorded only after a version is actually published.
 
 ## [Unreleased]
 
+## [1.1.8] - 2026-07-23
+
+- Include the exact `paper/tables/` assets in the standalone final figure-code
+  package so its documented reconstruction command runs after independent ZIP
+  extraction.
+- Add a repository check that prevents the standalone package dependency from
+  being omitted again.
+- Advance the journal manuscript, Data Availability, metadata, audits, Latest
+  Release, and asset names without changing code paths, protocol settings, or
+  experimental values.
+
 ## [1.1.7] - 2026-07-23
 
 - Replace the archived manuscript source with the current journal draft,

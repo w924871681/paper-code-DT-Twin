@@ -2,13 +2,13 @@
 
 This repository is the reproducibility archive for **Complexity-Constrained
 Few-Shot Digital Twin Model Instantiation for Heterogeneous Multi-Center
-Computing Networks**. Release `v1.1.7` synchronizes the manuscript, captions,
+Computing Networks**. Release `v1.1.8` synchronizes the manuscript, captions,
 Fig. 1--12, plot-ready data, frozen protocols, audit evidence, and public
 reproduction commands.
 
 ## What is frozen
 
-The following scientific choices are unchanged in v1.1.7:
+The following scientific choices are unchanged in v1.1.8:
 
 - data seed `2904` and source-training seeds `2904`, `2905`, `2906`;
 - source, development, diagnostic, and held-out target splits;
@@ -34,7 +34,7 @@ used only for reporting and never for candidate selection.
 - `results/audited_provenance/`: publishable immutable audit records.
 - `scripts/`: verification, reconstruction, smoke-test, and replay commands.
 - `docs/`: method, figure, provenance, availability, and reproducibility notes.
-- `audit/v1.1.7/`: machine-readable and human-readable release audit evidence.
+- `audit/v1.1.8/`: machine-readable and human-readable release audit evidence.
 
 Historical internal identifiers remain only where changing them would break
 the provenance chain. Their public meaning is documented in
@@ -107,7 +107,7 @@ compatibility wrapper; it calls the same canonical implementation.
 - **Level B — paper reconstruction:** all tables and Fig. 1--12 from released
   files, without weights or raw Alibaba data.
 - **Level C — locked evaluation replay:** the seven frozen methods from the
-  checksum-bound bootstrap assets in Release `v1.1.7`, requiring CUDA.
+  checksum-bound bootstrap assets in Release `v1.1.8`, requiring CUDA.
 
 For Level C, first verify and stage the downloaded bundle:
 
@@ -146,7 +146,7 @@ evaluation values only.
 ## Citation and release integrity
 
 Use `CITATION.cff` and Release
-[`v1.1.7`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.1.7).
+[`v1.1.8`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.1.8).
 Every release asset is covered by `SHA256SUMS.txt`; the audit report records
 the Git commit, annotated tag target, release state, and asset hashes.
 Author and DOI metadata remain explicitly pending.

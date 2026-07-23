@@ -38,7 +38,7 @@ All table inputs and Fig. 1--12 are tracked beside the source. The checked
 
 ## Level C: frozen locked-evaluation replay
 
-Download the v1.1.7 bootstrap asset and verify it before execution:
+Download the v1.1.8 bootstrap asset and verify it before execution:
 
 ```powershell
 python .\scripts\stage_level_c_bootstrap.py `
