@@ -1,0 +1,98 @@
+{
+  "version": "v1.1.9",
+  "date": "2026-07-23",
+  "decision": "PASS_V1_1_9_LOCAL_VERIFICATION",
+  "scientific_protocol_changed": false,
+  "core_experimental_values_changed": false,
+  "checks": {
+    "pytest": {
+      "status": "PASS",
+      "tests": 13
+    },
+    "cpu_smoke_test": {
+      "status": "PASS",
+      "decision": "PASS_CPU_SMOKE_TEST"
+    },
+    "repository_verification": {
+      "status": "PASS",
+      "decision": "PASS_PUBLIC_REPOSITORY_VERIFICATION",
+      "subchecks": [
+        "required_files",
+        "imports",
+        "json",
+        "checksums",
+        "asset_manifest",
+        "frozen_protocol",
+        "numerical_consistency",
+        "test_leakage",
+        "unique_figure_implementation",
+        "paper_alignment",
+        "public_terminology",
+        "privacy",
+        "version_metadata",
+        "generated_outputs",
+        "standalone_package_dependencies"
+      ]
+    },
+    "paper_outputs": {
+      "status": "PASS",
+      "decision": "PASS_FROZEN_TABLES_AND_FIGURES",
+      "validation": "PASS_PAPER_OUTPUT_VALIDATION",
+      "manifest_sha256": "9801270f8b5526bd8b30735afcccf2b7edf6e4c233da2d1459dc1f36bbbb5ad7",
+      "validation_sha256": "246659b12f10b877c11a503822b5235347c18be877898acf76e703213d5ecbbd"
+    },
+    "manuscript": {
+      "status": "PASS",
+      "engine": "Tectonic 0.16.9",
+      "pages": 20,
+      "undefined_references": 0,
+      "wmse_occurrences": 0,
+      "release_reference": "v1.1.9",
+      "visually_reviewed": true,
+      "source_sha256": "fe90a0063ba8027fdd9ace380415f8c3abdae6801c6cbe9680df5f8034d124af",
+      "pdf_sha256": "e51d3f098a045f16b3b67fba3bb9fd409503d25b724f0dfdc7a6692991780ec4"
+    },
+    "fig10": {
+      "status": "PASS",
+      "normalization": "100 * minimum raw value / method raw value",
+      "supplied_pdf_sha256": "e93716a0c8dd5a43d3f16b62bdbb1eb98c93c3a7d3dbdc8312cc55d47c8e4731",
+      "generated_pdf_sha256": "b88c5972b5b9fa2d15e1f24a5b8208ab8a6b51718081504cfee3e990417d4f78",
+      "layout_audit": "PASS",
+      "vector_pdf": true,
+      "type3_fonts": 0
+    },
+    "standalone_package": {
+      "status": "PASS_LOCAL_EMPTY_DIRECTORY_TEST",
+      "required_dependency": "paper/tables",
+      "workflow_guard": "cp -r paper/tables figure-code-package/paper/",
+      "acceptance_commands": [
+        "python scripts/generate_paper_outputs.py",
+        "python scripts/validate_paper_outputs.py"
+      ]
+    },
+    "git_diff_check": {
+      "status": "PASS"
+    }
+  },
+  "key_values": {
+    "main_cases": 80,
+    "alternative_selections": 47,
+    "beneficial_alternatives": 44,
+    "harmful_alternatives": 3,
+    "reference_retained": 33,
+    "mean_paired_mse_reduction_percent": 14.602159705445189,
+    "complexity_limit_satisfaction_percent": 100.0,
+    "retained_architectures": 6,
+    "initialized_candidates": 7,
+    "mean_feasible_candidates": 6.25,
+    "target_updates": 50,
+    "selection_threshold_percent": 10,
+    "reference_architecture_index": 57
+  },
+  "supplied_authority": {
+    "manuscript_tex_sha256_before_release_version_update": "a11ec7ec130cc95d57a19b083f2bbc8e68c9d0f5d5e8ed3cbb4774734d6d3a6b",
+    "manuscript_pdf_sha256": "4149285347cf234517c232a73844877bbf542dc669a9e5fc86a4d1d41ca40574",
+    "fig10_update_package_sha256": "259b6334c2a438c331401d081a6252c97400cf88e40013e6e5a8e221765ff4e6",
+    "resolution": "The supplied revised manuscript is the textual authority. Its temporary Data Availability release reference is advanced to v1.1.9. The redrawn Fig. 10 labels and layout are ported into the unique public generator without changing plot-ready data, normalization, or any frozen scientific setting."
+  }
+}

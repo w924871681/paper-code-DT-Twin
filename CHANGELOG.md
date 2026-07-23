@@ -5,6 +5,18 @@ dates are recorded only after a version is actually published.
 
 ## [Unreleased]
 
+## [1.1.9] - 2026-07-23
+
+- Adopt the latest supplied journal manuscript revision, including the revised
+  abstract, Introduction, method exposition, captions, analysis, conclusion,
+  citation numbering, and v1.1.9 Data Availability statement.
+- Redraw Fig. 10 with explicit `Target-side time`, `Parameter count`, and
+  `Estimated operation count` labels while preserving the released raw data
+  and `100 × lowest raw value / method value` normalization.
+- Update the single maintained Fig. 6--12 implementation, audit evidence,
+  metadata, documentation, and release packaging without changing any frozen
+  experimental protocol or reported result.
+
 ## [1.1.8] - 2026-07-23
 
 - Include the exact `paper/tables/` assets in the standalone final figure-code
