@@ -1,0 +1,5 @@
+﻿host_label,actual_device,H,spearman_operations_latency,spearman_parameters_state_size,spearman_parameters_peak_memory
+rtx3060_laptop_cpu_gpu,cpu,1,0.9265616458263765,1.0,
+rtx3060_laptop_cpu_gpu,cpu,4,0.9636241116594317,1.0,
+rtx3060_laptop_cpu_gpu,cuda,1,0.8894991799933215,1.0,0.9607689228305228
+rtx3060_laptop_cpu_gpu,cuda,4,0.8894991799933215,1.0,-0.7205766921228921

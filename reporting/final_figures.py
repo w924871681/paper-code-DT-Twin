@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Canonical publication plots for manuscript Fig. 6--12.
 
 This is the only maintained implementation of the final data-driven figures.
@@ -632,7 +632,7 @@ def plot_fig12(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     ax_b.set_xticks((-20, 0, 20, 40, 60))
     ax_b.set_ylim(-0.58, 3.58)
     ax_b.set_xlabel("MSE reduction relative to the matched reference (%)")
-    ax_b.text(-24.2, -0.50, "4 cases below -25% (minimum -360.3%)", fontsize=6.2)
+    ax_b.text(-24.2, -0.50, "1 case below -25% (minimum -50.4%)", fontsize=6.2)
     ax_b.grid(axis="x", color="#D4D4D4", lw=0.45, ls=(0, (2, 2)))
     ax_b.spines[["top", "right"]].set_visible(False)
     fig.text(0.265, 0.07, "(a) Source-center scale", ha="center", fontsize=7.2)
@@ -666,3 +666,4 @@ __all__ = [
     "plot_fig11",
     "plot_fig12",
 ]
+

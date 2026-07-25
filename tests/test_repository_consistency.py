@@ -48,11 +48,12 @@ def test_reproducible_figures_have_public_data() -> None:
         encoding="utf-8-sig", newline=""
     ) as handle:
         fig12 = list(csv.DictReader(handle))
-    assert len(fig12) == 320
+    assert len(fig12) == 400
+    assert sum(row["group"] == "Alibaba" for row in fig12) == 160
     assert sum(
         row["group"] == "Alibaba" and float(row["gain_percent"]) < -25
         for row in fig12
-    ) == 4
+    ) == 1
 
 
 def test_level_c_bootstrap_manifest_is_portable() -> None:

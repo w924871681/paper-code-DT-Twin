@@ -22,7 +22,7 @@ implementation is `reporting/final_figures.py`.
 | Fig. 9 | `fig9_bank_size_data.csv`, `fig9_adaptation_steps_data.csv`, `fig9_margin_data.csv` | Diagnostic/development studies only |
 | Fig. 10 | `fig10_deployment_tradeoff_data.csv` | `100 × lowest raw value / method value`; explicit target-side time, parameter-count, and estimated-operation-count axes |
 | Fig. 11 | `fig11_architecture_complexity_data.csv` | Marker area encodes selected-case count |
-| Fig. 12 | `tableS2_controlled_source_scale.csv`, `fig12_case_level_gains.csv`, `fig12_group_summary.csv` | Raw values retained; four Alibaba cases clipped only on the plot |
+| Fig. 12 | `tableS2_controlled_source_scale.csv`, `fig12_case_level_gains.csv`, `fig12_group_summary.csv` | Raw values retained; one Alibaba case clipped only on the plot |
 
 All paths in the table are below `results/figure_data/`.
 

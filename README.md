@@ -2,7 +2,7 @@
 
 This repository is the reproducibility archive for **Complexity-Constrained
 Few-Shot Digital Twin Model Instantiation for Heterogeneous Multi-Center
-Computing Networks**. Release `v1.1.9` synchronizes the latest revised
+Computing Networks**. Release `v1.2.0` synchronizes the latest revised
 manuscript, captions, redrawn Fig. 10, plot-ready data, frozen protocols,
 audit evidence, and public reproduction commands.
 
@@ -107,7 +107,7 @@ compatibility wrapper; it calls the same canonical implementation.
 - **Level B — paper reconstruction:** all tables and Fig. 1--12 from released
   files, without weights or raw Alibaba data.
 - **Level C — locked evaluation replay:** the seven frozen methods from the
-  checksum-bound bootstrap assets in Release `v1.1.9`, requiring CUDA.
+  checksum-bound bootstrap assets in Release `v1.2.0`, requiring CUDA.
 
 For Level C, first verify and stage the downloaded bundle:
 
@@ -135,18 +135,20 @@ the manuscript's separate five-repeat, GPU-synchronized timing protocol.
 
 Synthetic centers can be regenerated from `core/data/sim.py`, the frozen
 configuration, and fixed seeds. Plot-ready table and figure data are tracked
-in `results/figure_data/`, including all 320 case-level gains for Fig. 12(b).
+in `results/figure_data/`, including all 400 case-level gains for Fig. 12(b): 240 source-seed cases and 160 held-out Alibaba cases.
 
 The original Alibaba Cluster Trace v2018 is not redistributed. Its official
-source, expected checksum and layout, preprocessing, real-bank construction,
-and evaluation instructions are in `data/alibaba2018/README.md`. Released
-Alibaba-derived records contain anonymized identifiers and processed
-evaluation values only.
+source, expected checksum and layout, source-only preprocessing, disjoint
+20/20/40 machine split, real source-bank construction, independent threshold
+calibration, and held-out evaluation instructions are documented in
+`data/alibaba2018/README.md` and `results/pre_submission_enhancements/`.
+Released Alibaba-derived records contain hashed machine identifiers and
+processed evaluation values only.
 
 ## Citation and release integrity
 
 Use `CITATION.cff` and Release
-[`v1.1.9`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.1.9).
+[`v1.2.0`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.0).
 Every release asset is covered by `SHA256SUMS.txt`; the audit report records
 the Git commit, annotated tag target, release state, and asset hashes.
 Author and DOI metadata remain explicitly pending.

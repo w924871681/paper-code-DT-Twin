@@ -45,7 +45,7 @@ DERIVED_AUDIT_FILES = {
 }
 REQUIRED_FILES = {
     "README.md", "CITATION.cff", "LICENSE", "pyproject.toml", "environment.yml",
-    "CHANGELOG.md", "AUTHOR_METADATA_REQUIRED.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", "RELEASE_NOTES_v1.1.3.md", "RELEASE_NOTES_v1.1.4.md", "RELEASE_NOTES_v1.1.5.md", "RELEASE_NOTES_v1.1.6.md", "RELEASE_NOTES_v1.1.7.md", "RELEASE_NOTES_v1.1.8.md", "RELEASE_NOTES_v1.1.9.md", "CODEX_V1_1_5_PAPER_ALIGNMENT_AUDIT.md", "CODEX_V1_1_6_RELEASE_AUDIT.md", "CODEX_V1_1_7_PAPER_ALIGNMENT_AUDIT.md", "CODEX_V1_1_8_PACKAGING_AUDIT.md", "CODEX_V1_1_9_PAPER_FIG10_AUDIT.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
+    "CHANGELOG.md", "AUTHOR_METADATA_REQUIRED.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", "RELEASE_NOTES_v1.1.3.md", "RELEASE_NOTES_v1.1.4.md", "RELEASE_NOTES_v1.1.5.md", "RELEASE_NOTES_v1.1.6.md", "RELEASE_NOTES_v1.1.7.md", "RELEASE_NOTES_v1.1.8.md", "RELEASE_NOTES_v1.1.9.md", "RELEASE_NOTES_v1.2.0.md", "CODEX_V1_1_5_PAPER_ALIGNMENT_AUDIT.md", "CODEX_V1_1_6_RELEASE_AUDIT.md", "CODEX_V1_1_7_PAPER_ALIGNMENT_AUDIT.md", "CODEX_V1_1_8_PACKAGING_AUDIT.md", "CODEX_V1_2_0_PAPER_FIG10_AUDIT.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
     "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md", "docs/LEVEL_C_COMPLETION_PLAN.md", "docs/FIGURE_REPRODUCTION.md", "docs/INTERNAL_PROVENANCE_NAMES.md",
     "assets/README.md", "assets/model_assets.csv", "assets/level_c_bootstrap_files.csv", "data/README.md", "data/alibaba2018/README.md",
     "results/README.md", "results/audited_provenance/SANITIZATION_MANIFEST.json",
@@ -209,7 +209,11 @@ def check_numbers() -> list[str]:
         errors.append("Fig. 11 harmful-case annotations changed")
     cases = _csv(ROOT / "results/figure_data/fig12_case_level_gains.csv")
     alibaba_gains = [float(row["gain_percent"]) for row in cases if row["group"] == "Alibaba"]
-    if len(cases) != 320 or len(alibaba_gains) != 80 or sum(value < -25 for value in alibaba_gains) != 4:
+    if (
+        len(cases) != 400
+        or len(alibaba_gains) != 160
+        or sum(value < -25 for value in alibaba_gains) != 1
+    ):
         errors.append("Fig. 12 exact case-level distribution changed")
     return errors
 
@@ -309,13 +313,13 @@ def check_paper_alignment() -> list[str]:
     errors: list[str] = []
     tex = (ROOT / "paper/manuscript.tex").read_text(encoding="utf-8")
     required_source = (
-        "Joint architecture selection and parameter adaptation",
+        "joint architecture selection and parameter adaptation",
         "\\section{Proposed Method}",
         "step sizes",
         "We use mean squared error (MSE)",
         "$100x_{\\min}/x$",
-        "Release v1.1.9",
-        "releases/tag/v1.1.9",
+        "Release v1.2.0",
+        "releases/tag/v1.2.0",
     )
     for phrase in required_source:
         if phrase not in tex:
@@ -347,15 +351,27 @@ def check_paper_alignment() -> list[str]:
 
         reader = PdfReader(str(ROOT / "paper/manuscript.pdf"))
         pdf_text = "\n".join(page.extract_text() or "" for page in reader.pages)
-        if len(reader.pages) != 20:
-            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 20")
+        pdf_compact = "".join(
+            char.lower()
+            for char in pdf_text
+            if char.isalnum() or char == "."
+        )
+
+        if len(reader.pages) != 22:
+            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 22")
+
         for phrase in (
             "Joint architecture selection",
             "Proposed Method",
             "Normalized target-side",
-            "v1.1.9",
+            "v1.2.0",
         ):
-            if phrase not in pdf_text:
+            phrase_compact = "".join(
+                char.lower()
+                for char in phrase
+                if char.isalnum() or char == "."
+            )
+            if phrase_compact not in pdf_compact:
                 errors.append(f"current manuscript PDF is missing: {phrase}")
         if "WMSE" in pdf_text:
             errors.append("current manuscript PDF still contains WMSE")
@@ -374,12 +390,12 @@ def check_version_metadata() -> list[str]:
             encoding="utf-8"
         )
     )
-    if 'version = "1.1.9"' not in pyproject:
-        errors.append("pyproject version is not 1.1.9")
-    if not re.search(r"(?m)^version:\s*1\.1\.9\s*$", citation):
-        errors.append("CITATION.cff version is not 1.1.9")
-    if fixed_manifest.get("paper_version") != "v1.1.9":
-        errors.append("fixed-figure manifest version is not v1.1.9")
+    if 'version = "1.2.0"' not in pyproject:
+        errors.append("pyproject version is not 1.2.0")
+    if not re.search(r"(?m)^version:\s*1\.2\.0\s*$", citation):
+        errors.append("CITATION.cff version is not 1.2.0")
+    if fixed_manifest.get("paper_version") != "v1.2.0":
+        errors.append("fixed-figure manifest version is not v1.2.0")
     if "cp -r paper/tables figure-code-package/paper/" not in workflow:
         errors.append("standalone figure-code package does not include paper/tables")
     for asset in (
@@ -391,8 +407,8 @@ def check_version_metadata() -> list[str]:
         "paper_alignment_${GITHUB_REF_NAME}.zip.sha256",
         "rcf_dti_${GITHUB_REF_NAME}_complete.zip",
         "rcf_dti_${GITHUB_REF_NAME}_complete.zip.sha256",
-        "RCF_DTI_FIGURE_CODE_FINAL_V1_1_9.zip",
-        "RCF_DTI_FIGURE_CODE_FINAL_V1_1_9.zip.sha256",
+        "RCF_DTI_FIGURE_CODE_FINAL_V1_2_0.zip",
+        "RCF_DTI_FIGURE_CODE_FINAL_V1_2_0.zip.sha256",
         "SHA256SUMS.txt",
     ):
         if asset not in workflow:

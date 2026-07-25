@@ -1,0 +1,1893 @@
+{
+  "study": "frozen_candidate_hosting_profile",
+  "decision": "PASS_HOSTING_PROFILE_COMPLETE",
+  "protocol": {
+    "protocol_version": "pre_submission_enhancements_v1_0",
+    "data_seed": 2904,
+    "train_seed": 2904,
+    "H_list": [
+      1,
+      4
+    ],
+    "K_list": [
+      10,
+      20
+    ],
+    "compact_arch_indices": [
+      1,
+      6,
+      13,
+      55,
+      56,
+      57
+    ],
+    "compact_non_anchor_indices": [
+      1,
+      6,
+      13,
+      55,
+      56
+    ],
+    "anchor_arch_idx": 57,
+    "frozen_margin_rel": 0.1,
+    "threshold_grid": [
+      0.05,
+      0.075,
+      0.1,
+      0.125,
+      0.15,
+      0.2
+    ],
+    "allowed_harmful_rate": 0.05,
+    "minimum_mean_gain": 0.0,
+    "require_positive_ci_low": true,
+    "bootstrap_repeats": 4000,
+    "eps": 1e-12,
+    "alibaba_source_machines": 20,
+    "alibaba_calibration_machines": 20,
+    "alibaba_target_machines": 40,
+    "alibaba_min_points": 820,
+    "alibaba_max_points_per_machine": 1200,
+    "alibaba_source_windows_per_machine": 100,
+    "alibaba_source_epochs": 50,
+    "alibaba_source_lr": 0.001,
+    "alibaba_source_batch_size": 64,
+    "alibaba_source_weight_decay": 0.0,
+    "alibaba_expected_archive_sha256": "3e6ee87fd204bb85b9e234c5c75a5096580fdabc8f085b224033080090753a7a",
+    "target_steps": 50,
+    "target_lr": 0.01,
+    "target_grad_clip": 1.0,
+    "hosting_warmups": 100,
+    "hosting_timed_inferences": 1000,
+    "hosting_repeats": 5,
+    "hosting_batch_size": 1,
+    "hosting_profile_center_id": 980,
+    "hosting_profile_support_size": 10,
+    "strong_bank_manifest_path": "outputs/source_prior_bank_d2904_t2904/strong_bank/c31_strong_bank_manifest.json",
+    "c1_bank_path": "outputs/formal_c1_seed2904/shared_artifacts/ours_weight_bank_source_pooled_c1_v1_src20.pt",
+    "output_root": "outputs/pre_submission_enhancements_d2904_t2904"
+  },
+  "run_mode": "formal",
+  "strong_bank_manifest_sha256": "4b71e6affe3093a6a012afeea2e38000ca9ab9ae1e6991f92826bee6c9dccb2f",
+  "c1_bank_sha256": "bb3a655606af3b554a8f088bb1d2f3f8d9f190b0911a812fd3755d3de3216b9d",
+  "selection_or_adaptation_performed": false,
+  "host_label": "rtx3060_laptop_cpu_gpu",
+  "records": [
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "PT_A57",
+      "arch_idx": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 5697,
+      "estimated_operations": 1050688,
+      "serialized_state_bytes": 24968,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 2.2788148,
+      "median_ms": 2.03415,
+      "p95_ms": 4.078385000000002,
+      "sample_std_ms": 0.7694986900442105,
+      "repeat_mean_std_ms": 0.0485779108029566,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 2.2735978,
+          "median_ms": 1.99695,
+          "p95_ms": 5.13777,
+          "std_ms": 0.9723501113766863
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 2.3224362000000003,
+          "median_ms": 2.0566,
+          "p95_ms": 4.587809999999998,
+          "std_ms": 0.7809583878883516
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 2.2131532,
+          "median_ms": 2.0199,
+          "p95_ms": 3.5810899999999983,
+          "std_ms": 0.6247141372684494
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 2.2548516,
+          "median_ms": 2.0383,
+          "p95_ms": 3.60432,
+          "std_ms": 0.6943915158862288
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 2.3300351999999998,
+          "median_ms": 2.07275,
+          "p95_ms": 4.1890899999999975,
+          "std_ms": 0.7250898413293065
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "PT_A57",
+      "arch_idx": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 5697,
+      "estimated_operations": 1050688,
+      "serialized_state_bytes": 24968,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 5.0693090199999995,
+      "median_ms": 4.25865,
+      "p95_ms": 9.969315,
+      "sample_std_ms": 2.4778502922636014,
+      "repeat_mean_std_ms": 0.7666319188858023,
+      "peak_device_memory_bytes": 61440,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 4.2616866,
+          "median_ms": 4.08915,
+          "p95_ms": 5.16949,
+          "std_ms": 0.44246237636090024
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 4.344519099999999,
+          "median_ms": 4.1306,
+          "p95_ms": 5.3088,
+          "std_ms": 0.5447862949013148
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 6.060527700000001,
+          "median_ms": 4.46215,
+          "p95_ms": 14.463629999999998,
+          "std_ms": 3.9777370704439847
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 5.1909699,
+          "median_ms": 4.2404,
+          "p95_ms": 10.734259999999999,
+          "std_ms": 2.7028574628767643
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 5.488841799999999,
+          "median_ms": 4.6084,
+          "p95_ms": 10.622529999999998,
+          "std_ms": 2.1793684706592558
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "LEGACY_C1_A57",
+      "arch_idx": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 5697,
+      "estimated_operations": 1050688,
+      "serialized_state_bytes": 24968,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 2.2131505799999998,
+      "median_ms": 2.051,
+      "p95_ms": 3.201310000000001,
+      "sample_std_ms": 0.5621895447662758,
+      "repeat_mean_std_ms": 0.16088448750304363,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 2.3166313,
+          "median_ms": 2.0898000000000003,
+          "p95_ms": 4.148384999999999,
+          "std_ms": 0.6967820732107406
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 2.3636013,
+          "median_ms": 2.1228,
+          "p95_ms": 4.066894999999999,
+          "std_ms": 0.69550414834757
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 2.3075169,
+          "median_ms": 2.0786499999999997,
+          "p95_ms": 3.6983099999999958,
+          "std_ms": 0.6727572472877332
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 2.056763,
+          "median_ms": 2.0117,
+          "p95_ms": 2.379495,
+          "std_ms": 0.18665834186445457
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 2.0212404,
+          "median_ms": 1.9891,
+          "p95_ms": 2.2793249999999996,
+          "std_ms": 0.14572945681097704
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "LEGACY_C1_A57",
+      "arch_idx": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 5697,
+      "estimated_operations": 1050688,
+      "serialized_state_bytes": 24968,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 4.19431386,
+      "median_ms": 3.9969,
+      "p95_ms": 5.148145,
+      "sample_std_ms": 0.5093845257375931,
+      "repeat_mean_std_ms": 0.025783606878848394,
+      "peak_device_memory_bytes": 61440,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 4.1519487,
+          "median_ms": 3.96745,
+          "p95_ms": 5.071095,
+          "std_ms": 0.4624895073650133
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 4.2005605,
+          "median_ms": 3.9955,
+          "p95_ms": 5.1385250000000005,
+          "std_ms": 0.5011713345516944
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 4.2192806,
+          "median_ms": 4.033200000000001,
+          "p95_ms": 5.140755,
+          "std_ms": 0.47097104538307794
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 4.1915282,
+          "median_ms": 4.0154,
+          "p95_ms": 5.1128599999999995,
+          "std_ms": 0.49915404444404216
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 4.2082513,
+          "median_ms": 3.9787,
+          "p95_ms": 5.24379,
+          "std_ms": 0.5997518891732454
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A1",
+      "arch_idx": 1,
+      "arch_key": "MLP_L2_H32_D0.1",
+      "family": "MLP",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 77921,
+      "estimated_operations": 155712,
+      "serialized_state_bytes": 313864,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 0.10685612000000001,
+      "median_ms": 0.0974,
+      "p95_ms": 0.167605,
+      "sample_std_ms": 0.05463607726341036,
+      "repeat_mean_std_ms": 0.007791502455046775,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 0.09347950000000001,
+          "median_ms": 0.0884,
+          "p95_ms": 0.13041499999999998,
+          "std_ms": 0.02053328433338212
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 0.1116114,
+          "median_ms": 0.0997,
+          "p95_ms": 0.1616099999999998,
+          "std_ms": 0.10218007750182165
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 0.10903579999999999,
+          "median_ms": 0.1011,
+          "p95_ms": 0.178635,
+          "std_ms": 0.033275297501056
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 0.1128863,
+          "median_ms": 0.1021,
+          "p95_ms": 0.19743999999999987,
+          "std_ms": 0.041470894098962555
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 0.10726760000000002,
+          "median_ms": 0.0986,
+          "p95_ms": 0.17092,
+          "std_ms": 0.031700464502743324
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A1",
+      "arch_idx": 1,
+      "arch_key": "MLP_L2_H32_D0.1",
+      "family": "MLP",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 77921,
+      "estimated_operations": 155712,
+      "serialized_state_bytes": 313864,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 0.16019250000000002,
+      "median_ms": 0.1478,
+      "p95_ms": 0.19872000000000006,
+      "sample_std_ms": 0.04316762762261685,
+      "repeat_mean_std_ms": 0.001937746852661617,
+      "peak_device_memory_bytes": 1049088,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 0.1613947,
+          "median_ms": 0.1492,
+          "p95_ms": 0.19942999999999997,
+          "std_ms": 0.04493310233664704
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 0.1628925,
+          "median_ms": 0.1486,
+          "p95_ms": 0.20782,
+          "std_ms": 0.04821424444204344
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 0.15848919999999997,
+          "median_ms": 0.1468,
+          "p95_ms": 0.19077499999999994,
+          "std_ms": 0.043663088629512556
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 0.15839830000000002,
+          "median_ms": 0.1472,
+          "p95_ms": 0.19114499999999995,
+          "std_ms": 0.03791533673686507
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 0.1597878,
+          "median_ms": 0.1472,
+          "p95_ms": 0.20024999999999996,
+          "std_ms": 0.040274210149463675
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A6",
+      "arch_idx": 6,
+      "arch_key": "MLP_L3_H32_D0.0",
+      "family": "MLP",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 78977,
+      "estimated_operations": 157760,
+      "serialized_state_bytes": 318464,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 0.10147126000000001,
+      "median_ms": 0.093,
+      "p95_ms": 0.14680500000000002,
+      "sample_std_ms": 0.06245547669601333,
+      "repeat_mean_std_ms": 0.00355749004749135,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 0.1052403,
+          "median_ms": 0.09684999999999999,
+          "p95_ms": 0.15540500000000002,
+          "std_ms": 0.03232743306912627
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 0.1052828,
+          "median_ms": 0.0986,
+          "p95_ms": 0.153715,
+          "std_ms": 0.02804254318688639
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 0.0992516,
+          "median_ms": 0.0884,
+          "p95_ms": 0.13774499999999995,
+          "std_ms": 0.12420919040240308
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 0.09992939999999999,
+          "median_ms": 0.0911,
+          "p95_ms": 0.147,
+          "std_ms": 0.04207778886723917
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 0.0976522,
+          "median_ms": 0.092,
+          "p95_ms": 0.13312999999999997,
+          "std_ms": 0.020939607023588155
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A6",
+      "arch_idx": 6,
+      "arch_key": "MLP_L3_H32_D0.0",
+      "family": "MLP",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 78977,
+      "estimated_operations": 157760,
+      "serialized_state_bytes": 318464,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 0.18390858000000002,
+      "median_ms": 0.1682,
+      "p95_ms": 0.22911000000000004,
+      "sample_std_ms": 0.056485184531856844,
+      "repeat_mean_std_ms": 0.004029610546566505,
+      "peak_device_memory_bytes": 1049088,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 0.1801581,
+          "median_ms": 0.1662,
+          "p95_ms": 0.21931499999999998,
+          "std_ms": 0.053676243474217754
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 0.18437530000000002,
+          "median_ms": 0.1687,
+          "p95_ms": 0.225505,
+          "std_ms": 0.0715144354265933
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 0.18102620000000003,
+          "median_ms": 0.1682,
+          "p95_ms": 0.21844999999999998,
+          "std_ms": 0.04327975543820448
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 0.1835749,
+          "median_ms": 0.1677,
+          "p95_ms": 0.23353,
+          "std_ms": 0.0520914605309762
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 0.1904084,
+          "median_ms": 0.1709,
+          "p95_ms": 0.25354,
+          "std_ms": 0.057606668865138676
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A13",
+      "arch_idx": 13,
+      "arch_key": "MLP_L4_H32_D0.1",
+      "family": "MLP",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 80033,
+      "estimated_operations": 159808,
+      "serialized_state_bytes": 323064,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 0.13730799999999999,
+      "median_ms": 0.12845,
+      "p95_ms": 0.190805,
+      "sample_std_ms": 0.036531142890418526,
+      "repeat_mean_std_ms": 0.0045641488982065504,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 0.1330038,
+          "median_ms": 0.12605,
+          "p95_ms": 0.18102499999999996,
+          "std_ms": 0.0317277158571731
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 0.13653720000000003,
+          "median_ms": 0.1283,
+          "p95_ms": 0.18672,
+          "std_ms": 0.03168351276517711
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 0.14096980000000003,
+          "median_ms": 0.1317,
+          "p95_ms": 0.195105,
+          "std_ms": 0.042055209767977955
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 0.1430045,
+          "median_ms": 0.1322,
+          "p95_ms": 0.22082999999999997,
+          "std_ms": 0.04273965380952164
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 0.1330247,
+          "median_ms": 0.1246,
+          "p95_ms": 0.17995999999999995,
+          "std_ms": 0.03144430957287049
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A13",
+      "arch_idx": 13,
+      "arch_key": "MLP_L4_H32_D0.1",
+      "family": "MLP",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 80033,
+      "estimated_operations": 159808,
+      "serialized_state_bytes": 323064,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 0.26456484,
+      "median_ms": 0.2374,
+      "p95_ms": 0.4307400000000002,
+      "sample_std_ms": 0.08801386154316346,
+      "repeat_mean_std_ms": 0.008435909859523168,
+      "peak_device_memory_bytes": 1049088,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 0.26236940000000003,
+          "median_ms": 0.2372,
+          "p95_ms": 0.3949049999999999,
+          "std_ms": 0.09420446382547192
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 0.2784625,
+          "median_ms": 0.2437,
+          "p95_ms": 0.4987999999999999,
+          "std_ms": 0.10560000835944813
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 0.25826969999999994,
+          "median_ms": 0.2357,
+          "p95_ms": 0.3328899999999999,
+          "std_ms": 0.07538353579780786
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 0.2578335,
+          "median_ms": 0.2357,
+          "p95_ms": 0.3800949999999991,
+          "std_ms": 0.066368854839018
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 0.2658891,
+          "median_ms": 0.2374,
+          "p95_ms": 0.4687499999999991,
+          "std_ms": 0.09145997768810524
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A55",
+      "arch_idx": 55,
+      "arch_key": "GRU_L1_H16_D0.1",
+      "family": "GRU",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 2081,
+      "estimated_operations": 377888,
+      "serialized_state_bytes": 10504,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 1.8678304199999998,
+      "median_ms": 1.79335,
+      "p95_ms": 2.1766950000000005,
+      "sample_std_ms": 0.17599248924848462,
+      "repeat_mean_std_ms": 0.012903233550432242,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 1.8556999,
+          "median_ms": 1.7897500000000002,
+          "p95_ms": 2.1424499999999997,
+          "std_ms": 0.14433920394607205
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 1.866918,
+          "median_ms": 1.798,
+          "p95_ms": 2.155055,
+          "std_ms": 0.1603172229923784
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 1.8895614,
+          "median_ms": 1.7943,
+          "p95_ms": 2.2713799999999993,
+          "std_ms": 0.23537236571139905
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 1.8654883,
+          "median_ms": 1.7899500000000002,
+          "p95_ms": 2.17931,
+          "std_ms": 0.16564167814486982
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 1.8614845,
+          "median_ms": 1.7949,
+          "p95_ms": 2.147185,
+          "std_ms": 0.15796019927280514
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A55",
+      "arch_idx": 55,
+      "arch_key": "GRU_L1_H16_D0.1",
+      "family": "GRU",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 2081,
+      "estimated_operations": 377888,
+      "serialized_state_bytes": 10504,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 4.220365579999999,
+      "median_ms": 3.9988,
+      "p95_ms": 5.21521,
+      "sample_std_ms": 0.7276804105713232,
+      "repeat_mean_std_ms": 0.06403819271920451,
+      "peak_device_memory_bytes": 55296,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 4.2173428,
+          "median_ms": 3.9932,
+          "p95_ms": 5.382705,
+          "std_ms": 0.5922829599209932
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 4.1635860000000005,
+          "median_ms": 3.9894,
+          "p95_ms": 5.080564999999998,
+          "std_ms": 0.4841226891627392
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 4.3262179,
+          "median_ms": 4.006550000000001,
+          "p95_ms": 5.610974999999998,
+          "std_ms": 1.083339090605903
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 4.1760627999999995,
+          "median_ms": 3.98745,
+          "p95_ms": 5.09919,
+          "std_ms": 0.6964266440672173
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 4.2186183999999995,
+          "median_ms": 4.01915,
+          "p95_ms": 5.1020449999999995,
+          "std_ms": 0.6240885961923494
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A56",
+      "arch_idx": 56,
+      "arch_key": "GRU_L1_H32_D0.0",
+      "family": "GRU",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 5697,
+      "estimated_operations": 1050688,
+      "serialized_state_bytes": 24968,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 2.02794002,
+      "median_ms": 1.98035,
+      "p95_ms": 2.2973149999999998,
+      "sample_std_ms": 0.2970266774042654,
+      "repeat_mean_std_ms": 0.03430490204310464,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 2.062333,
+          "median_ms": 1.97445,
+          "p95_ms": 2.3759149999999987,
+          "std_ms": 0.5507065730682907
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 1.9933919,
+          "median_ms": 1.9513500000000001,
+          "p95_ms": 2.242025,
+          "std_ms": 0.13399305677404952
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 2.0657473,
+          "median_ms": 2.0164,
+          "p95_ms": 2.3699149999999998,
+          "std_ms": 0.238325177778331
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 1.9993001,
+          "median_ms": 1.9653,
+          "p95_ms": 2.23718,
+          "std_ms": 0.1436243103116687
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 2.0189277999999997,
+          "median_ms": 1.9853,
+          "p95_ms": 2.26677,
+          "std_ms": 0.1952095517546625
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A56",
+      "arch_idx": 56,
+      "arch_key": "GRU_L1_H32_D0.0",
+      "family": "GRU",
+      "H": 1,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 5697,
+      "estimated_operations": 1050688,
+      "serialized_state_bytes": 24968,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 4.24789864,
+      "median_ms": 4.0192499999999995,
+      "p95_ms": 5.18325,
+      "sample_std_ms": 0.732615606808658,
+      "repeat_mean_std_ms": 0.08438765883177497,
+      "peak_device_memory_bytes": 61440,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 4.1809022,
+          "median_ms": 4.0227,
+          "p95_ms": 5.2304,
+          "std_ms": 0.47261663572024154
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 4.2301178,
+          "median_ms": 4.0197,
+          "p95_ms": 5.145379999999999,
+          "std_ms": 0.7304379412442711
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 4.304232,
+          "median_ms": 4.03595,
+          "p95_ms": 5.247335,
+          "std_ms": 0.8621865744751569
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 4.3623764000000005,
+          "median_ms": 4.04665,
+          "p95_ms": 5.337084999999999,
+          "std_ms": 0.9961915093225229
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 4.161864799999999,
+          "median_ms": 3.98535,
+          "p95_ms": 5.008965,
+          "std_ms": 0.4057022109440925
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "PT_A57",
+      "arch_idx": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 5796,
+      "estimated_operations": 1050880,
+      "serialized_state_bytes": 25352,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 2.01428402,
+      "median_ms": 1.9754,
+      "p95_ms": 2.2781149999999997,
+      "sample_std_ms": 0.15550826086893035,
+      "repeat_mean_std_ms": 0.02484101654113619,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 2.0186907,
+          "median_ms": 1.9738,
+          "p95_ms": 2.3164649999999996,
+          "std_ms": 0.16505693300993038
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 2.0031618,
+          "median_ms": 1.96515,
+          "p95_ms": 2.2397299999999998,
+          "std_ms": 0.13569367322654993
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 2.0096719,
+          "median_ms": 1.9782,
+          "p95_ms": 2.266785,
+          "std_ms": 0.13621354062294627
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 2.0534124,
+          "median_ms": 2.0091,
+          "p95_ms": 2.38712,
+          "std_ms": 0.19046397215990987
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 1.9864833,
+          "median_ms": 1.9473,
+          "p95_ms": 2.214105,
+          "std_ms": 0.1343611978310427
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "PT_A57",
+      "arch_idx": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 5796,
+      "estimated_operations": 1050880,
+      "serialized_state_bytes": 25352,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 4.13379574,
+      "median_ms": 3.9576,
+      "p95_ms": 5.02435,
+      "sample_std_ms": 0.49578769744320966,
+      "repeat_mean_std_ms": 0.06042070370653595,
+      "peak_device_memory_bytes": 1061376,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 4.148598,
+          "median_ms": 3.9650999999999996,
+          "p95_ms": 4.927669999999998,
+          "std_ms": 0.5175712745315568
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 4.135389699999999,
+          "median_ms": 3.9555,
+          "p95_ms": 5.024134999999999,
+          "std_ms": 0.4334685654590782
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 4.2250634,
+          "median_ms": 4.01135,
+          "p95_ms": 5.189799999999999,
+          "std_ms": 0.684453895858586
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 4.0912655,
+          "median_ms": 3.9428,
+          "p95_ms": 4.893059999999999,
+          "std_ms": 0.3942235975491759
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 4.068662099999999,
+          "median_ms": 3.9242,
+          "p95_ms": 4.931069999999999,
+          "std_ms": 0.36841518122812117
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "LEGACY_C1_A57",
+      "arch_idx": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 5796,
+      "estimated_operations": 1050880,
+      "serialized_state_bytes": 25352,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 2.00844484,
+      "median_ms": 1.9685,
+      "p95_ms": 2.276315,
+      "sample_std_ms": 0.1650731998648997,
+      "repeat_mean_std_ms": 0.026539131769766015,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 2.0531738,
+          "median_ms": 2.0002500000000003,
+          "p95_ms": 2.41021,
+          "std_ms": 0.20696575929143224
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 2.0047057,
+          "median_ms": 1.9653,
+          "p95_ms": 2.257045,
+          "std_ms": 0.17171284978210075
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 1.9833568,
+          "median_ms": 1.9381499999999998,
+          "p95_ms": 2.232345,
+          "std_ms": 0.1307620257610792
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 1.9956567,
+          "median_ms": 1.9614500000000001,
+          "p95_ms": 2.239,
+          "std_ms": 0.12680007481892147
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 2.0053312,
+          "median_ms": 1.9698,
+          "p95_ms": 2.2642800000000003,
+          "std_ms": 0.16744460421895369
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "LEGACY_C1_A57",
+      "arch_idx": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 5796,
+      "estimated_operations": 1050880,
+      "serialized_state_bytes": 25352,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 4.24602232,
+      "median_ms": 4.0576,
+      "p95_ms": 5.172370000000002,
+      "sample_std_ms": 0.49484121200930525,
+      "repeat_mean_std_ms": 0.08426103509657931,
+      "peak_device_memory_bytes": 1061376,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 4.173061,
+          "median_ms": 4.008100000000001,
+          "p95_ms": 5.07387,
+          "std_ms": 0.48303534734611897
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 4.1410853,
+          "median_ms": 3.95055,
+          "p95_ms": 5.106269999999999,
+          "std_ms": 0.4528926261982798
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 4.3304176,
+          "median_ms": 4.1439,
+          "p95_ms": 5.302745,
+          "std_ms": 0.5178492063243224
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 4.275883299999999,
+          "median_ms": 4.09445,
+          "p95_ms": 5.128075,
+          "std_ms": 0.4817855159035444
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 4.3096644,
+          "median_ms": 4.122,
+          "p95_ms": 5.19562,
+          "std_ms": 0.5081057956097058
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A1",
+      "arch_idx": 1,
+      "arch_key": "MLP_L2_H32_D0.1",
+      "family": "MLP",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 78020,
+      "estimated_operations": 155904,
+      "serialized_state_bytes": 314248,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 0.09956418000000002,
+      "median_ms": 0.0938,
+      "p95_ms": 0.1438,
+      "sample_std_ms": 0.02571231423945168,
+      "repeat_mean_std_ms": 0.0015887798485001024,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 0.0988105,
+          "median_ms": 0.091,
+          "p95_ms": 0.143905,
+          "std_ms": 0.03253989219918121
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 0.0972877,
+          "median_ms": 0.091,
+          "p95_ms": 0.14380500000000002,
+          "std_ms": 0.02395022571964661
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 0.09975400000000001,
+          "median_ms": 0.09495,
+          "p95_ms": 0.13973999999999995,
+          "std_ms": 0.021934751362103863
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 0.10135630000000001,
+          "median_ms": 0.0961,
+          "p95_ms": 0.1450949999999999,
+          "std_ms": 0.023683477096858
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 0.1006124,
+          "median_ms": 0.095,
+          "p95_ms": 0.14423499999999997,
+          "std_ms": 0.024973132835181166
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A1",
+      "arch_idx": 1,
+      "arch_key": "MLP_L2_H32_D0.1",
+      "family": "MLP",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 78020,
+      "estimated_operations": 155904,
+      "serialized_state_bytes": 314248,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 0.14428044,
+      "median_ms": 0.1326,
+      "p95_ms": 0.19681500000000005,
+      "sample_std_ms": 0.04281333766226077,
+      "repeat_mean_std_ms": 0.002210285778581586,
+      "peak_device_memory_bytes": 1049088,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 0.1409722,
+          "median_ms": 0.1296,
+          "p95_ms": 0.18512499999999996,
+          "std_ms": 0.040500583507209184
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 0.1466309,
+          "median_ms": 0.1341,
+          "p95_ms": 0.2191099999999999,
+          "std_ms": 0.046508244344223335
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 0.14592339999999998,
+          "median_ms": 0.1352,
+          "p95_ms": 0.1946099999999999,
+          "std_ms": 0.04524151530560341
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 0.14420080000000002,
+          "median_ms": 0.1344,
+          "p95_ms": 0.1875,
+          "std_ms": 0.03882863379211483
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 0.1436749,
+          "median_ms": 0.1306,
+          "p95_ms": 0.21102999999999944,
+          "std_ms": 0.04236645012372509
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A6",
+      "arch_idx": 6,
+      "arch_key": "MLP_L3_H32_D0.0",
+      "family": "MLP",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 79076,
+      "estimated_operations": 157952,
+      "serialized_state_bytes": 318848,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 0.10752044000000001,
+      "median_ms": 0.0992,
+      "p95_ms": 0.16720500000000002,
+      "sample_std_ms": 0.03179304102626768,
+      "repeat_mean_std_ms": 0.00298943518712148,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 0.1064067,
+          "median_ms": 0.0991,
+          "p95_ms": 0.16156499999999996,
+          "std_ms": 0.03143080368890574
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 0.1058635,
+          "median_ms": 0.1006,
+          "p95_ms": 0.15375499999999995,
+          "std_ms": 0.025629952247364845
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 0.11123850000000002,
+          "median_ms": 0.1014,
+          "p95_ms": 0.1955,
+          "std_ms": 0.03654408732022279
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 0.1100038,
+          "median_ms": 0.10055,
+          "p95_ms": 0.18017499999999995,
+          "std_ms": 0.032782392084635785
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 0.1040897,
+          "median_ms": 0.09465000000000001,
+          "p95_ms": 0.16232999999999997,
+          "std_ms": 0.031101550288375343
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A6",
+      "arch_idx": 6,
+      "arch_key": "MLP_L3_H32_D0.0",
+      "family": "MLP",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 79076,
+      "estimated_operations": 157952,
+      "serialized_state_bytes": 318848,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 0.16611568000000002,
+      "median_ms": 0.1509,
+      "p95_ms": 0.251,
+      "sample_std_ms": 0.05389636798369596,
+      "repeat_mean_std_ms": 0.0048724813547103415,
+      "peak_device_memory_bytes": 1049088,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 0.1642235,
+          "median_ms": 0.1477,
+          "p95_ms": 0.22743499999999997,
+          "std_ms": 0.043790348621384395
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 0.16732139999999998,
+          "median_ms": 0.14975,
+          "p95_ms": 0.2700199999999997,
+          "std_ms": 0.07607255797011243
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 0.16000470000000003,
+          "median_ms": 0.1499,
+          "p95_ms": 0.20095999999999994,
+          "std_ms": 0.0414946899880841
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 0.1733539,
+          "median_ms": 0.15295,
+          "p95_ms": 0.34682999999999997,
+          "std_ms": 0.05528217528004568
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 0.1656749,
+          "median_ms": 0.1513,
+          "p95_ms": 0.24717499999999992,
+          "std_ms": 0.044250503353487826
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A13",
+      "arch_idx": 13,
+      "arch_key": "MLP_L4_H32_D0.1",
+      "family": "MLP",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 80132,
+      "estimated_operations": 160000,
+      "serialized_state_bytes": 323448,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 0.13708434,
+      "median_ms": 0.128,
+      "p95_ms": 0.200105,
+      "sample_std_ms": 0.03375880614243982,
+      "repeat_mean_std_ms": 0.002640817771638157,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 0.13421750000000002,
+          "median_ms": 0.1233,
+          "p95_ms": 0.20215999999999995,
+          "std_ms": 0.03439907702613909
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 0.13419810000000001,
+          "median_ms": 0.1254,
+          "p95_ms": 0.18941,
+          "std_ms": 0.029601182009615194
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 0.13865729999999998,
+          "median_ms": 0.1289,
+          "p95_ms": 0.19881,
+          "std_ms": 0.03819853262370957
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 0.13891399999999998,
+          "median_ms": 0.13045,
+          "p95_ms": 0.20630500000000002,
+          "std_ms": 0.03215643357432879
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 0.1394348,
+          "median_ms": 0.131,
+          "p95_ms": 0.20298999999999992,
+          "std_ms": 0.03349976063978551
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A13",
+      "arch_idx": 13,
+      "arch_key": "MLP_L4_H32_D0.1",
+      "family": "MLP",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 80132,
+      "estimated_operations": 160000,
+      "serialized_state_bytes": 323448,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 0.23492471999999998,
+      "median_ms": 0.2182,
+      "p95_ms": 0.3287,
+      "sample_std_ms": 0.057551495270263556,
+      "repeat_mean_std_ms": 0.004055823614507913,
+      "peak_device_memory_bytes": 1049088,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 0.238757,
+          "median_ms": 0.2202,
+          "p95_ms": 0.338255,
+          "std_ms": 0.06701364711683658
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 0.2384265,
+          "median_ms": 0.21865,
+          "p95_ms": 0.3611349999999999,
+          "std_ms": 0.06257108604266477
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 0.2328971,
+          "median_ms": 0.2174,
+          "p95_ms": 0.31567499999999993,
+          "std_ms": 0.05514573377464066
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 0.23548550000000001,
+          "median_ms": 0.21925,
+          "p95_ms": 0.3251049999999999,
+          "std_ms": 0.05207752748180945
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 0.2290575,
+          "median_ms": 0.2157,
+          "p95_ms": 0.29196999999999995,
+          "std_ms": 0.04846833794894904
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A55",
+      "arch_idx": 55,
+      "arch_key": "GRU_L1_H16_D0.1",
+      "family": "GRU",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 2132,
+      "estimated_operations": 377984,
+      "serialized_state_bytes": 10696,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 1.8689578000000002,
+      "median_ms": 1.793,
+      "p95_ms": 2.1876450000000003,
+      "sample_std_ms": 0.1755401516238562,
+      "repeat_mean_std_ms": 0.00828725409137434,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 1.8720656,
+          "median_ms": 1.79855,
+          "p95_ms": 2.16174,
+          "std_ms": 0.1834436967751319
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 1.8792878,
+          "median_ms": 1.7956500000000002,
+          "p95_ms": 2.2382649999999993,
+          "std_ms": 0.19689844709806534
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 1.871527,
+          "median_ms": 1.8024,
+          "p95_ms": 2.15736,
+          "std_ms": 0.16282664009837494
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 1.8643918999999998,
+          "median_ms": 1.7872,
+          "p95_ms": 2.170734999999999,
+          "std_ms": 0.17308924828614358
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 1.8575167,
+          "median_ms": 1.7827,
+          "p95_ms": 2.1730799999999997,
+          "std_ms": 0.15819963544763865
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A55",
+      "arch_idx": 55,
+      "arch_key": "GRU_L1_H16_D0.1",
+      "family": "GRU",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 2132,
+      "estimated_operations": 377984,
+      "serialized_state_bytes": 10696,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 4.167772220000001,
+      "median_ms": 4.0036,
+      "p95_ms": 5.00863,
+      "sample_std_ms": 0.42874671399233305,
+      "repeat_mean_std_ms": 0.041427875168381395,
+      "peak_device_memory_bytes": 1055232,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 4.219047600000001,
+          "median_ms": 4.0303,
+          "p95_ms": 5.152969999999998,
+          "std_ms": 0.4696832742309783
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 4.1705877000000005,
+          "median_ms": 4.02225,
+          "p95_ms": 4.93345,
+          "std_ms": 0.4120771198348695
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 4.1956876,
+          "median_ms": 4.0301,
+          "p95_ms": 5.04376,
+          "std_ms": 0.453153203002728
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 4.120203900000001,
+          "median_ms": 3.9585999999999997,
+          "p95_ms": 4.933669999999999,
+          "std_ms": 0.38656174639838403
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 4.1333343000000005,
+          "median_ms": 3.9673499999999997,
+          "p95_ms": 4.963654999999999,
+          "std_ms": 0.40962796235248766
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A56",
+      "arch_idx": 56,
+      "arch_key": "GRU_L1_H32_D0.0",
+      "family": "GRU",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cpu",
+      "actual_device": "cpu",
+      "safe_mode": "gru-native",
+      "parameters": 5796,
+      "estimated_operations": 1050880,
+      "serialized_state_bytes": 25352,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 2.0317324,
+      "median_ms": 1.9753500000000002,
+      "p95_ms": 2.3451000000000004,
+      "sample_std_ms": 0.5071392676352281,
+      "repeat_mean_std_ms": 0.046916888952327214,
+      "peak_device_memory_bytes": null,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 2.0070211,
+          "median_ms": 1.9608500000000002,
+          "p95_ms": 2.29376,
+          "std_ms": 0.1666027192781104
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 2.0273488000000004,
+          "median_ms": 1.9709500000000002,
+          "p95_ms": 2.4046049999999997,
+          "std_ms": 0.187801619659967
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 2.0236689,
+          "median_ms": 1.9895,
+          "p95_ms": 2.332979999999999,
+          "std_ms": 0.15400491049068937
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 2.1112194,
+          "median_ms": 2.00155,
+          "p95_ms": 2.5648699999999995,
+          "std_ms": 1.082638212979684
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 1.9894037999999998,
+          "median_ms": 1.943,
+          "p95_ms": 2.271765,
+          "std_ms": 0.13899084891330668
+        }
+      ]
+    },
+    {
+      "host_label": "rtx3060_laptop_cpu_gpu",
+      "token": "STRONG_A56",
+      "arch_idx": 56,
+      "arch_key": "GRU_L1_H32_D0.0",
+      "family": "GRU",
+      "H": 4,
+      "input_dim": 25,
+      "L": 96,
+      "profile_center_id": 980,
+      "profile_center_type": "A",
+      "profile_budget_tier": "loose",
+      "requested_device": "cuda",
+      "actual_device": "cuda",
+      "safe_mode": "gru-native",
+      "parameters": 5796,
+      "estimated_operations": 1050880,
+      "serialized_state_bytes": 25352,
+      "N_samples": 5000,
+      "N_repeats": 5,
+      "mean_ms": 4.277164239999999,
+      "median_ms": 4.1703,
+      "p95_ms": 5.165150000000001,
+      "sample_std_ms": 0.5121957590300178,
+      "repeat_mean_std_ms": 0.25786772861661694,
+      "peak_device_memory_bytes": 1061376,
+      "repeat_rows": [
+        {
+          "repeat": 0,
+          "mean_ms": 4.0635888,
+          "median_ms": 3.85975,
+          "p95_ms": 4.938189999999999,
+          "std_ms": 0.4735060870876625
+        },
+        {
+          "repeat": 1,
+          "mean_ms": 3.9726985999999997,
+          "median_ms": 3.8358,
+          "p95_ms": 4.701429999999999,
+          "std_ms": 0.34025456212236904
+        },
+        {
+          "repeat": 2,
+          "mean_ms": 4.3304061,
+          "median_ms": 4.21705,
+          "p95_ms": 5.197349999999999,
+          "std_ms": 0.5281050759688398
+        },
+        {
+          "repeat": 3,
+          "mean_ms": 4.601257400000001,
+          "median_ms": 4.6221,
+          "p95_ms": 5.305195,
+          "std_ms": 0.45875968211163803
+        },
+        {
+          "repeat": 4,
+          "mean_ms": 4.417870300000001,
+          "median_ms": 4.35555,
+          "p95_ms": 5.159349999999999,
+          "std_ms": 0.4660332566933976
+        }
+      ]
+    }
+  ],
+  "devices": [
+    {
+      "requested": "cpu",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "python": "3.11.15",
+      "torch": "2.5.1+cu121",
+      "torch_num_threads": 14,
+      "device_name": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel"
+    },
+    {
+      "requested": "cuda",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "python": "3.11.15",
+      "torch": "2.5.1+cu121",
+      "torch_num_threads": 14,
+      "cuda_available": true,
+      "cuda_version": "12.1",
+      "device_name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "device_capability": [
+        8,
+        6
+      ]
+    }
+  ]
+}

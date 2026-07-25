@@ -5,6 +5,13 @@ dates are recorded only after a version is actually published.
 
 ## [Unreleased]
 
+- Prepare v1.2.0 with formal CPU/CUDA hosting-profile evidence and the
+  Alibaba 20/20/40 external-domain protocol.
+- Update Fig. 12 to 400 released case-level gains, including 160 held-out
+  Alibaba cases under the frozen 10% rule.
+- Align the manuscript, public processed evidence, verification assertions,
+  privacy checks, and release packaging without changing the frozen main
+  80-case synthetic evaluation.
 ## [1.1.9] - 2026-07-23
 
 - Adopt the latest supplied journal manuscript revision, including the revised
