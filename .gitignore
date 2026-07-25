@@ -22,3 +22,5 @@ data/alibaba2018/raw/*
 data/alibaba2018/processed/*
 !data/alibaba2018/raw/.gitkeep
 !data/alibaba2018/processed/.gitkeep
+
+*.egg-info/
