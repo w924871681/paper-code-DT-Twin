@@ -12,7 +12,7 @@
 - `results/pre_submission_enhancements/alibaba_domain/`
 
 The manuscript source and compiled PDF are the textual authorities for the
-v1.2.0 release. The compiled PDF contains 22 pages and the v1.2.0 Data
+v1.2.0 release. The compiled PDF contains 23 pages and the v1.2.0 Data
 Availability reference.
 
 ## Fig. 10 scope

@@ -1,0 +1,29 @@
+\begin{table}[t]
+\caption{Hardware-profile validation of the analytical complexity indicators.}
+\label{tab:hardware-profile}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabularx}{\linewidth}{@{}Y Z{1.35cm} Y Y@{}}
+\toprule
+Indicator & Structures & Measured relation & Result \\
+\midrule
+Estimated operation count
+& 5
+& Spearman correlation with median inference latency
+& $0.899$--$0.986$ across CPU/CUDA, $H\in\{1,4\}$, and confirmation runs \\
+Parameter count
+& 5
+& Spearman correlation with serialized model size
+& $1.000$ in all measured settings \\
+\bottomrule
+\end{tabularx}
+\par\smallskip
+\begin{minipage}{\linewidth}
+\footnotesize
+Batch size one; 100 warm-up inferences; five repetitions of 1000 timed
+inferences. Duplicate one-layer GRU-32 configuration records are merged at
+the executable-architecture level.
+\end{minipage}
+\end{table}

@@ -55,9 +55,11 @@
 \begin{document}
 \let\WriteBookmarks\relax
 
-\shorttitle{Complexity-Constrained Few-Shot DT Instantiation}
+\shorttitle{Reference-Controlled Few-Shot DT Instantiation}
 
-\title[mode=title]{Complexity-Constrained Few-Shot Digital Twin Model Instantiation for Heterogeneous Multi-Center Computing Networks}
+\title[mode=title]{A Reference-Controlled Method for
+Complexity-Constrained Few-Shot Digital Twin Model Instantiation in
+Heterogeneous Multi-Center Computing Networks}
 
 \begin{abstract}
 Shared edge--cloud digital twin platforms maintain target-specific digital
@@ -72,8 +74,7 @@ architecture or compare several architectures, but they provide limited
 support for joint architecture selection and parameter adaptation under
 these bounds, and model selection may be unreliable when validation data
 are limited. To address
-this problem, we propose the Reference-Regularized Complexity-Constrained
-Few-Shot Digital Twin Instantiation algorithm (RCF-DTI). RCF-DTI first removes candidates that exceed either limit and then adapts
+this problem, we propose the Reference-Controlled Few-Shot Digital Twin Instantiation algorithm (RCF-DTI). RCF-DTI first removes candidates that exceed either limit and then adapts
 the remaining source-trained candidates using a common update budget. It
 selects an alternative candidate only when its validation loss is
 sufficiently lower than that of a fixed reference candidate. Experimental results show that RCF-DTI achieves the lowest prediction error
@@ -86,11 +87,11 @@ threshold satisfies all pre-registered calibration criteria.
 
 
 \begin{highlights}
-\item The method combines architecture selection with source-trained parameter adaptation.
+\item Architecture selection is combined with source-trained parameter adaptation.
 \item Candidates above either complexity limit are removed before adaptation.
-\item Selecting an alternative requires sufficient validation gain over a fixed reference.
-\item Hardware profiling supports the two complementary complexity indicators.
-\item Mean squared error falls by 14.60\% versus pretraining and fine-tuning.
+\item A fixed reference requires a clear validation gain before replacement.
+\item Operation and parameter counts capture complementary hosting costs.
+\item Mean squared error falls by 14.60\% while both limits are satisfied.
 \end{highlights}
 
 \begin{keywords}
@@ -152,14 +153,15 @@ selection and parameter adaptation under target-specific complexity bounds.
 Moreover, small validation differences may lead to unreliable model
 selection when validation data are limited.
 
-To address this problem, we propose the Reference-Regularized
-Complexity-Constrained Few-Shot Digital Twin Instantiation algorithm, termed
-RCF-DTI. An offline stage constructs a compact candidate bank of source-trained
-models with different architectures. For each target center, RCF-DTI removes
+To address this problem, we propose Reference-Controlled Few-Shot Digital
+Twin Instantiation, termed RCF-DTI. RCF-DTI is an algorithm for
+complexity-constrained target-specific model instantiation. An offline stage
+constructs a compact bank of source-trained candidates with different model
+structures and initializations. For each target center, RCF-DTI removes
 candidates that exceed either complexity limit and adapts the remaining
-candidates using the same target data and a common update budget. It selects
-the best alternative only when its validation loss is sufficiently lower
-than that of a fixed reference candidate. The selected architecture and
+candidates using the same target data and a common update budget. A fixed
+reference candidate controls replacement: the best feasible alternative is
+selected only when it provides sufficient relative validation improvement. The selected architecture and
 adapted parameters form the target-specific digital twin model.
 Multi-center workload prediction \cite{ref17,ref18,ref19} is used only for
 evaluation.
@@ -176,9 +178,9 @@ improvement before selecting an alternative.
 
 \item RCF-DTI provides an algorithmic solution over a finite candidate bank.
 It filters candidates before adaptation because model complexity is fixed
-by architecture. It uses a common adaptation budget to make candidate
-losses comparable and calibrates the selection threshold before target
-instantiation.
+by architecture. It adapts all feasible candidates under common conditions
+and uses a threshold calibrated before target instantiation to control
+replacement of the fixed reference candidate.
 
 \item The analysis establishes that every returned model instance satisfies
 both limits and that every selected alternative reaches the required
@@ -381,12 +383,14 @@ a_q,
 \end{equation}
 
 Directly returning the candidate with the lowest value of $J_c(q)$ may be
-unreliable when validation data are limited. A minor validation-loss difference may not persist on unseen target data. We therefore add a relative selection
-cost when a non-reference candidate is selected. We call this cost
-reference regularization.
+unreliable when validation data are limited. A minor validation-loss
+difference may not persist on unseen target data. We therefore use the fixed
+reference candidate to control replacement. Every non-reference candidate
+receives a reference-dependent replacement cost and must provide sufficient
+relative validation improvement before selection.
 
 Let $\tau\in[0,1)$ denote the required relative improvement over the
-reference candidate. The regularized selection score is defined as
+reference candidate. The reference-controlled selection score is defined as
 
 \begin{equation}
 S_c(q;\tau)
@@ -402,12 +406,13 @@ J_c(q)
 &
 q\neq q^{\mathrm{ref}}.
 \end{cases}
-\label{eq:regularized-score}
+\label{eq:reference-controlled-score}
 \end{equation}
 
-The added term is used only for candidate selection. It does not change the
-parameter adaptation loss. A larger value of $\tau$ requires a larger validation improvement before
-the algorithm selects a non-reference candidate.
+The added term is a selection-side replacement cost. It is not a parameter
+regularizer and does not change the target-adaptation loss. A larger value
+of $\tau$ requires a larger validation improvement before a non-reference
+candidate can replace the fixed reference candidate.
 
 The target-specific instantiation problem is
 
@@ -422,9 +427,8 @@ S_c(q;\tau).
 \end{equation}
 
 The formulation has two levels. The inner level adapts the parameter vector
-of each feasible candidate using the target support set. The outer level
-selects one candidate under the complexity limits using
-Eq.~\eqref{eq:regularized-score}. We therefore treat target-specific model
+of each feasible candidate using the target support set. The outer level selects one candidate under the complexity limits using
+Eq.~\eqref{eq:reference-controlled-score}. We therefore treat target-specific model
 instantiation as a constrained two-level decision problem.
 
 
@@ -436,9 +440,9 @@ instantiation as a constrained two-level decision problem.
 RCF-DTI uses a candidate bank prepared offline together with a fixed
 reference candidate and a calibrated selection threshold. For each target
 center, the algorithm receives the target data and assigned complexity
-limits. It first removes candidates that violate either limit, then adapts
-the feasible candidates with a fixed update budget, and finally performs
-reference-regularized selection. The selected architecture and its adapted parameters form the
+limits. It first removes candidates that violate either limit, then adapts the
+feasible candidates with a fixed update budget, and finally performs
+reference-controlled selection. The selected architecture and its adapted parameters form the
 target-specific digital twin model instance.
 Figure~\ref{fig:method-overview} summarizes the overall RCF-DTI workflow
 and its relation to digital twin operation. The offline bank preparation
@@ -453,24 +457,23 @@ twin operation.}
 \subsection{Offline Candidate Bank Construction}
 
 The candidate-bank input in Figure~\ref{fig:method-overview} is prepared
-offline in two steps. First, a compact architecture set is retained from
-the predefined space using an architecture-retention pool
-$\mathcal{C}_{\mathrm{arch}}$. This pool is disjoint from the source
-centers, the selector-development pool, the independent
-selector-validation pool, all diagnostic pools, and the locked held-out
-target pool. All architectures are compared using the same target
-adaptation and evaluation procedure. After the architecture identities are
-fixed, their source initializations are rebuilt from source-center data and
-the compact bank is frozen before selector calibration. The exact retention
-rule and data roles are reported in
-Section~\ref{subsec:experimental-setup}.
+offline in two steps. First, a compact list of architecture specifications
+is retained from a predefined search space using a separate retention pool.
+The retained specifications are evaluated under a common target-adaptation
+and evaluation procedure. After their identifiers are fixed,
+architecture-matched initializations are trained using source-center data,
+and the resulting candidate bank is frozen before selector calibration.
+The concrete retention rule, data roles, and retained configurations are
+reported in Section~\ref{subsec:experimental-setup}.
 
-Let
-$\mathcal{A}_{\mathrm{bank}}=\{a_m\}_{m=1}^{M}$ denote the retained
-architecture set, where $M$ is the number of retained architectures.
-Second, let $\mathcal{D}_{\mathrm{src}}$ denote the pooled source-center
-training data. For each retained architecture $a_m$, the offline stage
-trains one or more source initializations. The $r$-th initialization is trained by
+Let $m\in\{1,\ldots,M\}$ index the retained architecture
+specifications, and let $a_m$ denote the executable architecture associated
+with specification $m$. The indexing allows different retained
+specifications to share an executable architecture while preserving their
+separate source-training provenance. Let
+$\mathcal{D}_{\mathrm{src}}$ denote the pooled source-center training data.
+For each retained specification, the offline stage trains one or more
+source initializations. The $r$-th initialization is trained by
 
 \begin{equation}
 \theta_{m,r}^{0}
@@ -487,19 +490,20 @@ r=1,\ldots,R_m,
 \end{equation}
 
 where $\operatorname{Train}_{m,r}$ denotes the source-training procedure
-fixed for the $r$-th initialization of architecture $a_m$. The procedure
-specifies the optimizer, objective, training budget, random seed, and any
-candidate-specific training stages before target evaluation. The index $r$
-distinguishes stored initializations of the same architecture. This notation
-does not require all candidates to be produced by an identical source
-optimizer or training schedule.
+used to obtain the $r$-th initialization associated with specification
+$m$. The procedure may specify its source objective, optimizer, training
+budget, random seed, and candidate-specific training stages. The index
+$r$ distinguishes multiple stored initializations associated with the same
+specification. The formulation does not require all candidates to use the
+same source-training procedure.
 
 Each pair
 $q_{m,r}=(a_m,\theta_{m,r}^{0})$ forms one candidate. The complete bank is
 $\mathcal{Q}=\{q_{m,r}\}$ for
 $m=1,\ldots,M$ and $r=1,\ldots,R_m$. Because each initialization is trained
-with its own architecture, it is called an architecture-matched source
-initialization.
+for its associated executable architecture, it is called an
+architecture-matched source initialization. Candidates may differ in their
+executable architectures, their source-trained initializations, or both.
 
 The reference candidate $q^{\mathrm{ref}}$ is fixed from this bank before
 target instantiation and is not changed across target centers.
@@ -508,9 +512,9 @@ candidate bank shown in Figure~\ref{fig:method-overview}.
 
 \paperfig[trim={150bp 1350bp 480bp 160bp},clip]{0.98\linewidth}
 {fig3.pdf}
-{Offline candidate bank construction, including architecture retention,
-source-initialization training, and designation of a fixed reference
-candidate.}
+{Offline candidate bank construction, including specification retention,
+architecture-matched source-initialization training, and designation of a
+fixed reference candidate.}
 {fig:source-bank}
 
 \subsection{Candidate Filtering}
@@ -566,9 +570,11 @@ t=0,\ldots,T-1.
 
 Here, $t$ is the update index, $\eta_t$ is the step size, and
 $\nabla_{\theta}$ denotes the gradient with respect to the model parameters.
-The architecture $a_q$ remains fixed during adaptation. All feasible
-candidates use the same support set, task loss, and update budget $T$. These
-common conditions make their post-adaptation losses comparable.
+Equation~\eqref{eq:target-update} defines the common gradient-based update
+used to adapt every feasible candidate. The architecture $a_q$ remains
+fixed during adaptation. The optimizer and implementation settings used in
+the experiments are reported in
+Section~\ref{subsec:experimental-setup}.
 
 After the final update, the algorithm computes $J_c(q)$ using
 Eq.~\eqref{eq:validation-loss}. The validation set is used only for
@@ -613,22 +619,23 @@ q^{\mathrm{ref}},
 &
 \text{otherwise}.
 \end{cases}
-\label{eq:reference-regularized-selection}
+\label{eq:reference-controlled-selection}
 \end{equation}
 
-Equation~\eqref{eq:reference-regularized-selection} returns a minimizer of
+Equation~\eqref{eq:reference-controlled-selection} returns a minimizer of
 the score-based problem in Eq.~\eqref{eq:instantiation-problem} because
-every alternative receives the same added selection cost.
+every alternative receives the same reference-dependent replacement cost.
 
 Figure~\ref{fig:adaptation-selection} illustrates the fixed-budget
-adaptation and reference-regularized selection stages.
+adaptation and reference-controlled selection stages.
 
 \paperfig[trim={100bp 600bp 200bp 140bp},clip]{0.96\linewidth}
 {fig5.pdf}
-{Fixed-budget target adaptation and reference-regularized selection.
-The best feasible alternative is selected when
-$J_c(\widetilde q_c)\leq(1-\tau)J_c(q^{\mathrm{ref}})$; otherwise, the
-fixed reference candidate is retained.}
+{Fixed-budget target adaptation and reference-controlled selection.
+The best feasible alternative replaces the fixed reference candidate only
+when
+$J_c(\widetilde q_c)\leq(1-\tau)J_c(q^{\mathrm{ref}})$.
+Otherwise, the reference candidate is retained.}
 {fig:adaptation-selection}
 
 Algorithm~\ref{alg:rcf-dti} summarizes the target-side execution of RCF-DTI
@@ -731,17 +738,19 @@ h_d(\tau).
 
 Calibration also requires positive check-data gains. Let
 $\widehat G_{\mathrm{ref}}(\tau)$ denote the mean relative check-loss
-reduction over the fixed reference candidate. To distinguish gains from
-architecture selection from gains caused only by a different source
-initialization, we define a reference-architecture control. This control
-applies the same selection rule only to candidates that use the reference
-architecture. Let $\widehat G_{\mathrm{arch}}(\tau)$ denote the mean
-additional reduction over this control.
+reduction over the fixed reference candidate. To examine whether the gain
+can be explained only by choosing between the two stored initializations of
+the reference configuration, we define a paired-initialization control. This
+control applies the same selection rule only to those two candidates. Let
+$\widehat G_{\mathrm{pair}}(\tau)$ denote the mean additional reduction over
+this control. This quantity measures gain beyond the paired reference
+initializations; it is not presented as a pure architecture-only
+decomposition.
 
 Let $\underline G_{\mathrm{ref}}(\tau)$ and
-$\underline G_{\mathrm{arch}}(\tau)$ denote the lower confidence bounds of
+$\underline G_{\mathrm{pair}}(\tau)$ denote the lower confidence bounds of
 the two gains. Let $\rho$ denote the allowed harmful-selection rate, and let
-$\gamma_{\mathrm{ref}}$ and $\gamma_{\mathrm{arch}}$ denote the required
+$\gamma_{\mathrm{ref}}$ and $\gamma_{\mathrm{pair}}$ denote the required
 minimum gains. The eligible threshold set and the calibrated threshold are
 
 \begin{equation}
@@ -759,9 +768,9 @@ minimum gains. The eligible threshold set and the calibrated threshold are
 \underline G_{\mathrm{ref}}(\tau)>0,
 \\
 &
-\widehat G_{\mathrm{arch}}(\tau)\geq\gamma_{\mathrm{arch}},
+\widehat G_{\mathrm{pair}}(\tau)\geq\gamma_{\mathrm{pair}},
 \quad
-\underline G_{\mathrm{arch}}(\tau)>0
+\underline G_{\mathrm{pair}}(\tau)>0
 \bigr\},
 \\
 \tau^{*}
@@ -802,7 +811,7 @@ This property follows directly from the hard filtering step.
 
 \textbf{Minimum validation improvement.}
 Suppose that the algorithm returns a non-reference candidate and that
-$J_c(q^{\mathrm{ref}})>0$. Equation~\eqref{eq:reference-regularized-selection} implies
+$J_c(q^{\mathrm{ref}})>0$. Equation~\eqref{eq:reference-controlled-selection} implies
 
 \[
 \frac{
@@ -819,22 +828,26 @@ J_c(q^{\mathrm{ref}})
 Thus, every accepted alternative reaches at least the required relative
 validation improvement.
 
-\textbf{Selection under bounded validation error.}
+\textbf{Expected-loss comparison under limited validation error.}
 Let $R_c(q)$ denote the expected loss of the adapted candidate $q$ on future
-observations from target center $c$. Suppose that the validation loss
-approximates this expected loss with error at most $\epsilon_c$ for the
-selected alternative and the reference candidate:
+observations from target center $c$. Suppose that, for every feasible
+candidate, the absolute difference between its validation loss and expected
+future loss is no larger than $\epsilon_c$:
 
 \[
 \left|R_c(q)-J_c(q)\right|
 \leq
 \epsilon_c,
 \qquad
-q\in\{q_c^{*},q^{\mathrm{ref}}\}.
+\forall q\in\mathcal{Q}_{c}^{\mathrm{fea}}.
 \]
 
+Here, $\epsilon_c$ denotes the largest validation-to-future loss difference
+considered in this analysis. It is not an input to RCF-DTI and is not used
+during candidate selection.
+
 If RCF-DTI selects a non-reference candidate, then
-Eq.~\eqref{eq:reference-regularized-selection} implies
+Eq.~\eqref{eq:reference-controlled-selection} implies
 
 \begin{equation}
 R_c(q_c^{*})
@@ -850,9 +863,9 @@ R_c(q^{\mathrm{ref}})
 Therefore, when
 $\tau J_c(q^{\mathrm{ref}})>2\epsilon_c$, the selected alternative has a
 lower expected loss than the reference candidate on future target
-observations. This is a sufficient condition under the stated validation
-error bound. It does not provide an unconditional guarantee for every
-target center.
+observations. This is a sufficient condition under the stated maximum
+validation error. It is conditional on the assumption above and does not
+guarantee improvement for every target center.
 
 \textbf{Target-stage computation.}
 Let $C_q^{\mathrm{grad}}$ denote the cost of one gradient update for
@@ -944,15 +957,17 @@ their candidate-selection rules are frozen. Test data are used only for
 final evaluation. Neither check nor test data affect target adaptation or
 within-case candidate selection.
 
-The reference architecture is a one-layer gated recurrent unit (GRU) with
-32 hidden units and a dropout rate of 0.1. Its parameters are pretrained on
-the pooled source-center data. The resulting source-trained model is used as
+The reference candidate uses an indexed one-layer gated recurrent unit
+(GRU) configuration with 32 hidden units and a listed dropout value of 0.1.
+In the implementation, recurrent dropout is disabled for one-layer GRUs, so
+this value does not alter the executable GRU structure. The candidate
+parameters are pretrained on the pooled source-center data. The resulting source-trained model is used as
 the reference candidate in all later experiments.
 
-An alternative architecture is retained if, in at least two
-architecture-retention cases, its error is lower than that of the reference
-architecture on the validation set or the check set. This rule fixes the retained architecture
-set before any diagnostic or held-out evaluation.
+An alternative indexed configuration is retained if, in at least two
+configuration-retention cases, its error is lower than that of the reference
+configuration on the validation set or the check set. This rule fixes the
+retained configuration list before any diagnostic or held-out evaluation.
 
 The full architecture space contains 18 multilayer perceptron (MLP),
 36 temporal convolutional network (TCN), and 12 GRU configurations. The MLP
@@ -963,17 +978,22 @@ combine two, three, or four blocks; 8, 16, or 32 channels; kernel sizes of
 or two layers; hidden dimensions of 16, 32, or 64; and dropout rates of
 0 or 0.1.
 
-The fixed rule retains three MLP and three GRU architectures. The retained
-MLP architectures use two, three, and four hidden layers, all with hidden
-dimension 32. Their dropout rates are 0.1, 0, and 0.1, respectively. The
-retained GRU architectures use one layer and hidden dimensions of 16, 32,
-and 32. Their dropout rates are 0.1, 0, and 0.1, respectively. No TCN
-architecture meets the fixed rule on the architecture-retention cases.
+The fixed rule retains three MLP and three GRU configurations. The retained
+MLP configurations use two, three, and four hidden layers, all with hidden
+dimension 32. Their dropout values are 0.1, 0, and 0.1, respectively. The
+retained GRU configurations use one layer and hidden dimensions of 16, 32,
+and 32. Their listed dropout values are 0.1, 0, and 0.1, respectively.
+Because recurrent dropout is disabled for one-layer GRUs, the two GRU-32
+configurations instantiate the same executable architecture. The six
+retained configurations therefore represent five executable architectures.
+No TCN configuration meets the fixed rule on the configuration-retention
+cases.
 
 The bank stores two source-trained initializations for the reference
-architecture and one for each of the other five architectures. The fixed
-reference uses one of the two reference-architecture initializations. The
-final candidate bank therefore contains seven candidates.
+configuration and one for each of the other five retained configurations.
+The fixed reference uses one of the two initializations assigned to the
+reference configuration. The final bank therefore contains seven
+source-initialized candidates over five executable architectures.
 
 The selection threshold is fixed on the selector-development cases. A harmful
 selection occurs when RCF-DTI selects a non-reference candidate whose check
@@ -984,8 +1004,8 @@ A threshold is eligible only when all selector-development criteria are satisfie
 First, its harmful-selection rate must not exceed 5\%. Second, its mean
 check-loss reduction over the reference candidate must be at least 3\%,
 and the lower bound of its 95\% confidence interval must be positive.
-The additional reduction over the reference-architecture control must
-satisfy the same gain and confidence requirements. The smallest eligible threshold is 10\%. The main candidate bank, reference
+The additional reduction over the paired-initialization control must satisfy
+the same gain and confidence requirements. The smallest eligible threshold is 10\%. The main candidate bank, reference
 candidate, and selection threshold are then fixed. They are not changed
 using the ablation, optimizer-matched, or held-out results.
 Table~\ref{tab:configuration} lists the main experimental configuration.
@@ -1056,17 +1076,16 @@ The 95\% confidence intervals are obtained by resampling target centers
 
 All methods are implemented in Python and PyTorch and run on the same NVIDIA
 RTX 3060 Laptop GPU. The fixed reference candidate uses the preregistered
-pooled-source initialization. The five architecture-diverse candidates use
-the frozen strong source-training procedure with Adam, MSE, 50 epochs, a
-learning rate of $10^{-3}$, and a batch size of 64. The additional
-reference-architecture candidate uses the separately frozen two-stage
-pooled-source procedure. All source procedures are completed before
+pooled-source initialization. The five non-reference indexed candidates use the frozen strong
+source-training procedure with Adam, MSE, 50 epochs, a learning rate of
+$10^{-3}$, and a batch size of 64. The additional candidate assigned to the reference configuration uses the
+separately frozen two-stage pooled-source procedure. All source procedures are completed before
 target-side threshold calibration and held-out evaluation.
 
-Each target update uses the complete support set. The updates are implemented
-with the SGD optimizer and MSE loss. All feasible RCF-DTI candidates use the
-same learning rate, gradient clipping rule, and fixed budget of 50 updates.
-Candidate-specific early stopping is not used.
+Each target update uses the complete support set. Target adaptation is
+implemented with the SGD optimizer and MSE loss. All feasible RCF-DTI
+candidates use a learning rate of 0.01, a gradient-norm limit of 1.0, and a
+fixed budget of 50 updates. Candidate-specific early stopping is not used.
 
 GPU execution is synchronized before runtime measurement. The timer includes candidate model setup, loading of source initializations,
 target adaptation, validation evaluation, and final candidate selection. It
@@ -1082,14 +1101,19 @@ The target-side instantiation time reported in the main comparison includes
 model setup, loading of source initializations, target adaptation,
 validation evaluation, and final selection. We separately profile
 single-model inference to examine the practical meaning of the two
-complexity indicators. The study covers the six unique retained
-architectures for $H\in\{1,4\}$ on an Intel Core i7-12700H CPU and an
-NVIDIA RTX 3060 Laptop GPU. Each measurement uses batch size one,
-evaluation mode, 100 warm-up inferences, and five repetitions of 1000 timed
-inferences. CUDA execution is synchronized before and after each timed
-region. Median latency is the primary latency measure, and the 95th
-percentile is reported as a supplementary variability measure. Serialized
-state-dictionary size is used as the model-size measurement.
+complexity indicators. The study covers the five distinct executable
+architectures represented by the six retained indexed configurations, for
+$H\in\{1,4\}$, on an Intel Core i7-12700H CPU and an NVIDIA RTX 3060
+Laptop GPU. The two retained one-layer GRU-32 configurations instantiate the
+same executable architecture and are therefore represented by one
+architecture-level record in the correlation analysis.
+
+Each measurement uses batch size one, evaluation mode, 100 warm-up
+inferences, and five repetitions of 1000 timed inferences. CUDA execution is
+synchronized before and after each timed region. Median latency is the
+primary latency measure, and the 95th percentile is reported as a
+supplementary variability measure. Serialized state-dictionary size is used
+as the model-size measurement.
 
 \subsubsection{Baselines and Comparison Settings}
 
@@ -1166,9 +1190,8 @@ Points below the diagonal favor RCF-DTI.}
 
 RCF-DTI selects an alternative in 47 cases. Among them, 44 are beneficial
 and 3 are harmful. Thus, 93.62\% of the alternative selections improve test
-MSE, while harmful selections account for 3.75\% of all held-out cases. The
-reference is retained in the other 33 cases. Reference regularization
-therefore reduces, but does not remove, harmful selections.
+MSE, while harmful selections account for 3.75\% of all held-out cases. The reference is retained in the other 33 cases. Reference-controlled
+selection therefore reduces, but does not remove, harmful selections.
 
 Table~\ref{tab:matched_control} reports the optimizer-matched comparison on
 the separate diagnostic target pool.
@@ -1254,11 +1277,11 @@ pool.
 
 We first examine the source-training procedure and the role of architecture
 selection. The pooled-source variant keeps the candidate architectures and
-the two reference-architecture initializations unchanged, but replaces the
+the Two initializations of the reference configuration unchanged, but replaces the
 other initializations with those produced by the earlier pooled-source
 procedure. The reference-only variant uses only the fixed reference
-candidate, while the two-initialization variant selects between the two
-source initializations of the reference architecture. All three variants yield higher MSE than RCF-DTI.
+candidate, while the two-initialization variant selects between the two stored source
+initializations assigned to the reference configuration. All three variants yield higher MSE than RCF-DTI.
 
 These results indicate that both source-initialization training and
 selection among different architectures contribute to target adaptation.
@@ -1266,11 +1289,12 @@ The pooled-source comparison changes the complete training procedure for
 the non-reference initializations and therefore does not isolate a single
 training factor.
 
-Removing reference regularization slightly reduces mean MSE, but increases
-the harmful-selection rate from 15.00\% to 17.50\%. Both rates are higher
-than the 5\% rate used during development calibration. Reference
-regularization therefore trades a small change in mean MSE for fewer harmful
-selections, although it does not remove them completely.
+Directly selecting the feasible candidate with the lowest validation loss
+slightly reduces mean MSE, but increases the harmful-selection rate from
+15.00\% to 17.50\%. Both rates are higher than the 5\% criterion used during
+development calibration. The reference-controlled rule therefore trades a
+small change in mean MSE for fewer harmful replacements, although it does
+not remove them completely.
 
 Removing complexity filtering slightly reduces mean MSE, but lowers limit
 satisfaction from 100\% to 96.25\%. Complexity filtering therefore enforces
@@ -1287,18 +1311,18 @@ in these analyses.
 \paperfig{0.99\linewidth}
 {fig9.pdf}
 {Configuration analysis using selector-development or diagnostic cases:
-(a) retained architecture count,
+(a) retained configuration count,
 (b) adaptation budget, and
 (c) selection threshold.
 Held-out target cases are not used to choose these settings.}
 {fig:bank_adaptation_margin}
 
 Figure~\ref{fig:bank_adaptation_margin}(a) shows that diagnostic MSE
-decreases from 0.004917 with one retained architecture to 0.004063 with
-four retained architectures, and then remains unchanged. We retain all six
-architectures because the retained architecture set was fixed before the
-diagnostic results were observed. This result supports a compact retained
-architecture set, but does not identify a globally optimal size.
+decreases from 0.004917 with one retained configuration to 0.004063 with
+four retained configurations, and then remains unchanged. We retain all six
+configurations because the configuration list was fixed before the
+diagnostic results were observed. This result supports a compact candidate
+configuration list, but does not identify a globally optimal size.
 
 Figure~\ref{fig:bank_adaptation_margin}(b) shows that check MSE decreases
 mainly during the first ten updates. Here, selection agreement is the
@@ -1335,18 +1359,24 @@ times are $2.37\times$ and $3.10\times$ that of RCF-DTI, respectively.
 
 \textbf{Hardware profiling.}
 The separate batch-one hosting profile does not replace the target-side
-instantiation-time comparison above. Across the six unique retained
-architectures, the Spearman correlation between estimated operation count
-and median inference latency ranges from 0.899 to 0.986 across the measured
-horizons, devices, and confirmation runs. Parameter count has a Spearman
-correlation of 1.000 with serialized model size. The MLP candidates have
-more parameters but lower latency, whereas the GRU candidates have fewer
-parameters but higher operation count and latency. The two indicators
-therefore describe complementary hosting properties. For these compact
-batch-one models, synchronized GPU latency is higher than CPU latency
-because launch and synchronization overhead dominates; this result is not
-presented as evidence of GPU acceleration. Full per-architecture records
-are provided with the public experimental artifacts.
+instantiation-time comparison above.
+Table~\ref{tab:hardware-profile} summarizes the direct validation of the two
+analytical complexity indicators after duplicate one-layer GRU-32
+configuration records are merged at the executable-architecture level.
+Estimated operation count is strongly rank-correlated with measured
+inference latency, while parameter count perfectly ranks serialized model
+size.
+
+The MLP architectures have more parameters but lower latency, whereas the
+GRU architectures have fewer parameters but higher operation counts and
+latencies. The two indicators therefore describe complementary hosting
+properties. For these compact batch-one models, synchronized GPU latency is
+higher than CPU latency because launch and synchronization overhead
+dominates; this result is not presented as evidence of GPU acceleration.
+Full architecture-level measurements and configuration-to-architecture
+mappings are provided with the public experimental artifacts.
+
+\input{tables/table6_hardware_profile.tex}
 
 Figure~\ref{fig:architecture-tradeoff} examines whether the overall gain is
 concentrated in one selected model configuration. Test results are used only
@@ -1368,8 +1398,8 @@ reductions range from 17.43\% to 30.50\%.
 
 All four alternatives give positive mean reductions, so the overall gain is
 not produced by one fixed architecture. The three harmful selections occur
-on the two alternative GRU configurations. Reference-regularized selection
-therefore reduces, but does not remove, harmful selections.
+on the two alternative GRU configurations. Reference-controlled selection therefore reduces, but does not remove,
+harmful selections.
 
 \subsection{Sensitivity to Source Conditions and External Workload Data}
 \label{subsec:sensitivity}
@@ -1379,11 +1409,10 @@ source-training randomness, and external workload data. These studies use
 the same target-side adaptation and selection procedure as the main
 evaluation. In each study, RCF-DTI is compared with a reference candidate
 trained under the same source condition and source-training budget. We call
-this candidate the matched reference. The source-scale and source-seed
-studies use controlled six-candidate strong banks with one source
-initialization for each retained architecture; the additional legacy
-reference-architecture initialization in the seven-candidate main bank is
-excluded.
+this candidate the matched reference. The source-scale and source-seed studies use controlled six-candidate banks
+with one source initialization for each retained configuration; the
+additional initialization assigned to the reference configuration in the
+seven-candidate main bank is excluded.
 
 \textbf{Source-center scale.}
 We rebuild the candidate bank using 10, 20, 30, 40, and 50 source centers.
@@ -1406,7 +1435,7 @@ target-side gain.
 
 \textbf{Source-training randomness and external workload data.}
 We rebuild the candidate bank using source-training seeds 2904, 2905, and
-2906. The three banks use the same source centers, architecture set,
+2906. The three banks use the same source centers, retained configuration list,
 source-training budget, and data-generation seed. All three banks are evaluated on the same fixed source-training-seed
 diagnostic target pool, which is separate from the other diagnostic pools.
 They use identical target adaptation seeds and the same target-side
@@ -1416,9 +1445,9 @@ to source-training randomness.
 We further conduct an architecture-fixed semi-real external-domain
 evaluation using machine-usage data from Alibaba Cluster Trace
 v2018~\cite{ref29}. The workload observations are real, whereas the
-complexity tiers remain controlled platform-assigned settings. The six
-retained architecture definitions, complexity bounds, target adaptation
-procedure, filtering rule, and threshold grid are fixed before this study.
+complexity tiers remain controlled platform-assigned settings. The six retained configuration definitions, representing five executable
+architectures, together with the complexity bounds, target adaptation
+procedure, filtering rule, and threshold grid, are fixed before this study.
 Because the Alibaba trace has a different input representation and workload
 distribution, architecture-matched source initializations are trained on
 20 Alibaba source machines using source-only normalization. Another 20
@@ -1454,22 +1483,20 @@ Across the three source-training seeds, the mean paired MSE reduction ranges
 from 10.52\% to 13.21\%, and all three confidence intervals remain above
 zero. Some cases still have zero or negative gains.
 
-On the 40 held-out Alibaba machines, the frozen $\tau=0.10$ rule reduces
-the mean MSE from 0.001337 to 0.001279, corresponding to a 4.29\%
-aggregate reduction. The mean case-level reduction is 4.20\%, with a
-machine-clustered 95\% bootstrap confidence interval of
-$[2.03\%,6.70\%]$. RCF-DTI selects an alternative in 57 of the 160 cases;
-47 selections are beneficial and 10 are harmful. The harmful-selection rate
-is therefore 6.25\% over all cases and 17.54\% conditional on selecting an
-alternative.
+Table~\ref{tab:alibaba-external} summarizes the independent Alibaba
+calibration and held-out evaluation.
 
-These results support a positive average transfer effect under the frozen
-rule, but they do not establish a 5\% cross-domain harmful-selection
-guarantee. An exploratory subgroup analysis shows that the residual risk is
-concentrated in the longer prediction horizon: the harmful-selection rate
-is 2.50\% for $H=1$ and 10.00\% for $H=4$. This post-selection analysis is
-reported only to identify a limitation; it is not used to revise the
-threshold or the held-out result.
+\input{tables/table7_alibaba_external.tex}
+
+The transferred $\tau=0.10$ rule gives a positive average held-out gain, but
+no Alibaba-specific threshold satisfies all pre-registered calibration
+criteria, and the harmful-selection rate over all held-out cases is 6.25\%.
+The result therefore does not establish a 5\% cross-domain
+harmful-selection guarantee. An exploratory subgroup analysis shows that
+the residual risk is concentrated in the longer prediction horizon: the
+harmful-selection rate is 2.50\% for $H=1$ and 10.00\% for $H=4$. This
+post-selection analysis is reported only to identify a limitation; it is
+not used to revise the threshold or the held-out result.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -1478,9 +1505,10 @@ This paper studied complexity-constrained few-shot digital twin model
 instantiation for heterogeneous multi-center computing networks. We
 formulated target-specific instantiation as joint architecture selection
 and parameter adaptation under limits on the estimated operation count per
-inference and the parameter count. RCF-DTI filters infeasible candidates,
-adapts the feasible candidates with a common update budget, and retains a
-fixed reference unless an alternative provides sufficient validation
+inference and the parameter count. RCF-DTI uses a fixed feasible reference
+candidate to control candidate replacement. It filters infeasible
+candidates, adapts feasible candidates under common conditions, and selects
+the best alternative only when it provides sufficient relative validation
 improvement. On the controlled multi-center benchmark, RCF-DTI achieves
 lower prediction error than all compared methods while every returned model
 satisfies both limits. Hardware profiling further shows that operation count
@@ -1490,9 +1518,9 @@ properties.
 The architecture-fixed Alibaba evaluation also gives a positive average
 held-out gain under the frozen selection rule. However, no Alibaba-specific
 threshold satisfies all pre-registered calibration criteria, and the
-held-out harmful-selection rate is 6.25\%. The reference rule should
-therefore be interpreted as empirical risk control rather than a
-distribution-independent safety guarantee. Future work will study
+held-out harmful-selection rate is 6.25\%. The reference-controlled rule provides empirical protection against
+marginal candidate replacement, but it is not a distribution-independent
+safety guarantee. Future work will study
 horizon-aware uncertainty control and evaluate peak memory use and energy
 consumption across a broader set of edge--cloud hosting platforms.
 
@@ -1514,31 +1542,20 @@ influence the work reported in this paper.
 \section*{Data Availability}
 
 The source code, frozen experimental configurations, anonymized processed
-results, plot-ready figure data, and reproduction scripts supporting this
-study are publicly available in the versioned GitHub Release v1.2.0:
+results, plot-ready data, reproduction scripts, and SHA-256 manifests are
+available in GitHub Release v1.2.0:
 \url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.0}.
-The corresponding development repository is available at
-\url{https://github.com/w924871681/paper-code-DT-Twin}.
-
-The release contains the materials required to reproduce Tables~1--5 and
-the data-driven Figures~6--12, together with the hardware-profiling and
-Alibaba external-domain evaluation reports. Figures~1--5 are provided as
-checksum-verified final manuscript assets. SHA-256 checksums are supplied
-for the release assets to support integrity verification. Synthetic
-multi-center data can be regenerated using the released simulator, frozen
-configurations, and fixed random seeds.
-
-The original Alibaba Cluster Trace v2018 is third-party data and is not
-redistributed. It is available from the official Alibaba Cluster Data
-repository:
-\url{https://github.com/alibaba/clusterdata}.
-The released documentation specifies the required source file and checksum,
-expected file layout, source-only preprocessing, the disjoint 20/20/40
-machine split, source-bank construction, threshold calibration, held-out
-evaluation, and report-generation commands. Public Alibaba-derived records
-contain only hashed machine identifiers and processed evaluation values.
-Raw traces, processed trace arrays, model weights, and local machine paths
-are not included.
+The release supports Tables~1--7 and the data-driven Figures~6--12,
+including the hardware-profiling and Alibaba external-domain evaluations;
+Figures~1--5 are provided as checksum-verified manuscript assets. The
+original Alibaba Cluster Trace v2018 is not redistributed and is available
+from the official repository:
+\url{https://github.com/alibaba/clusterdata}. The released documentation
+specifies the source checksum, source-only preprocessing, disjoint
+20/20/40 machine split, threshold calibration, and held-out evaluation.
+Public derived records contain only hashed machine identifiers and processed
+evaluation values; raw traces, processed trace arrays, model weights, and
+local machine paths are excluded.
 
 \section*{Declaration of Generative AI and AI-Assisted Technologies
 in the Manuscript Preparation Process}

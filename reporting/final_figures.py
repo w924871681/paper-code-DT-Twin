@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """Canonical publication plots for manuscript Fig. 6--12.
 
 This is the only maintained implementation of the final data-driven figures.
@@ -132,12 +132,31 @@ def _save(
         "ModDate": None,
     }
     crop = {"bbox_inches": "tight", "pad_inches": 0.03} if tight else {}
-    fig.savefig(output_dir / f"{stem}.pdf", format="pdf", metadata=metadata, **crop)
+
+    # Force a solid white publication background in both vector and raster
+    # outputs. This prevents transparent PDF canvases from appearing gray in
+    # some viewers and document renderers.
+    fig.patch.set_facecolor("white")
+    for axis in fig.axes:
+        axis.set_facecolor("white")
+
+    fig.savefig(
+        output_dir / f"{stem}.pdf",
+        format="pdf",
+        metadata=metadata,
+        facecolor="white",
+        edgecolor="none",
+        transparent=False,
+        **crop,
+    )
     fig.savefig(
         output_dir / f"{stem}.png",
         format="png",
         dpi=600,
         pil_kwargs={"compress_level": 6},
+        facecolor="white",
+        edgecolor="none",
+        transparent=False,
         **crop,
     )
     plt.close(fig)

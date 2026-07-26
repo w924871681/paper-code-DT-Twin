@@ -357,8 +357,8 @@ def check_paper_alignment() -> list[str]:
             if char.isalnum() or char == "."
         )
 
-        if len(reader.pages) != 22:
-            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 22")
+        if len(reader.pages) != 23:
+            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 23")
 
         for phrase in (
             "Joint architecture selection",
