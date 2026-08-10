@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "complexity-constrained-few-shot-dt"
-version = "1.2.0"
-description = "Complexity-constrained few-shot digital twin model instantiation"
+name = "msa-dti"
+version = "1.2.1"
+description = "Model Selection and Adaptation for Digital Twin Instantiation"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}

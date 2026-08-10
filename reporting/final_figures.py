@@ -209,7 +209,7 @@ def plot_fig6(data_dir: Path, output_dir: Path) -> dict[str, Any]:
         ax.set_ylim(0, upper)
         ax.set_aspect("equal", adjustable="box")
         ax.set_xlabel(r"PT+FT ($\times 10^{-2}$)")
-        ax.set_ylabel(r"RCF-DTI ($\times 10^{-2}$)")
+        ax.set_ylabel(r"MSA-DTI ($\times 10^{-2}$)")
         ax.grid(color="#E1E1E1", lw=0.45, ls=(0, (2, 2)))
         ax.spines[["top", "right"]].set_visible(False)
     handles, labels = axes[0].get_legend_handles_labels()

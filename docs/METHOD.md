@@ -1,6 +1,6 @@
 # Method and frozen scientific protocol
 
-RCF-DTI instantiates a target-specific digital twin model in five stages:
+MSA-DTI instantiates a target-specific digital twin model in five stages:
 
 1. Build a source-initialization bank in which each candidate is an
    architecture paired with its matched source-trained initialization.

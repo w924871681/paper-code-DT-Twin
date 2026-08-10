@@ -17,6 +17,14 @@ model_checkpoints/
 *.pkl
 *.zip
 *.log
+*.aux
+*.abs
+*.out
+*.synctex.gz
+paper/*-source-reference.pdf
+paper/supplementary/
+paper/tectonic_*.err
+tmp_msa_figures/
 .DS_Store
 data/alibaba2018/raw/*
 data/alibaba2018/processed/*

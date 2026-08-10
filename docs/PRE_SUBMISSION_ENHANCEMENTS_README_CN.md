@@ -1,4 +1,4 @@
-﻿# RCF-DTI 投稿前增强实验补丁：安装与运行
+# MSA-DTI 投稿前增强实验补丁：安装与运行
 
 ## 1. 安装方式
 
@@ -223,7 +223,7 @@ outputs/pre_submission_enhancements_d2904_t2904/alibaba_domain/alibaba_domain_re
 - 部署节点选择；
 - 任务卸载；
 - 网络时延联合优化；
-- 新的 RCF-DTI 决策变量。
+- 新的 MSA-DTI 决策变量。
 
 新增实验只加强数字孪生模型实例化的两条证据链：
 

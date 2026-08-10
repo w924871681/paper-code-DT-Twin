@@ -225,7 +225,7 @@ def _runtime_rows(root: Path) -> dict[str, dict[str, str]]:
 
 
 METHOD_META: Mapping[str, tuple[str, str, str]] = {
-    "Ours": ("RCF-DTI", "ours_c32_locked", "RCF-DTI"),
+    "Ours": ("MSA-DTI", "ours_c32_locked", "MSA-DTI"),
     "PT+FT": ("PT+FT", "pt_ft", "single-model adaptation"),
     "MeDeT-style": ("MeDeT-based adaptation", "medet_style", "single-model adaptation"),
     "Scratch50": ("Random initialization", "scratch50", "single-model adaptation"),
@@ -264,7 +264,7 @@ def _table1() -> list[dict[str, str]]:
         ("Data", "Main paired cases", "80"),
         ("Target", "Horizons; support sizes", "H in {1, 4}; K in {10, 20}"),
         ("Target", "Validation / check / test windows", "80 / 60 / 200"),
-        ("Model", "Full architecture space; retained architectures", "66 architectures; six retained architectures"),
+        ("Model", "Full architecture space; retained architectures", "66 indexed configurations; six retained configurations; five executable architectures"),
         ("Model", "Candidate models", "7 before filtering"),
         ("Model", "Feasible candidates", "4--7 after filtering; mean 6.25"),
         ("Model", "Reference architecture", "One-layer GRU; 32 hidden units; dropout 0.1"),
@@ -306,7 +306,7 @@ def _table2(root: Path) -> list[dict[str, str]]:
         ("Meta+NAS-lite", "Few-shot NAS", "Top-12 shortlist", "Baseline-specific initialization bank", "Adam/Huber-50", "<=12", "Before candidate evaluation"),
         ("Zero-NAS", "Zero-shot NAS", "Top-ranked model", "Baseline-specific initialization", "None", "0", "Before candidate evaluation"),
         ("Zero-NAS+FT", "Zero-shot NAS + fine-tuning", "Top-12 shortlist", "Baseline-specific initialization bank", "Adam/Huber-50", "<=12", "Before candidate evaluation"),
-        ("Ours", "RCF-DTI", "Source-initialization bank (six architectures)", "Architecture-matched source initializations", "SGD/MSE-50", "4--7", "Before adaptation and output"),
+        ("Ours", "MSA-DTI", "Source-initialization bank (six architectures)", "Architecture-matched source initializations", "SGD/MSE-50", "4--7", "Before adaptation and output"),
     )
     missing = [internal for internal, *_ in rows if internal not in source]
     if missing:
@@ -353,7 +353,7 @@ def _table3(root: Path) -> list[dict[str, str]]:
 def _table4(root: Path) -> list[dict[str, str]]:
     labels = OrderedDict(
         (
-            ("full_method", "RCF-DTI"),
+            ("full_method", "MSA-DTI"),
             ("legacy_source_bank", "Shared pooled initialization"),
             ("pt_a57_only", "Reference candidate only"),
             ("dual_init_a57", "Two reference-architecture initializations"),
@@ -415,7 +415,7 @@ def _table5b(root: Path) -> list[dict[str, str]]:
     runtime = _runtime_rows(root)
     rows: list[dict[str, str]] = []
     for internal in PAPER_METHOD_ORDER:
-        # The broader public table starts with RCF-DTI.
+        # The broader public table starts with MSA-DTI.
         pass
     for internal in ("Ours", "PT+FT", "MeDeT-style", "Scratch50", "Meta+NAS-lite", "Zero-NAS", "Zero-NAS+FT"):
         row = source[internal]
@@ -480,7 +480,7 @@ def _real_rows(root: Path) -> list[dict[str, str]]:
     measures = _real_measures(root)
     oracle_wmse = measures["Test-oracle WMSE"]
     rows = [
-        {"Method": "RCF-DTI", "WMSE": _fmt(_float(main["Ours"], "WMSE"), 6), "MAE": _fmt(_float(main["Ours"], "MAE"), 5), "W10": _fmt(_float(main["Ours"], "Worst10"), 6)},
+        {"Method": "MSA-DTI", "WMSE": _fmt(_float(main["Ours"], "WMSE"), 6), "MAE": _fmt(_float(main["Ours"], "MAE"), 5), "W10": _fmt(_float(main["Ours"], "Worst10"), 6)},
         {"Method": "Reference candidate", "WMSE": _fmt(_float(main["PT+FT"], "WMSE"), 6), "MAE": _fmt(_float(main["PT+FT"], "MAE"), 5), "W10": _fmt(_float(main["PT+FT"], "Worst10"), 6)},
         {"Method": "Test oracle (diagnostic)", "WMSE": _fmt(oracle_wmse, 6), "MAE": _fmt(measures.get("Test-oracle MAE", 0.02028), 5), "W10": _fmt(measures.get("Test-oracle Worst10", 0.006884), 6)},
         {"Method": "Selected gain vs reference", "WMSE": f"{100 * measures['Selected gain vs A57']:.2f}%", "MAE": "--", "W10": "--"},
@@ -634,7 +634,7 @@ def paper_table_rows(project_root: str | Path) -> OrderedDict[str, list[dict[str
         )
     matched_labels = OrderedDict(
         (
-            ("ours_compact_anchor_safe", "RCF-DTI"),
+            ("ours_compact_anchor_safe", "MSA-DTI"),
             ("pt_a57", "PT+FT (reference model)"),
             ("meta_top12_sgd_mse50_valbest", "Few-shot NAS (matched)"),
             ("zero_top12_sgd_mse50_valbest", "Zero-shot NAS (matched)"),
@@ -770,7 +770,7 @@ CAPTIONS = """# Generated figure captions
 
 - **Fig. 1:** Current new-target instantiation scenario, synchronized from the
   latest manuscript asset.
-- **Fig. 2:** Complexity-constrained few-shot instantiation method.
+- **Fig. 2:** MSA-DTI few-shot instantiation method.
 - **Fig. 3:** Multi-architecture source model bank.
 - **Fig. 4:** Target-side complexity filtering.
 - **Fig. 5:** Few-shot adaptation and minimum-improvement selection.

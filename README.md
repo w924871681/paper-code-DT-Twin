@@ -1,24 +1,25 @@
-# Complexity-Constrained Few-Shot Digital Twin Model Instantiation
+# A Model Selection and Adaptation Method for Few-Shot Digital Twin Instantiation under Deployment Limits
 
-This repository is the reproducibility archive for **Complexity-Constrained
-Few-Shot Digital Twin Model Instantiation for Heterogeneous Multi-Center
-Computing Networks**. Release `v1.2.0` synchronizes the latest revised
-manuscript, captions, redrawn Fig. 10, plot-ready data, frozen protocols,
-audit evidence, and public reproduction commands.
+This repository is the reproducibility archive for **A Model Selection and
+Adaptation Method for Few-Shot Digital Twin Instantiation under Deployment
+Limits**. The public method name is **MSA-DTI** (Model Selection and
+Adaptation for Digital Twin Instantiation). Release `v1.2.1` synchronizes the
+final manuscript and supplementary package, plot-ready data, frozen
+protocols, audit evidence, and public reproduction commands.
 
 ## What is frozen
 
-The following scientific choices are unchanged in v1.1.9:
+The following scientific choices are unchanged in v1.2.1:
 
 - data seed `2904` and source-training seeds `2904`, `2905`, `2906`;
 - source, development, diagnostic, and held-out target splits;
-- six retained architectures and seven initialized candidates;
+- six retained configurations, five executable architectures, and seven candidates;
 - reference candidate (internal architecture index `57`);
 - SGD/MSE target adaptation with exactly 50 updates and learning rate `0.01`;
 - the preset 10% reference-based selection threshold;
 - the optimizer, candidate bank, complexity limits, and all reported values.
 
-The main evaluation contains 80 held-out cases. RCF-DTI selects an alternative
+The main evaluation contains 80 held-out cases. MSA-DTI selects an alternative
 in 47 cases: 44 beneficial and 3 harmful under the post-selection test-MSE
 audit; the reference is retained in 33 cases. These test-derived labels are
 used only for reporting and never for candidate selection.
@@ -34,6 +35,8 @@ used only for reporting and never for candidate selection.
 - `results/audited_provenance/`: publishable immutable audit records.
 - `scripts/`: verification, reconstruction, smoke-test, and replay commands.
 - `docs/`: method, figure, provenance, availability, and reproducibility notes.
+- `docs/FINAL_MSA_DTI_SYNC_AUDIT.md`: paper-evidence mapping, public-asset
+  classification, and release-parity audit.
 - `audit/v1.1.9/`: machine-readable and human-readable release audit evidence.
 
 Historical internal identifiers remain only where changing them would break

@@ -200,7 +200,7 @@ def check_numbers() -> list[str]:
     margin = {float(row["minimum_improvement"]): row for row in _csv(ROOT / "results/figure_data/fig9_margin_data.csv")}
     if float(margin[0.1]["harmful_selection_rate"]) != 0.05 or margin[0.1]["eligible_under_5pct_criterion"] != "true": errors.append("Fig. 9 margin data changed")
     tradeoff = _csv(ROOT / "results/figure_data/fig10_deployment_tradeoff_data.csv")
-    if [row["method"] for row in tradeoff] != ["PT+FT", "Few-shot NAS", "Zero-shot NAS+FT", "RCF-DTI"]:
+    if [row["method"] for row in tradeoff] != ["PT+FT", "Few-shot NAS", "Zero-shot NAS+FT", "MSA-DTI"]:
         errors.append("Fig. 10 representative-method mapping changed")
     architecture = {row["configuration"]: row for row in _csv(ROOT / "results/figure_data/fig11_architecture_complexity_data.csv")}
     if set(architecture) != {"3-layer MLP-32", "4-layer MLP-32", "Alt. GRU-16", "Alt. GRU-32", "Ref. GRU-32"}:
@@ -313,22 +313,17 @@ def check_paper_alignment() -> list[str]:
     errors: list[str] = []
     tex = (ROOT / "paper/manuscript.tex").read_text(encoding="utf-8")
     required_source = (
-        "joint architecture selection and parameter adaptation",
-        "\\section{Proposed Method}",
-        "step sizes",
-        "We use mean squared error (MSE)",
-        "$100x_{\\min}/x$",
-        "Release v1.2.0",
-        "releases/tag/v1.2.0",
+        "A Model Selection and Adaptation Method for Few-Shot Digital Twin Instantiation under Deployment Limits",
+        "Model Selection and Adaptation for Digital Twin Instantiation (MSA-DTI)",
+        "six retained configurations, five executable architectures, and",
+        "seven candidates",
+        "Mean squared error (MSE) is the task loss.",
+        "Data Availability",
     )
     for phrase in required_source:
         if phrase not in tex:
             errors.append(f"current manuscript source is missing: {phrase}")
-    for phrase in (
-        "Because the platform hosts several model instances",
-        "\\section{RCF-DTI Method}",
-        "\\operatorname{Clip}_{G}",
-    ):
+    for phrase in ("RCF-DTI", "RB-DTI"):
         if phrase in tex:
             errors.append(f"superseded manuscript content remains: {phrase}")
     citations = set(
@@ -342,10 +337,10 @@ def check_paper_alignment() -> list[str]:
             "manuscript citation/bibliography mismatch: "
             f"uncited={sorted(bibliography-citations)}, missing={sorted(citations-bibliography)}"
         )
-    for name in PAPER_TABLE_NAMES:
+    for name in ("table1_configuration", "table4_target_cost"):
         table_text = (ROOT / f"paper/tables/{name}.tex").read_text(encoding="utf-8")
-        if name != "table2_fairness" and ("WMSE" in table_text or "MSE" not in table_text):
-            errors.append(f"formal table terminology mismatch: {name}")
+        if "RCF-DTI" in table_text or "RB-DTI" in table_text:
+            errors.append(f"formal table contains a stale public name: {name}")
     try:
         from pypdf import PdfReader
 
@@ -357,14 +352,13 @@ def check_paper_alignment() -> list[str]:
             if char.isalnum() or char == "."
         )
 
-        if len(reader.pages) != 23:
-            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 23")
+        if len(reader.pages) != 13:
+            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 13")
 
         for phrase in (
-            "Joint architecture selection",
-            "Proposed Method",
-            "Normalized target-side",
-            "v1.2.0",
+            "Model Selection and Adaptation Method",
+            "MSA-DTI",
+            "Data Availability",
         ):
             phrase_compact = "".join(
                 char.lower()
@@ -373,8 +367,8 @@ def check_paper_alignment() -> list[str]:
             )
             if phrase_compact not in pdf_compact:
                 errors.append(f"current manuscript PDF is missing: {phrase}")
-        if "WMSE" in pdf_text:
-            errors.append("current manuscript PDF still contains WMSE")
+        if "RCF-DTI" in pdf_text or "RB-DTI" in pdf_text:
+            errors.append("current manuscript PDF contains a stale public method name")
     except Exception as exc:
         errors.append(f"cannot inspect current manuscript PDF: {exc}")
     return errors
@@ -390,12 +384,12 @@ def check_version_metadata() -> list[str]:
             encoding="utf-8"
         )
     )
-    if 'version = "1.2.0"' not in pyproject:
-        errors.append("pyproject version is not 1.2.0")
-    if not re.search(r"(?m)^version:\s*1\.2\.0\s*$", citation):
-        errors.append("CITATION.cff version is not 1.2.0")
+    if 'version = "1.2.1"' not in pyproject:
+        errors.append("pyproject version is not 1.2.1")
+    if not re.search(r"(?m)^version:\s*1\.2\.1\s*$", citation):
+        errors.append("CITATION.cff version is not 1.2.1")
     if fixed_manifest.get("paper_version") != "v1.2.0":
-        errors.append("fixed-figure manifest version is not v1.2.0")
+        errors.append("fixed-figure manifest must preserve v1.2.0 provenance")
     if "cp -r paper/tables figure-code-package/paper/" not in workflow:
         errors.append("standalone figure-code package does not include paper/tables")
     for asset in (
