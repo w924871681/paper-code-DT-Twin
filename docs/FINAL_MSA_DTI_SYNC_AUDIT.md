@@ -13,7 +13,7 @@ and protocol tests required by the manuscript and supplementary material.
 | --- | --- |
 | Candidate bank and 66 / 6 / 5 / 7 terminology | `configs/methods/candidate_space_cfg.py`, `core/space/`, `results/audited_provenance/` |
 | Deployment limits and feasibility filtering | `core/space/profile.py`, `core/methods/ours/condition.py` |
-| Target adaptation and reference-margin selection | `core/methods/ours/adapt.py`, `core/methods/ours/c23_mode_selector.py` |
+| Target adaptation and reference-margin selection | `main_evaluation/pipeline.py` (`_fixed_target_adapt` and the frozen reference-margin candidate-selection path), `configs/methods/main_evaluation_cfg.py` |
 | Main held-out evaluation and baselines | `experiments/main/`, `main_evaluation/`, `scripts/run_main_evaluation_method.py` |
 | Diagnostics, dual-limit stress, source sensitivity, and profiling | `experiments/supplementary/`, `experiments/robustness/`, `scripts/run_*` |
 | Alibaba transfer without restricted raw data | `scripts/prepare_alibaba2018_trace.py`, `scripts/run_alibaba2018_evaluation.py`, `data/alibaba2018/README.md` |
@@ -21,6 +21,19 @@ and protocol tests required by the manuscript and supplementary material.
 | Repository and smoke verification | `scripts/verify_repository.py`, `scripts/run_smoke_test.py`, `tests/` |
 
 ## Classification
+
+### Canonical target-side implementation note
+
+The current MSA-DTI held-out protocol uses the SGD/MSE 50-update target
+adaptation and frozen reference-margin candidate-selection implementation in
+`main_evaluation/pipeline.py`, with frozen values defined in
+`configs/methods/main_evaluation_cfg.py`.
+
+`core/methods/ours/adapt.py` and
+`core/methods/ours/c23_mode_selector.py` contain historical or
+general-purpose adaptation components retained for reproducibility and
+compatibility. They are not the canonical implementation of the current
+MSA-DTI held-out SGD/MSE and reference-margin selection protocol.
 
 - **Class R:** tracked source, configuration, scripts, tests, public processed
   results, manuscript sources, final PDFs, figures, and documentation.
