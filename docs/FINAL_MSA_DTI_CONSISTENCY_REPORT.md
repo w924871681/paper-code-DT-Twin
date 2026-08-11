@@ -6,7 +6,8 @@
 - Repository: `w924871681/paper-code-DT-Twin`
 - Audited manuscript: `paper/manuscript.tex`
 - Audited supplementary: `paper/supplementary.tex`
-- Release version: v1.2.1
+- Release version: v1.2.2
+- Final audited commit: `1fcdea25b60ce940efc306018dff45a8de44da2c`
 
 ## Hotfix result
 
@@ -15,7 +16,7 @@
 | `README.md` | Current citation-release link updated; the separate Level-C v1.2.0 bootstrap reference is retained. | PASS |
 | `docs/FINAL_MSA_DTI_SYNC_AUDIT.md` | Canonical target-side mapping corrected to `main_evaluation/pipeline.py` and `main_evaluation_cfg.py`; historical/general-purpose components are explicitly non-canonical. | PASS |
 | `docs/FINAL_MSA_DTI_CONSISTENCY_REPORT.md` | Formal audit report added. | PASS |
-| `paper/manuscript.tex`, `paper/manuscript.pdf` | Data Availability release reference updated to the already-published v1.2.1; no scientific source, result, or protocol changed. | PASS |
+| `paper/manuscript.tex`, `paper/manuscript.pdf` | Data Availability release reference synchronized to v1.2.2; no scientific source, result, or protocol changed. | PASS |
 
 ## Manuscript and supplementary consistency
 
@@ -26,7 +27,7 @@
 | Target protocol | SGD, MSE, 50 updates, LR 0.01, common support budget, no candidate-specific early stopping | PASS |
 | Selection and isolation | Fixed reference, tau=0.10, fallback/UnsupportedLimit, disjoint pools, post-freeze test use | PASS |
 | Baseline and Alibaba wording | PT+FT, MeDeT-based, few-/zero-shot NAS, H-Meta-NAS-based, non-redistribution statement | PASS |
-| Data Availability | Current v1.2.1 release link and official Alibaba source | PASS |
+| Data Availability | Current v1.2.2 release link and official Alibaba source | PASS |
 
 ## Canonical code/config mapping
 
@@ -48,7 +49,7 @@
 - Tables map from released CSV data through `reporting/` and `paper/tables/`; display-only rounding is consistent: PASS.
 - Fig. 1--5 are checksum-bound assets; Fig. 6--12 use `reporting/final_figures.py` and released CSV data: PASS.
 - Fig. 6 text layer: `RB-DTI = 0`, `RCF-DTI = 0`, `MSA-DTI present = YES`: PASS.
-- Main PDF: `RB-DTI = 0`, `RCF-DTI = 0`, `MSA-DTI > 0`, `v1.2.1 = 1`: PASS.
+- Main PDF: `WMSE = 0`, `RB-DTI = 0`, `RCF-DTI = 0`, `MSA-DTI > 0`, `v1.2.2 > 0`: PASS.
 - Supplementary PDF: `RB-DTI = 0`, `RCF-DTI = 0`, `MSA-DTI > 0`: PASS.
 
 ## Repository completeness and release parity
@@ -59,18 +60,17 @@
 - Restricted files excluded: Alibaba raw/processed data and model checkpoints.
 - Local-only ignored files: environments, caches, LaTeX intermediates, and run outputs.
 - Public unexplained `RCF-DTI`: 0; public unexplained `RB-DTI`: 0. Historical identifiers are documented only in provenance/legacy context.
+- `origin/main` and `v1.2.2` resolve to the same audited commit: `1fcdea25b60ce940efc306018dff45a8de44da2c`.
 
 ## Tests
 
 | Check | Result |
 | --- | --- |
 | `python scripts/verify_repository.py` | PASS_PUBLIC_REPOSITORY_VERIFICATION |
-| `python -m pytest` | PASS |
+| `python -m pytest` | PASS - 13 passed |
 | `python scripts/run_smoke_test.py` | PASS_CPU_SMOKE_TEST |
-| `python scripts/generate_paper_outputs.py` | FAIL: `paper/tables/table1_configuration.tex` uses `WMSE` while the current manuscript source requires `MSE`. |
+| `python scripts/generate_paper_outputs.py` | PASS_FROZEN_TABLES_AND_FIGURES / PASS_PAPER_OUTPUT_VALIDATION |
 | PDF/public terminology audit | PASS |
-
-## Remaining issues
 
 ## Resolved final issue
 
@@ -90,11 +90,20 @@ Other files under `paper/tables/` are not referenced by the current manuscript
 and are retained as historical/public reproducibility assets. Supplementary
 tables are defined inline in `paper/supplementary.tex` and audited separately.
 
-The canonical generator now derives its formal table set from the current
-manuscript structure rather than the historical Table 1--5 assumption.
+The canonical generator is now aligned with the current manuscript's two
+formal external tables rather than the historical Table 1--5 assumption.
+
+## Remaining issues
 
 None.
+
+## Final verdict
 
 **FINAL REPOSITORY CONSISTENCY = PASS**
 
 **FINAL SUBMISSION PACKAGE CONSISTENCY = PASS**
+
+The final manuscript, supplementary material, canonical implementation,
+frozen results, current formal tables, figures, PDFs, GitHub main branch, and
+Release v1.2.2 are mutually consistent. No scientific result or protocol was
+changed by the final synchronization.
