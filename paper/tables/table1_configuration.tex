@@ -1,57 +1,55 @@
 \begin{center}
 \begin{minipage}{\linewidth}
-\captionof{table}{Experimental configuration.}
+\captionof{table}{Main experimental configuration.}
 \label{tab:configuration}
 \centering
 \scriptsize
-\renewcommand{\arraystretch}{1.07}
-\setlength{\tabcolsep}{2.8pt}
-\begin{tabularx}{\linewidth}{Z{0.17\linewidth} Y Z{0.45\linewidth}}
+\renewcommand{\arraystretch}{1.05}
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabularx}{\linewidth}{Z{0.18\linewidth} Y Z{0.43\linewidth}}
 \toprule
 Category & Item & Setting \\
 \midrule
-Data & Source / held-out target centers & 20 / 20 \\
-& Observations per center; input length & 3000; $L=96$ \\
-& Main paired cases & 80 \\
+Data
+& Centers; observations; input length
+& Source / held-out: $20/20$; 3000 per center; $L=96$ \\
+& Target cases and data
+& 80 cases; $H\in\{1,4\}$; $K\in\{10,20\}$;
+validation / check / test: $80/60/200$ \\
 \midrule
-Target & Horizons; support sizes
-& $H\in\{1,4\}$; $K\in\{10,20\}$ \\
-& Validation / check / test windows & 80 / 60 / 200 \\
+Bank
+& Initial / retained / executable / candidates
+& $66/6/5/7$ \\
+& Reference and screening
+& A57: one-layer GRU-32, fixed before screening and shared with PT+FT;
+alternative kept after wins in at least two screening cases \\
+& Source-model records
+& Reference pooled-source initialization; five common alternative
+initializations; one additional A57 paired control (Supplementary S2) \\
 \midrule
-Model & Full architecture space; retained architectures
-& 66 indexed configurations; six retained configurations; five executable architectures \\
-& Candidate models
-& 7 before filtering \\
-& Feasible candidates
-& 4--7 after filtering; mean 6.25 \\
-& Reference architecture
-& One-layer GRU; 32 hidden units; dropout 0.1 \\
-& Reference initialization
-& Pretrained on pooled source-center data \\
+Training
+& Source models
+& Adam / MSE / 50 epochs; learning rate $10^{-3}$; batch size 64 \\
+& Target adaptation
+& SGD / MSE / 50 updates; learning rate 0.01; gradient limit 1.0;
+complete support set \\
 \midrule
-Adaptation & Optimizer / loss / update budget
-& SGD / MSE / 50 steps \\
-& Learning rate / gradient clipping
-& 0.01 / 1.0 \\
+Selection
+& Grid and eligibility
+& $\{0.05,0.075,0.10,0.125,0.15,0.20\}$;
+harmful rate $\leq5\%$; both mean gains $\geq3\%$;
+both lower 95\% bounds $>0$ \\
+& Frozen margin
+& $\tau=0.10$ \\
 \midrule
-Selection & Selection rule
-& Select an alternative candidate only when its validation MSE is at least
-10\% lower than that of the reference candidate \\
-& Threshold calibration
-& Disjoint development centers; development check sets only \\
+Limits
+& Tight / medium / loose
+& Operations: $1.5{\times}10^6/5{\times}10^6/2{\times}10^7$;
+parameters: $3{\times}10^4/10^5/5{\times}10^5$ \\
 \midrule
-Model complexity limits
-& Tight: estimated operation count; parameter count
-& $1.5\times 10^{6}$ / $3\times 10^{4}$ \\
-& Medium: estimated operation count; parameter count
-& $5\times 10^{6}$ / $10^{5}$ \\
-& Loose: estimated operation count; parameter count
-& $2\times 10^{7}$ / $5\times 10^{5}$ \\
-\midrule
-Statistics & Confidence interval
-& Center-cluster bootstrap; 4000 repeats \\
-Protocol & Test usage
-& Opened only after the architecture and parameters are fixed \\
+Statistics
+& Confidence intervals
+& Center-cluster bootstrap; 4000 repetitions \\
 \bottomrule
 \end{tabularx}
 \end{minipage}

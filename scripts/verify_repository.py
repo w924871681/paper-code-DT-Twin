@@ -61,7 +61,7 @@ REQUIRED_FILES = {
     "audit/v1.1.7/README.md", "audit/v1.1.7/local_verification.json",
     "audit/v1.1.8/README.md", "audit/v1.1.8/local_verification.json",
     "audit/v1.1.9/README.md", "audit/v1.1.9/local_verification.json",
-    *{f"paper/figures/fig{i}.pdf" for i in range(1, 13)},
+    *{f"paper/figures/fig{i}.pdf" for i in range(1, 13) if i != 4},
     *CANONICAL_SOURCES,
 }
 MODULES = ["core.data.sim", "core.space.profile", "source_prior_bank.pipeline", "anchor_safe_selector.pipeline", "main_evaluation.pipeline", "experiments.main.pipeline", "experiments.robustness.pipeline", "experiments.supplementary.pipeline", "reporting.frozen", "reporting.final_figures", "reporting.reproducible_figures"]

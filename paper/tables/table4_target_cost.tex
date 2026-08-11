@@ -1,34 +1,45 @@
 \begin{center}
 \begin{minipage}{\linewidth}
-\captionof{table}{
-Target-side instantiation time, parameter count, and estimated operation
-count. Runtime is reported as mean $\pm$ standard deviation across five GPU-synchronized repeats.
-}
-\label{tab:runtime_complexity}
+\captionof{table}{Target-side cost and selected-model complexity.}
+\label{tab:target-cost}
 \centering
 \scriptsize
-\renewcommand{\arraystretch}{1.08}
-\setlength{\tabcolsep}{3.0pt}
-\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lcccc@{}}
+\renewcommand{\arraystretch}{1.07}
+\setlength{\tabcolsep}{2.8pt}
+\begin{tabularx}{\linewidth}
+{Y Z{0.20\linewidth} Z{0.16\linewidth} Z{0.17\linewidth} Z{0.19\linewidth}}
 \toprule
 Method
-& Time (s)$\downarrow$
+& Time per case (s)
 & Adapted models
-& \shortstack{Parameter\\count$\downarrow$}
-& \shortstack{Estimated operation\\count$\downarrow$} \\
+& Parameters
+& Estimated operations \\
 \midrule
-PT+FT & 0.204 $\pm$ 0.004 & 1.00 & 5,746 & 1,050,784 \\
-MeDeT-based adaptation & 0.204 $\pm$ 0.004 & 1.00 & 5,746 & 1,050,784 \\
-Random initialization & 0.198 $\pm$ 0.009 & 1.00 & 5,746 & 1,050,784 \\
-Few-shot NAS & 13.471 $\pm$ 0.173 & 12.00 & 30,995 & 1,468,894 \\
-Zero-shot NAS & 0.972 $\pm$ 0.010 & 0.00 & 86,485 & 481,058 \\
-Zero-shot NAS + fine-tuning & 17.601 $\pm$ 0.150 & 12.00 & 62,076 & 1,571,621 \\
-\textbf{Proposed method} & 5.676 $\pm$ 0.059 & 6.25 & 14,892 & 751,433 \\
+PT+FT
+& $0.204\pm0.004$
+& 1.00
+& 5{,}746
+& 1{,}050{,}784 \\
+Few-shot NAS
+& $13.471\pm0.173$
+& 12.00
+& 30{,}995
+& 1{,}468{,}894 \\
+Zero-shot NAS + fine-tuning
+& $17.601\pm0.150$
+& 12.00
+& 62{,}076
+& 1{,}571{,}621 \\
+\textbf{MSA-DTI}
+& $\mathbf{5.676\pm0.059}$
+& \textbf{6.25}
+& \textbf{14{,}892}
+& \textbf{751{,}433} \\
 \bottomrule
-\end{tabular*}
+\end{tabularx}
 \vspace{2pt}
-\footnotesize
-Time covers target-side instantiation only. It excludes data construction,
-check and test evaluation, and source training.
+\par\footnotesize
+Time is mean $\pm$ standard deviation over five runs. Complexity values are
+averaged over the final models selected in the held-out cases.
 \end{minipage}
 \end{center}
