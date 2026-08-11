@@ -183,7 +183,7 @@ def check_numbers() -> list[str]:
     retained = next((row for row in _csv(ROOT / "results/robustness/architecture_coverage.csv") if row["Dataset"]=="C33Locked980-999" and row["ArchIdx"]=="57"), None)
     if not retained or int(retained["SelectedCount"])!=33 or int(retained["SelectedBeneficialCount"])!=0 or int(retained["SelectedHarmfulCount"])!=0: errors.append("retained references are not neutral")
     paper = paper_table_rows(ROOT)
-    if tuple(paper) != PAPER_TABLE_NAMES or len(paper["table4_matched_control"]) != 6: errors.append("exact revised-paper table set or order is incomplete")
+    if tuple(paper) != PAPER_TABLE_NAMES: errors.append("current manuscript-referenced formal table set is incomplete")
     fig6 = _csv(ROOT / "results/figure_data/fig6_paired_instantiation_data.csv")
     fig6_counts = {name: sum(row["selection_category"] == name for row in fig6) for name in ("beneficial alternative", "reference retained", "harmful alternative")}
     paired_gain = 100 * sum(
@@ -384,10 +384,10 @@ def check_version_metadata() -> list[str]:
             encoding="utf-8"
         )
     )
-    if 'version = "1.2.1"' not in pyproject:
-        errors.append("pyproject version is not 1.2.1")
-    if not re.search(r"(?m)^version:\s*1\.2\.1\s*$", citation):
-        errors.append("CITATION.cff version is not 1.2.1")
+    if 'version = "1.2.2"' not in pyproject:
+        errors.append("pyproject version is not 1.2.2")
+    if not re.search(r"(?m)^version:\s*1\.2\.2\s*$", citation):
+        errors.append("CITATION.cff version is not 1.2.2")
     if fixed_manifest.get("paper_version") != "v1.2.0":
         errors.append("fixed-figure manifest must preserve v1.2.0 provenance")
     if "cp -r paper/tables figure-code-package/paper/" not in workflow:

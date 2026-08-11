@@ -16,7 +16,7 @@ def test_exact_paper_table_set() -> None:
     tables = paper_table_rows(ROOT)
     assert set(tables) == set(PAPER_TABLE_NAMES)
     assert tuple(tables) == PAPER_TABLE_NAMES
-    assert len(tables["table4_matched_control"]) == 6
+    assert tuple(tables) == ("table1_configuration", "table4_target_cost")
 
 
 def test_runtime_value() -> None:

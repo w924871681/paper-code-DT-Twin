@@ -72,8 +72,29 @@
 
 ## Remaining issues
 
-`paper/tables/table1_configuration.tex` is rejected by the canonical paper-output reconstruction because it uses `WMSE`, while the final manuscript source uses `MSE`. This may be a frozen scientific terminology/value mapping issue. It was not modified because this hotfix permits only README and canonical-implementation documentation changes. Manual review must decide whether the table or manuscript terminology is authoritative before a new Release is created.
+## Resolved final issue
 
-**FINAL REPOSITORY CONSISTENCY = FAIL**
+The prior audit failed because Table 1 retained the historical public label
+`WMSE`, while the manuscript and canonical generator use `MSE`. The tracked
+Table 1 label was changed to `MSE`; no value or scientific protocol changed.
+The complete reconstruction and validation suite were rerun successfully.
 
-**FINAL SUBMISSION PACKAGE CONSISTENCY = MANUAL REVIEW REQUIRED**
+## Current formal table set
+
+Current main-manuscript external formal tables: 2.
+
+1. `paper/tables/table1_configuration.tex`, rendered as Table 1.
+2. `paper/tables/table4_target_cost.tex`, rendered as Table 2.
+
+Other files under `paper/tables/` are not referenced by the current manuscript
+and are retained as historical/public reproducibility assets. Supplementary
+tables are defined inline in `paper/supplementary.tex` and audited separately.
+
+The canonical generator now derives its formal table set from the current
+manuscript structure rather than the historical Table 1--5 assumption.
+
+None.
+
+**FINAL REPOSITORY CONSISTENCY = PASS**
+
+**FINAL SUBMISSION PACKAGE CONSISTENCY = PASS**

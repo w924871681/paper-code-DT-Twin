@@ -151,7 +151,7 @@ processed evaluation values only.
 ## Citation and release integrity
 
 Use `CITATION.cff` and Release
-[`v1.2.1`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.1).
+[`v1.2.2`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.2).
 Every release asset is covered by `SHA256SUMS.txt`; the audit report records
 the Git commit, annotated tag target, release state, and asset hashes.
 Author and DOI metadata remain explicitly pending.

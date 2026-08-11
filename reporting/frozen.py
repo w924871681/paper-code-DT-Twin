@@ -56,30 +56,12 @@ PUBLIC_TABLE_NAMES = (
 
 PAPER_TABLE_NAMES = (
     "table1_configuration",
-    "table2_fairness",
-    "table3_overall",
-    "table4_matched_control",
-    "table5_ablation",
+    "table4_target_cost",
 )
 
 PAPER_TABLE_META: Mapping[str, tuple[str, str]] = {
     "table1_configuration": ("Experimental configuration.", "tab:configuration"),
-    "table2_fairness": (
-        "Compared methods and target-side protocols.",
-        "tab:fairness",
-    ),
-    "table3_overall": (
-        "Overall predictive performance on the held-out target cases.",
-        "tab:overall",
-    ),
-    "table4_matched_control": (
-        "Optimizer-matched comparison on a separate diagnostic target pool.",
-        "tab:matched_control",
-    ),
-    "table5_ablation": (
-        "Ablation results on the independent diagnostic target pool.",
-        "tab:ablation",
-    ),
+    "table4_target_cost": ("Target-side cost and selected-model complexity.", "tab:target-cost"),
 }
 
 REVISED_FIGURES: Mapping[str, tuple[float, float]] = OrderedDict(
@@ -679,10 +661,7 @@ def paper_table_rows(project_root: str | Path) -> OrderedDict[str, list[dict[str
     return OrderedDict(
         (
             ("table1_configuration", public["table1_experimental_configuration"]),
-            ("table2_fairness", public["table2_baseline_fairness"]),
-            ("table3_overall", table3),
-            ("table4_matched_control", matched_control),
-            ("table5_ablation", ablation),
+            ("table4_target_cost", public["table5b_online_cost"]),
         )
     )
 
@@ -841,8 +820,8 @@ def validate_output(output_root: str | Path) -> dict[str, Any]:
     exact = sorted(path.stem for path in paper_csv.glob("*.csv"))
     exact_tex = sorted(path.stem for path in paper_tex.glob("*.tex"))
     if exact != sorted(PAPER_TABLE_NAMES) or exact_tex != sorted(PAPER_TABLE_NAMES):
-        errors.append("Exact current-paper Table 1--5 file set is incomplete")
-    checks["exact_current_paper_tables"] = {"expected_count": 5, "status": "PASS" if not errors else "FAIL"}
+        errors.append(f"Current manuscript-referenced formal table set is incomplete; expected={list(PAPER_TABLE_NAMES)}, found={exact}")
+    checks["exact_current_paper_tables"] = {"expected_count": len(PAPER_TABLE_NAMES), "status": "PASS" if not errors else "FAIL"}
     tracked_table_root = Path(__file__).resolve().parents[1] / "paper/tables"
     for stem in PAPER_TABLE_NAMES:
         generated_table = paper_tex / f"{stem}.tex"
@@ -851,7 +830,7 @@ def validate_output(output_root: str | Path) -> dict[str, Any]:
             if generated_table.read_bytes() != tracked_table.read_bytes():
                 raise ValueError("generated table does not match the tracked manuscript asset")
             table_text = generated_table.read_text(encoding="utf-8")
-            if stem in {"table1_configuration", "table3_overall", "table4_matched_control", "table5_ablation"}:
+            if stem == "table1_configuration":
                 if "WMSE" in table_text or "MSE" not in table_text:
                     raise ValueError("formal paper table does not use the manuscript MSE terminology")
             checks[stem] = {
@@ -942,6 +921,10 @@ def generate(project_root: str | Path, output_root: str | Path) -> dict[str, Any
     root = Path(project_root).resolve()
     out_arg = Path(output_root)
     out = (root / out_arg).resolve() if not out_arg.is_absolute() else out_arg.resolve()
+    # The output root is entirely generated; clear stale historical views so
+    # validation reflects the current manuscript-referenced artifact set.
+    if out.exists():
+        shutil.rmtree(out)
     out.mkdir(parents=True, exist_ok=True)
     source_sha = _validate_sources(root)
     public = public_table_rows(root)
@@ -951,6 +934,12 @@ def generate(project_root: str | Path, output_root: str | Path) -> dict[str, Any
         _write_csv(out / f"tables/csv/{name}.csv", rows)
         _write_csv(out / f"figure_data/{name}.csv", rows)
         _write_latex(out / f"tables/latex/{name}.tex", rows)
+    # Remove only generated current-manuscript table views before rebuilding;
+    # historical table assets under paper/tables/ are never touched.
+    for relative in ("tables/paper_csv", "tables/paper_latex"):
+        target = out / relative
+        if target.exists():
+            shutil.rmtree(target)
     for name, rows in paper.items():
         _write_csv(out / f"tables/paper_csv/{name}.csv", rows)
         source_table = root / f"paper/tables/{name}.tex"
