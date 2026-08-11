@@ -3,7 +3,7 @@
 
 This module deliberately does not import experiment runners or load model
 weights.  It converts the checksum-tracked CSV sources into the public table
-layer, the five exact current-manuscript tables, and the complete Fig. 1--12
+layer, the exact current-manuscript formal tables, and the complete Fig. 1--12
 set. Fig. 1--5 are checksum-bound fixed manuscript assets; Fig. 6--12 are
 reconstructed from released derived CSVs by the same plotting code exposed
 through the standalone public CLI.

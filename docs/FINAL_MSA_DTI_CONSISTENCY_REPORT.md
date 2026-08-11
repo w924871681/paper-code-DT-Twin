@@ -103,6 +103,32 @@ statement identify v1.2.2 as the current release. The separate Level-C
 bootstrap provenance remains at v1.2.0. No untracked reproducibility-required
 file was found, and no tracked scientific/reproducibility file was modified.
 
+## Final static-cleanup audit
+
+Two non-scientific static inconsistencies were removed after Release v1.2.2:
+
+1. The README current-release description was synchronized from the historical
+   v1.2.1 wording to the current archived Release v1.2.2.
+2. The `reporting/frozen.py` module docstring was updated from the obsolete
+   phrase "five exact current-manuscript tables" to the count-independent
+   phrase "exact current-manuscript formal tables".
+
+The second change is comment/docstring-only and does not alter executable
+behavior. No manuscript, supplementary material, configuration,
+implementation logic, result, table, figure, experiment, or scientific
+protocol changed.
+
+| Check | Final result |
+| --- | --- |
+| `python scripts/verify_repository.py` | PASS_PUBLIC_REPOSITORY_VERIFICATION (exit 0) |
+| `python -m pytest` | PASS -- 13 passed (exit 0) |
+| `python scripts/run_smoke_test.py` | PASS_CPU_SMOKE_TEST (exit 0) |
+| `python scripts/generate_paper_outputs.py` | PASS_FROZEN_TABLES_AND_FIGURES / PASS_PAPER_OUTPUT_VALIDATION (exit 0) |
+| README current-release wording | PASS — v1.2.2 |
+| `reporting/frozen.py` current-table docstring | PASS — count-independent wording |
+| Executable diff after v1.2.2 cleanup | PASS — none; `reporting/frozen.py` is docstring-only |
+| Scientific/reproducibility diff | PASS — none |
+
 ## Resolved final issue
 
 The prior audit failed because Table 1 retained the historical public label
@@ -139,20 +165,20 @@ frozen results, current formal tables, figures, PDFs, and Release v1.2.2 are
 mutually consistent at the frozen scientific/reproducibility commit.
 
 The current GitHub `main` branch remains scientifically and reproducibly
-consistent with Release v1.2.2 and contains only post-release
-documentation-only audit-report cleanup commits. No scientific result or
-protocol changed after the v1.2.2 release commit.
+consistent with Release v1.2.2 and contains only post-release documentation
+and comment-only cleanup commits. No scientific result or protocol changed
+after the v1.2.2 release commit.
 
-The commit containing this final report is a second post-release,
-documentation-only audit-report commit. Consequently, after it is pushed,
-`main` is two commits ahead of `v1.2.2`, and the complete
-`v1.2.2..main` file list remains only
-`docs/FINAL_MSA_DTI_CONSISTENCY_REPORT.md`. The exact commit identifier is
-obtained from Git after the push rather than pre-stated in the content of the
-commit itself.
+The final static-cleanup commit is documentation/comment-only. Its exact
+identifier, the resulting ahead count, and the complete post-release file
+list are obtained from Git after push rather than pre-stated in the content
+of the commit itself.
 
 **REPOSITORY / REPRODUCIBILITY WORKSTREAM = FROZEN**
 
-Release v1.2.2 remains the frozen scientific/reproducibility release. The
-current `main` branch contains only post-release documentation-only audit
-report commits and no post-release scientific or reproducibility change.
+Release v1.2.2 remains the frozen scientific/reproducibility release.
+
+The current `main` branch contains only post-release documentation and
+comment-only cleanup commits. These changes do not alter executable behavior,
+the manuscript's scientific content, configurations, experimental results,
+tables, figures, or reproducibility protocol.
