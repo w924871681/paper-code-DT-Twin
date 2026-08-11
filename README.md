@@ -3,9 +3,10 @@
 This repository is the reproducibility archive for **A Model Selection and
 Adaptation Method for Few-Shot Digital Twin Instantiation under Deployment
 Limits**. The public method name is **MSA-DTI** (Model Selection and
-Adaptation for Digital Twin Instantiation). Release `v1.2.1` synchronizes the
-final manuscript and supplementary package, plot-ready data, frozen
-protocols, audit evidence, and public reproduction commands.
+Adaptation for Digital Twin Instantiation). Release `v1.2.2` is the current
+archived consistency release for the final manuscript and supplementary
+package, plot-ready data, frozen protocols, audit evidence, and public
+reproduction commands.
 
 ## What is frozen
 
