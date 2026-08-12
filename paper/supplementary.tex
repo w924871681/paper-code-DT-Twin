@@ -55,7 +55,7 @@
 }
 
 \title{\textbf{Supplementary Material for}\\
-A Model Selection and Adaptation Method for Few-Shot Digital Twin
+Joint Model Selection and Adaptation for Few-Shot Digital Twin
 Instantiation under Deployment Limits}
 \author{}
 \date{}
@@ -407,9 +407,7 @@ all-case harmful-selection rates are 15.00\% and 17.50\%, respectively.
 
 
 \paperfig{0.82\linewidth}{fig9.pdf}
-{Selection outcomes on the independent diagnostic pool. Each bar divides
-all 80 cases into beneficial alternative selections, harmful alternative
-selections, and cases in which the reference is retained.}
+{Selection outcomes on the 80-case diagnostic pool.}
 {fig:supp-selection-diagnostic}
 
 The relative-margin rule retains the reference more often. The confidence
@@ -502,9 +500,8 @@ the main deployment-limit tiers, or the headline experimental results.
 \subsection{Selected-architecture analysis}
 
 \paperfig{0.78\linewidth}{fig10.pdf}
-{Complexity and performance of the selected model configurations.
-Marker area represents the number of selected cases, and $h$ denotes the
-number of harmful selections.}
+{Selected-configuration complexity and performance. Marker area shows the
+number of selected cases, and $h$ denotes harmful selections.}
 {fig:supp-architecture-tradeoff}
 
 The reference configuration is retained in 33 cases. Four alternative
@@ -539,14 +536,12 @@ calibration criteria.
 \subsection{Source-center scale and source-training seeds}
 
 \paperfig{0.98\linewidth}{fig12.pdf}
-{Sensitivity to source conditions and external workload data.
-(a) Paired MSE reduction relative to the matched reference at each
-source-center scale; shading shows 95\% confidence intervals.
-(b) Case-level reductions for three source-training seeds and the held-out
-Alibaba cases under the frozen $\tau=0.10$ rule. One Alibaba case below
-$-25\%$ is clipped only for display; all original values are retained in
-the analysis.}
+{Sensitivity to source-center scale, source-training seeds, and Alibaba
+v2018 transfer.}
 {fig:supp-source-sensitivity}
+
+One Alibaba case below $-25\%$ is clipped in Fig.~\ref{fig:supp-source-sensitivity}
+only for visualization; all original values are retained in the analysis.
 
 The mean paired MSE reductions at source-center scales 10, 20, 30, 40, and
 50 are 6.46\%, 4.92\%, 3.78\%, 3.41\%, and 4.14\%, respectively. The mean

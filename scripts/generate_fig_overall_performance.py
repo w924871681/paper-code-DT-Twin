@@ -106,8 +106,8 @@ def main() -> None:
     )
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    fig.savefig(OUTPUT_DIR / "fig_overall_performance.pdf", format="pdf")
-    fig.savefig(OUTPUT_DIR / "fig_overall_performance.png", dpi=300)
+    fig.savefig(OUTPUT_DIR / "fig_overall_performance_ours.pdf", format="pdf")
+    fig.savefig(OUTPUT_DIR / "fig_overall_performance_ours.png", dpi=300)
 
 
 if __name__ == "__main__":

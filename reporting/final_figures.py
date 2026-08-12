@@ -285,13 +285,18 @@ def plot_fig8(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     return _save(fig, output_dir, "fig8", tight=True)
 
 
-def plot_fig9(data_dir: Path, output_dir: Path) -> dict[str, Any]:
+def plot_fig9(
+    data_dir: Path,
+    output_dir: Path,
+    *,
+    output_stem: str = "fig9",
+) -> dict[str, Any]:
     bank = _read(data_dir / "fig9_bank_size_data.csv")
     steps = _read(data_dir / "fig9_adaptation_steps_data.csv")
     margin = _read(data_dir / "fig9_margin_data.csv")
     _style()
     fig = plt.figure(figsize=CANVAS_SIZES["fig9"])
-    outer = fig.add_gridspec(1, 3, width_ratios=(1.0, 1.10, 1.0), left=0.070, right=0.965, top=0.83, bottom=0.26, wspace=0.48)
+    outer = fig.add_gridspec(1, 3, width_ratios=(1.0, 1.10, 1.0), left=0.070, right=0.965, top=0.83, bottom=0.26, wspace=0.64)
     ax_a = fig.add_subplot(outer[0, 0])
     ax_b1 = fig.add_subplot(outer[0, 1])
     ax_b2 = ax_b1.twinx()
@@ -303,7 +308,7 @@ def plot_fig9(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     ax_a.axvspan(4, 6.15, color="#0072B2", alpha=0.08, lw=0)
     ax_a.annotate("Saturation after 4", xy=(4, y_a[3]), xytext=(3.1, 4.48), arrowprops={"arrowstyle": "->", "lw": 0.7}, fontsize=6.4)
     ax_a.set_xticks(x_a)
-    ax_a.set_xlabel("Retained architectures")
+    ax_a.set_xlabel("Retained configurations")
     ax_a.set_ylabel(r"Diagnostic MSE ($\times 10^{-3}$)")
 
     x_b_values = np.asarray([float(row["adaptation_steps"]) for row in steps])
@@ -314,9 +319,9 @@ def plot_fig9(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     ax_b1.set_ylabel(r"Check MSE ($\times 10^{-3}$)", color="#0072B2")
     ax_b1.tick_params(axis="y", colors="#0072B2")
     line_agree = ax_b2.plot(x_b, y_b2, color="#D55E00", marker="s", markerfacecolor="white", label="Agreement")[0]
-    ax_b2.set_ylabel("Agreement with 50-update result (%)", color="#D55E00")
+    ax_b2.set_ylabel("Agreement with 50-update result (%)", color="#D55E00", labelpad=0)
     ax_b2.tick_params(axis="y", colors="#D55E00")
-    ax_b1.set_xlabel("Target updates")
+    ax_b1.set_xlabel("Adaptation steps")
     ax_b1.set_xticks(x_b, [f"{value:g}" for value in x_b_values])
     ax_b2.set_ylim(45, 104)
     ax_b1.legend([line_mse, line_agree], ["Check MSE", "Selection agreement"], frameon=False, loc="upper center", bbox_to_anchor=(0.5, 1.25), ncol=1)
@@ -340,10 +345,10 @@ def plot_fig9(data_dir: Path, output_dir: Path) -> dict[str, Any]:
         ax.grid(axis="y", color="#E1E1E1", lw=0.45, ls=(0, (2, 2)))
         ax.spines[["top", "right"]].set_visible(False)
     ax_b2.spines["top"].set_visible(False)
-    fig.text(0.190, 0.035, "(a) Retained architectures", ha="center")
-    fig.text(0.515, 0.035, "(b) Fixed 50-update budget", ha="center")
+    fig.text(0.190, 0.035, "(a) Retained configuration count", ha="center")
+    fig.text(0.515, 0.035, "(b) Target update budget", ha="center")
     fig.text(0.835, 0.035, "(c) Threshold calibration", ha="center")
-    return _save(fig, output_dir, "fig9", tight=True)
+    return _save(fig, output_dir, output_stem, tight=True)
 
 
 def plot_fig7(data_dir: Path, output_dir: Path) -> dict[str, Any]:
@@ -685,4 +690,3 @@ __all__ = [
     "plot_fig11",
     "plot_fig12",
 ]
-
