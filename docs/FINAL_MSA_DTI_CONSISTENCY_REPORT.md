@@ -59,9 +59,11 @@ experimental results, tables, figures, or the reproducibility protocol.
 The current main-manuscript external formal tables are:
 
 1. `paper/tables/table1_configuration.tex`, rendered as Table 1.
-2. `paper/tables/table4_target_cost.tex`, rendered as Table 2.
+2. `paper/tables/table4_target_cost.tex`, rendered as Table 3.
 
-`PAPER_TABLE_NAMES` contains precisely these two tables. Table 1 uses MSE
+`PAPER_TABLE_NAMES` contains precisely these two externally reconstructed
+tables. The optimizer-matched diagnostic is defined inline as Table 2 from
+the same frozen data reported in Supplementary Table S2. Table 1 uses MSE
 (with no WMSE), SGD/MSE/50, LR 0.01, the 10% rule, and the 66/6/5/7 candidate
 description. Table 2 records MSA-DTI runtime `5.676 +/- 0.059` s and 6.25
 adapted models. Other files under `paper/tables/` are historical/public

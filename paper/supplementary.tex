@@ -55,8 +55,8 @@
 }
 
 \title{\textbf{Supplementary Material for}\\
-Joint Model Selection and Adaptation for Few-Shot Digital Twin
-Instantiation under Deployment Limits}
+Joint Model Selection and Adaptation for Few-Shot Predictive-Model
+Instantiation in Digital Twin Platforms under Deployment Limits}
 \author{}
 \date{}
 
@@ -178,8 +178,11 @@ The candidate bank and reference candidate are fixed when the margin grid is
 evaluated.
 
 If no margin is eligible in a new domain, no domain-specific calibrated
-margin is claimed. A previously frozen margin can still be evaluated
-without recalibration and is reported as a transfer setting. The released
+margin is claimed. In calibrated deployment, the adapted reference is
+retained and the domain is marked as unsupported for margin calibration.
+A previously frozen margin can still be evaluated without recalibration as
+a transfer audit, but it is not treated as a calibrated deployment rule for
+the new domain. The released
 calibration CSV contains the complete six-margin grid, harmful-selection
 rates, mean gains, and confidence bounds.
 
@@ -309,8 +312,12 @@ Before adaptation and output \\
 \footnotesize
 PT+FT and MSA-DTI use the same source-trained reference and target
 adaptation procedure. H-Meta-NAS-based adaptation uses the 50-update
-budget-matched condition in the main comparison. All methods use the same
-target cases, deployment limits, and architecture definitions.
+budget-matched condition in the main comparison. It uses the same 66
+architecture definitions, filters infeasible architectures before search,
+uses source-only first-order meta-initializations, and selects the final
+architecture using target validation data. Its settings are fixed without
+held-out test data. All methods use the same target cases, deployment
+limits, and architecture definitions.
 \end{suppTableBlock}
 
 \subsection{Optimizer-matched diagnostic comparison}
@@ -434,19 +441,55 @@ $H\in\{1,4\}$. Each setting uses 100 warm-up inferences followed by five
 repetitions of 1000 timed inferences. CUDA execution is synchronized before
 and after each timed region. Median latency is the primary latency measure,
 and the 95th percentile describes measurement variability. Serialized
-parameter-file size is used as the measured model size.
+parameter-file size is used as the measured model size. Peak allocated GPU
+memory is also recorded for each architecture--horizon pair.
+
+\begin{suppTableBlock}{Per-architecture batch-one hardware profile.}{tab:supp-hardware-profile}
+\scriptsize
+\renewcommand{\arraystretch}{1.05}
+\setlength{\tabcolsep}{2.0pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+Configuration & $H$ & Operations & Parameters & CPU (ms) & GPU (ms) &
+State (KiB) & GPU peak (KiB) \\
+\midrule
+A1  & 1 & 155{,}712   & 77{,}921 & 0.097 & 0.148 & 306.5 & 1024 \\
+A1  & 4 & 155{,}904   & 78{,}020 & 0.094 & 0.133 & 306.9 & 1024 \\
+A6  & 1 & 157{,}760   & 78{,}977 & 0.093 & 0.168 & 311.0 & 1024 \\
+A6  & 4 & 157{,}952   & 79{,}076 & 0.099 & 0.151 & 311.4 & 1024 \\
+A13 & 1 & 159{,}808   & 80{,}033 & 0.128 & 0.237 & 315.5 & 1024 \\
+A13 & 4 & 160{,}000   & 80{,}132 & 0.128 & 0.218 & 315.9 & 1024 \\
+A55 & 1 & 377{,}888   & 2{,}081  & 1.793 & 3.999 & 10.3  & 54 \\
+A55 & 4 & 377{,}984   & 2{,}132  & 1.793 & 4.004 & 10.4  & 1030 \\
+A56/A57 & 1 & 1{,}050{,}688 & 5{,}697 & 1.980 & 4.019 & 24.4 & 60 \\
+A56/A57 & 4 & 1{,}050{,}880 & 5{,}796 & 1.975 & 4.170 & 24.8 & 1037 \\
+\bottomrule
+\end{tabular}}
+\vspace{0.15em}
+
+\footnotesize
+CPU and GPU values are median inference latency. A56 and A57 are the same
+executable one-layer GRU-32 architecture. GPU peak is the maximum allocated
+device memory recorded by the profiling protocol and is descriptive rather
+than a configured memory limit.
+\end{suppTableBlock}
 
 \subsection{Profiling results}
 
 Duplicate one-layer GRU-32 records are merged at the executable-architecture
 level. Across the CPU/GPU measurements and $H\in\{1,4\}$, the Spearman
 correlation between estimated operation count and median inference latency
-ranges from 0.899 to 0.986. The correlation between parameter count and
+ranges from 0.889 to 0.964. The correlation between parameter count and
 serialized parameter-file size is 1.000 in every measured setting.
 The MLP architectures use fewer estimated operations but more parameters
 than the GRU architectures. The two deployment indicators therefore
 describe different model properties, although this does not imply that both
 limits are active under every tested deployment setting.
+Peak GPU allocation is not monotonic in parameter count across the two
+horizons, so the parameter-count limit is interpreted as a model-size
+indicator rather than a direct device-memory limit. The measurements use
+one CPU/GPU host and are not a cross-platform deployment benchmark.
 
 \subsection{Single-limit feasible-space audit}
 
@@ -464,6 +507,9 @@ the joint feasible set contains four candidates under the tight setting and
 seven under the medium and loose settings. The fixed reference candidate
 satisfies both limits in all six horizon--tier combinations.
 
+\clearpage
+\null
+\vspace{-1.5em}
 \subsection{Expanded-bank dual-limit stress audit}
 
 The preceding audit shows that the operation-count limit is inactive for
@@ -551,6 +597,11 @@ Across source-training seeds 2904, 2905, and 2906, the mean paired MSE
 reductions are 10.52\%, 13.21\%, and 11.25\%. All three confidence
 intervals remain above zero, although some individual cases have zero or
 negative gains.
+The screened architecture list is held fixed in this study. The result
+therefore measures sensitivity to source-model training and initialization,
+not stability of the original 66-configuration screening decision under new
+screening-center samples. Repeating the complete screening and bank
+construction across independent screening pools remains additional work.
 
 \subsection{Alibaba external-domain transfer}
 

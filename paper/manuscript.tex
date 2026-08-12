@@ -54,18 +54,18 @@
 
 \begin{document}
 
-\shorttitle{Few-Shot DT Instantiation under Deployment Limits}
+\shorttitle{Few-Shot DT Predictive-Model Instantiation}
 
-\title[mode=title]{Joint Model Selection and Adaptation for Few-Shot Digital Twin Instantiation under Deployment Limits}
+\title[mode=title]{Joint Model Selection and Adaptation for Few-Shot Predictive-Model Instantiation in Digital Twin Platforms under Deployment Limits}
 
 \begin{abstract}
-Digital twin (DT) platforms for computing networks can reuse pretrained models from existing centers to reduce the computation required for DT instantiation. However, a new or reconfigured center may exhibit substantial differences in resource configurations and workload characteristics, making a fixed architecture suboptimal for the target environment. At the target center, only a small support set is available for parameter
+Digital twin (DT) platforms for computing networks can reuse pretrained predictive models from existing centers to reduce the computation required for center-specific model instantiation. In this paper, instantiation refers to the predictive-model component of a DT rather than the complete DT lifecycle. However, a new or reconfigured center may exhibit substantial differences in resource configurations and workload characteristics, making a fixed architecture suboptimal for the target environment. At the target center, only a small support set is available for parameter
 adaptation and a small validation set for model selection.
-Accurate DT instantiation therefore requires selecting a suitable
+Accurate predictive-model instantiation therefore requires selecting a suitable
 architecture and adapting its parameters from such limited target data
 while ensuring that the selected model satisfies deployment limits. Existing few-shot methods typically adapt parameters within predefined architectures and rarely account for deployment limits, limiting their effectiveness in heterogeneous computing environments.
 To address this challenge, we propose Model Selection and Adaptation for
-Digital Twin Instantiation (MSA-DTI), a few-shot DT instantiation framework
+Digital Twin Instantiation (MSA-DTI), a few-shot predictive-model instantiation framework
 that jointly selects a target-specific architecture and adapts its parameters
 under deployment limits. MSA-DTI first constructs a candidate model bank by pretraining diverse
 architectures on historical workload data, filters out infeasible candidates
@@ -91,7 +91,7 @@ digital twin
 \section{Introduction}
 \label{sec:introduction}
 
-A shared digital twin (DT) platform maintains center-specific DT models for monitoring, prediction, analysis, and decision making \cite{ref1,ref2,ref3}. To reduce the computation required for DT instantiation, the platform can reuse models pretrained on existing centers. However, a new or reconfigured center may differ substantially from existing centers in resource configurations, monitored-variable availability, workload patterns, and data distributions, making a fixed pretrained architecture suboptimal for the target environment. Concurrent model maintenance also creates computation and storage pressure, so the platform sets two per-model deployment limits: estimated operation count per inference and parameter count. The operation count describes model-side inference computation, while the parameter count describes model size. In this setting, the target center has only limited historical observations,
+A shared digital twin (DT) platform maintains center-specific predictive models for monitoring, prediction, analysis, and decision making \cite{ref1,ref2,ref3}. These models transform synchronized monitoring histories into workload forecasts that can support resource-management decisions. The present work addresses this predictive-model component; sensing, state synchronization, simulation, and actuation remain services of the surrounding DT platform. To reduce the computation required for model instantiation, the platform can reuse models pretrained on existing centers. However, a new or reconfigured center may differ substantially from existing centers in resource configurations, monitored-variable availability, workload patterns, and data distributions, making a fixed pretrained architecture suboptimal for the target environment. Concurrent model maintenance also creates computation and storage pressure, so the platform sets two per-model deployment limits: estimated operation count per inference and parameter count. The operation count describes model-side inference computation, while the parameter count describes model size. In this setting, the target center has only limited historical observations,
 available as a small support set for parameter adaptation and a small
 validation set for model selection.
 The limited support set defines the few-shot target-adaptation setting
@@ -138,8 +138,17 @@ criterion.
 This design enables target-specific architecture selection without
 target-side architecture search and prevents replacement based only on
 marginal validation-loss reductions.
-The selected architecture and adapted parameters form the target DT model
-instance.
+The selected architecture and adapted parameters form the predictive-model
+instance used by the target center's DT.
+
+The target optimization object is a finite set of
+architecture--initialization pairs after common target adaptation. This
+differs from ordinary model-bank selection, which scores frozen bank entries,
+and from PT+FT, which adapts only one fixed reference architecture. It also
+differs from NAS and meta-NAS, which search or adapt an architecture in the
+target stage. The relative margin is a separate final-selection rule: it
+does not construct the bank, change the target updates, or create the gain
+from cross-architecture adaptation.
 
 This work makes the following contributions.
 
@@ -244,7 +253,8 @@ dimension remains fixed after unavailable positions are masked.
 
 Let $\mathcal{A}$ denote a predefined architecture space. For
 $a\in\mathcal{A}$, let $f_{a,\theta}$ denote a model with parameter vector
-$\theta$. The digital twin model instance for center $c$ is
+$\theta$. The predictive-model component instantiated for the DT of center
+$c$ is
 
 \begin{equation}
 \mathrm{DT}_{c}
@@ -256,7 +266,9 @@ a_c,\theta_c
 \end{equation}
 
 where $a_c$ is the selected architecture and $\theta_c$ is its adapted
-parameter vector. Model instantiation must therefore determine both terms.
+parameter vector. We retain the notation $\mathrm{DT}_c$ as shorthand for
+this component; it does not represent the complete DT system. Model
+instantiation must therefore determine both terms.
 
 \subsection{Candidate Models and Deployment Limits}
 
@@ -578,6 +590,17 @@ final target evaluation.
 The exact margin grid and calibration criteria are reported in
 Section~\ref{subsec:experimental-setup} and Supplementary Section~S2.
 
+The 5\% harmful-rate requirement is an ex ante design tolerance chosen to
+limit erroneous alternative replacement during calibration. It is applied
+to the observed point estimate rather than as a distribution-free safety
+guarantee. Eligibility
+also requires both mean check-loss gains to reach 3\% and both lower 95\%
+confidence bounds to remain above zero. If no margin is eligible in a new
+domain, calibrated deployment returns the adapted reference and reports that
+domain-specific margin calibration is unsupported. A previously frozen
+margin may still be evaluated as a transfer audit, but that audit is not
+reported as calibrated reliability for the new domain.
+
 \subsection{Analytical Properties}
 
 \textbf{Deployment feasibility.}
@@ -693,7 +716,12 @@ with hardware-aware architecture adaptation.
 We implement it using architecture-indexed first-order meta-initializations
 learned from the source centers and validation-only target architecture
 search under the same hard deployment limits.
-The 50-update budget-matched condition is used in the main comparison.
+Its feasible search space uses the same 66 architecture definitions, its
+meta-initializations and search settings are fixed without held-out test
+data, and the final architecture is chosen using target validation data.
+The 50-update SGD/MSE budget-matched condition is used in the main
+comparison; target-side search and adaptation time are included in the
+reported protocol.
 
 All reported baselines use the same target cases, chronological splits,
 deployment limits, and architecture definitions.
@@ -723,14 +751,16 @@ MSA-DTI gives the lowest values for all four error measures. PT+FT is the
 strongest baseline. Under the 50-update budget-matched setting, the
 task-matched H-Meta-NAS-based adaptation obtains an MSE of 0.013747,
 compared with 0.005120 for PT+FT and 0.004219 for MSA-DTI.
-Relative to PT+FT, MSA-DTI reduces MAE by 8.55\%, MSE by 14.60\%, and Worst-10\% error by 13.76\% on average across paired cases.
+Relative to PT+FT, MSA-DTI reduces MAE by 8.55\%, MSE by 14.60\%, and Worst-10\% error by 13.76\% on average across paired cases. The center-cluster bootstrap 95\% confidence interval for the paired MSE reduction is $[9.41\%,20.14\%]$.
 
 Figure~\ref{fig:paired-instantiation} compares MSA-DTI with the adapted
 reference at the case level. MSA-DTI retains the reference in 33 cases and
 selects an alternative in 47 cases. Of these alternatives, 44 have lower
 test MSE and three have higher test MSE. Harmful selections therefore
 account for 3.75\% of all held-out cases. These test labels do not affect
-selection.
+selection. The center-cluster bootstrap 95\% confidence interval for the
+all-case harmful-selection rate is $[0.00\%,7.50\%]$; the interval therefore
+does not establish a population harmful rate below 5\%.
 
 \paperfig{0.78\linewidth}
 {fig6.pdf}
@@ -741,7 +771,42 @@ Because the native NAS baselines use different target optimizers and losses,
 we also run an optimizer-matched diagnostic comparison.
 All methods included in this diagnostic use SGD, MSE, and 50 target updates.
 MSA-DTI keeps the lowest MSE, Worst-10\% error, and CVaR90.
-Full results are given in Supplementary Table~S2.
+Table~\ref{tab:optimizer-matched} moves the central comparison into the main
+paper, and Supplementary Table~S2 gives the complete diagnostic.
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\captionof{table}{Optimizer-matched diagnostic comparison.}
+\label{tab:optimizer-matched}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.07}
+\setlength{\tabcolsep}{2.8pt}
+\begin{tabularx}{\linewidth}
+{Y Z{0.17\linewidth} Z{0.20\linewidth} Z{0.18\linewidth} Z{0.18\linewidth}}
+\toprule
+Method
+& MSE$\downarrow$
+& Worst-10\%$\downarrow$
+& CVaR90$\downarrow$
+& Adapted models \\
+\midrule
+PT+FT & 0.004497 & 0.017144 & 0.011878 & 1.00 \\
+Few-shot NAS & 0.006715 & 0.025246 & 0.019653 & 12.00 \\
+Zero-shot NAS + fine-tuning & 0.007402 & 0.028099 & 0.020402 & 12.00 \\
+\textbf{MSA-DTI} & \textbf{0.003809} & \textbf{0.015094} &
+\textbf{0.008696} & 6.10 \\
+\bottomrule
+\end{tabularx}
+\vspace{2pt}
+\par\footnotesize
+All methods use the same independent diagnostic cases, hard deployment
+limits, SGD optimizer, MSE loss, and 50 target updates per adapted model.
+The source initializations and candidate-selection rules remain
+method-specific. The complete six-method diagnostic is reported in
+Supplementary Table~S2.
+\end{minipage}
+\end{center}
 
 \subsection{Robustness across Target Conditions}
 \label{subsec:heterogeneity}
@@ -757,6 +822,14 @@ relative to PT+FT. Positive values favor MSA-DTI.
 The reduction ranges from 11.57\% to 18.03\% across the four horizon and
 support-size settings and from 13.03\% to 16.80\% across the three center
 types. All seven confidence intervals remain above zero.
+
+On a separate robustness pool, retraining the fixed candidate architectures
+with source-training seeds 2904, 2905, and 2906 gives paired MSE reductions
+of 10.52\%, 13.21\%, and 11.25\%, respectively. Their 95\% confidence
+intervals are $[3.93\%,18.17\%]$, $[7.62\%,18.89\%]$, and
+$[5.23\%,17.96\%]$. This analysis tests source-initialization sensitivity
+after the architecture list has been fixed; it does not repeat the
+66-configuration screening step under new screening pools.
 
 \subsection{Deployment Feasibility and Cost}
 \label{subsec:deployment}
@@ -796,8 +869,17 @@ MSA-DTI requires $5.676\pm0.059$ seconds per case and adapts 6.25 models on
 average. It is slower than PT+FT, but is $2.37\times$ faster than few-shot
 NAS and $3.10\times$ faster than zero-shot NAS with fine-tuning.
 
-Hardware profiling in Supplementary Section~S5 further shows that
-operation count and parameter count describe different model properties.
+Hardware profiling in Supplementary Section~S5 reports every executable
+architecture on an Intel Core i7-12700H CPU and an NVIDIA RTX 3060 Laptop
+GPU. Median batch-one latency ranges from 0.093 to 1.980 ms on the CPU and
+from 0.133 to 4.170 ms on the GPU. Serialized model size ranges from 10.3 to
+315.9 KiB, and measured peak GPU allocation ranges from 54 to 1037 KiB.
+Operation count is positively associated with median latency, whereas
+parameter count exactly orders serialized model size in the measured
+settings. Peak GPU allocation is not monotonic in parameter count. These
+measurements support the use of the two counts as distinct complexity
+indicators, but they do not convert either limit into a hardware latency or
+memory guarantee or establish cross-platform deployment performance.
 
 \subsection{Component Analysis}
 \label{subsec:component}
@@ -810,6 +892,13 @@ rate from 15.00\% to 17.50\% on the diagnostic pool, although the confidence
 intervals overlap.
 The latter result is therefore an observed difference rather than a
 statistically confirmed reduction in harmful selection.
+The reference-only and two-reference-initialization controls in
+Supplementary Section~S4 do not reproduce the cross-architecture gain.
+Conversely, removing the relative margin leaves the diagnostic MSE nearly
+unchanged while selecting alternatives more often. The main performance
+increment is therefore associated with adapting and selecting across the
+compact architecture bank; the margin is a conservative replacement rule,
+not the sole source of the accuracy gain.
 Full component and selection results are reported in Supplementary
 Section~S4.
 
@@ -829,14 +918,17 @@ $[2.03\%,6.70\%]$.
 The harmful-selection rate is 6.25\%, which exceeds the original 5\%
 criterion.
 The result therefore shows a positive average transfer gain but does not
-reproduce the original reliability criterion.
+reproduce the original reliability criterion. Under the calibrated
+deployment policy defined in Section~\ref{sec:method}, this outcome retains
+the adapted reference rather than treating the frozen margin as certified
+for Alibaba; the reported frozen-margin result is a transfer audit.
 The full transfer protocol and results are given in Supplementary
 Section~S7.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper presented MSA-DTI for few-shot DT model instantiation subject to two per-model deployment limits. MSA-DTI filters a source-trained candidate bank, adapts feasible candidates with a common target budget, and applies reference-based selection. MSA-DTI reduces MSE by 14.60\% on average across paired cases relative to PT+FT while satisfying both limits, and 44 of 47 alternative selections improve test MSE. The transferred rule also gives a positive mean gain on Alibaba workloads, although its harmful-selection rate exceeds the original criterion. Future work will study uncertainty-aware selection and additional deployment limits.
+This paper presented MSA-DTI for few-shot instantiation of the predictive-model component used by a center-specific DT, subject to two per-model deployment limits. MSA-DTI filters a source-trained candidate bank, adapts feasible candidates with a common target budget, and applies reference-based selection. MSA-DTI reduces MSE by 14.60\% on average across paired cases relative to PT+FT while satisfying both limits, and 44 of 47 alternative selections improve test MSE. The transferred rule also gives a positive mean gain on Alibaba workloads, although its harmful-selection rate exceeds the original criterion and the calibrated deployment policy therefore retains the reference. Future work will study candidate-screening stability, uncertainty-aware selection, and measured deployment limits on additional platforms.
 
 \section*{CRediT Authorship Contribution Statement}
 
