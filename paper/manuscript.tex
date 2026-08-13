@@ -54,18 +54,18 @@
 
 \begin{document}
 
-\shorttitle{Few-Shot DT Predictive-Model Instantiation}
+\shorttitle{Few-Shot DT Instantiation under Deployment Limits}
 
-\title[mode=title]{Joint Model Selection and Adaptation for Few-Shot Predictive-Model Instantiation in Digital Twin Platforms under Deployment Limits}
+\title[mode=title]{Joint Model Selection and Adaptation for Few-Shot Digital Twin Instantiation under Deployment Limits}
 
 \begin{abstract}
-Digital twin (DT) platforms for computing networks can reuse pretrained predictive models from existing centers to reduce the computation required for center-specific model instantiation. In this paper, instantiation refers to the predictive-model component of a DT rather than the complete DT lifecycle. However, a new or reconfigured center may exhibit substantial differences in resource configurations and workload characteristics, making a fixed architecture suboptimal for the target environment. At the target center, only a small support set is available for parameter
+Digital twin (DT) platforms for computing networks can reuse pretrained models from existing centers to reduce the computation required for DT instantiation. However, a new or reconfigured center may exhibit substantial differences in resource configurations and workload characteristics, making a fixed architecture suboptimal for the target environment. At the target center, only a small support set is available for parameter
 adaptation and a small validation set for model selection.
-Accurate predictive-model instantiation therefore requires selecting a suitable
+Accurate DT instantiation therefore requires selecting a suitable
 architecture and adapting its parameters from such limited target data
 while ensuring that the selected model satisfies deployment limits. Existing few-shot methods typically adapt parameters within predefined architectures and rarely account for deployment limits, limiting their effectiveness in heterogeneous computing environments.
 To address this challenge, we propose Model Selection and Adaptation for
-Digital Twin Instantiation (MSA-DTI), a few-shot predictive-model instantiation framework
+Digital Twin Instantiation (MSA-DTI), a few-shot DT instantiation framework
 that jointly selects a target-specific architecture and adapts its parameters
 under deployment limits. MSA-DTI first constructs a candidate model bank by pretraining diverse
 architectures on historical workload data, filters out infeasible candidates
