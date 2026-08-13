@@ -59,29 +59,21 @@
 \title[mode=title]{Joint Model Selection and Adaptation for Few-Shot Predictive-Model Instantiation in Digital Twin Platforms under Deployment Limits}
 
 \begin{abstract}
-Digital twin (DT) platforms for computing networks can reuse pretrained
-predictive models to reduce the cost of center-specific model instantiation.
-We consider only the predictive-model component of a DT. A new or
-reconfigured center may differ from source centers in resource configurations
-and workloads, while providing only small support and validation sets and
-imposing model-level deployment limits. Existing few-shot methods usually
-adapt parameters within a fixed architecture and seldom account for such
-limits. We propose Model Selection and Adaptation for Digital Twin
-Instantiation (MSA-DTI), which jointly selects and adapts a target-specific
-predictive model from a source-trained candidate bank. It filters candidates
-by estimated operation and parameter counts, adapts every feasible candidate
-with a common target budget, and replaces a fixed adapted reference only when
-the best alternative exceeds a calibrated relative validation-loss margin.
-On 80 held-out synthetic benchmark cases, MSA-DTI achieves the lowest mean
-squared error (MSE) among the compared methods, reducing paired-case MSE by
-14.60\% relative to pretraining and fine-tuning while satisfying both limits
-in all main cases. The center-cluster bootstrap 95\% confidence interval is
-$[9.41\%,20.14\%]$. On Alibaba Cluster Trace v2018, the frozen rule yields a
-4.20\% mean paired MSE reduction, but does not reproduce the original
-harmful-selection criterion. Independent rescreening also shows that
-candidate discovery is sample-sensitive. Accordingly, the results support
-the frozen-bank selection-and-adaptation procedure, not recovery of a unique
-architecture set or universal calibration across domains.
+Digital twin (DT) platforms for computing networks can reuse pretrained predictive models from existing centers to reduce the computation required for center-specific model instantiation. In this paper, instantiation refers to the predictive-model component of a DT rather than the complete DT lifecycle. However, a new or reconfigured center may exhibit substantial differences in resource configurations and workload characteristics, making a fixed architecture suboptimal for the target environment. At the target center, only a small support set is available for parameter
+adaptation and a small validation set for model selection.
+Accurate predictive-model instantiation therefore requires selecting a suitable
+architecture and adapting its parameters from such limited target data
+while ensuring that the selected model satisfies deployment limits. Existing few-shot methods typically adapt parameters within predefined architectures and rarely account for deployment limits, limiting their effectiveness in heterogeneous computing environments.
+To address this challenge, we propose Model Selection and Adaptation for
+Digital Twin Instantiation (MSA-DTI), a few-shot predictive-model instantiation framework
+that jointly selects a target-specific architecture and adapts its parameters
+under deployment limits. MSA-DTI first constructs a candidate model bank by pretraining diverse
+architectures on historical workload data, filters out infeasible candidates
+according to the deployment limits, and adapts the remaining candidates
+using limited target samples. To make model selection more conservative given this small validation set,
+it compares the best-performing adapted alternative with a fixed adapted
+reference model and uses a preset relative reduction in validation loss as
+the replacement criterion. Experimental results show that MSA-DTI achieves the lowest mean squared error (MSE) among the compared methods, reducing MSE by 14.60\% on average across paired cases relative to the pretraining-and-fine-tuning baseline while satisfying the deployment limits across all main evaluation cases.
 \end{abstract}
 
 \begin{keywords}

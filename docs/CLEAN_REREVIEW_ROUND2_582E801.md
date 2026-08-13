@@ -43,13 +43,18 @@ paper states this boundary directly.
 
 Strengths include the JNCA-relevant application setting, a clear optimization
 object, and restrained claims about the DT predictive-model component. The
-abstract, however, omitted the negative independent rescreening result and
-contained 281 words, exceeding JNCA's 250-word limit.
+abstract contains 281 words. JNCA's Guide for Authors states a 250-word limit,
+but recent published JNCA practice is not uniform. Because the original
+abstract had already been approved for logic, terminology, and writing style,
+length is recorded as a submission-stage advisory rather than a substantive
+review defect.
 
-Finding R1-W1: shorten the abstract to no more than 250 words and retain the
-main result while disclosing screening instability and external-calibration
-limits. Severity: Minor. Evidence: main PDF, page 1; JNCA Guide for Authors,
-Abstract section.
+Finding R1-W1 (withdrawn as a revision requirement): retain the approved
+abstract. If the submission system or handling editor enforces the formal
+limit, revisit compression with the supervising teacher rather than changing
+the scientific framing during simulated review. Evidence: main PDF, page 1;
+JNCA Guide for Authors, Abstract section; a 2025 JNCA research article with a
+published abstract longer than 250 words.
 
 ### R2: methodology and statistics
 
@@ -135,25 +140,26 @@ Risk summary:
 | --- | --- |
 | Reject | Low; no fatal scope, integrity, or methodological defect found. |
 | Major Revision | Low; no new experiment or re-analysis is required. |
-| Minor Revision | High before the local fixes because of abstract compliance and method-description precision. |
-| Accept | Plausible after the two local corrections and final verification. |
+| Minor Revision | High before the local fixes because of method-description precision. |
+| Accept | Plausible after the consistency corrections and final verification. |
 
 Required actions:
 
-1. Reduce the abstract from 281 to at most 250 words while preserving the
-   principal result and disclosing the screening-stability and transfer limits.
-2. State the implemented screening rule exactly and consistently.
-3. Define the protected and separately trained A57 candidates explicitly and
+1. State the implemented screening rule exactly and consistently.
+2. Define the protected and separately trained A57 candidates explicitly and
    use those meanings in Table S5's
    retained-set interpretation.
+
+Editorial advisory, not a required scientific revision: the approved
+281-word abstract may need compression only if the submission system,
+supervising teacher, or handling editor specifically requires it.
 
 No additional experiment is requested.
 
 ## Revision applied
 
-- Rewrote the abstract to 234 words. It now retains the main 14.60% paired MSE
-  reduction and its cluster interval, and adds the Alibaba calibration and
-  independent-rescreening boundaries.
+- Restored the teacher-approved 281-word abstract from commit `582e801`
+  verbatim after withdrawing the compression request as an overcorrection.
 - Replaced the broad screening-rule paraphrase in the main manuscript and S2.1
   with the exact two-branch rule verified against the authorized project code
   and frozen result JSON.
@@ -177,7 +183,7 @@ Five-seat closure:
 
 | Seat | Closure verdict | Basis |
 | --- | --- | --- |
-| R1: journal fit and originality | Accept | Abstract is 234 words and now carries the principal boundary conditions. |
+| R1: journal fit and originality | Accept | The teacher-approved abstract is restored; its 281-word length remains a transparent submission-stage advisory. |
 | R2: methodology and statistics | Accept | The exact frozen screening rule is stated consistently; no result or analysis changed. |
 | R3: DT and workload-prediction domain | Accept | The predictive-component scope and limits on architecture discovery and domain calibration remain explicit. |
 | R4: systems deployment | Accept | The two A57 candidate identities and retained-set counting convention are now unambiguous. |

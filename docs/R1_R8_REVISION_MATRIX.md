@@ -36,7 +36,7 @@ new experiment.
 
 | Item | Revision action | Evidence used | Status |
 | --- | --- | --- | --- |
-| C2-1: JNCA abstract compliance and limitation visibility | Reduced the abstract from 281 to 234 words and added the screening-stability and external-calibration boundaries while preserving the principal result and interval. | JNCA Guide for Authors; frozen main PDF; revised `paper/manuscript.tex`. | Closed by local revision. |
+| C2-1: abstract-length advisory | The clean review initially compressed the abstract from 281 to 234 words. After the author clarified that the original wording had been approved for logic, terminology, and style, the commit-`582e801` abstract was restored verbatim. The formal 250-word guide remains a submission-stage advisory because recent published JNCA practice is not uniform; further compression requires the supervising teacher's or editor's direction. | JNCA Guide for Authors; frozen main PDF; 2025 published JNCA example; restored `paper/manuscript.tex`. | Withdrawn as a scientific revision requirement; original restored. |
 | C2-2: exact screening rule and A57 candidate identity | Replaced the broad "validation or check" paraphrase with the implemented two-branch rule; distinguished the protected pooled-source A57 reference from the separately trained A57 candidate; clarified that independent-screen sizes exclude the protected fallback. | Authorized screening implementation; `results/robustness/r2_screening_stability.json`; main Section 5.1.2; Supplementary Sections S2.1 and S7.2. | Closed by consistency correction; no result changed. |
 
 The five independent reports, initial Minor Revision decision, applied changes,
