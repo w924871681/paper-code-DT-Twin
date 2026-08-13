@@ -768,20 +768,13 @@ Reported subgroup intervals are unadjusted pointwise 95\% intervals.
 
 We compare MSA-DTI with PT+FT, MeDeT-based adaptation, random
 initialization, Meta+NAS-lite, H-Meta-NAS, zero-shot NAS, and zero-shot NAS
-with fine-tuning. Here, Meta+NAS-lite denotes the lightweight few-shot NAS
-implementation used in this study; the two names refer to the same baseline
-and are not separate methods.
+with fine-tuning.
 PT+FT is the main controlled baseline because it uses the same source-trained
 reference and target adaptation procedure as MSA-DTI.
-Meta+NAS-lite uses a deployment-filtered Top-12 shortlist,
-method-specific source initializations, and validation-only target selection;
-its Adam/Huber--50 target protocol is the native protocol for this baseline.
-H-Meta-NAS is an independent hardware-aware meta-NAS baseline. It uses
-architecture-indexed first-order MAML
-initializations and a hardware-feasible population/mutation search with 12
-SGD/MSE--50 adapted candidates; its final architecture is selected using
-target validation only. Both search baselines are evaluated under the same
-66-architecture space and hard deployment limits.
+Meta+NAS-lite is a lightweight NAS baseline, and H-Meta-NAS is a
+hardware-aware meta-NAS baseline. Both search baselines are evaluated under
+the same 66-architecture space and hard deployment limits. Their complete
+target-side settings are reported in Supplementary Table~S2.
 
 All reported baselines use the same target cases, chronological splits,
 deployment limits, and architecture definitions.
@@ -834,11 +827,9 @@ does not establish a population harmful rate below 5\%.
 \subsubsection{Native-protocol comparison}
 
 The main comparison reports each baseline under its method-specific native
-target protocol. In particular, Meta+NAS-lite uses its Adam/Huber--50
-protocol, whereas H-Meta-NAS uses its first-order MAML initialization and
-SGD/MSE--50 population/mutation search protocol. This comparison reflects
-the end-to-end methods as specified, but it does not match all target-side
-optimizers and losses.
+target protocol; Supplementary Table~S2 provides the complete settings. This
+comparison reflects the end-to-end methods as specified, but it does not match
+all target-side optimizers and losses.
 
 \subsubsection{Optimizer-matched diagnostic comparison}
 
