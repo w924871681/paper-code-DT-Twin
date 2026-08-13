@@ -91,7 +91,7 @@ digital twin
 \section{Introduction}
 \label{sec:introduction}
 
-A shared digital twin (DT) platform maintains center-specific predictive models for monitoring, prediction, analysis, and decision making \cite{ref1,ref2,ref3}. These models transform synchronized monitoring histories into workload forecasts that can support resource-management decisions. The present work addresses this predictive-model component; sensing, state synchronization, simulation, and actuation remain services of the surrounding DT platform. To reduce the computation required for model instantiation, the platform can reuse models pretrained on existing centers. However, a new or reconfigured center may differ substantially from existing centers in resource configurations, monitored-variable availability, workload patterns, and data distributions, making a fixed pretrained architecture suboptimal for the target environment. Concurrent model maintenance also creates computation and storage pressure, so the platform sets two per-model deployment limits: estimated operation count per inference and parameter count. The operation count describes model-side inference computation, while the parameter count describes model size. In this setting, the target center has only limited historical observations,
+A shared digital twin (DT) platform maintains center-specific DT models for monitoring, prediction, analysis, and decision making \cite{ref1,ref2,ref3}. To reduce the computation required for DT instantiation, the platform can reuse models pretrained on existing centers. However, a new or reconfigured center may differ substantially from existing centers in resource configurations, monitored-variable availability, workload patterns, and data distributions, making a fixed pretrained architecture suboptimal for the target environment. Concurrent model maintenance also creates computation and storage pressure, so the platform sets two per-model deployment limits: estimated operation count per inference and parameter count. The operation count describes model-side inference computation, while the parameter count describes model size. In this setting, the target center has only limited historical observations,
 available as a small support set for parameter adaptation and a small
 validation set for model selection.
 The limited support set defines the few-shot target-adaptation setting
@@ -138,8 +138,8 @@ criterion.
 This design enables target-specific architecture selection without
 target-side architecture search and prevents replacement based only on
 marginal validation-loss reductions.
-The selected architecture and adapted parameters form the predictive-model
-instance used by the target center's DT.
+The selected architecture and adapted parameters form the target DT model
+instance.
 
 The target optimization object is a finite set of
 architecture--initialization pairs after common target adaptation. This
@@ -253,7 +253,7 @@ dimension remains fixed after unavailable positions are masked.
 
 Let $\mathcal{A}$ denote a predefined architecture space. For
 $a\in\mathcal{A}$, let $f_{a,\theta}$ denote a model with parameter vector
-$\theta$. The predictive-model component instantiated for the DT of center
+$\theta$. The digital twin model instance for center
 $c$ is
 
 \begin{equation}
@@ -942,7 +942,7 @@ Section~S7.
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper presented MSA-DTI for few-shot instantiation of the predictive-model component used by a center-specific DT, subject to two per-model deployment limits. MSA-DTI filters a source-trained candidate bank, adapts feasible candidates with a common target budget, and applies reference-based selection. MSA-DTI reduces MSE by 14.60\% on average across paired cases relative to PT+FT while satisfying both limits, and 44 of 47 alternative selections improve test MSE. Independent rescreening shows that candidate discovery is sample-sensitive, so the frozen bank is treated as a prespecified evaluated artifact rather than a uniquely recoverable architecture set; the reference fallback remains essential. The transferred rule also gives a positive mean gain on Alibaba workloads, although its harmful-selection rate exceeds the original criterion and the calibrated deployment policy therefore retains the reference. Future work will develop more stable candidate-discovery procedures, uncertainty-aware selection, and measured deployment limits on additional platforms.
+This paper presented MSA-DTI for few-shot DT model instantiation subject to two per-model deployment limits. MSA-DTI filters a source-trained candidate bank, adapts feasible candidates with a common target budget, and applies reference-based selection. MSA-DTI reduces MSE by 14.60\% on average across paired cases relative to PT+FT while satisfying both limits, and 44 of 47 alternative selections improve test MSE. Independent rescreening shows that candidate discovery is sample-sensitive, so the frozen bank is treated as a prespecified evaluated artifact rather than a uniquely recoverable architecture set; the reference fallback remains essential. The transferred rule also gives a positive mean gain on Alibaba workloads, although its harmful-selection rate exceeds the original criterion and the calibrated deployment policy therefore retains the reference. Future work will develop more stable candidate-discovery procedures, uncertainty-aware selection, and measured deployment limits on additional platforms.
 
 \section*{CRediT Authorship Contribution Statement}
 
