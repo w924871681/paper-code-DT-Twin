@@ -359,39 +359,7 @@ The following diagnostic pool is separate from the source,
 architecture-screening, margin-calibration, and held-out target pools.
 It is used only for the component comparisons reported in this subsection.
 
-\begin{suppTableBlock}{Component variants and diagnostic comparisons.}{tab:supp-components}
-\scriptsize
-\renewcommand{\arraystretch}{1.08}
-\setlength{\tabcolsep}{2.3pt}
-\resizebox{\linewidth}{!}{%
-\begin{tabular}{lrrrrr}
-\toprule
-Variant & MSE$\downarrow$ & Worst-10\%$\downarrow$ &
-Paired MSE reduction (\%)$\uparrow$ &
-Harmful rate (\%)$\downarrow$ &
-Limit satisfaction (\%)$\uparrow$ \\
-\midrule
-MSA-DTI & 0.004063 & 0.015764 & 15.79 & 15.00 & 100.00 \\
-Earlier source-training procedure for alternative models &
-0.004876 & 0.019044 & 1.75 & 2.50 & 100.00 \\
-Reference candidate only &
-0.005051 & 0.019512 & 0.00 & 0.00 & 100.00 \\
-Two reference-architecture initializations &
-0.004917 & 0.019136 & 1.29 & 1.25 & 100.00 \\
-Without relative margin &
-0.004055 & 0.015690 & 16.16 & 17.50 & 100.00 \\
-Without deployment filtering &
-0.004037 & 0.015635 & 16.13 & 13.75 & 96.25 \\
-\bottomrule
-\end{tabular}}
-\vspace{0.15em}
-
-\footnotesize
-Paired MSE reduction uses the adapted reference on the same diagnostic
-pool. Harmful rate is computed over all diagnostic cases. The earlier
-source-training row changes the complete source-training procedure for the
-alternative models and is not a single-component ablation.
-\end{suppTableBlock}
+The component variants are reported in Table~4 of the main text.
 
 The historical source-training variant changes the complete procedure used
 to construct the alternative source initializations and is therefore
