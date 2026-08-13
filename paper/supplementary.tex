@@ -597,11 +597,59 @@ Across source-training seeds 2904, 2905, and 2906, the mean paired MSE
 reductions are 10.52\%, 13.21\%, and 11.25\%. All three confidence
 intervals remain above zero, although some individual cases have zero or
 negative gains.
-The screened architecture list is held fixed in this study. The result
-therefore measures sensitivity to source-model training and initialization,
-not stability of the original 66-configuration screening decision under new
-screening-center samples. Repeating the complete screening and bank
-construction across independent screening pools remains additional work.
+The screened architecture list is held fixed in this seed study. The result
+therefore measures sensitivity to source-model training and initialization.
+
+\subsection{Independent architecture-screening stability}
+
+We separately repeat the complete 66-configuration diagnostic screening on
+two new 20-center pools. Together with the original 20-center screening pool,
+this gives three independently sampled screening sets. The A57 reference,
+architecture space, initialization recipe, SGD/MSE--50 target recipe, and
+retention rule are unchanged. A configuration is retained when it records at
+least two check-oracle wins or at least two validation-selected positive
+check wins. None of these pools overlaps the 20-center robustness pool used
+below, and Test is never read.
+
+\begin{suppTableBlock}{Independent candidate-screening stability and evaluation on centers 1160--1179.}{tab:supp-screening-stability}
+\scriptsize
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{2.2pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llllrrrr}
+\toprule
+Screen & Centers & Retained configurations & Size & Jaccard &
+Gain (\%) & 95\% CI (\%) & Harmful (\%) \\
+\midrule
+Frozen S0 & 900--919 & A1, A6, A13, A55, A56, A57 & 6 & 1.000 & 0.295 & $[-0.646,1.564]$ & 2.50 \\
+Independent S1 & 1120--1139 & reference fallback only & 0 & 0.000 & 0.000 & $[0.000,0.000]$ & 0.00 \\
+Independent S2 & 1140--1159 & A55, A56, A57, A59 & 4 & 0.429 & 0.125 & $[-0.894,1.427]$ & 3.75 \\
+\bottomrule
+\end{tabular}}
+\vspace{0.15em}
+
+\footnotesize
+Jaccard similarity is relative to the frozen S0 list. Size counts retained
+configurations before adding the protected PT-A57 fallback. Gain is the mean
+paired check-MSE reduction relative to PT-A57 on 80 robustness cases; intervals
+use a 4000-repetition center-cluster bootstrap. This is a C1 screening
+diagnostic and does not retrain or retune the frozen headline method.
+\end{suppTableBlock}
+
+Across S0--S2, retained-list sizes are 6, 0, and 4 (median 4, range 0--6).
+A55, A56, and A57 are retained in two of three pools; A1, A6, A13, and A59
+are each retained once. On the robustness pool, the S0 list selects PT-A57
+in 72 cases, A55 in three, A56 in three, and the C1 A57 initialization in
+two. S1 falls back to PT-A57 in all 80 cases. S2 selects PT-A57 in 71 cases,
+A55 in three, A56 in three, C1-A57 in two, and A59 in one.
+
+The rule therefore does not recover a stable or unique architecture set, and
+neither nonempty list has a paired-gain interval excluding zero on the
+independent pool. This negative result narrows the claim: the main results
+evaluate a frozen, prespecified bank; they do not establish consistency of
+the preceding candidate-discovery rule. It also supports keeping the
+reference candidate outside the discovery decision and using it when no
+alternative satisfies the retention rule.
 
 \subsection{Alibaba external-domain transfer}
 

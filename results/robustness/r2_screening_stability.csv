@@ -1,0 +1,4 @@
+ScreeningPool,CenterRange,RetainedArchitectures,BankSize,JaccardVsFrozen,RobustnessSelections,PairedMSEGainPercent,Cluster95CILowPercent,Cluster95CIHighPercent,HarmfulCount,HarmfulRatePercent
+S0 frozen,900--919,"A1; A6; A13; A55; A56; A57",6,1.000,"PT-A57:72; C1-A55:3; C1-A56:3; C1-A57:2",0.295,-0.646,1.564,2,2.50
+S1 independent,1120--1139,"reference fallback only",0,0.000,"PT-A57:80",0.000,0.000,0.000,0,0.00
+S2 independent,1140--1159,"A55; A56; A57; A59",4,0.429,"PT-A57:71; C1-A55:3; C1-A56:3; C1-A57:2; C1-A59:1",0.125,-0.894,1.427,3,3.75

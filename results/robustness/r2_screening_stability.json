@@ -1,0 +1,95 @@
+{
+  "study": "r2_independent_architecture_screening_stability",
+  "decision": "PASS_R2_STABILITY_ANALYSIS_WITH_UNSTABLE_SCREENING",
+  "protocol": {
+    "screening_pool_count": 3,
+    "centers_per_pool": 20,
+    "cases_per_pool": 80,
+    "architecture_space_size": 66,
+    "reference_architecture": 57,
+    "retention_rule": "check_true_wins>=2 OR validation_positive_wins>=2",
+    "robustness_pool": [1160, 20, 310000],
+    "selection_rule_for_this_diagnostic": "lowest validation MSE among retained C1 candidates, used only when lower than PT-A57 validation MSE",
+    "paired_gain": "(PT-A57 check MSE - selected check MSE) / PT-A57 check MSE",
+    "confidence_interval": "4000-repetition center-cluster bootstrap",
+    "test_used": false,
+    "frozen_main_method_retuned": false
+  },
+  "input_sha256": {
+    "S0_original_oracle": "e113d7500029e5aeed99def3e2cbf87f1bd4863aa30c95828339dd75a06afb9e",
+    "S1_1120_1139_oracle": "0c0ce8c18913b9c77155d4f61b6f605f7754a529270004131e833f4696d6735c",
+    "S2_1140_1159_oracle": "0335614038bf279a8bad96a840be92ea335d3fc5ae7d00a04ec47db4a5b61e8d",
+    "R_1160_1179_oracle": "5c86803defbf0e2504c5d1572aef50089b1701ebc5c01e077a885ae085c7e369"
+  },
+  "retention_frequency_across_three_pools": {
+    "A1": 1,
+    "A6": 1,
+    "A13": 1,
+    "A55": 2,
+    "A56": 2,
+    "A57": 2,
+    "A59": 1
+  },
+  "bank_size_distribution": {
+    "values": [6, 0, 4],
+    "median": 4,
+    "range": [0, 6]
+  },
+  "screening_pools": [
+    {
+      "name": "S0_original",
+      "centers": [900, 919],
+      "retained_architectures": [1, 6, 13, 55, 56, 57],
+      "bank_size": 6,
+      "jaccard_vs_frozen": 1.0,
+      "robustness_pool": {
+        "N_centers": 20,
+        "N_cases": 80,
+        "mean_paired_mse_gain": 0.0029547557050748573,
+        "cluster_95_ci": [-0.006455379209542575, 0.015644312022162026],
+        "positive_case_rate": 0.075,
+        "switch_count": 8,
+        "harmful_count": 2,
+        "harmful_rate_all_cases": 0.025,
+        "selection_frequency": {"PT-A57": 72, "C1-A55": 3, "C1-A56": 3, "C1-A57": 2}
+      }
+    },
+    {
+      "name": "S1_1120_1139",
+      "centers": [1120, 1139],
+      "retained_architectures": [],
+      "bank_size": 0,
+      "jaccard_vs_frozen": 0.0,
+      "robustness_pool": {
+        "N_centers": 20,
+        "N_cases": 80,
+        "mean_paired_mse_gain": 0.0,
+        "cluster_95_ci": [0.0, 0.0],
+        "positive_case_rate": 0.0,
+        "switch_count": 0,
+        "harmful_count": 0,
+        "harmful_rate_all_cases": 0.0,
+        "selection_frequency": {"PT-A57": 80}
+      }
+    },
+    {
+      "name": "S2_1140_1159",
+      "centers": [1140, 1159],
+      "retained_architectures": [55, 56, 57, 59],
+      "bank_size": 4,
+      "jaccard_vs_frozen": 0.42857142857142855,
+      "robustness_pool": {
+        "N_centers": 20,
+        "N_cases": 80,
+        "mean_paired_mse_gain": 0.0012537271808626387,
+        "cluster_95_ci": [-0.008944166877344839, 0.01426910274662307],
+        "positive_case_rate": 0.075,
+        "switch_count": 9,
+        "harmful_count": 3,
+        "harmful_rate_all_cases": 0.0375,
+        "selection_frequency": {"PT-A57": 71, "C1-A55": 3, "C1-A56": 3, "C1-A57": 2, "C1-A59": 1}
+      }
+    }
+  ],
+  "interpretation": "The preset screening rule is not stable across independent center samples. The frozen main bank remains an evaluated fixed artifact, not an estimator claimed to recover a unique architecture set. The independent result supports retaining the A57 reference and conservative fallback rather than broadening the architecture-screening claim."
+}

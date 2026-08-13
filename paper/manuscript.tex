@@ -828,8 +828,22 @@ with source-training seeds 2904, 2905, and 2906 gives paired MSE reductions
 of 10.52\%, 13.21\%, and 11.25\%, respectively. Their 95\% confidence
 intervals are $[3.93\%,18.17\%]$, $[7.62\%,18.89\%]$, and
 $[5.23\%,17.96\%]$. This analysis tests source-initialization sensitivity
-after the architecture list has been fixed; it does not repeat the
-66-configuration screening step under new screening pools.
+after the architecture list has been fixed.
+
+We additionally repeat the complete 66-configuration screening rule on two
+new 20-center pools, giving three screening samples when the original pool is
+included, and evaluate each resulting list on a fourth, untouched 20-center
+pool. The retained-list sizes are 6, 0, and 4; the two new lists have Jaccard
+similarities of 0 and 0.429 to the frozen six-configuration list. On the
+independent pool, validation-only diagnostic selection from the frozen list
+gives a 0.30\% mean paired check-MSE reduction with a center-cluster 95\%
+interval of $[-0.65\%,1.56\%]$ and a 2.50\% harmful-selection rate. Thus,
+the preset candidate-discovery rule is sample-sensitive and is not claimed
+to recover a unique architecture set. The frozen main evaluation remains an
+evaluation of a prespecified bank, while the retained A57 reference and
+fallback protect deployment when a rescreened pool retains no alternative.
+Full rescreening results and selection frequencies are reported in
+Supplementary Section~S7.
 
 \subsection{Deployment Feasibility and Cost}
 \label{subsec:deployment}
@@ -928,7 +942,7 @@ Section~S7.
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper presented MSA-DTI for few-shot instantiation of the predictive-model component used by a center-specific DT, subject to two per-model deployment limits. MSA-DTI filters a source-trained candidate bank, adapts feasible candidates with a common target budget, and applies reference-based selection. MSA-DTI reduces MSE by 14.60\% on average across paired cases relative to PT+FT while satisfying both limits, and 44 of 47 alternative selections improve test MSE. The transferred rule also gives a positive mean gain on Alibaba workloads, although its harmful-selection rate exceeds the original criterion and the calibrated deployment policy therefore retains the reference. Future work will study candidate-screening stability, uncertainty-aware selection, and measured deployment limits on additional platforms.
+This paper presented MSA-DTI for few-shot instantiation of the predictive-model component used by a center-specific DT, subject to two per-model deployment limits. MSA-DTI filters a source-trained candidate bank, adapts feasible candidates with a common target budget, and applies reference-based selection. MSA-DTI reduces MSE by 14.60\% on average across paired cases relative to PT+FT while satisfying both limits, and 44 of 47 alternative selections improve test MSE. Independent rescreening shows that candidate discovery is sample-sensitive, so the frozen bank is treated as a prespecified evaluated artifact rather than a uniquely recoverable architecture set; the reference fallback remains essential. The transferred rule also gives a positive mean gain on Alibaba workloads, although its harmful-selection rate exceeds the original criterion and the calibrated deployment policy therefore retains the reference. Future work will develop more stable candidate-discovery procedures, uncertainty-aware selection, and measured deployment limits on additional platforms.
 
 \section*{CRediT Authorship Contribution Statement}
 

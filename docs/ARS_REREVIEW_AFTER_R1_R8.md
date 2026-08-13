@@ -14,13 +14,15 @@ analysis also makes clear that the relative margin is a conservative
 replacement rule rather than the sole source of the accuracy gain. R1 is
 substantially resolved.
 
-The remaining methodological issue is bank-construction stability. The
-three-seed experiment retrains a fixed architecture list; it does not repeat
-the original screening decision. This limitation is now stated correctly,
-but it leaves R2 only partially resolved.
+The complete 66-configuration screen is now repeated on two additional
+20-center samples and evaluated on a fourth untouched pool. The result is
+informative but negative: retained-set sizes are 6, 0, and 4, and the new
+sets have Jaccard similarities of 0 and 0.429 to the frozen set. The paper
+does not conceal this instability or use it to retune the headline method;
+instead, it limits the bank claim and strengthens the rationale for the
+protected A57 fallback. R2 is resolved by experiment and claim reduction.
 
-Recommendation: major revision, focused on one candidate-screening stability
-experiment.
+Recommendation: minor revision for presentation and metadata checks.
 
 ## Reviewer B: experiments and statistics
 
@@ -32,11 +34,13 @@ identified as an ex ante point-estimate tolerance. R3 is resolved.
 
 The optimizer-matched table materially improves baseline transparency. The
 remaining comparisons still have method-specific source initializations and
-selection rules, which the manuscript discloses. Full screening-resample
-stability remains the only important missing experiment.
-
-Recommendation: major revision because of R2; otherwise statistically
+selection rules, which the manuscript discloses. The new rescreening study
+reports center-cluster intervals and harmful rates on an untouched pool. Its
+gain intervals include zero, and the manuscript states this directly rather
+than presenting a robustness success. The statistical interpretation is
 acceptable.
+
+Recommendation: minor revision.
 
 ## Reviewer C: systems and deployment
 
@@ -65,8 +69,9 @@ Author names, affiliations, corresponding-author information, CRediT roles,
 and funding remain placeholders. These values cannot be inferred and must be
 completed before a non-anonymous submission.
 
-Recommendation: major revision until R8 is completed; editorially suitable
-afterward.
+Recommendation: minor administrative revision. The placeholders are
+acceptable for anonymous review but must be replaced before a non-anonymous
+final submission.
 
 ## Reviewer E: language, consistency, and integrity
 
@@ -80,11 +85,12 @@ Recommendation: minor revision for metadata and final copyediting only.
 
 ## Integrated decision
 
-**Decision: Major Revision.**
+**Decision: Minor Revision.**
 
-R1, R3, R4, R5, R6, and R7 are closed at the manuscript level. R2 is only
-partially closed because architecture screening has not been repeated across
-independent screening pools. R8 remains open because real submission metadata
-has not been supplied. With the R2 experiment completed and R8 populated (or
-an anonymous-review workflow confirmed), the expected next simulated decision
-is Minor Revision rather than another broad methodological revision.
+R1--R7 are closed at the manuscript level. R2 is closed by a complete
+independent rescreening experiment and an appropriately narrower claim, not
+by asserting stability that the data do not support. R8 remains an
+administrative placeholder: acceptable for anonymous review, but author,
+affiliation, corresponding-author, CRediT, and funding fields must be completed
+before a non-anonymous final submission. No additional broad methodological
+experiment is required for the present scoped claims.
