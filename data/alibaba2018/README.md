@@ -43,7 +43,47 @@ The raw archive should contain a member whose basename is
 `machine_usage.csv`. Both `raw/` and `processed/` are local-only directories
 and should remain ignored by Git except for placeholder files.
 
-## Preprocessing
+## Paper protocol: 20 source / 20 calibration / 40 held-out machines
+
+The Alibaba experiment reported in Supplementary Section S7.3 uses three
+mutually disjoint groups: 20 source machines, 20 margin-calibration machines,
+and 40 held-out machines. From the repository root, run:
+
+```powershell
+python .\scripts\prepare_alibaba_domain_trace.py `
+  --input .\data\alibaba2018\raw\machine_usage.tar.gz `
+  --out-dir .\outputs\pre_submission_enhancements_d2904_t2904\alibaba_domain\prepared
+
+python .\scripts\build_alibaba_domain_bank.py `
+  --project-root . `
+  --manifest .\outputs\pre_submission_enhancements_d2904_t2904\alibaba_domain\prepared\real_trace_domain_manifest.json `
+  --out-dir .\outputs\pre_submission_enhancements_d2904_t2904\alibaba_domain\bank `
+  --device cuda
+
+python .\scripts\run_alibaba_domain_calibration.py `
+  --project-root . `
+  --manifest .\outputs\pre_submission_enhancements_d2904_t2904\alibaba_domain\prepared\real_trace_domain_manifest.json `
+  --bank-dir .\outputs\pre_submission_enhancements_d2904_t2904\alibaba_domain\bank `
+  --out .\outputs\pre_submission_enhancements_d2904_t2904\alibaba_domain\alibaba_domain_result.json `
+  --device cuda
+```
+
+Do not pass `--skip-archive-hash-check` for a formal reproduction. The
+prepared manifest records the verified input digest and the disjoint machine
+groups; the bank manifest records the architecture-indexed source assets;
+and `alibaba_domain_result.json` records the complete calibration grid and
+the 160 held-out cases. Because no Alibaba-specific margin is eligible, the
+reported 10% result is stored as a frozen-margin transfer audit rather than a
+calibrated deployment rule.
+
+## Legacy 20-source / 20-target protocol
+
+The commands below reproduce an earlier 20-source/20-target diagnostic with
+no independent margin-calibration group. They are retained for backward
+compatibility and do **not** reproduce the Alibaba experiment reported in the
+paper.
+
+### Legacy preprocessing
 
 From the repository root:
 
@@ -69,7 +109,7 @@ The manifest records selected machines, the source/target split,
 preprocessing settings, and input digest. Released code stores portable paths
 and resolves them relative to the manifest.
 
-## Build the Alibaba source-initialization bank
+### Legacy source-initialization bank
 
 The semi-real evaluation uses an architecture-matched bank trained from the
 processed real-trace source machines:
@@ -87,7 +127,7 @@ This long-running stage writes `real_bank_manifest.json` and the expected
 relative checkpoint paths. The separate archive in `assets/` supports the
 synthetic Level-C stages; it is not a substitute for this Alibaba bank.
 
-## Evaluation
+### Legacy evaluation
 
 After the bank build completes:
 
@@ -105,4 +145,3 @@ The workload observations come from the real production trace. The
 model-complexity-limit tiers are deterministic semi-synthetic labels used to
 evaluate target-specific feasibility. The experiment does not claim direct
 measurement of device latency, memory use, or energy consumption.
-

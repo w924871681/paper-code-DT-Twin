@@ -27,7 +27,13 @@ from core.methods.ours.stage2_runtime import (
     synchronize_if_cuda,
 )
 from core.space import build_model, enumerate_A_base, is_feasible, profile_arch
-from shared.evaluation.common import atomic_json, eval_metrics, file_sha256, seed_all
+from shared.evaluation.common import (
+    UnsupportedLimitError,
+    atomic_json,
+    eval_metrics,
+    file_sha256,
+    seed_all,
+)
 from .pipeline import _atomic_torch_save, _asset_record, _candidate_lex
 
 
@@ -581,7 +587,10 @@ def run_real_eval(
         if key in records and records[key].get("complete"): continue
         (Xs, ys), (Xv, yv), (Xc, yc), (Xt, yt) = _real_case_split(mapping[mid][0], mapping[mid][1], L, H, K)
         feasible = [i for i in CFG.compact_arch_indices if is_feasible(A[i], cfg.main.budget, tier, L, input_dim, H)]
-        if 57 not in feasible: raise RuntimeError("Real A57 anchor infeasible")
+        if 57 not in feasible:
+            raise UnsupportedLimitError(
+                "real-trace PT_A57 reference violates the assigned hard limits"
+            )
         seed = CFG.train_seed + int(hashlib.sha256(mid.encode()).hexdigest()[:8], 16) + 37 * H + 53 * K
         rows = []; states = {}
         for idx in feasible:

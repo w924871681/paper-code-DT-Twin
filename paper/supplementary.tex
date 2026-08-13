@@ -186,9 +186,41 @@ margin is claimed. In calibrated deployment, the adapted reference is
 retained and the domain is marked as unsupported for margin calibration.
 A previously frozen margin can still be evaluated without recalibration as
 a transfer audit, but it is not treated as a calibrated deployment rule for
-the new domain. The released
-calibration CSV contains the complete six-margin grid, harmful-selection
-rates, mean gains, and confidence bounds.
+the new domain. The released calibration CSV contains the complete
+six-margin grid, harmful-selection rates, mean gains, and confidence bounds.
+
+Table~\ref{tab:supp-margin-grid} reports the complete grid used to freeze
+$\tau=0.10$.
+
+\begin{suppTableBlock}{Complete relative-margin calibration grid.}{tab:supp-margin-grid}
+\scriptsize
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{3.0pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+$\tau$ & Harmful selections &
+$\widehat G_{\mathrm{ref}}$ (95\% CI) &
+$\widehat G_{\mathrm{pair}}$ (95\% CI) & Eligible \\
+\midrule
+0.050 & 5/80 (6.25\%) & 13.93\% $[7.75,20.94]$ & 13.33\% $[7.73,19.81]$ & No \\
+0.075 & 5/80 (6.25\%) & 13.79\% $[7.77,20.92]$ & 13.18\% $[7.39,19.49]$ & No \\
+0.100 & 4/80 (5.00\%) & 13.85\% $[8.06,20.58]$ & 13.32\% $[7.68,19.48]$ & Yes \\
+0.125 & 4/80 (5.00\%) & 13.13\% $[7.01,20.17]$ & 12.60\% $[6.85,18.91]$ & Yes \\
+0.150 & 4/80 (5.00\%) & 12.70\% $[6.48,19.75]$ & 12.17\% $[6.30,18.91]$ & Yes \\
+0.200 & 2/80 (2.50\%) & 10.98\% $[5.56,17.31]$ & 10.45\% $[5.70,15.85]$ & Yes \\
+\bottomrule
+\end{tabular}}
+\vspace{0.15em}
+
+\footnotesize
+The calibration pool contains 20 centers and four cases per center
+($N=80$ cases; 20 independent resampling clusters). Gains are paired
+check-MSE reductions. Intervals are 95\% center-cluster percentile bootstrap
+intervals with 4000 repetitions. Eligibility applies all criteria in
+Eq.~\eqref{eq:supp-margin-calibration}; the smallest eligible margin is
+$\tau=0.10$.
+\end{suppTableBlock}
 
 \section{Additional Analytical Details}
 \label{supp:analysis}
@@ -330,6 +362,7 @@ This comparison examines whether the performance ordering changes after the
 target optimizer, task loss, and update budget are matched. All methods use
 the same independent diagnostic target cases and the same deployment
 limits.
+Table~\ref{tab:supp-matched} reports the full optimizer-matched comparison.
 
 \begin{suppTableBlock}{Full optimizer-matched comparison on the diagnostic target pool.}{tab:supp-matched}
 \small
@@ -362,6 +395,7 @@ method equivalence test.
 The following diagnostic pool is separate from the source,
 architecture-screening, margin-calibration, and held-out target pools.
 It is used only for the component comparisons reported in this subsection.
+Table~\ref{tab:supp-components} summarizes these component variants.
 
 \begin{suppTableBlock}{Component variants and diagnostic comparisons.}{tab:supp-components}
 \scriptsize
@@ -415,7 +449,7 @@ alternatives in 61 cases, including 49 beneficial and 12 harmful selections.
 Direct lowest-validation-loss selection chooses alternatives in 69 cases,
 including 55 beneficial and 14 harmful selections. The corresponding
 all-case harmful-selection rates are 15.00\% and 17.50\%, respectively.
-
+Figure~\ref{fig:supp-selection-diagnostic} summarizes these outcomes.
 
 \paperfig{0.82\linewidth}{fig9.pdf}
 {Selection outcomes on the 80-case diagnostic pool.}
@@ -435,7 +469,11 @@ All methods are implemented in Python and PyTorch and run on an NVIDIA RTX
 loading, target adaptation, validation evaluation, and final selection. It
 excludes offline preparation and test evaluation. Each reported time is the
 mean over five runs, and the main manuscript reports the corresponding
-standard deviation.
+standard deviation. Before collection, each method receives one unreported
+warm-up execution on the first case. Formal CUDA timings use
+\texttt{time.perf\_counter} with CUDA synchronization immediately before and
+after every timed case. Method order is rotated deterministically across the
+five repetitions to reduce order drift.
 
 \subsection{Architecture-profiling protocol}
 
@@ -447,6 +485,7 @@ and after each timed region. Median latency is the primary latency measure,
 and the 95th percentile describes measurement variability. Serialized
 parameter-file size is used as the measured model size. Peak allocated GPU
 memory is also recorded for each architecture--horizon pair.
+Table~\ref{tab:supp-hardware-profile} reports the complete batch-one profile.
 
 \begin{suppTableBlock}{Per-architecture batch-one hardware profile.}{tab:supp-hardware-profile}
 \scriptsize
@@ -541,13 +580,16 @@ therefore retains seven of the eight candidates, whereas their joint
 feasible set retains six. Thus, the joint feasible set is a strict subset
 of each single-limit feasible set.
 
-The corrected target-side stress evaluation uses the same 80 held-out cases,
+The target-side stress evaluation uses the same 80 held-out cases,
 and all outputs selected under the joint limits satisfy both limits.
 This stress audit does not modify the frozen seven-candidate main bank,
 the main deployment-limit tiers, or the headline experimental results.
 
 
 \subsection{Selected-architecture analysis}
+
+Figure~\ref{fig:supp-architecture-tradeoff} summarizes the selected
+architectures, their complexity, and their paired performance.
 
 \paperfig{0.78\linewidth}{fig10.pdf}
 {Selected-configuration complexity and performance. Marker area shows the
@@ -562,6 +604,9 @@ alternative GRU configurations.
 
 \section{Configuration Analysis}
 \label{supp:configuration}
+
+Figure~\ref{fig:supp-configuration} reports the three configuration
+sensitivity analyses.
 
 \paperfig{0.99\linewidth}{fig11.pdf}
 {Configuration analysis of (a) the retained configuration count,
@@ -585,6 +630,9 @@ calibration criteria.
 
 \subsection{Source-center scale and source-training seeds}
 
+Figure~\ref{fig:supp-source-sensitivity} summarizes the source-scale,
+source-seed, and external-transfer results.
+
 \paperfig{0.98\linewidth}{fig12.pdf}
 {Sensitivity to source-center scale, source-training seeds, and Alibaba
 v2018 transfer.}
@@ -592,6 +640,17 @@ v2018 transfer.}
 
 One Alibaba case below $-25\%$ is clipped in Fig.~\ref{fig:supp-source-sensitivity}
 only for visualization; all original values are retained in the analysis.
+
+For the source-scale analysis, scales 10, 20, 30, 40, and 50 are nested
+prefixes of the same 50-center source pool. Each architecture--horizon asset
+receives 2000 source updates with batch size 64, the same initialization
+across scales, and a random stream defined independently of scale. Every
+bank is then evaluated on the same disjoint 20-center pool (centers
+1040--1059), with two horizons and two support sizes giving 80 cases. The
+architecture list, target update protocol, relative margin, target seeds,
+and evaluation pool are fixed. Because one controlled bank is trained at
+each scale, this is a descriptive scale-sensitivity analysis rather than an
+estimate over repeated source-center subsamples.
 
 The mean paired MSE reductions at source-center scales 10, 20, 30, 40, and
 50 are 6.46\%, 4.92\%, 3.78\%, 3.41\%, and 4.14\%, respectively. The mean
@@ -603,6 +662,7 @@ intervals remain above zero, although some individual cases have zero or
 negative gains.
 The screened architecture list is held fixed in this seed study. The result
 therefore measures sensitivity to source-model training and initialization.
+The three intervals are unadjusted pointwise 95\% center-cluster intervals.
 
 \subsection{Independent architecture-screening stability}
 
@@ -616,6 +676,8 @@ check wins. The protected PT-A57 reference is not counted as retained; A57 in
 a retained list denotes the separately trained C1-A57 candidate. None of
 these pools overlaps the 20-center robustness pool used below, and Test is
 never read.
+Table~\ref{tab:supp-screening-stability} reports the retained lists and their
+evaluation on the untouched robustness pool.
 
 \begin{suppTableBlock}{Independent candidate-screening stability and evaluation on centers 1160--1179.}{tab:supp-screening-stability}
 \scriptsize
@@ -663,7 +725,7 @@ alternative satisfies the retention rule.
 Alibaba Cluster Trace v2018 is split into 20 source machines, 20 calibration
 machines, and 40 held-out machines.
 The calibration and held-out pools contain 80 and 160 cases, respectively.
-Models are retrained on the Alibaba source machines using their own
+Models are retrained using data from the Alibaba source machines and their own
 architectures and source-only normalization.
 The architecture definitions, deployment filtering rule, target protocol,
 and margin grid remain unchanged.

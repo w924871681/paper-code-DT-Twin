@@ -24,6 +24,15 @@ from core.utils.metrics import eval_mae, eval_paper_sequence_consistency, eval_w
 from shared.data_access import get_support_validation_check, get_test_only
 
 
+class UnsupportedLimitError(RuntimeError):
+    """Raised when the protected reference violates a hard deployment limit."""
+
+    code = "UNSUPPORTED_LIMIT"
+
+    def __init__(self, message: str) -> None:
+        super().__init__(f"{self.code}: {message}")
+
+
 def file_sha256(path: str) -> str:
     h = hashlib.sha256()
     with open(path, "rb") as f:

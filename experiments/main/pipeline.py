@@ -38,6 +38,7 @@ from core.methods.ours.stage2_runtime import (
 from core.space import build_model, enumerate_A_base, profile_arch
 from shared.data_access import get_support_validation_check, get_test_only
 from shared.evaluation.common import (
+    UnsupportedLimitError,
     atomic_json,
     build_runtime,
     eval_metrics,
@@ -151,6 +152,10 @@ def _select_anchor_safe(
     if "PT_A57" not in token_map:
         raise RuntimeError("PT_A57 anchor missing")
     anchor = token_map["PT_A57"]
+    if enforce_feasible and not bool(anchor["hard_feasible"]):
+        raise UnsupportedLimitError(
+            "protected PT_A57 reference violates the assigned hard limits"
+        )
     allowed = []
     for token in allowed_tokens:
         if token not in token_map:

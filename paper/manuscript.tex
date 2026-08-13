@@ -91,7 +91,7 @@ digital twin
 \section{Introduction}
 \label{sec:introduction}
 
-A shared digital twin (DT) platform maintains center-specific predictive models for monitoring, prediction, analysis, and decision making \cite{ref1,ref2,ref3}. These models transform synchronized monitoring histories into workload forecasts that can support resource-management decisions. The present work addresses this predictive-model component; sensing, state synchronization, simulation, and actuation remain services of the surrounding DT platform. To reduce the computation required for model instantiation, the platform can reuse models pretrained on existing centers. However, a new or reconfigured center may differ substantially from existing centers in resource configurations, monitored-variable availability, workload patterns, and data distributions, making a fixed pretrained architecture suboptimal for the target environment. Concurrent model maintenance also creates computation and storage pressure, so the platform sets two per-model deployment limits: estimated operation count per inference and parameter count. The operation count describes model-side inference computation, while the parameter count describes model size. In this setting, the target center has only limited historical observations,
+A shared digital twin (DT) platform maintains center-specific predictive models for monitoring, prediction, analysis, and decision making \cite{ref1,ref2,ref3}. These models transform synchronized monitoring histories into workload forecasts that can support resource-management decisions. The present work addresses this predictive-model component; sensing, state synchronization, simulation, and actuation remain services of the surrounding DT platform. To reduce the computation required for model instantiation, the platform can reuse models pretrained using data from existing centers. However, a new or reconfigured center may differ substantially from existing centers in resource configurations, monitored-variable availability, workload patterns, and data distributions, making a fixed pretrained architecture suboptimal for the target environment. Concurrent model maintenance also creates computation and storage pressure, so the platform sets two per-model deployment limits: estimated operation count per inference and parameter count. The operation count describes model-side inference computation, while the parameter count describes model size. In this setting, the target center has only limited historical observations,
 available as a small support set for parameter adaptation and a small
 validation set for model selection.
 The limited support set defines the few-shot target-adaptation setting
@@ -141,14 +141,18 @@ marginal validation-loss reductions.
 The selected architecture and adapted parameters form the predictive-model
 instance used by the target center's DT.
 
-The target optimization object is a finite set of
-architecture--initialization pairs after common target adaptation. This
-differs from ordinary model-bank selection, which scores frozen bank entries,
-and from PT+FT, which adapts only one fixed reference architecture. It also
-differs from NAS and meta-NAS, which search or adapt an architecture in the
-target stage. The relative margin is a separate final-selection rule: it
-does not construct the bank, change the target updates, or create the gain
-from cross-architecture adaptation.
+The target optimization object is a finite set of heterogeneous
+architecture--initialization pairs after common target adaptation. Related
+model-zoo and model-hub methods already rank, tune, aggregate, or select
+pretrained models. The narrower distinction here is a deployment-filtered
+bank of separately source-trained full models, followed by equal-budget
+target adaptation and a protected-reference replacement rule calibrated on
+data disjoint from final evaluation. This also differs from PT+FT, which
+adapts only one fixed reference architecture, and from NAS and meta-NAS,
+which search or adapt an architecture in the target stage. The relative
+margin is a separate final-selection rule: it does not construct the bank,
+change the target updates, or create the gain from cross-architecture
+adaptation.
 
 This work makes the following contributions.
 
@@ -165,7 +169,7 @@ candidates under a common target budget, and exhaustively evaluate the
 finite feasible set for target model selection.
 
 \item \textbf{Reference-based selection.}
-We introduce a calibrated relative-margin rule that replaces the fixed
+We instantiate a calibrated relative-margin rule that replaces the fixed
 adapted reference only when the best alternative achieves sufficient
 validation-loss reduction.
 
@@ -202,6 +206,26 @@ context modeling and transferable representations
 applied to DT construction and workload prediction
 \cite{ref11,ref25}.
 Most parameter-adaptation methods keep the architecture fixed and mainly adapt model parameters, without explicitly accounting for per-model deployment limits, which limits their applicability to heterogeneous target centers.
+
+\subsection{Pretrained Model-Zoo Selection and Adaptation}
+
+Model-zoo and model-hub research has established that selecting and adapting
+among pretrained models is itself an existing problem. Zoo-Tuning adaptively
+transfers and aggregates parameters from multiple source models
+\cite{ref33}; ranking-and-tuning methods rank heterogeneous pretrained models
+before fine-tuning or use several ranked models to tune a target model
+\cite{ref34}; and model soups select and average fine-tuned candidates
+\cite{ref35}. Transfer-learning theory also studies the limits of model
+selection when source--target relationships vary across hypothesis classes
+\cite{ref36}.
+
+MSA-DTI does not claim general novelty for model selection or fine-tuning.
+Its contribution is the protocol for a finite heterogeneous bank of
+separately source-trained full workload-forecasting models: hard deployment
+limits are applied before adaptation, every feasible candidate receives the
+same target update budget, and replacement of a protected reference requires
+a relative margin calibrated on a disjoint pool. The method returns one
+feasible model instance rather than aggregating model parameters.
 
 \subsection{Deployment-Aware Architecture Selection}
 
@@ -579,6 +603,8 @@ a_{q_c^{*}},
 The margin $\tau$ is calibrated on a margin-calibration pool that is
 disjoint from the architecture-screening cases and final target evaluation.
 Each calibration case contains support, validation, and check sets.
+A total of 20 calibration centers contribute four cases each, giving 80
+cases and 20 independent center clusters for resampling.
 A selection is harmful when the selected alternative has a higher check-set
 loss than the adapted reference.
 
@@ -703,8 +729,9 @@ cases with the largest MSE.
 For held-out reporting, a selected alternative is labeled harmful when its
 test MSE is higher than that of the adapted reference. This label is used
 only after selection. Relative gains are computed for each paired case and
-then averaged. Confidence intervals use a center-cluster bootstrap with 4000
-repetitions, keeping the four cases from one center together.
+then averaged. Confidence intervals use a center-cluster percentile bootstrap
+with 4000 repetitions, keeping the four cases from one center together.
+Reported subgroup intervals are unadjusted pointwise 95\% intervals.
 
 We compare MSA-DTI with PT+FT, MeDeT-based adaptation, random
 initialization, few-shot NAS, zero-shot NAS, zero-shot NAS with
@@ -727,7 +754,7 @@ reported protocol.
 
 All reported baselines use the same target cases, chronological splits,
 deployment limits, and architecture definitions.
-Target-side baseline settings are summarized in Supplementary Table~S1,
+Target-side baseline settings are summarized in Supplementary Table~S2,
 with complete configurations provided in the released implementation.
 
 \subsubsection{Runtime Protocol}
@@ -774,7 +801,7 @@ we also run an optimizer-matched diagnostic comparison.
 All methods included in this diagnostic use SGD, MSE, and 50 target updates.
 MSA-DTI keeps the lowest MSE, Worst-10\% error, and CVaR90.
 Table~\ref{tab:optimizer-matched} moves the central comparison into the main
-paper, and Supplementary Table~S2 gives the complete diagnostic.
+paper, and Supplementary Table~S3 gives the complete diagnostic.
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -806,7 +833,7 @@ All methods use the same independent diagnostic cases, hard deployment
 limits, SGD optimizer, MSE loss, and 50 target updates per adapted model.
 The source initializations and candidate-selection rules remain
 method-specific. The complete six-method diagnostic is reported in
-Supplementary Table~S2.
+Supplementary Table~S3.
 \end{minipage}
 \end{center}
 
@@ -823,7 +850,11 @@ relative to PT+FT. Positive values favor MSA-DTI.
 
 The reduction ranges from 11.57\% to 18.03\% across the four horizon and
 support-size settings and from 13.03\% to 16.80\% across the three center
-types. All seven confidence intervals remain above zero.
+types. The type panels contain 24, 32, and 24 cases but only 6, 8, and 6
+independent center clusters, respectively. Their pointwise intervals are
+therefore interpreted as exploratory small-cluster summaries rather than
+formal simultaneous subgroup inference. All seven observed confidence
+intervals remain above zero.
 
 On a separate robustness pool, retraining the fixed candidate architectures
 with source-training seeds 2904, 2905, and 2906 gives paired MSE reductions
@@ -871,7 +902,7 @@ reports an expanded-bank stress analysis.
 For both $H=1$ and $H=4$, the operation-count and parameter-count limits
 exclude different candidates: each single-limit feasible set retains seven
 of eight candidates, whereas their joint feasible set retains six.
-A corrected target-side stress evaluation uses the same 80 held-out cases,
+The target-side stress evaluation uses the same 80 held-out cases,
 and all outputs selected under the joint limits satisfy both limits.
 Mean paired MSE reductions relative to PT+FT remain positive under tight,
 medium, and loose limits: 11.35\%, 15.30\%, and 18.22\%, respectively.
@@ -1077,6 +1108,32 @@ P. Eustratiadis, L. Dudziak, D. Li, and T. Hospedales,
 ``Neural fine-tuning search for few-shot learning,''
 in \emph{Proc. International Conference on Learning Representations
 (ICLR)}, 2024.
+
+\bibitem{ref33}
+Y. Shu, Z. Kou, Z. Cao, J. Wang, and M. Long,
+``Zoo-Tuning: Adaptive transfer from a zoo of models,''
+in \emph{Proc. 38th Int. Conf. Mach. Learn. (ICML)}, vol. 139 of
+\emph{Proc. Mach. Learn. Res.}, pp. 9626--9637, 2021.
+
+\bibitem{ref34}
+K. You, Y. Liu, Z. Zhang, J. Wang, M. I. Jordan, and M. Long,
+``Ranking and tuning pre-trained models: A new paradigm for exploiting
+model hubs,'' \emph{Journal of Machine Learning Research}, vol. 23,
+no. 209, pp. 1--47, 2022.
+
+\bibitem{ref35}
+M. Wortsman, G. Ilharco, S. Y. Gadre, R. Roelofs, R. Gontijo-Lopes,
+A. S. Morcos, H. Namkoong, A. Farhadi, Y. Carmon, S. Kornblith, and
+L. Schmidt, ``Model soups: Averaging weights of multiple fine-tuned models
+improves accuracy without increasing inference time,'' in \emph{Proc. 39th
+Int. Conf. Mach. Learn. (ICML)}, vol. 162 of \emph{Proc. Mach. Learn. Res.},
+pp. 23965--23998, 2022.
+
+\bibitem{ref36}
+S. Hanneke, S. Kpotufe, and Y. Mahdaviyeh,
+``Limits of model selection under transfer learning,'' in \emph{Proc. 36th
+Conference on Learning Theory (COLT)}, vol. 195 of \emph{Proc. Mach. Learn.
+Res.}, pp. 5781--5812, 2023.
 
 \end{thebibliography}
 

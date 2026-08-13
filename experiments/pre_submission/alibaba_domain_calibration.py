@@ -46,7 +46,13 @@ from experiments.main.real_trace import (
     _source_normalization,
     _stable_key,
 )
-from shared.evaluation.common import atomic_json, eval_metrics, file_sha256, seed_all
+from shared.evaluation.common import (
+    UnsupportedLimitError,
+    atomic_json,
+    eval_metrics,
+    file_sha256,
+    seed_all,
+)
 
 
 def _assign_types(ids: Sequence[str], target_cv: Mapping[str, float]) -> Dict[str, str]:
@@ -401,7 +407,9 @@ def _adapt_case_candidates(
         if is_feasible(A[idx], cfg.main.budget, tier, L, input_dim, H)
     ]
     if CFG.anchor_arch_idx not in feasible:
-        raise RuntimeError("Alibaba A57 reference is infeasible")
+        raise UnsupportedLimitError(
+            "Alibaba PT_A57 reference violates the assigned hard limits"
+        )
 
     seed = (
         CFG.train_seed
