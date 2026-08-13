@@ -38,7 +38,10 @@ All table inputs and Fig. 1--12 are tracked beside the source. The checked
 
 ## Level C: frozen locked-evaluation replay
 
-Download the `v1.2.3` bootstrap asset and verify it before execution:
+The release-distributed bootstrap payload preserves the verified v1.1.4
+provenance and is republished under a v1.2.3 filename. It can be used to
+stage the frozen inputs, but it is not evidence of a CUDA replay executed from
+the v1.2.3 source tree. Verify and stage it before execution:
 
 ```powershell
 python .\scripts\stage_level_c_bootstrap.py `
@@ -55,8 +58,15 @@ python .\scripts\run_full_reproduction.py `
 ```
 
 It stages the exact archived files, runs the seven locked methods, analyzes
-80 records per method, and executes the formal audit. It uses frozen
-source-trained weights and does not retrain the source bank.
+80 records per method, and executes the formal audit. The independent
+H-Meta-NAS recovery is a separately archived formal run (80/80 target records
+and 240/240 source-bank iterations) under
+`outputs/h_meta_nas_recovery_v1/`; it is not silently folded into the
+Meta+NAS-lite replay. It uses frozen
+source-trained weights and does not retrain the source bank. A completed
+replay should archive its own `CUDA_ENVIRONMENT.json` with the exact current
+tag and commit; until then, the republished v1.1.4 CUDA evidence is historical
+provenance only.
 
 The original Alibaba trace is separate because it is not redistributed.
 Follow `data/alibaba2018/README.md`.

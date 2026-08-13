@@ -7,7 +7,7 @@ v1.2.3 paper outputs.
 |---|---|---|
 | Table 1: experimental configuration | `configs/main_cfg.py`, frozen method configs, corrected mechanism summary | `table1_configuration.csv` |
 | Table 2: compared methods and fairness | `results/main/baseline_fairness.csv` | `table2_fairness.csv` |
-| Table 3: overall comparison | `results/main/overall_comparison.csv` | `table3_overall.csv` |
+| Table 3: overall comparison | `results/main/overall_comparison.csv` (including the independent H-Meta-NAS recovery) | `table3_overall.csv` |
 | Table 4: optimizer-matched control | `results/supplementary/optimizer_matched_control_summary.csv` from the independent control target pool | `table4_matched_control.csv` |
 | Table 5: component ablation | `results/main/component_ablation.csv` | `table5_ablation.csv` |
 | Runtime and model complexity (public supplementary layer) | `results/supplementary/repeated_runtime_summary.csv`, selected-model complexity | broader public CSV/LaTeX outputs; not a manuscript Table 6 |
@@ -22,12 +22,18 @@ v1.2.3 paper outputs.
 | Fig. 12(a): controlled source scale | `tableS2_controlled_source_scale.csv` | source-scale panel |
 | Fig. 12(b): seed and Alibaba case distributions | frozen 240 source-seed and 160 anonymized Alibaba evaluation records | `fig12_case_level_gains.csv` and `fig12_group_summary.csv` |
 
+`results/figure_data/tableS6_alibaba_semi_real.csv` is a retained historical
+80-case diagnostic compatibility file.  It is **not** the source of any
+current manuscript table, figure, or Alibaba transfer claim; the current
+160-case transfer result is sourced only from the Fig. 12(b) files listed
+above.
+
 The exact five-table manuscript layer is generated under `tables/paper_csv/`
 and `tables/paper_latex/`. The broader checked presentation layer remains
 under `tables/csv/`, `tables/latex/`, and `results/figure_data/`. Cross-file
 values are derived before rounding. The public proposed runtime is
-`5.676 +/- 0.059 s`; the earlier one-pass diagnostic remains historical
-provenance only.
+`5.676 +/- 0.059 s`. H-Meta-NAS is reported from its completed single formal
+replay (`43.061 s`); it is not represented as a five-repeat dispersion estimate.
 
 Table 4 uses a disjoint optimizer-control target pool. The controlled
 source-scale, source-seed, and Alibaba studies are separate diagnostic pools;

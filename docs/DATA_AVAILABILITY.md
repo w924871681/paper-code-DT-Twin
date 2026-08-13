@@ -6,6 +6,12 @@ contains the manuscript source/PDF, Fig. 1--12, plot-ready figure data,
 structured tables, frozen configurations, reproduction code, audit evidence,
 and SHA-256 checksums.
 
+The release also distributes a checksum-preserved legacy CUDA replay archive
+whose embedded environment identifies v1.1.4. Its v1.2.3 filename is a
+distribution alias, not evidence that the replay was executed from the
+v1.2.3 source tree; readers should use the embedded environment record and
+code manifest as the provenance authority.
+
 Synthetic multi-center data can be regenerated from the released simulator,
 configurations, and fixed seeds. Level B requires neither model weights nor
 the Alibaba archive. The exact anonymized case-level values used in Fig. 12(b), including

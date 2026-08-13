@@ -50,8 +50,8 @@
     },
     "results/figure_data/table2_baseline_fairness.csv": {
       "original_sha256": "970202f403e146875280196712e65ca9bc70b2e1a107492e125fcdcd95bfe8d3",
-      "corrected_sha256": "61b08e807ca3a41d0e7c269e4dd4c940d2d062b5bca08348d26cfaa3b86b728a",
-      "correction": "Synchronize the MSA-DTI public name and target-side protocol descriptions with revised-paper Table 2."
+      "corrected_sha256": "ff0828868d0603eadf68fc4228b9f843c3dd3f27f8b500b7f569d5c08ccfd68c",
+      "correction": "Add the recovered H-Meta-NAS hardware-aware meta-NAS baseline while retaining the revised-paper protocol descriptions."
     }
   }
 }

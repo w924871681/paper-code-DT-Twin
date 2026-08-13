@@ -33,6 +33,7 @@ BUDGETS = ("tight", "medium", "loose")
 FIG10_METHODS = (
     ("PT+FT", "pt_ft", "PT+FT"),
     ("Meta+NAS-lite", "meta_nas_lite", "Few-shot NAS"),
+    ("H-Meta-NAS", None, "H-Meta-NAS"),
     ("Zero-NAS+FT", "zero_nas_ft", "Zero-shot NAS+FT"),
     ("Ours", "ours_c32_locked", "MSA-DTI"),
 )
@@ -232,7 +233,7 @@ def derive_fig7_fig10_fig11(output_dir: Path) -> None:
                 "mse": row["WMSE"],
                 "worst10": row["Worst10"],
                 "cvar90": row["CVaR90_WMSE"],
-                "target_time_seconds": runtime[runtime_key]["mean_seconds"],
+                "target_time_seconds": row["OnlineSeconds"] if runtime_key is None else runtime[runtime_key]["mean_seconds"],
                 "parameter_count": row["Params"],
                 "estimated_operation_count": row["FLOPs"],
             }
