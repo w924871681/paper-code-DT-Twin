@@ -56,17 +56,17 @@
 
 \shorttitle{Few-Shot DT Predictive-Model Instantiation}
 
-\title[mode=title]{Joint Model Selection and Adaptation for Few-Shot Predictive-Model Instantiation in Digital Twin Platforms under Deployment Limits}
+\title[mode=title]{Deployment-Aware Model Selection and Adaptation for Few-Shot Predictive-Model Instantiation in Digital Twin Platforms}
 
 \begin{abstract}
 Digital twin (DT) platforms for computing networks can reuse pretrained predictive models from existing centers to reduce the computation required for center-specific model instantiation. In this paper, instantiation refers to the predictive-model component of a DT rather than the complete DT lifecycle. However, a new or reconfigured center may exhibit substantial differences in resource configurations and workload characteristics, making a fixed architecture suboptimal for the target environment. At the target center, only a small support set is available for parameter
 adaptation and a small validation set for model selection.
 Accurate predictive-model instantiation therefore requires selecting a suitable
 architecture and adapting its parameters from such limited target data
-while ensuring that the selected model satisfies deployment limits. Existing few-shot methods typically adapt parameters within predefined architectures and rarely account for deployment limits, limiting their effectiveness in heterogeneous computing environments.
+while ensuring that the selected model satisfies deployment limits. Existing parameter-adaptation-based few-shot methods typically use predefined architectures and rarely account for deployment limits, limiting their applicability to heterogeneous computing environments.
 To address this challenge, we propose Model Selection and Adaptation for
 Digital Twin Instantiation (MSA-DTI), a few-shot predictive-model instantiation framework
-that jointly selects a target-specific architecture and adapts its parameters
+that integrates target-specific architecture selection and parameter adaptation
 under deployment limits. MSA-DTI first constructs a candidate model bank by pretraining diverse
 architectures on historical workload data, filters out infeasible candidates
 according to the deployment limits, and adapts the remaining candidates
@@ -141,7 +141,7 @@ marginal validation-loss reductions.
 The selected architecture and adapted parameters form the predictive-model
 instance used by the target center's DT.
 
-The target optimization object is a finite set of heterogeneous
+The target decision set is a finite collection of heterogeneous
 architecture--initialization pairs after common target adaptation. Related
 model-zoo and model-hub methods already rank, tune, aggregate, or select
 pretrained models. The narrower distinction here is a deployment-filtered
@@ -154,24 +154,30 @@ margin is a separate final-selection rule: it does not construct the bank,
 change the target updates, or create the gain from cross-architecture
 adaptation.
 
-This work makes the following contributions.
+This work makes the following systems and empirical contributions.
 
 \begin{itemize}
 
-\item \textbf{Problem formulation.}
-We formulate few-shot DT model instantiation for a target center as
-architecture selection and parameter adaptation from limited target data,
-subject to per-model operation-count and parameter-count limits.
+\item \textbf{Deployment-aware DT instantiation problem.}
+We formulate the predictive-model instantiation task at a target center as
+selection and adaptation from limited target data, subject to two explicit
+per-model deployment limits and strict separation of adaptation, validation,
+and final evaluation data.
 
-\item \textbf{MSA-DTI algorithm.}
-We develop MSA-DTI to filter infeasible candidates, adapt feasible
-candidates under a common target budget, and exhaustively evaluate the
-finite feasible set for target model selection.
+\item \textbf{Integrated instantiation protocol.}
+We develop MSA-DTI as a reproducible platform protocol that filters a
+prespecified reusable model bank, adapts every feasible candidate under a
+common target budget, and exhaustively evaluates the finite feasible set.
+This is an integrated systems design rather than a new general-purpose joint
+optimization solver.
 
-\item \textbf{Reference-based selection.}
-We instantiate a calibrated relative-margin rule that replaces the fixed
-adapted reference only when the best alternative achieves sufficient
-validation-loss reduction.
+\item \textbf{Protected-reference decision rule and evidence.}
+We instantiate a relative-margin rule calibrated on a disjoint pool and
+evaluate the complete protocol on held-out heterogeneous-center cases,
+source-sensitivity studies, and an Alibaba workload-domain transfer audit.
+The results report both gains and failure boundaries, including
+sample-sensitive candidate discovery and unsuccessful external-domain margin
+recalibration.
 
 \end{itemize}
 
@@ -194,7 +200,16 @@ states and services and support model updates
 \cite{ref5,ref6,ref7,ref8}.
 Platform studies further consider service orchestration and computation
 offloading under resource constraints \cite{ref27,ref28}.
-However, these studies usually assume a predefined model structure or focus on platform-level resource decisions rather than target-specific architecture selection and parameter adaptation from limited target data under deployment limits.
+DT-specific studies have formulated server-side model selection under
+synchronization and execution constraints \cite{ref40}, learned contextual
+AI-model selection mappings with digital-twin assistance \cite{ref41}, and
+selected forecasting models according to time-series characteristics and
+available computing resources \cite{ref42}.
+These studies establish model selection as a DT systems problem, but they do
+not address the present target-side protocol: equal-budget few-shot adaptation
+of a finite bank of separately source-trained workload-forecasting models,
+hard filtering before adaptation, and protected-reference replacement from a
+small validation set.
 
 \subsection{Few-Shot Learning and Meta-Learning}
 
@@ -215,17 +230,25 @@ transfers and aggregates parameters from multiple source models
 \cite{ref33}; ranking-and-tuning methods rank heterogeneous pretrained models
 before fine-tuning or use several ranked models to tune a target model
 \cite{ref34}; and model soups select and average fine-tuned candidates
-\cite{ref35}. Transfer-learning theory also studies the limits of model
+\cite{ref35}. Zero-shot AutoML selects pretrained-model and fine-tuning
+pipelines from dataset meta-features \cite{ref38}, Quick-Tune jointly searches
+pretrained models and fine-tuning hyperparameters under a time budget
+\cite{ref37}, and ZooKT transfers knowledge from a model zoo for few-shot
+learning \cite{ref39}. Transfer-learning theory also studies the limits of model
 selection when source--target relationships vary across hypothesis classes
 \cite{ref36}.
 
 MSA-DTI does not claim general novelty for model selection or fine-tuning.
-Its contribution is the protocol for a finite heterogeneous bank of
-separately source-trained full workload-forecasting models: hard deployment
-limits are applied before adaptation, every feasible candidate receives the
-same target update budget, and replacement of a protected reference requires
-a relative margin calibrated on a disjoint pool. The method returns one
-feasible model instance rather than aggregating model parameters.
+Its JNCA-oriented systems contribution is a deployment-aware instantiation
+protocol for networked DT platforms. The protocol operates on a finite
+heterogeneous bank of separately source-trained full workload-forecasting
+models: hard deployment limits are applied before adaptation, every feasible
+candidate receives the same target update budget, and replacement of a
+protected reference requires a relative margin calibrated on a disjoint pool.
+The method returns one feasible model instance rather than aggregating model
+parameters. Candidate discovery is sample-sensitive, so the contribution is
+the evaluated instantiation design and its explicit safety boundary, not a
+claim that the screening rule uniquely recovers an architecture set.
 
 \subsection{Deployment-Aware Architecture Selection}
 
@@ -506,6 +529,10 @@ $\widetilde q_c
 \operatorname*{arg\,min}_{q\in\mathcal{Q}_{c}^{\mathrm{alt}}}
 J_c(q)$
 denote an alternative with the lowest validation loss.
+Exact ties at the stored numerical precision are resolved deterministically
+by lower parameter count, then lower estimated operation count, then lower
+architecture index, and finally the fixed source-candidate token. This
+lexicographic rule affects only ties among alternatives.
 
 Let $\tau\in[0,1)$ denote a preset relative margin. The final candidate is
 
@@ -580,7 +607,7 @@ $\mathcal{Q}_{c}^{\mathrm{alt}}
     $\widetilde q_c
     \in
     \underset{q\in\mathcal{Q}_{c}^{\mathrm{alt}}}
-    {\arg\min}\;J_c(q)$
+    {\arg\min}\;J_c(q)$ using the deterministic tie rule
     \State Select $q_c^{*}$ using
     Eq.~\eqref{eq:reference-based-selection}
 \EndIf
@@ -760,7 +787,9 @@ with complete configurations provided in the released implementation.
 \subsubsection{Runtime Protocol}
 
 All methods are implemented in Python and PyTorch and run on an NVIDIA RTX
-3060 Laptop GPU. Target-side time includes model creation, initialization
+3060 Laptop GPU. The repeated target-side timing record uses Python 3.9.23,
+PyTorch 2.5.1+cu121, CUDA 12.1, cuDNN 9.1.0, and float32 model inputs and
+parameters. Target-side time includes model creation, initialization
 loading, target adaptation, validation evaluation, and final selection, but
 excludes offline preparation and test evaluation. Supplementary Section~S5 reports the complete timing and hardware-profiling
 protocol.
@@ -906,6 +935,11 @@ The target-side stress evaluation uses the same 80 held-out cases,
 and all outputs selected under the joint limits satisfy both limits.
 Mean paired MSE reductions relative to PT+FT remain positive under tight,
 medium, and loose limits: 11.35\%, 15.30\%, and 18.22\%, respectively.
+These tier-stratified values are descriptive rather than causal effects of
+the limits. Tier assignment is type-dependent, and the tight, medium, and
+loose strata contain only 20, 52, and 8 cases (approximately 5, 13, and 2
+independent center clusters), respectively; center type and tier are
+therefore not independently identified in this benchmark.
 
 Table~\ref{tab:target-cost} reports raw target-side cost and selected-model
 complexity.
@@ -996,8 +1030,8 @@ influence the work reported in this paper.
 
 The source code, frozen configurations, processed results, plot-ready data,
 and reproduction scripts underlying the reported results are available in
-GitHub Release v1.2.2:
-\url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.2}.
+GitHub Release v1.2.3:
+\url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.3}.
 The original Alibaba Cluster Trace v2018 is not redistributed and remains
 available from its official repository:
 \url{https://github.com/alibaba/clusterdata}. The released documentation
@@ -1134,6 +1168,43 @@ S. Hanneke, S. Kpotufe, and Y. Mahdaviyeh,
 ``Limits of model selection under transfer learning,'' in \emph{Proc. 36th
 Conference on Learning Theory (COLT)}, vol. 195 of \emph{Proc. Mach. Learn.
 Res.}, pp. 5781--5812, 2023.
+
+\bibitem{ref37}
+S. Pineda Arango, F. Ferreira, A. Kadra, F. Hutter, and J. Grabocka,
+``Quick-Tune: Quickly learning which pretrained model to finetune and how,''
+in \emph{Proc. International Conference on Learning Representations (ICLR)},
+2024.
+
+\bibitem{ref38}
+E. {\"O}zt{\"u}rk, F. Ferreira, H. Jomaa, L. Schmidt-Thieme, J. Grabocka,
+and F. Hutter, ``Zero-shot AutoML with pretrained models,'' in \emph{Proc.
+39th Int. Conf. Mach. Learn. (ICML)}, vol. 162 of \emph{Proc. Mach. Learn.
+Res.}, pp. 17138--17155, 2022.
+
+\bibitem{ref39}
+B. Zhang, B. Shan, A. Li, C. Luo, Y. Ye, and Z. Li,
+``ZooKT: Task-adaptive knowledge transfer of model zoo for few-shot
+learning,'' \emph{Pattern Recognition}, vol. 158, Art. no. 110960, 2025,
+doi: 10.1016/j.patcog.2024.110960.
+
+\bibitem{ref40}
+H. Chen, T. D. Todd, D. Zhao, and G. Karakostas,
+``Digital twin model selection for feature accuracy,'' \emph{IEEE Internet
+of Things Journal}, vol. 11, no. 7, pp. 11415--11426, 2024,
+doi: 10.1109/JIOT.2023.3330411.
+
+\bibitem{ref41}
+Q. Hou, M. Zecchin, S. Park, Y. Cai, G. Yu, K. Chowdhury, and O. Simeone,
+``Automatic AI model selection for wireless systems: Online learning via
+digital twinning,'' \emph{IEEE Transactions on Wireless Communications},
+vol. 24, no. 4, pp. 3088--3102, Apr. 2025,
+doi: 10.1109/TWC.2025.3527741.
+
+\bibitem{ref42}
+J.-W. Kwon, A. Rubab, and W.-T. Kim,
+``A novel energy control digital twin system with a resource-aware optimal
+forecasting model selection scheme,'' \emph{Applied Sciences}, vol. 15,
+no. 14, Art. no. 7738, 2025, doi: 10.3390/app15147738.
 
 \end{thebibliography}
 

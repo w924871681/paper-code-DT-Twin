@@ -1,7 +1,7 @@
 numpy>=1.23
 scipy>=1.9
 scikit-learn>=1.1
-torch>=2.0
+torch==2.5.1
 pandas
 matplotlib
 Pillow>=9.0

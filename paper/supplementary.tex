@@ -55,8 +55,8 @@
 }
 
 \title{\textbf{Supplementary Material for}\\
-Joint Model Selection and Adaptation for Few-Shot Predictive-Model
-Instantiation in Digital Twin Platforms under Deployment Limits}
+Deployment-Aware Model Selection and Adaptation for Few-Shot Predictive-Model
+Instantiation in Digital Twin Platforms}
 \author{}
 \date{}
 
@@ -465,7 +465,9 @@ difference is not statistically confirmed.
 \subsection{Target-side timing protocol}
 
 All methods are implemented in Python and PyTorch and run on an NVIDIA RTX
-3060 Laptop GPU. Target-side time includes model creation, initialization
+3060 Laptop GPU. The repeated target-side timing ledger records Python
+3.9.23, PyTorch 2.5.1+cu121, CUDA 12.1, cuDNN 9.1.0, and float32 model
+inputs and parameters. Target-side time includes model creation, initialization
 loading, target adaptation, validation evaluation, and final selection. It
 excludes offline preparation and test evaluation. Each reported time is the
 mean over five runs, and the main manuscript reports the corresponding
@@ -474,6 +476,14 @@ warm-up execution on the first case. Formal CUDA timings use
 \texttt{time.perf\_counter} with CUDA synchronization immediately before and
 after every timed case. Method order is rotated deterministically across the
 five repetitions to reduce order drift.
+
+The separate batch-one profiling snapshot records Windows 10 build 26200,
+Python 3.11.15, PyTorch 2.5.1+cu121, CUDA 12.1, 14 PyTorch CPU threads,
+NVIDIA driver 592.82, and the Windows Balanced power plan. GPU total memory
+is 6144 MiB. GPU TGP, clock locking, and a driver identifier for the earlier
+repeated target-side timing session were not recorded; consequently, the
+reported wall-clock values are measurements of the documented hosts rather
+than hardware-independent performance guarantees.
 
 \subsection{Architecture-profiling protocol}
 
@@ -768,6 +778,10 @@ They differ in workload dynamics, sampling, and monitoring conditions.
 Deployment-limit tiers are separate platform-side settings and are assigned
 using the type-dependent probabilities reported in
 Table~\ref{tab:supp-center-types}.
+Tier-stratified summaries are descriptive, not causal, because type-dependent
+assignment associates center type and tier. The tight, medium, and loose
+strata contain 20, 52, and 8 cases (approximately 5, 13, and 2 independent
+center clusters), so tier effects are not independently identified.
 The table also gives the complete type-specific parameter ranges.
 The default A:B:C ratio is 3:4:3, giving 6 Type-A, 8 Type-B, and 6 Type-C
 centers in each 20-center source or held-out target pool.
@@ -862,30 +876,19 @@ Limit-tier probabilities
 \end{tabularx}
 \end{suppTableBlock}
 
-The three types share the same missingness mechanisms.
-For every center, the generator may create 2--6 single-metric outage
-blocks and 1--3 grouped outage blocks containing 2--4 metrics.
-A short global monitoring outage occurs with probability 0.20.
-The shared periodic base scales are 24, 96, and 672 base steps.
+The three types share the same missingness mechanisms. For every center, the
+generator may create 2--6 single-metric outage blocks, 1--3 grouped outage
+blocks containing 2--4 metrics, and a short global monitoring outage with
+probability 0.20. The shared periodic base scales are 24, 96, and 672 steps.
 
-Together, these settings vary five aspects of the benchmark: workload
-dynamics, sampling, monitored-variable availability, observation conditions,
-and deployment-limit settings.
-
-For each center, the generator first creates a latent workload process.
-The workload contains periodic variation, autoregressive variation, and
-random workload bursts.
-When drift occurs, it is generated as either an abrupt change or a gradual
-transition.
-
-The latent workload is then mapped to multivariate monitoring signals.
-Individual metrics may have different delays, gains, offsets, nonlinear
-terms, and observation noise.
-Center-specific sampling is applied before monitoring-schema and missingness
-effects are introduced.
-
-The benchmark generator and all data-role assignments are fixed before
-architecture screening, margin calibration, diagnostics, and held-out
-evaluation.
+Together, these settings vary workload dynamics, sampling, monitored-variable
+availability, observation conditions, and deployment-limit settings. The
+generator first creates a latent workload with periodic, autoregressive, and
+random-burst variation plus abrupt or gradual drift. It then maps the latent
+process to monitoring signals with metric-specific delays, gains, offsets,
+nonlinear terms, and observation noise. Center-specific sampling precedes
+monitoring-schema and missingness effects. The generator and all data-role
+assignments are fixed before screening, calibration, diagnostics, and
+held-out evaluation.
 
 \end{document}

@@ -5,13 +5,24 @@ dates are recorded only after a version is actually published.
 
 ## [Unreleased]
 
-- Prepare v1.2.0 with formal CPU/CUDA hosting-profile evidence and the
-  Alibaba 20/20/40 external-domain protocol.
-- Update Fig. 12 to 400 released case-level gains, including 160 held-out
-  Alibaba cases under the frozen 10% rule.
-- Align the manuscript, public processed evidence, verification assertions,
-  privacy checks, and release packaging without changing the frozen main
-  80-case synthetic evaluation.
+- No unreleased changes.
+
+## [1.2.3] - 2026-08-13
+
+- Reposition the paper's contribution as a deployment-aware predictive-model
+  instantiation protocol for networked digital-twin platforms and align the
+  title, abstract terminology, contribution list, and closest related work.
+- Document the selector's deterministic tie-breaking rule, treat
+  limit-tier summaries as descriptive because tier and center type are
+  associated, and record the available runtime environment fields and their
+  remaining host-specific limitations.
+- Synchronize the manuscript, supplementary material, Data Availability,
+  repository metadata, current documentation, release notes, and asset names
+  at v1.2.3. The 400 Fig. 12(b) case-level records are explicitly reconciled
+  as 240 source-seed plus 160 held-out Alibaba cases.
+- Preserve every frozen experimental value, split, seed, candidate,
+  configuration, optimizer, update budget, deployment limit, and figure-data
+  record.
 ## [1.1.9] - 2026-07-23
 
 - Adopt the latest supplied journal manuscript revision, including the revised

@@ -11,14 +11,20 @@ MSA-DTI instantiates a target-specific digital twin model in five stages:
    validation MSE and the preset 10% threshold.
 5. Return the selected feasible architecture and adapted parameters.
 
+Exact validation-loss ties among alternatives are resolved lexicographically
+by lower parameter count, lower estimated operation count, lower architecture
+index, and finally the fixed source-candidate token. This matches the released
+selector implementations and does not use held-out data.
+
 Estimated operation count is a model-level proxy for inference computation,
 and parameter count characterizes model size. Neither is a direct measurement
 of device latency, memory use, or energy consumption.
 
 ## Invariants
 
-v1.1.9 changes the revised manuscript presentation and Fig. 10 labels/layout
-only. It does not change the data split, seeds, six-architecture bank,
+v1.2.3 changes contribution positioning, nearest-neighbor literature,
+tie-breaking documentation, tier-effect interpretation, environment
+reporting, and release synchronization only. It does not change the data split, seeds, six-configuration bank,
 seven candidates, reference candidate, optimizer, loss, 50-update budget,
 10% threshold, complexity limits, or any core experimental value.
 

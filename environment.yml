@@ -13,5 +13,5 @@ dependencies:
   - pillow
   - pypdf
   - pytest
-  - pytorch
+  - pytorch=2.5.1
   - pytorch-cuda=12.1

@@ -1,16 +1,16 @@
-# Joint Model Selection and Adaptation for Few-Shot Predictive-Model Instantiation in Digital Twin Platforms under Deployment Limits
+# Deployment-Aware Model Selection and Adaptation for Few-Shot Predictive-Model Instantiation in Digital Twin Platforms
 
-This repository is the reproducibility archive for **Joint Model Selection
-and Adaptation for Few-Shot Predictive-Model Instantiation in Digital Twin
-Platforms under Deployment Limits**. The public method name is **MSA-DTI** (Model Selection and
-Adaptation for Digital Twin Instantiation). Release `v1.2.2` is the current
+This repository is the reproducibility archive for **Deployment-Aware Model
+Selection and Adaptation for Few-Shot Predictive-Model Instantiation in
+Digital Twin Platforms**. The public method name is **MSA-DTI** (Model Selection and
+Adaptation for Digital Twin Instantiation). Release `v1.2.3` is the current
 archived scientific release underlying the revised manuscript and
 supplementary package, plot-ready data, frozen protocols, audit evidence,
 and public reproduction commands.
 
 ## What is frozen
 
-The following scientific choices remain unchanged in v1.2.2:
+The following scientific choices remain unchanged in v1.2.3:
 
 - data seed `2904` and source-training seeds `2904`, `2905`, `2906`;
 - source, development, diagnostic, and held-out target splits;
@@ -111,7 +111,7 @@ compatibility wrapper; it calls the same canonical implementation.
 - **Level B — paper reconstruction:** all tables and Fig. 1--12 from released
   files, without weights or raw Alibaba data.
 - **Level C — locked evaluation replay:** the seven frozen methods from the
-  checksum-bound bootstrap assets in Release `v1.2.0`, requiring CUDA.
+  checksum-bound bootstrap assets republished in Release `v1.2.3`, requiring CUDA.
 
 For Level C, first verify and stage the downloaded bundle:
 
@@ -152,7 +152,7 @@ processed evaluation values only.
 ## Citation and release integrity
 
 Use `CITATION.cff` and Release
-[`v1.2.2`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.2).
+[`v1.2.3`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.3).
 Every release asset is covered by `SHA256SUMS.txt`; the audit report records
 the Git commit, annotated tag target, release state, and asset hashes.
 Author and DOI metadata remain explicitly pending.

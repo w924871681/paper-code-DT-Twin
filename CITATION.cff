@@ -1,13 +1,13 @@
 cff-version: 1.2.0
 title: >-
-  Joint Model Selection and Adaptation for Few-Shot Predictive-Model Instantiation in Digital Twin Platforms under Deployment Limits
+  Deployment-Aware Model Selection and Adaptation for Few-Shot Predictive-Model Instantiation in Digital Twin Platforms
 message: >-
   Please cite the associated paper and the latest archived software release.
   Replace the anonymous author placeholder and add the paper DOI before
   publication.
 type: software
-version: 1.2.2
-date-released: 2026-08-11
+version: 1.2.3
+date-released: 2026-08-13
 license: MIT
 repository-code: https://github.com/w924871681/paper-code-DT-Twin
 url: https://github.com/w924871681/paper-code-DT-Twin
