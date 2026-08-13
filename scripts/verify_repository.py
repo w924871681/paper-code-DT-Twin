@@ -313,7 +313,7 @@ def check_paper_alignment() -> list[str]:
     errors: list[str] = []
     tex = (ROOT / "paper/manuscript.tex").read_text(encoding="utf-8")
     required_source = (
-        "Joint Model Selection and Adaptation for Few-Shot Predictive-Model Instantiation in Digital Twin Platforms under Deployment Limits",
+        "Joint Model Selection and Adaptation for Few-Shot Digital Twin Instantiation under Deployment Limits",
         "Model Selection and Adaptation for Digital Twin Instantiation (MSA-DTI)",
         "six retained configurations, five executable architectures, and",
         "seven candidates",
