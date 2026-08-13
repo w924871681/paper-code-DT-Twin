@@ -20,18 +20,18 @@ METHODS = (
     "MeDeT",
     "Random init.",
     "Few-shot NAS",
+    "H-Meta-NAS",
     "Zero-shot NAS",
     "Zero-shot NAS+FT",
-    "H-Meta-NAS",
     "MSA-DTI (ours)",
 )
 
 # Frozen values shown in Error (x 10^-2), transcribed from the audited figure.
 PANELS = (
-    ("MAE", (5.382, 6.409, 12.562, 6.428, 13.500, 6.654, 9.047, 4.866), (0, 17.0), (0, 4, 8, 12)),
-    ("MSE", (0.512, 0.712, 2.620, 0.711, 3.039, 0.753, 1.375, 0.422), (0, 3.8), (0.0, 0.8, 1.6, 2.4, 3.2)),
-    ("Worst-10% error", (1.908, 2.417, 7.330, 2.650, 7.519, 2.854, 4.725, 1.576), (0, 9.1), (0, 2, 4, 6, 8)),
-    ("CVaR90", (1.387, 2.240, 8.688, 1.909, 11.063, 1.878, 3.696, 1.171), (0, 14.2), (0, 3, 6, 9, 12)),
+    ("MAE", (5.382, 6.409, 12.562, 6.428, 9.027, 13.500, 6.654, 4.866), (0, 17.0), (0, 4, 8, 12)),
+    ("MSE", (0.512, 0.712, 2.620, 0.711, 1.357, 3.039, 0.753, 0.422), (0, 3.8), (0.0, 0.8, 1.6, 2.4, 3.2)),
+    ("Worst-10% error", (1.908, 2.417, 7.330, 2.650, 4.615, 7.519, 2.854, 1.576), (0, 9.1), (0, 2, 4, 6, 8)),
+    ("CVaR90", (1.387, 2.240, 8.688, 1.909, 3.493, 11.063, 1.878, 1.171), (0, 14.2), (0, 3, 6, 9, 12)),
 )
 
 COLORS = ("#6e8fb3", "#8db8b0", "#c6c2bd", "#d9a25f", "#c77979", "#b39bbc", "#8f99a6", "#4f7f5c")
@@ -92,7 +92,7 @@ def main() -> None:
     ]
     # Column-major ordering preserves the two-row legend arrangement.
     fig.legend(
-        handles=(legend_handles[0], legend_handles[1], legend_handles[2], legend_handles[3], legend_handles[4], legend_handles[5], legend_handles[7], legend_handles[6]),
+        handles=tuple(legend_handles),
         ncol=4,
         loc="upper center",
         bbox_to_anchor=(0.5, 0.995),

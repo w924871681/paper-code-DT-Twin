@@ -73,7 +73,7 @@ according to the deployment limits, and adapts the remaining candidates
 using limited target samples. To make model selection more conservative given this small validation set,
 it compares the best-performing adapted alternative with a fixed adapted
 reference model and uses a preset relative reduction in validation loss as
-the replacement criterion. Experimental results show that MSA-DTI achieves the lowest mean squared error (MSE) among the compared methods, reducing MSE by 14.60\% on average across paired cases relative to the pretraining-and-fine-tuning baseline while satisfying the deployment limits across all main evaluation cases.
+the replacement criterion. On the controlled synthetic heterogeneous-center benchmark, MSA-DTI achieves the lowest mean squared error (MSE) among the compared methods, reducing MSE by 14.60\% on average across paired cases relative to the pretraining-and-fine-tuning baseline while satisfying the deployment limits across all main evaluation cases.
 \end{abstract}
 
 \begin{keywords}
@@ -288,7 +288,11 @@ We consider a digital twin platform that maintains center-specific DT models
 for heterogeneous computing centers. Let
 $\mathcal{C}_{\mathrm{src}}$ denote the existing centers, and let
 $\mathcal{D}_{\mathrm{src}}$ denote their combined historical workload
-data.
+data. In the experiments, each architecture-specific source initialization is
+trained on this same pooled source-center data. We use \emph{C1} only as the
+identifier for this legacy source-pooled initialization bank; thus C1-A57 is
+the C1 initialization for architecture index A57, not a center identifier or
+an additional data split.
 
 For each instantiation case, let $c$ denote a new or reconfigured target
 center. Let $\mathcal{D}_{c}^{\mathrm{sup}}$ and
@@ -729,7 +733,9 @@ Table~\ref{tab:configuration} reports the main settings.
 The initial space contains 66 MLP, TCN, and GRU configurations. PT-A57 is the
 protected pooled-source initialization of a one-layer GRU-32, fixed before
 screening and shared with PT+FT. Candidate discovery evaluates separately
-source-trained C1 candidates, including C1-A57. A C1 configuration is retained
+source-trained C1 candidates, including C1-A57. Here C1 denotes the legacy
+source-pooled initialization bank defined in Section~\ref{sec:problem}; it is
+not a target-center label. A C1 configuration is retained
 after at least two screening cases in either of two ways: it is the check-loss
 winner over PT-A57, or validation selects it and it has positive check-loss
 gain over PT-A57. Only support, validation, and check data from the screening
@@ -761,23 +767,18 @@ with 4000 repetitions, keeping the four cases from one center together.
 Reported subgroup intervals are unadjusted pointwise 95\% intervals.
 
 We compare MSA-DTI with PT+FT, MeDeT-based adaptation, random
-initialization, few-shot NAS, zero-shot NAS, zero-shot NAS with
-fine-tuning, and a task-matched H-Meta-NAS-based adaptation
-\cite{ref30}.
+initialization, few-shot NAS, H-Meta-NAS, zero-shot NAS, and zero-shot NAS
+with fine-tuning.
 PT+FT is the main controlled baseline because it uses the same source-trained
 reference and target adaptation procedure as MSA-DTI.
-H-Meta-NAS-based adaptation is included as the closest
-architecture-adaptation baseline because it combines few-shot meta-learning
-with hardware-aware architecture adaptation.
-We implement it using architecture-indexed first-order meta-initializations
-learned from the source centers and validation-only target architecture
-search under the same hard deployment limits.
-Its feasible search space uses the same 66 architecture definitions, its
-meta-initializations and search settings are fixed without held-out test
-data, and the final architecture is chosen using target validation data.
-The 50-update SGD/MSE budget-matched condition is used in the main
-comparison; target-side search and adaptation time are included in the
-reported protocol.
+The few-shot NAS baseline uses a deployment-filtered Top-12 shortlist,
+method-specific source initializations, and validation-only target selection;
+its Adam/Huber--50 target protocol is reported as a separate lightweight NAS
+baseline. H-Meta-NAS uses architecture-indexed first-order MAML
+initializations and a hardware-feasible population/mutation search with 12
+SGD/MSE--50 adapted candidates; its final architecture is selected using
+target validation only. Both search baselines are evaluated under the same
+66-architecture space and hard deployment limits.
 
 All reported baselines use the same target cases, chronological splits,
 deployment limits, and architecture definitions.
@@ -806,9 +807,11 @@ held-out cases. All reported outputs satisfy both deployment limits.
 {fig:overall-performance}
 
 MSA-DTI gives the lowest values for all four error measures. PT+FT is the
-strongest baseline. Under the 50-update budget-matched setting, the
-task-matched H-Meta-NAS-based adaptation obtains an MSE of 0.013747,
-compared with 0.005120 for PT+FT and 0.004219 for MSA-DTI.
+strongest baseline. Among the reported search baselines, few-shot NAS obtains
+MSE 0.007105 and H-Meta-NAS obtains MSE 0.013574, compared with 0.005120 for
+PT+FT and 0.004219 for MSA-DTI. H-Meta-NAS therefore supplies the direct
+hardware-aware meta-NAS comparison without replacing the lighter Meta+NAS-lite
+baseline.
 Relative to PT+FT, MSA-DTI reduces MAE by 8.55\%, MSE by 14.60\%, and Worst-10\% error by 13.76\% on average across paired cases. The center-cluster bootstrap 95\% confidence interval for the paired MSE reduction is $[9.41\%,20.14\%]$.
 
 Figure~\ref{fig:paired-instantiation} compares MSA-DTI with the adapted
@@ -946,7 +949,8 @@ complexity.
 
 \input{tables/table4_target_cost.tex}
 
-MSA-DTI requires $5.676\pm0.059$ seconds per case and adapts 6.25 models on
+MSA-DTI requires $5.676\pm0.059$ seconds per case (where $\pm$ is the
+standard deviation across the five repeat means) and adapts 6.25 models on
 average. It is slower than PT+FT, but is $2.37\times$ faster than few-shot
 NAS and $3.10\times$ faster than zero-shot NAS with fine-tuning.
 
@@ -965,6 +969,42 @@ memory guarantee or establish cross-platform deployment performance.
 \subsection{Component Analysis}
 \label{subsec:component}
 
+Table~\ref{tab:component-ablation} reports the component variants on the
+separate diagnostic pool. The full method is compared with reference-only,
+paired-initialization, source-bank, selection, and deployment-filtering
+controls; this table is not part of the held-out headline comparison.
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\captionof{table}{Component ablation on the separate diagnostic pool.}
+\label{tab:component-ablation}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.06}
+\setlength{\tabcolsep}{2.4pt}
+\begin{tabularx}{\linewidth}{Y Z{0.13\linewidth} Z{0.15\linewidth} Z{0.16\linewidth} Z{0.15\linewidth} Z{0.15\linewidth}}
+\toprule
+Variant & MSE$\downarrow$ & Worst-10\%$\downarrow$ &
+Paired MSE reduction (\%)$\uparrow$ & Harmful rate (\%)$\downarrow$ &
+Limit satisfaction (\%)$\uparrow$ \\
+\midrule
+\textbf{MSA-DTI} & \textbf{0.004063} & \textbf{0.015764} & 15.79 & 15.00 & 100.00 \\
+Earlier source-training procedure & 0.004876 & 0.019044 & 1.75 & 2.50 & 100.00 \\
+Reference candidate only & 0.005051 & 0.019512 & 0.00 & 0.00 & 100.00 \\
+Two A57 initializations & 0.004917 & 0.019136 & 1.29 & 1.25 & 100.00 \\
+Without relative margin & 0.004055 & 0.015690 & \textbf{16.16} & 17.50 & 100.00 \\
+Without deployment filtering & 0.004037 & 0.015635 & 16.13 & 13.75 & 96.25 \\
+\bottomrule
+\end{tabularx}
+\vspace{2pt}
+\par\footnotesize
+Paired MSE reduction uses the adapted reference on the same diagnostic pool.
+The earlier source-training row changes the alternative-model source-training
+procedure and is interpreted as source-bank sensitivity rather than an
+isolated single-component removal.
+\end{minipage}
+\end{center}
+
 Removing deployment filtering reduces limit satisfaction from 100\% to
 96.25\%, confirming that filtering is required to enforce the configured
 hard limits.
@@ -980,8 +1020,8 @@ unchanged while selecting alternatives more often. The main performance
 increment is therefore associated with adapting and selecting across the
 compact architecture bank; the margin is a conservative replacement rule,
 not the sole source of the accuracy gain.
-Full component and selection results are reported in Supplementary
-Section~S4.
+Supplementary Section~S4 provides the corresponding protocol details and
+additional selection diagnostics.
 
 \subsection{External Transfer Evaluation}
 \label{subsec:external}

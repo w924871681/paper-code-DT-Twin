@@ -110,8 +110,11 @@ compatibility wrapper; it calls the same canonical implementation.
   protocol, leakage, terminology, privacy, and checksum checks.
 - **Level B — paper reconstruction:** all tables and Fig. 1--12 from released
   files, without weights or raw Alibaba data.
-- **Level C — locked evaluation replay:** the seven frozen methods from the
-  checksum-bound bootstrap assets republished in Release `v1.2.3`, requiring CUDA.
+- **Level C – locked evaluation replay:** the seven frozen methods, requiring
+  CUDA.  The archive currently carrying the `v1.2.3` release filename is a
+  provenance-preserved legacy (`v1.1.4`) bootstrap; it can stage the locked
+  inputs but is not evidence of an exact `v1.2.3` CUDA replay.  An exact-tag
+  replay must publish its own environment capture and result manifest.
 
 For Level C, first verify and stage the downloaded bundle:
 

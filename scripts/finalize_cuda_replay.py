@@ -278,7 +278,13 @@ def compare_historical(historical_root: Path, current_root: Path) -> dict[str, A
     }
 
 
-def capture_environment(repo_root: Path, bootstrap_zip: Path, ledger: dict[str, Any]) -> dict[str, Any]:
+def capture_environment(
+    repo_root: Path,
+    bootstrap_zip: Path,
+    ledger: dict[str, Any],
+    release_tag: str | None,
+    bootstrap_provenance_tag: str | None,
+) -> dict[str, Any]:
     driver = _run(
         "nvidia-smi",
         "--query-gpu=name,driver_version,memory.total",
@@ -309,8 +315,8 @@ def capture_environment(repo_root: Path, bootstrap_zip: Path, ledger: dict[str, 
         "git_worktree_dirty": bool(worktree_status),
         "git_worktree_status": worktree_status.splitlines(),
         "git_worktree_diff_sha256": hashlib.sha256(worktree_diff.encode("utf-8")).hexdigest(),
-        "prepared_release": "v1.1.4",
-        "published_bootstrap_release": "v1.1.3",
+        "prepared_release": release_tag or exact_tag or None,
+        "published_bootstrap_release": bootstrap_provenance_tag or None,
         "bootstrap_path": str(bootstrap_zip),
         "bootstrap_bytes": bootstrap_zip.stat().st_size,
         "bootstrap_sha256": _sha256(bootstrap_zip),
@@ -427,6 +433,11 @@ def main() -> int:
     parser.add_argument("--archive-root", type=Path, help="Deprecated alias for --private-root")
     parser.add_argument("--public-root", type=Path, required=True)
     parser.add_argument("--public-zip", type=Path, required=True)
+    parser.add_argument("--release-tag", help="Exact tag of the source tree replayed.")
+    parser.add_argument(
+        "--bootstrap-provenance-tag",
+        help="Tag embedded in a reused bootstrap asset, if different from --release-tag.",
+    )
     args = parser.parse_args()
     private_arg = args.private_root or args.archive_root
     if private_arg is None:
@@ -456,7 +467,13 @@ def main() -> int:
     comparison = compare_historical(paths["historical_root"], paths["current_root"])
     if comparison["decision"] != "PASS_HISTORICAL_OUTPUT_COMPARISON":
         raise RuntimeError("Historical output comparison failed")
-    environment = capture_environment(paths["repo_root"], paths["bootstrap_zip"], ledger)
+    environment = capture_environment(
+        paths["repo_root"],
+        paths["bootstrap_zip"],
+        ledger,
+        args.release_tag,
+        args.bootstrap_provenance_tag,
+    )
     if not environment["torch_cuda_available"]:
         raise RuntimeError("CUDA is unavailable in the archival environment")
 

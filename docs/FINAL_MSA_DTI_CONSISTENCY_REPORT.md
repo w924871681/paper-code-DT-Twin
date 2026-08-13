@@ -32,7 +32,7 @@ experimental results, tables, figures, or the reproducibility protocol.
 | Candidate terminology | 66 indexed configurations; 6 retained configurations; 5 executable architectures; 7 candidates; A57 | PASS |
 | Target protocol | SGD, MSE, 50 updates, LR 0.01, common support budget, no candidate-specific early stopping | PASS |
 | Selection and isolation | Fixed reference, tau=0.10, disjoint pools, post-freeze test use | PASS |
-| Baseline and Alibaba wording | PT+FT, MeDeT-based, few-/zero-shot NAS, H-Meta-NAS-based, non-redistribution statement | PASS |
+| Baseline and Alibaba wording | PT+FT, MeDeT-based, few-/zero-shot NAS, externally cited meta-NAS work distinguished from reproduced baselines, non-redistribution statement | PASS |
 | Data Availability | Current v1.2.2 release link and official Alibaba source | PASS |
 
 ## Canonical code/config mapping
@@ -50,7 +50,7 @@ experimental results, tables, figures, or the reproducibility protocol.
 
 - PT+FT MSE `0.005120`, MSA-DTI MSE `0.004219`, paired MSE reduction `14.60%`: PASS.
 - 80 cases; 33 retained references; 47 alternatives; 44 beneficial; 3 harmful; 3.75% all-case harmful rate: PASS.
-- H-Meta-NAS-based MSE `0.013747`; runtime `5.676 +/- 0.059` s; 6.25 adapted models: PASS.
+- Few-shot NAS MSE `0.007105`; runtime `5.676 +/- 0.059` s; 6.25 adapted models: PASS.
 - Alibaba aggregate reduction `4.29%`; paired reduction `4.20%`; 95% CI `[2.03%, 6.70%]`; all-case harmful rate `6.25%`; conditional harmful rate `17.54%`: PASS.
 - Released CSV data, reporting code, manuscript, supplementary material, and table/figure displays use consistent frozen values and display-only rounding: PASS.
 

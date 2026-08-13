@@ -105,7 +105,10 @@ evaluated in Supplementary Section~S5.
 The initial architecture space contains 66 indexed configurations: 18 MLPs,
 36 TCNs, and 12 GRUs. The pooled-source PT-A57 initialization, a one-layer
 GRU with 32 hidden units, is fixed as the protected reference candidate
-before screening. Candidate discovery separately evaluates source-trained C1
+before screening. C1 denotes the legacy source-pooled initialization bank:
+for each indexed architecture, its C1 initialization is trained on the same
+pooled source-center data, and C1 is neither a center label nor a separate
+target-data split. Candidate discovery separately evaluates source-trained C1
 candidates for all 66 indexed configurations, including a C1-A57
 initialization distinct from PT-A57.
 
@@ -330,14 +333,12 @@ Random initialization & Fixed reference & Random & SGD/MSE--50 & 1 &
 Before output \\
 Few-shot NAS & Top-12 shortlist & Method-specific models & Adam/Huber--50 &
 $\leq12$ & Before evaluation \\
+H-Meta-NAS & Population/mutation shortlist & Architecture-indexed
+first-order MAML initializations & SGD/MSE--50 & 12 & Before evaluation \\
 Zero-shot NAS & Top-ranked model & Method-specific model & None & 0 &
 Before evaluation \\
 Zero-shot NAS + fine-tuning & Top-12 shortlist & Method-specific models &
 Adam/Huber--50 & $\leq12$ & Before evaluation \\
-
-H-Meta-NAS-based adaptation & Target architecture search &
-Architecture-indexed meta-initializations & SGD/MSE--50 &
-Multiple candidates & Before search evaluation \\
 
 MSA-DTI & Candidate bank & Frozen source initializations & SGD/MSE--50 & 4--7 &
 Before adaptation and output \\
@@ -347,13 +348,10 @@ Before adaptation and output \\
 
 \footnotesize
 PT+FT and MSA-DTI use the same source-trained reference and target
-adaptation procedure. H-Meta-NAS-based adaptation uses the 50-update
-budget-matched condition in the main comparison. It uses the same 66
-architecture definitions, filters infeasible architectures before search,
-uses source-only first-order meta-initializations, and selects the final
-architecture using target validation data. Its settings are fixed without
-held-out test data. All methods use the same target cases, deployment
-limits, and architecture definitions.
+adaptation procedure. Few-shot NAS uses a method-specific Top-12 source bank;
+H-Meta-NAS uses architecture-indexed first-order MAML initializations and
+population/mutation selection. All reported methods use the same target
+cases, deployment limits, and architecture definitions.
 \end{suppTableBlock}
 
 \subsection{Optimizer-matched diagnostic comparison}
@@ -470,8 +468,9 @@ All methods are implemented in Python and PyTorch and run on an NVIDIA RTX
 inputs and parameters. Target-side time includes model creation, initialization
 loading, target adaptation, validation evaluation, and final selection. It
 excludes offline preparation and test evaluation. Each reported time is the
-mean over five runs, and the main manuscript reports the corresponding
-standard deviation. Before collection, each method receives one unreported
+mean of five repeat means, and the main manuscript reports the standard
+deviation across those five repeat means (not the dispersion of individual
+cases). Before collection, each method receives one unreported
 warm-up execution on the first case. Formal CUDA timings use
 \texttt{time.perf\_counter} with CUDA synchronization immediately before and
 after every timed case. Method order is rotated deterministically across the
