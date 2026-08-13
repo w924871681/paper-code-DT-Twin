@@ -309,11 +309,11 @@ construction and relative-margin calibration are excluded.
 \section{Additional Experimental and Diagnostic Results}
 \label{supp:diagnostics}
 
-\subsection{Target-side baseline settings}
+\subsection{Native-protocol baseline settings}
 
-The main manuscript keeps only the baseline information needed for the main
-comparison. Table~\ref{tab:supp-baselines} gives the target-side settings
-used in the main comparison.
+The main manuscript reports the native-protocol comparison using the
+method-specific target-side settings of each baseline. Table~\ref{tab:supp-baselines}
+gives these settings.
 
 \begin{suppTableBlock}{Target-side settings of MSA-DTI and the baselines in the main comparison.}{tab:supp-baselines}
 \scriptsize
@@ -331,7 +331,7 @@ MeDeT-based adaptation & Fixed reference & Meta-learned initialization &
 SGD/MSE--50 & 1 & Before output \\
 Random initialization & Fixed reference & Random & SGD/MSE--50 & 1 &
 Before output \\
-Few-shot NAS & Top-12 shortlist & Method-specific models & Adam/Huber--50 &
+Meta+NAS-lite & Top-12 shortlist & Method-specific models & Adam/Huber--50 &
 $\leq12$ & Before evaluation \\
 H-Meta-NAS & Population/mutation shortlist & Architecture-indexed
 first-order MAML initializations & SGD/MSE--50 & 12 & Before evaluation \\
@@ -348,9 +348,12 @@ Before adaptation and output \\
 
 \footnotesize
 PT+FT and MSA-DTI use the same source-trained reference and target
-adaptation procedure. Few-shot NAS uses a method-specific Top-12 source bank;
-H-Meta-NAS uses architecture-indexed first-order MAML initializations and
-population/mutation selection. All reported methods use the same target
+adaptation procedure. Meta+NAS-lite is the lightweight few-shot NAS
+implementation used in this study; the two names refer to the same baseline.
+It uses a method-specific Top-12 source bank. H-Meta-NAS is an independent
+baseline using architecture-indexed first-order MAML initializations,
+hardware-feasible population/mutation selection, 12 adapted candidates,
+SGD/MSE--50, and target-validation-only final selection. All reported methods use the same target
 cases, deployment limits, and architecture definitions.
 \end{suppTableBlock}
 
@@ -373,7 +376,7 @@ CVaR90$\downarrow$ & Adapted models \\
 MSA-DTI & \textbf{0.003809} & \textbf{0.015094} &
 \textbf{0.008696} & 6.10 \\
 PT+FT & 0.004497 & 0.017144 & 0.011878 & 1.00 \\
-Few-shot NAS & 0.006715 & 0.025246 & 0.019653 & 12.00 \\
+Meta+NAS-lite & 0.006715 & 0.025246 & 0.019653 & 12.00 \\
 Zero-shot NAS + fine-tuning & 0.007402 & 0.028099 & 0.020402 & 12.00 \\
 Common shortlist, lowest validation loss &
 0.006707 & 0.025240 & 0.019653 & 12.00 \\

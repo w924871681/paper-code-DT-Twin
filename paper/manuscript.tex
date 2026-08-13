@@ -767,14 +767,17 @@ with 4000 repetitions, keeping the four cases from one center together.
 Reported subgroup intervals are unadjusted pointwise 95\% intervals.
 
 We compare MSA-DTI with PT+FT, MeDeT-based adaptation, random
-initialization, few-shot NAS, H-Meta-NAS, zero-shot NAS, and zero-shot NAS
-with fine-tuning.
+initialization, Meta+NAS-lite, H-Meta-NAS, zero-shot NAS, and zero-shot NAS
+with fine-tuning. Here, Meta+NAS-lite denotes the lightweight few-shot NAS
+implementation used in this study; the two names refer to the same baseline
+and are not separate methods.
 PT+FT is the main controlled baseline because it uses the same source-trained
 reference and target adaptation procedure as MSA-DTI.
-The few-shot NAS baseline uses a deployment-filtered Top-12 shortlist,
+Meta+NAS-lite uses a deployment-filtered Top-12 shortlist,
 method-specific source initializations, and validation-only target selection;
-its Adam/Huber--50 target protocol is reported as a separate lightweight NAS
-baseline. H-Meta-NAS uses architecture-indexed first-order MAML
+its Adam/Huber--50 target protocol is the native protocol for this baseline.
+H-Meta-NAS is an independent hardware-aware meta-NAS baseline. It uses
+architecture-indexed first-order MAML
 initializations and a hardware-feasible population/mutation search with 12
 SGD/MSE--50 adapted candidates; its final architecture is selected using
 target validation only. Both search baselines are evaluated under the same
@@ -807,11 +810,10 @@ held-out cases. All reported outputs satisfy both deployment limits.
 {fig:overall-performance}
 
 MSA-DTI gives the lowest values for all four error measures. PT+FT is the
-strongest baseline. Among the reported search baselines, few-shot NAS obtains
-MSE 0.007105 and H-Meta-NAS obtains MSE 0.013574, compared with 0.005120 for
-PT+FT and 0.004219 for MSA-DTI. H-Meta-NAS therefore supplies the direct
-hardware-aware meta-NAS comparison without replacing the lighter Meta+NAS-lite
-baseline.
+strongest baseline. Among the reported search baselines, Meta+NAS-lite
+obtains MSE 0.007105 and H-Meta-NAS obtains MSE 0.013574, compared with
+0.005120 for PT+FT and 0.004219 for MSA-DTI. H-Meta-NAS is the
+hardware-aware meta-NAS baseline.
 Relative to PT+FT, MSA-DTI reduces MAE by 8.55\%, MSE by 14.60\%, and Worst-10\% error by 13.76\% on average across paired cases. The center-cluster bootstrap 95\% confidence interval for the paired MSE reduction is $[9.41\%,20.14\%]$.
 
 Figure~\ref{fig:paired-instantiation} compares MSA-DTI with the adapted
@@ -828,12 +830,24 @@ does not establish a population harmful rate below 5\%.
 {Held-out paired comparison of MSA-DTI and PT+FT for (a) test MSE and (b) test Worst-10\% error; points below the diagonal favor MSA-DTI.}
 {fig:paired-instantiation}
 
+
+\subsubsection{Native-protocol comparison}
+
+The main comparison reports each baseline under its method-specific native
+target protocol. In particular, Meta+NAS-lite uses its Adam/Huber--50
+protocol, whereas H-Meta-NAS uses its first-order MAML initialization and
+SGD/MSE--50 population/mutation search protocol. This comparison reflects
+the end-to-end methods as specified, but it does not match all target-side
+optimizers and losses.
+
+\subsubsection{Optimizer-matched diagnostic comparison}
+
 Because the native NAS baselines use different target optimizers and losses,
-we also run an optimizer-matched diagnostic comparison.
-All methods included in this diagnostic use SGD, MSE, and 50 target updates.
+the optimizer-matched diagnostic comparison uses SGD, MSE, and 50 target
+updates for every included method.
 MSA-DTI keeps the lowest MSE, Worst-10\% error, and CVaR90.
-Table~\ref{tab:optimizer-matched} moves the central comparison into the main
-paper, and Supplementary Table~S3 gives the complete diagnostic.
+Table~\ref{tab:optimizer-matched} reports the four-method optimizer-matched
+comparison, and Supplementary Table~S3 gives the complete six-method diagnostic.
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -853,7 +867,7 @@ Method
 & Adapted models \\
 \midrule
 PT+FT & 0.004497 & 0.017144 & 0.011878 & 1.00 \\
-Few-shot NAS & 0.006715 & 0.025246 & 0.019653 & 12.00 \\
+Meta+NAS-lite & 0.006715 & 0.025246 & 0.019653 & 12.00 \\
 Zero-shot NAS + fine-tuning & 0.007402 & 0.028099 & 0.020402 & 12.00 \\
 \textbf{MSA-DTI} & \textbf{0.003809} & \textbf{0.015094} &
 \textbf{0.008696} & 6.10 \\
@@ -864,8 +878,10 @@ Zero-shot NAS + fine-tuning & 0.007402 & 0.028099 & 0.020402 & 12.00 \\
 All methods use the same independent diagnostic cases, hard deployment
 limits, SGD optimizer, MSE loss, and 50 target updates per adapted model.
 The source initializations and candidate-selection rules remain
-method-specific. The complete six-method diagnostic is reported in
-Supplementary Table~S3.
+method-specific. Thus, this diagnostic isolates the effect of the target-side
+optimizer, loss, and update budget but is not a claim of full algorithmic
+equivalence. The complete six-method diagnostic is reported in Supplementary
+Table~S3.
 \end{minipage}
 \end{center}
 
@@ -1072,6 +1088,11 @@ The source code, frozen configurations, processed results, plot-ready data,
 and reproduction scripts underlying the reported results are available in
 GitHub Release v1.2.3:
 \url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.3}.
+The release includes the complete reproduction package
+\texttt{rcf\_dti\_v1.2.3\_complete.zip}, the paper-alignment package
+\texttt{paper\_alignment\_v1.2.3.zip}, the bootstrap-analysis package
+\texttt{level\_c\_bootstrap\_v1.2.3.zip}, and the CUDA replay evidence
+\texttt{cuda\_replay\_evidence\_v1.2.3.zip}.
 The original Alibaba Cluster Trace v2018 is not redistributed and remains
 available from its official repository:
 \url{https://github.com/alibaba/clusterdata}. The released documentation

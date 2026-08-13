@@ -32,7 +32,7 @@ BUDGETS = ("tight", "medium", "loose")
 
 FIG10_METHODS = (
     ("PT+FT", "pt_ft", "PT+FT"),
-    ("Meta+NAS-lite", "meta_nas_lite", "Few-shot NAS"),
+    ("Meta+NAS-lite", "meta_nas_lite", "Meta+NAS-lite"),
     ("H-Meta-NAS", None, "H-Meta-NAS"),
     ("Zero-NAS+FT", "zero_nas_ft", "Zero-shot NAS+FT"),
     ("Ours", "ours_c32_locked", "MSA-DTI"),

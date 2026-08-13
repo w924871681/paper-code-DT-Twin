@@ -19,7 +19,7 @@ METHODS = (
     "PT+FT",
     "MeDeT",
     "Random init.",
-    "Few-shot NAS",
+    "Meta+NAS-lite",
     "H-Meta-NAS",
     "Zero-shot NAS",
     "Zero-shot NAS+FT",
