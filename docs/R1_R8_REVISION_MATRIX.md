@@ -26,3 +26,19 @@ The retained sets are not stable: their sizes are 6, 0, and 4, and the two
 new-set Jaccard similarities to the frozen set are 0 and 0.429. This result is
 used to reduce the claim and motivate reference protection; it is not used to
 retune the frozen headline method after inspecting the main test set.
+
+## Clean second-round re-review additions
+
+The independent clean re-review of commit `582e801` was completed before this
+matrix and the previous simulated decision were reopened. It identified two
+new, local issues; neither changes the R1--R8 scientific closure or requires a
+new experiment.
+
+| Item | Revision action | Evidence used | Status |
+| --- | --- | --- | --- |
+| C2-1: JNCA abstract compliance and limitation visibility | Reduced the abstract from 281 to 234 words and added the screening-stability and external-calibration boundaries while preserving the principal result and interval. | JNCA Guide for Authors; frozen main PDF; revised `paper/manuscript.tex`. | Closed by local revision. |
+| C2-2: exact screening rule and A57 candidate identity | Replaced the broad "validation or check" paraphrase with the implemented two-branch rule; distinguished the protected pooled-source A57 reference from the separately trained A57 candidate; clarified that independent-screen sizes exclude the protected fallback. | Authorized screening implementation; `results/robustness/r2_screening_stability.json`; main Section 5.1.2; Supplementary Sections S2.1 and S7.2. | Closed by consistency correction; no result changed. |
+
+The five independent reports, initial Minor Revision decision, applied changes,
+and terminal re-review are recorded in
+`docs/CLEAN_REREVIEW_ROUND2_582E801.md`.

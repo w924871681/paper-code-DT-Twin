@@ -103,11 +103,15 @@ evaluated in Supplementary Section~S5.
 \subsection{Candidate-bank construction and frozen records}
 
 The initial architecture space contains 66 indexed configurations: 18 MLPs,
-36 TCNs, and 12 GRUs. Configuration A57, a one-layer GRU with 32 hidden
-units, is fixed as the reference architecture before screening.
+36 TCNs, and 12 GRUs. The pooled-source PT-A57 initialization, a one-layer
+GRU with 32 hidden units, is fixed as the protected reference candidate
+before screening. Candidate discovery separately evaluates source-trained C1
+candidates for all 66 indexed configurations, including a C1-A57
+initialization distinct from PT-A57.
 
-An alternative configuration is retained when it outperforms A57 on the
-validation or check set in at least two screening cases.
+A C1 configuration is retained if it is the check-loss winner over PT-A57 in
+at least two screening cases, or if validation selects it and it then records
+a positive check-loss gain over PT-A57 in at least two cases.
 These cases belong to the architecture-screening pool and are disjoint from
 the margin-calibration and held-out target pools.
 The retained list contains three MLP and three GRU configurations.
@@ -118,12 +122,12 @@ settings, but recurrent dropout is inactive for a one-layer GRU. They
 therefore represent the same executable architecture. The six retained
 configurations correspond to five executable architectures.
 
-The final bank contains the frozen pooled-source PT+FT initialization for
-the reference, one source-trained initialization for each of the five other
-retained indexed configurations, and a second A57 initialization used as a
-paired-initialization control. The six retained configurations therefore
-produce seven candidates. The bank and reference candidate are frozen
-before relative-margin calibration and held-out evaluation.
+The final bank contains the protected PT-A57 reference and one source-trained
+C1 initialization for each of the six retained indexed configurations. The
+retained C1-A57 candidate is therefore a paired-initialization control rather
+than the reference. The six retained configurations plus PT-A57 produce seven
+candidates. The bank and reference candidate are frozen before
+relative-margin calibration and held-out evaluation.
 
 \subsection{Relative-margin calibration formulation}
 
@@ -608,8 +612,10 @@ this gives three independently sampled screening sets. The A57 reference,
 architecture space, initialization recipe, SGD/MSE--50 target recipe, and
 retention rule are unchanged. A configuration is retained when it records at
 least two check-oracle wins or at least two validation-selected positive
-check wins. None of these pools overlaps the 20-center robustness pool used
-below, and Test is never read.
+check wins. The protected PT-A57 reference is not counted as retained; A57 in
+a retained list denotes the separately trained C1-A57 candidate. None of
+these pools overlaps the 20-center robustness pool used below, and Test is
+never read.
 
 \begin{suppTableBlock}{Independent candidate-screening stability and evaluation on centers 1160--1179.}{tab:supp-screening-stability}
 \scriptsize
@@ -629,8 +635,9 @@ Independent S2 & 1140--1159 & A55, A56, A57, A59 & 4 & 0.429 & 0.125 & $[-0.894,
 \vspace{0.15em}
 
 \footnotesize
-Jaccard similarity is relative to the frozen S0 list. Size counts retained
-configurations before adding the protected PT-A57 fallback. Gain is the mean
+Jaccard similarity is relative to the frozen S0 list. Size counts retained C1
+configurations before adding the protected PT-A57 fallback; an A57 entry is
+therefore C1-A57, not PT-A57. Gain is the mean
 paired check-MSE reduction relative to PT-A57 on 80 robustness cases; intervals
 use a 4000-repetition center-cluster bootstrap. This is a C1 screening
 diagnostic and does not retrain or retune the frozen headline method.
