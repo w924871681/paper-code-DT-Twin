@@ -200,7 +200,7 @@ def check_numbers() -> list[str]:
     margin = {float(row["minimum_improvement"]): row for row in _csv(ROOT / "results/figure_data/fig9_margin_data.csv")}
     if float(margin[0.1]["harmful_selection_rate"]) != 0.05 or margin[0.1]["eligible_under_5pct_criterion"] != "true": errors.append("Fig. 9 margin data changed")
     tradeoff = _csv(ROOT / "results/figure_data/fig10_deployment_tradeoff_data.csv")
-    if [row["method"] for row in tradeoff] != ["PT+FT", "Few-shot NAS", "H-Meta-NAS", "Zero-shot NAS+FT", "MSA-DTI"]:
+    if [row["method"] for row in tradeoff] != ["PT+FT", "Meta+NAS-lite", "H-Meta-NAS", "Zero-shot NAS+FT", "MSA-DTI"]:
         errors.append("Fig. 10 representative-method mapping changed")
     architecture = {row["configuration"]: row for row in _csv(ROOT / "results/figure_data/fig11_architecture_complexity_data.csv")}
     if set(architecture) != {"3-layer MLP-32", "4-layer MLP-32", "Alt. GRU-16", "Alt. GRU-32", "Ref. GRU-32"}:
