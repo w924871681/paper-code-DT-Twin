@@ -1,0 +1,33 @@
+{
+  "method": "H-Meta-NAS",
+  "protocol": {
+    "source_meta_bank_iterations": 240,
+    "target_records": 80,
+    "adapted_candidates": 12,
+    "optimizer": "SGD",
+    "loss": "MSE",
+    "adaptation_updates": 50,
+    "selection_split": "target validation only",
+    "hardware_constraint": "feasible population/mutation shortlist"
+  },
+  "result": {
+    "MAE": 0.09026670912280679,
+    "WMSE": 0.013573941797949374,
+    "Worst10": 0.04615309640066698,
+    "CVaR90": 0.03493489627726376,
+    "FeasibleRate": 1.0,
+    "OnlineSeconds": 43.06143279250027,
+    "ParamsMean": 26627.2,
+    "FLOPsMean": 1700279.0
+  },
+  "assets": {
+    "formal_json": "outputs/h_meta_nas_recovery_v1/h_meta_nas_formal.json",
+    "formal_json_sha256": "24AEA7E8DBAD5EBEDEDE381E4EEDF667C44AD1D9BFA7D6B24849C5D199280A63",
+    "source_meta_bank": "outputs/h_meta_nas_recovery_v1/source_meta_bank.pt",
+    "source_meta_bank_sha256": "AD0255C9D91FE891AB2BDB8290DF83CDB7517FDD46DAD777B3C02DFA49C0B93E",
+    "summary_csv": "outputs/h_meta_nas_recovery_v1/overall_comparison_h_meta_nas.csv",
+    "repository_mirror": "results/h_meta_nas_recovery_v1/",
+    "repository_mirror_note": "The formal JSON, summary CSV, and source meta-bank are mirrored here so the experiment is included in the GitHub release."
+  },
+  "note": "The outputs directory is an execution artifact; this manifest and the recovery code keep the protocol and integrity anchors in the repository."
+}

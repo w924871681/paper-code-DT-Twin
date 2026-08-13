@@ -201,8 +201,9 @@ def _runtime_rows(root: Path) -> dict[str, dict[str, str]]:
         "zero_nas",
         "zero_nas_ft",
     }
+    expected.add("h_meta_nas")
     if set(result) != expected:
-        raise ValueError("Repeated-runtime summary does not contain the seven frozen methods")
+        raise ValueError("Repeated-runtime summary does not contain the eight frozen methods")
     return result
 
 
@@ -212,6 +213,7 @@ METHOD_META: Mapping[str, tuple[str, str, str]] = {
     "MeDeT-style": ("MeDeT-based adaptation", "medet_style", "single-model adaptation"),
     "Scratch50": ("Random initialization", "scratch50", "single-model adaptation"),
     "Meta+NAS-lite": ("Few-shot NAS", "meta_nas_lite", "search baseline"),
+    "H-Meta-NAS": ("H-Meta-NAS", "h_meta_nas", "hardware-aware meta-NAS baseline"),
     "Zero-NAS": ("Zero-shot NAS", "zero_nas", "search baseline"),
     "Zero-NAS+FT": ("Zero-shot NAS + fine-tuning", "zero_nas_ft", "search baseline"),
 }
@@ -221,6 +223,7 @@ PUBLIC_METHOD_ORDER = (
     "PT+FT",
     "MeDeT-style",
     "Meta+NAS-lite",
+    "H-Meta-NAS",
     "Zero-NAS+FT",
     "Scratch50",
     "Zero-NAS",
@@ -231,6 +234,7 @@ PAPER_METHOD_ORDER = (
     "MeDeT-style",
     "Scratch50",
     "Meta+NAS-lite",
+    "H-Meta-NAS",
     "Zero-NAS",
     "Zero-NAS+FT",
     "Ours",
@@ -286,6 +290,7 @@ def _table2(root: Path) -> list[dict[str, str]]:
         ("MeDeT-style", "MeDeT-based adaptation", "Fixed reference architecture", "Meta initialization", "SGD/MSE-50", "1", "Before output"),
         ("Scratch50", "Random initialization", "Fixed reference architecture", "Random initialization", "SGD/MSE-50", "1", "Before output"),
         ("Meta+NAS-lite", "Few-shot NAS", "Top-12 shortlist", "Baseline-specific initialization bank", "Adam/Huber-50", "<=12", "Before candidate evaluation"),
+        ("H-Meta-NAS", "H-Meta-NAS", "Population/mutation shortlist", "Architecture-indexed first-order MAML initializations", "SGD/MSE-50", "12", "Before candidate evaluation"),
         ("Zero-NAS", "Zero-shot NAS", "Top-ranked model", "Baseline-specific initialization", "None", "0", "Before candidate evaluation"),
         ("Zero-NAS+FT", "Zero-shot NAS + fine-tuning", "Top-12 shortlist", "Baseline-specific initialization bank", "Adam/Huber-50", "<=12", "Before candidate evaluation"),
         ("Ours", "MSA-DTI", "Source-initialization bank (six architectures)", "Architecture-matched source initializations", "SGD/MSE-50", "4--7", "Before adaptation and output"),
@@ -399,7 +404,7 @@ def _table5b(root: Path) -> list[dict[str, str]]:
     for internal in PAPER_METHOD_ORDER:
         # The broader public table starts with MSA-DTI.
         pass
-    for internal in ("Ours", "PT+FT", "MeDeT-style", "Scratch50", "Meta+NAS-lite", "Zero-NAS", "Zero-NAS+FT"):
+    for internal in ("Ours", "PT+FT", "MeDeT-style", "Scratch50", "Meta+NAS-lite", "H-Meta-NAS", "Zero-NAS", "Zero-NAS+FT"):
         row = source[internal]
         public, runtime_key, _ = METHOD_META[internal]
         timing = runtime[runtime_key]

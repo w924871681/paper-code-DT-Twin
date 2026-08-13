@@ -10,6 +10,7 @@ outputs/
 checkpoints/
 model_checkpoints/
 *.pt
+!results/h_meta_nas_recovery_v1/source_meta_bank.pt
 *.pth
 *.ckpt
 *.npy
