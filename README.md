@@ -43,7 +43,10 @@ used only for reporting and never for candidate selection.
 Historical internal identifiers remain only where changing them would break
 the provenance chain. Their public meaning is documented in
 `docs/INTERNAL_PROVENANCE_NAMES.md`; archived plotting code lives under
-`reporting/legacy/` and is not a paper-figure entry point.
+`reporting/legacy/` and is not a paper-figure entry point. In particular, the
+`WMSE` and `CVaR90_WMSE` fields in `results/main/*.csv` are historical names
+for the uniformly horizon-weighted MSE, and with the released uniform weights
+they are numerically equal to the MSE reported in the paper.
 
 ## Installation
 
