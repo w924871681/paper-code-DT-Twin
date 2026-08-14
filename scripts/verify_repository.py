@@ -399,10 +399,10 @@ def check_version_metadata() -> list[str]:
         "cuda_replay_evidence_${GITHUB_REF_NAME}.zip.sha256",
         "paper_alignment_${GITHUB_REF_NAME}.zip",
         "paper_alignment_${GITHUB_REF_NAME}.zip.sha256",
-        "rcf_dti_${GITHUB_REF_NAME}_complete.zip",
-        "rcf_dti_${GITHUB_REF_NAME}_complete.zip.sha256",
-        "RCF_DTI_FIGURE_CODE_FINAL_V1_2_0.zip",
-        "RCF_DTI_FIGURE_CODE_FINAL_V1_2_0.zip.sha256",
+        "msa_dti_${GITHUB_REF_NAME}_complete.zip",
+        "msa_dti_${GITHUB_REF_NAME}_complete.zip.sha256",
+        "MSA_DTI_FIGURE_CODE_${GITHUB_REF_NAME}.zip",
+        "MSA_DTI_FIGURE_CODE_${GITHUB_REF_NAME}.zip.sha256",
         "SHA256SUMS.txt",
     ):
         if asset not in workflow:
