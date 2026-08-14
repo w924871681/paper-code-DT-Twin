@@ -4,8 +4,21 @@
   "policy": "The canonical generator copies these manually designed assets byte-for-byte. They are the versions embedded in the v1.2.0 manuscript and may not be replaced by historical inputs.",
   "files": {
     "fig1": {
-      "pdf_sha256": "61cee93770c3e372cdba7f552e4c51cce3d2e21532865e91798ac202b61327e7",
-      "png_sha256": "68366636fd7e929844f2ad2944f25ccf1a1576a9acd28956f36d82af32f38c9e",
+      "pdf_sha256": "1479b31e49e0e6c10e5a652fa6368743e7136958771c91c16386a5b451166bb3",
+      "png_sha256": "62da1dcaf63dabb2f28eff402e1c4ad4dfe178ce3dd53bc3cd443d3f202f471b",
+      "pdf_size_inches": [
+        7.3194,
+        4.1944
+      ],
+      "png_pixels": [
+        1098,
+        630
+      ],
+      "png_dpi": 150
+    },
+    "fig2": {
+      "pdf_sha256": "ebbf72487cdf9f5eeac0dedcfcde471f19a5995a236b23dbde7ae6dd91a5887e",
+      "png_sha256": "07e80284ff0e9ce9d6e65cd916880b583045bf105cc87322139d9fd61d189d87",
       "pdf_size_inches": [
         46.8067,
         33.0
@@ -13,19 +26,6 @@
       "png_pixels": [
         7021,
         4950
-      ],
-      "png_dpi": 150
-    },
-    "fig2": {
-      "pdf_sha256": "980cf8cc6d9d84e42c7cc8206374b531a023eccdbbbb1c78dc921e99e690f158",
-      "png_sha256": "f33e7e44e44ec930e0d68caeafd4f304d5b1f604d91a8c3bdd8a243a97504145",
-      "pdf_size_inches": [
-        8.2677,
-        11.6929
-      ],
-      "png_pixels": [
-        1241,
-        1754
       ],
       "png_dpi": 150
     },
