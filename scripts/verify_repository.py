@@ -352,8 +352,8 @@ def check_paper_alignment() -> list[str]:
             if char.isalnum() or char == "."
         )
 
-        if len(reader.pages) != 15:
-            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 15")
+        if len(reader.pages) != 14:
+            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 14")
 
         for phrase in (
             "Joint Model Selection and Adaptation",

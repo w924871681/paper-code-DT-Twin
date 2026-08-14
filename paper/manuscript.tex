@@ -33,8 +33,7 @@
 % Usage:
 % \paperfig[trim={...},clip]{0.92\linewidth}{fig.pdf}{Caption.}{fig:label}
 \newcommand{\paperfig}[5][]{%
-  \begin{center}
-  \begin{minipage}{\linewidth}
+  \begin{figure}[htbp]
   \centering
   \includegraphics[
     width=#2,
@@ -42,12 +41,9 @@
     keepaspectratio,
     #1
   ]{#3}%
-  \vspace{-0.35em}
-  \captionof{figure}{#4}
+  \caption{#4}
   \label{#5}
-  \end{minipage}
-  \vspace{-0.65em}
-  \end{center}
+  \end{figure}
 }
 
 \let\printorcid\relax
@@ -87,6 +83,18 @@ digital twin
 
 \maketitle
 
+\begin{figure}[!b]
+\centering
+\includegraphics[
+  width=0.50\linewidth,
+  max height=0.34\textheight,
+  keepaspectratio,
+  trim={5bp 5bp 10bp 5bp},clip
+]{fig1.pdf}
+\caption{System setting for few-shot digital twin model instantiation with
+limited target data and deployment limits.}
+\label{fig:scenario}
+\end{figure}
 
 \section{Introduction}
 \label{sec:introduction}
@@ -100,12 +108,6 @@ Selecting a suitable architecture and adapting its parameters from such
 limited target data are challenging, while the resulting DT model must
 satisfy both deployment limits.
 Figure~\ref{fig:scenario} shows this setting.
-
-\paperfig[trim={5bp 5bp 10bp 5bp},clip]{0.80\linewidth}
-{fig1.pdf}
-{System setting for few-shot digital twin model instantiation with limited
-target data and deployment limits.}
-{fig:scenario}
 
 Existing parameter-adaptation-based few-shot and meta-learning methods
 adapt model parameters from limited data \cite{ref9,ref10}, and few-shot
