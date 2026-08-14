@@ -146,9 +146,9 @@ architecture--initialization pairs after common target adaptation. This
 differs from ordinary model-bank selection, which scores frozen bank entries,
 and from PT+FT, which adapts only one fixed reference architecture. It also
 differs from NAS and meta-NAS, which search or adapt an architecture in the
-target stage. The relative margin is a separate final-selection rule: it
-does not construct the bank, change the target updates, or create the gain
-from cross-architecture adaptation.
+target stage. The relative margin acts only at final selection, while the
+performance gain is driven by adapting and comparing candidates across
+architectures.
 
 This work makes the following contributions.
 
@@ -270,11 +270,10 @@ parameter vector. We retain the notation $\mathrm{DT}_c$ as shorthand for
 this model instance; it does not represent the complete DT system. Model
 instantiation must therefore determine both terms.
 
-In the experiments, workload forecasting is used as a representative task to
-evaluate the quality of the instantiated center-specific model. It is an
-evaluation task rather than an additional component of MSA-DTI; the method
-itself instantiates the architecture--parameter pair in
-Eq.~\eqref{eq:dt-instance}.
+We evaluate the instantiated center-specific model using workload forecasting
+as a representative task. MSA-DTI outputs the architecture--parameter pair in
+Eq.~\eqref{eq:dt-instance}, whose task performance is assessed by the
+forecasting error.
 
 \subsection{Candidate Models and Deployment Limits}
 
@@ -603,18 +602,13 @@ final target evaluation.
 The exact margin grid and calibration criteria are reported in
 Section~\ref{subsec:experimental-setup} and Supplementary Section~S2.
 
-The 5\% harmful-rate requirement is an ex ante design tolerance chosen to
-limit erroneous alternative replacement during calibration. It is applied
-to the observed point estimate rather than as a distribution-free safety
-guarantee. Eligibility
-also requires both mean check-loss gains to reach 3\% and both lower 95\%
-confidence bounds to remain above zero. If no margin is eligible in a new
-domain, calibrated deployment returns the adapted reference and reports that
-domain-specific margin calibration is unsupported. A previously frozen
-margin may still be evaluated as a transfer audit, but that audit is not
-reported as calibrated reliability for the new domain.
-The frozen margin is chosen from one calibration pool and is not claimed to
-be stable across other pools or domains.
+The 5\% harmful-rate requirement is an empirical calibration tolerance
+applied to the observed harmful-selection rate. Eligibility also requires
+both mean check-loss gains to reach 3\% and both lower 95\% confidence bounds
+to remain above zero. If no margin is eligible in a new domain, calibrated
+deployment retains the adapted reference and marks margin calibration as
+unsupported. A previously frozen margin may still be evaluated in that domain
+as a transfer audit. Calibration is therefore domain-specific.
 
 \subsection{Analytical Properties}
 
@@ -672,10 +666,9 @@ Deployment-limit tiers are treated as separate platform-side settings.
 Types A--C are evaluation strata generated from different parameter ranges
 for these center-side factors.
 The detailed generation procedure is given in Supplementary Section~S8.
-The synthetic centers cover different workload dynamics and observation
-conditions, so they exercise the method across controlled center changes.
-They do not reproduce a specific real platform; the Alibaba transfer in
-Section~\ref{subsec:external} checks one real trace.
+The synthetic benchmark enables controlled variation of workload dynamics and
+observation conditions across centers, while Section~\ref{subsec:external}
+complements this evaluation with Alibaba Cluster Trace v2018.
 
 The main evaluation contains 20 source centers and 20 held-out target
 centers.
@@ -859,11 +852,10 @@ pool. The retained-list sizes are 6, 0, and 4; the two new lists have Jaccard
 similarities of 0 and 0.429 to the frozen six-configuration list. On the
 independent pool, validation-only diagnostic selection from the frozen list
 gives a 0.30\% mean paired check-MSE reduction with a center-cluster 95\%
-interval of $[-0.65\%,1.56\%]$ and a 2.50\% harmful-selection rate. Thus,
-the preset candidate-discovery rule is sample-sensitive and is not claimed
-to recover a unique architecture set. The frozen main evaluation remains an
-evaluation of a prespecified bank, while the retained A57 reference and
-fallback protect deployment when a rescreened pool retains no alternative.
+interval of $[-0.65\%,1.56\%]$ and a 2.50\% harmful-selection rate. These
+results show that the preset candidate-discovery rule is sample-sensitive.
+Accordingly, the main experiment evaluates the frozen prespecified bank, with
+A57 retained as the fallback when rescreening yields no alternative.
 Full rescreening results and selection frequencies are reported in
 Supplementary Section~S7.
 
@@ -891,8 +883,8 @@ reports an expanded-bank stress analysis.
 For both $H=1$ and $H=4$, the operation-count and parameter-count limits
 exclude different candidates: each single-limit feasible set retains seven
 of eight candidates, whereas their joint feasible set retains six.
-A corrected target-side stress evaluation uses the same 80 held-out cases,
-and all outputs selected under the joint limits satisfy both limits.
+A target-side stress evaluation on the same 80 held-out cases confirms that
+all models selected under the joint limits satisfy both limits.
 Mean paired MSE reductions relative to PT+FT remain positive under tight,
 medium, and loose limits: 11.35\%, 15.30\%, and 18.22\%, respectively.
 
@@ -916,9 +908,8 @@ from 0.133 to 4.170 ms on the GPU. Serialized model size ranges from 10.3 to
 Operation count is positively associated with median latency, whereas
 parameter count exactly orders serialized model size in the measured
 settings. Peak GPU allocation is not monotonic in parameter count. These
-measurements support the use of the two counts as distinct complexity
-indicators, but they do not convert either limit into a hardware latency or
-memory guarantee or establish cross-platform deployment performance.
+measurements support the two counts as distinct model-level complexity
+indicators; their hardware-level implications remain host-dependent.
 
 \subsection{Component Analysis}
 \label{subsec:component}
@@ -930,10 +921,10 @@ relative margin leaves the diagnostic MSE nearly unchanged but selects
 alternatives more often, and the harmful-selection rate rises from 15.00\%
 to 17.50\%; the confidence intervals overlap, so this rise is an observed
 difference. Removing deployment filtering slightly lowers MSE but reduces
-limit satisfaction from 100\% to 96.25\%. The main performance gain
-therefore comes from adapting and selecting across the compact architecture
-bank; the margin is a conservative replacement rule, not the source of the
-gain.
+limit satisfaction from 100\% to 96.25\%. These results attribute the main
+performance gain to cross-architecture adaptation and selection, while the
+relative margin primarily controls how conservatively alternatives replace the
+reference.
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -977,27 +968,20 @@ component. Full results are reported in Supplementary Section~S4.
 We also evaluate the frozen method on Alibaba Cluster Trace v2018
 \cite{ref29}.
 The workload observations come from the production trace, while the
-deployment-limit tiers remain controlled model-complexity settings.
-This experiment therefore evaluates external workload-domain transfer rather
-than a fully measured hardware-deployment setting.
-
-Without recalibrating the margin, the fixed $\tau=0.10$ rule gives a
-4.20\% mean paired MSE reduction with a 95\% confidence interval of
-$[2.03\%,6.70\%]$.
-The harmful-selection rate is 6.25\%, which exceeds the original 5\%
-criterion.
-The result therefore shows a positive average transfer gain but does not
-reproduce the original reliability criterion. Under the calibrated
-deployment policy defined in Section~\ref{sec:method}, this outcome retains
-the adapted reference rather than treating the frozen margin as certified
-for Alibaba; the reported frozen-margin result is a transfer audit.
-The full transfer protocol and results are given in Supplementary
-Section~S7.
+deployment-limit tiers use the same controlled model-complexity settings as
+the main study.
+When the previously frozen $\tau=0.10$ rule is transferred without
+recalibration, the mean paired MSE reduction is 4.20\%, with a 95\% confidence
+interval of $[2.03\%,6.70\%]$. The harmful-selection rate is 6.25\%,
+exceeding the original 5\% calibration criterion. Because no Alibaba-specific
+margin satisfies the calibration criteria, calibrated deployment retains the
+adapted reference; the $\tau=0.10$ result is reported as an external transfer
+audit. The full protocol and results are given in Supplementary Section~S7.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper presented MSA-DTI for few-shot DT model instantiation subject to two per-model deployment limits. MSA-DTI filters a source-trained candidate bank, adapts feasible candidates with a common target budget, and applies reference-based selection. MSA-DTI reduces MSE by 14.60\% on average across paired cases relative to PT+FT while satisfying both limits, and 44 of 47 alternative selections improve test MSE. The all-case harmful-selection rate is 3.75\%, and its 95\% confidence interval of $[0.00\%,7.50\%]$ does not prove that the population rate is below 5\%. Independent rescreening shows that candidate discovery is sample-sensitive, so the frozen bank is treated as a prespecified evaluated artifact rather than a uniquely recoverable architecture set; the reference fallback remains essential. The transferred rule also gives a positive mean gain on Alibaba workloads, but its harmful-selection rate is 6.25\%, above the 5\% criterion, so the calibrated deployment policy retains the reference and reports the frozen-margin result only as a transfer audit. The evidence now comes from one controlled benchmark and one external trace, so more real workloads are needed before the gains can be promised on new platforms. Future work will develop more stable candidate-discovery procedures, uncertainty-aware selection, and measured deployment limits on additional platforms.
+This paper presented MSA-DTI for few-shot DT model instantiation subject to two per-model deployment limits. MSA-DTI filters a source-trained candidate bank, adapts feasible candidates with a common target budget, and applies reference-based selection. MSA-DTI reduces MSE by 14.60\% on average across paired cases relative to PT+FT while satisfying both limits, and 44 of 47 alternative selections improve test MSE. Additional analyses reveal three evidence boundaries: the harmful-selection confidence interval spans the 5\% calibration criterion, candidate discovery is sample-sensitive, and Alibaba transfer yields a positive mean gain without satisfying the original calibration criterion. Current evidence covers one controlled benchmark and one external trace. Future work will investigate more stable candidate-discovery procedures, uncertainty-aware selection, and measured deployment limits on additional platforms.
 
 \section*{CRediT Authorship Contribution Statement}
 

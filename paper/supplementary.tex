@@ -178,14 +178,11 @@ margin calibration.
 The candidate bank and reference candidate are fixed when the margin grid is
 evaluated.
 
-If no margin is eligible in a new domain, no domain-specific calibrated
-margin is claimed. In calibrated deployment, the adapted reference is
-retained and the domain is marked as unsupported for margin calibration.
-A previously frozen margin can still be evaluated without recalibration as
-a transfer audit, but it is not treated as a calibrated deployment rule for
-the new domain. The released
-calibration CSV contains the complete six-margin grid, harmful-selection
-rates, mean gains, and confidence bounds.
+If no margin is eligible in a new domain, calibrated deployment retains the
+adapted reference and records margin calibration as unsupported. A previously
+frozen margin may still be evaluated without recalibration as a transfer
+audit. The released calibration CSV contains the complete six-margin grid,
+harmful-selection rates, mean gains, and confidence bounds.
 
 \section{Additional Analytical Details}
 \label{supp:analysis}
@@ -241,8 +238,8 @@ reference when
 \tau J_c(q^{\mathrm{ref}})>2\epsilon_c.
 \label{eq:supp-sufficient-condition}
 \end{equation}
-This is a sufficient condition and is not a guarantee for every target
-center.
+Equation~\eqref{eq:supp-sufficient-condition} is a sufficient condition under
+assumption~\eqref{eq:supp-validation-error}.
 
 \subsection{Target-stage computational complexity}
 
@@ -350,9 +347,8 @@ Common shortlist, reference-based selection &
 \end{suppTableBlock}
 
 MSA-DTI gives the lowest MSE, Worst-10\% error, and CVaR90 in this
-comparison. The source initializations and selection rules still differ.
-This comparison is therefore a robustness check rather than a complete
-method equivalence test.
+comparison. The diagnostic matches the target optimizer, task loss, and update
+budget while retaining each method's source initialization and selection rule.
 
 \subsection{Component variants}
 
@@ -362,10 +358,9 @@ It is used only for the component comparisons reported in this subsection.
 
 The component variants are reported in Table~4 of the main text.
 
-The historical source-training variant changes the complete procedure used
-to construct the alternative source initializations and is therefore
-interpreted as candidate-bank sensitivity rather than the isolated effect of
-a single training choice.
+Because the historical source-training variant changes the full
+alternative-initialization pipeline, it measures candidate-bank sensitivity
+rather than a single-component effect.
 The reference-only and two-reference-initialization variants show that
 additional initializations of the reference architecture do not explain the
 gain from cross-architecture selection.
@@ -452,20 +447,17 @@ correlation between estimated operation count and median inference latency
 ranges from 0.889 to 0.964. The correlation between parameter count and
 serialized parameter-file size is 1.000 in every measured setting.
 The MLP architectures use fewer estimated operations but more parameters
-than the GRU architectures. The two deployment indicators therefore
-describe different model properties, although this does not imply that both
-limits are active under every tested deployment setting.
-Peak GPU allocation is not monotonic in parameter count across the two
-horizons, so the parameter-count limit is interpreted as a model-size
-indicator rather than a direct device-memory limit. The measurements use
-one CPU/GPU host and are not a cross-platform deployment benchmark.
+than the GRU architectures. The two deployment indicators therefore capture
+different model properties, while their activity depends on the candidate set
+and limit tier. Peak GPU allocation is not monotonic in parameter count
+across the two horizons, supporting parameter count as a model-size
+indicator. The profiling results characterize the measured CPU/GPU host.
 
 \subsection{Single-limit feasible-space audit}
 
-To determine which deployment limit is active in the frozen candidate bank,
-we apply the operation-count and parameter-count limits separately to the
-same seven candidates. This is a static complexity audit and does not repeat
-source training, target adaptation, model selection, or test evaluation.
+To identify the active constraint in the frozen candidate bank, we apply the
+operation-count and parameter-count limits separately to the same seven
+candidates using their fixed complexity profiles.
 
 For both $H=1$ and $H=4$, all seven candidates satisfy the operation-count
 limit under the tight, medium, and loose settings. Under the tight
@@ -488,9 +480,8 @@ restrict candidate feasibility, we additionally construct an eight-candidate
 stress bank by adding configuration 24 from the predefined architecture
 space.
 
-The stress thresholds are determined only from deterministic
-model-complexity profiles, without using prediction-loss or target-performance
-information. Across $H\in\{1,4\}$, the largest operation count in the
+The stress thresholds are derived solely from deterministic model-complexity
+profiles. Across $H\in\{1,4\}$, the largest operation count in the
 original seven-candidate bank is $1{,}050{,}880$, whereas the smallest
 operation count of configuration 24 is $1{,}198{,}112$. Their midpoint gives
 the stress operation-count limit $B^{F}=1{,}124{,}496$. Similarly, the
@@ -506,10 +497,10 @@ therefore retains seven of the eight candidates, whereas their joint
 feasible set retains six. Thus, the joint feasible set is a strict subset
 of each single-limit feasible set.
 
-The corrected target-side stress evaluation uses the same 80 held-out cases,
-and all outputs selected under the joint limits satisfy both limits.
-This stress audit does not modify the frozen seven-candidate main bank,
-the main deployment-limit tiers, or the headline experimental results.
+The target-side stress evaluation uses the same 80 held-out cases, and all
+models selected under the joint limits satisfy both limits. The expanded bank
+is used only for this limit-complementarity diagnostic; the main
+seven-candidate evaluation remains unchanged.
 
 
 \subsection{Selected-architecture analysis}
@@ -535,9 +526,9 @@ alternative GRU configurations.
 
 Diagnostic MSE decreases from 0.004917 with one retained configuration to
 0.004063 with four retained configurations and then remains unchanged. The
-complete retained list is kept because it was frozen before this diagnostic
-analysis. This result supports a compact candidate bank but does not
-identify a globally optimal bank size.
+main experiment retains the frozen six-configuration list. The observed
+saturation after four configurations supports a compact bank, while this
+diagnostic does not optimize the bank size itself.
 
 Most of the adaptation gain appears within the first ten target updates.
 The main experiment nevertheless uses 50 updates for every feasible
@@ -612,45 +603,39 @@ in 72 cases, A55 in three, A56 in three, and the C1 A57 initialization in
 two. S1 falls back to PT-A57 in all 80 cases. S2 selects PT-A57 in 71 cases,
 A55 in three, A56 in three, C1-A57 in two, and A59 in one.
 
-The rule therefore does not recover a stable or unique architecture set, and
-neither nonempty list has a paired-gain interval excluding zero on the
-independent pool. This negative result narrows the claim: the main results
-evaluate a frozen, prespecified bank; they do not establish consistency of
-the preceding candidate-discovery rule. It also supports keeping the
-reference candidate outside the discovery decision and using it when no
-alternative satisfies the retention rule.
+The rescreening results show substantial sample sensitivity: retained-list
+sizes are 6, 0, and 4, and neither nonempty rescreened list has a paired-gain
+interval excluding zero on the robustness pool. Accordingly, the headline
+experiment evaluates the frozen S0 bank, while the persistent A57 reference
+provides a fallback when a screening pool retains no alternative.
 
 \subsection{Alibaba external-domain transfer}
 
 Alibaba Cluster Trace v2018 is split into 20 source machines, 20 calibration
-machines, and 40 held-out machines.
-The calibration and held-out pools contain 80 and 160 cases, respectively.
-Models are retrained on the Alibaba source machines using their own
-architectures and source-only normalization.
-The architecture definitions, deployment filtering rule, target protocol,
-and margin grid remain unchanged.
+machines, and 40 held-out machines. The calibration and held-out pools contain
+80 and 160 cases, respectively. Models are retrained on the Alibaba source
+machines using their own architectures and source-only normalization. The
+architecture definitions, deployment filtering rule, target protocol, and
+margin grid remain unchanged.
 
-The workload observations are obtained from the production trace.
-The tight, medium, and loose deployment-limit tiers remain controlled
-model-complexity settings and are not direct measurements of machine-specific
-latency, memory use, or energy use.
-The Alibaba experiment therefore evaluates external workload-domain transfer
-under the frozen deployment protocol.
+The workload observations come from the production trace, while the
+deployment-limit tiers reuse the controlled model-complexity settings from the
+main study. This setting isolates external workload-domain transfer under the
+frozen deployment protocol.
 
-No margin in the fixed grid satisfies all calibration criteria on Alibaba.
-The previously frozen $\tau=0.10$ rule is therefore evaluated without
-recalibration, and no Alibaba-specific calibrated margin is claimed.
+No margin in the fixed grid satisfies all Alibaba calibration criteria.
+Calibrated deployment therefore retains the adapted reference, while the
+previously frozen $\tau=0.10$ rule is evaluated separately as a transfer
+audit.
 
 On the 160 held-out cases, the adapted reference and MSA-DTI have mean MSE
 values of 0.001337 and 0.001279, respectively, corresponding to a 4.29\%
 aggregate reduction. The mean paired MSE reduction is 4.20\%, with a 95\%
-confidence interval of $[2.03\%,6.70\%]$. MSA-DTI selects alternatives in
-57 cases, including 47 beneficial and 10 harmful selections. The
-harmful-selection rates are 6.25\% over all held-out cases and 17.54\%
-conditional on alternative selection. The all-case harmful-selection rate
-exceeds the original 5\% criterion, so the external evaluation shows a
-positive average transfer gain but does not reproduce the original
-reliability criterion.
+confidence interval of $[2.03\%,6.70\%]$. MSA-DTI selects alternatives in 57
+cases, including 47 beneficial and 10 harmful selections. The harmful-selection
+rates are 6.25\% over all held-out cases and 17.54\% conditional on
+alternative selection. Thus, the transferred rule retains a positive average
+gain, while the 5\% calibration criterion is not met on Alibaba.
 
 \section{Synthetic Benchmark Generation and Center Heterogeneity}
 \label{supp:synthetic-benchmark}
