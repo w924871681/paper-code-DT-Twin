@@ -55,7 +55,7 @@
 }
 
 \title{\textbf{Supplementary Material for}\\
-Joint Model Selection and Adaptation for Few-Shot Digital Twin
+Adaptation-Aware Model Selection for Few-Shot Digital Twin
 Instantiation under Deployment Limits}
 \author{}
 \date{}
@@ -270,9 +270,8 @@ construction and relative-margin calibration are excluded.
 
 \subsection{Target-side baseline settings}
 
-The main manuscript keeps only the baseline information needed for the main
-comparison. Table~\ref{tab:supp-baselines} gives the target-side settings
-used in the main comparison.
+Table~\ref{tab:supp-baselines} reports the target-side settings used in the
+main comparison.
 
 \begin{suppTableBlock}{Target-side settings of MSA-DTI and the baselines in the main comparison.}{tab:supp-baselines}
 \scriptsize
@@ -499,8 +498,8 @@ of each single-limit feasible set.
 
 The target-side stress evaluation uses the same 80 held-out cases, and all
 models selected under the joint limits satisfy both limits. The expanded bank
-is used only for this limit-complementarity diagnostic; the main
-seven-candidate evaluation remains unchanged.
+is used only for this limit-complementarity diagnostic, whereas the main
+evaluation uses the original seven-candidate bank.
 
 
 \subsection{Selected-architecture analysis}
@@ -526,9 +525,9 @@ alternative GRU configurations.
 
 Diagnostic MSE decreases from 0.004917 with one retained configuration to
 0.004063 with four retained configurations and then remains unchanged. The
-main experiment retains the frozen six-configuration list. The observed
-saturation after four configurations supports a compact bank, while this
-diagnostic does not optimize the bank size itself.
+main evaluation uses the six-configuration list fixed before evaluation.
+The observed saturation after four configurations supports a compact bank,
+while this diagnostic does not optimize the bank size itself.
 
 Most of the adaptation gain appears within the first ten target updates.
 The main experiment nevertheless uses 50 updates for every feasible
@@ -592,21 +591,23 @@ Independent S2 & 1140--1159 & A55, A56, A57, A59 & 4 & 0.429 & 0.125 & $[-0.894,
 Jaccard similarity is relative to the frozen S0 list. Size counts retained
 configurations before adding the protected PT-A57 fallback. Gain is the mean
 paired check-MSE reduction relative to PT-A57 on 80 robustness cases; intervals
-use a 4000-repetition center-cluster bootstrap. This is a C1 screening
-diagnostic and does not retrain or retune the frozen headline method.
+use a 4000-repetition center-cluster bootstrap. The diagnostic evaluates
+screening stability without retraining or retuning the main evaluation
+protocol.
 \end{suppTableBlock}
 
 Across S0--S2, retained-list sizes are 6, 0, and 4 (median 4, range 0--6).
 A55, A56, and A57 are retained in two of three pools; A1, A6, A13, and A59
 are each retained once. On the robustness pool, the S0 list selects PT-A57
-in 72 cases, A55 in three, A56 in three, and the C1 A57 initialization in
-two. S1 falls back to PT-A57 in all 80 cases. S2 selects PT-A57 in 71 cases,
-A55 in three, A56 in three, C1-A57 in two, and A59 in one.
+in 72 cases, A55 in three, A56 in three, and the paired-control A57
+initialization in two. S1 falls back to PT-A57 in all 80 cases. S2 selects
+PT-A57 in 71 cases, A55 in three, A56 in three, the paired-control A57
+initialization in two, and A59 in one.
 
 The rescreening results show substantial sample sensitivity: retained-list
 sizes are 6, 0, and 4, and neither nonempty rescreened list has a paired-gain
-interval excluding zero on the robustness pool. Accordingly, the headline
-experiment evaluates the frozen S0 bank, while the persistent A57 reference
+interval excluding zero on the robustness pool. Accordingly, the main
+evaluation uses the frozen S0 bank, while the persistent A57 reference
 provides a fallback when a screening pool retains no alternative.
 
 \subsection{Alibaba external-domain transfer}
@@ -625,8 +626,8 @@ frozen deployment protocol.
 
 No margin in the fixed grid satisfies all Alibaba calibration criteria.
 Calibrated deployment therefore retains the adapted reference, while the
-previously frozen $\tau=0.10$ rule is evaluated separately as a transfer
-audit.
+main-study margin $\tau=0.10$, fixed before the Alibaba evaluation, is
+evaluated separately as a transfer audit.
 
 On the 160 held-out cases, the adapted reference and MSA-DTI have mean MSE
 values of 0.001337 and 0.001279, respectively, corresponding to a 4.29\%

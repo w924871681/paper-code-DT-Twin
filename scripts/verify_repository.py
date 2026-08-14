@@ -313,7 +313,7 @@ def check_paper_alignment() -> list[str]:
     errors: list[str] = []
     tex = (ROOT / "paper/manuscript.tex").read_text(encoding="utf-8")
     required_source = (
-        "Joint Model Selection and Adaptation for Few-Shot Digital Twin Instantiation under Deployment Limits",
+        "Adaptation-Aware Model Selection for Few-Shot Digital Twin Instantiation under Deployment Limits",
         "Model Selection and Adaptation for Digital Twin Instantiation (MSA-DTI)",
         "six retained configurations, five executable architectures, and",
         "seven candidates",
@@ -352,11 +352,11 @@ def check_paper_alignment() -> list[str]:
             if char.isalnum() or char == "."
         )
 
-        if len(reader.pages) != 15:
-            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 15")
+        if len(reader.pages) != 14:
+            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 14")
 
         for phrase in (
-            "Joint Model Selection and Adaptation",
+            "Adaptation-Aware Model Selection",
             "MSA-DTI",
             "Data Availability",
         ):

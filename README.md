@@ -1,7 +1,7 @@
-# Joint Model Selection and Adaptation for Few-Shot Digital Twin Instantiation under Deployment Limits
+# Adaptation-Aware Model Selection for Few-Shot Digital Twin Instantiation under Deployment Limits
 
-This repository is the reproducibility archive for **Joint Model Selection
-and Adaptation for Few-Shot Digital Twin Instantiation under Deployment
+This repository is the reproducibility archive for **Adaptation-Aware Model
+Selection for Few-Shot Digital Twin Instantiation under Deployment
 Limits**. The public method name is **MSA-DTI** (Model Selection and
 Adaptation for Digital Twin Instantiation). Release `v1.2.3` is the current
 archived scientific release underlying the revised manuscript and
