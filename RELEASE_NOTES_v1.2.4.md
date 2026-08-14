@@ -13,5 +13,8 @@ manuscript.
 - Document in `README.md` that the historical `WMSE` / `CVaR90_WMSE` fields
   in `results/main/*.csv` are uniformly horizon-weighted and, under the
   released uniform weights, numerically equal the MSE reported in the paper.
+- Update the manuscript abstract: remove the final clause "one external trace
+  gives a smaller gain" and rebuild `paper/manuscript.pdf`; no other content
+  changes.
 - Keep all scientific method, experiment, numerical result, claim, equation,
   baseline, dataset, contribution, and conclusion unchanged.
