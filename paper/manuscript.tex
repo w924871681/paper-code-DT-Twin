@@ -73,7 +73,7 @@ according to the deployment limits, and adapts the remaining candidates
 using limited target samples. To make model selection more conservative given this small validation set,
 it compares the best-performing adapted alternative with a fixed adapted
 reference model and uses a preset relative reduction in validation loss as
-the replacement criterion. Experimental results show that MSA-DTI achieves the lowest mean squared error (MSE) among the compared methods, reducing MSE by 14.60\% on average across paired cases relative to the pretraining-and-fine-tuning baseline while satisfying the deployment limits across all main evaluation cases.
+the replacement criterion. On a controlled synthetic benchmark, MSA-DTI achieves the lowest mean squared error (MSE) among the compared methods, cutting MSE by 14.60\% on average across paired cases relative to the pretraining-and-fine-tuning baseline while meeting the deployment limits in all main cases; one external trace gives a smaller gain.
 \end{abstract}
 
 \begin{keywords}
@@ -407,7 +407,10 @@ Section~\ref{subsec:experimental-setup} and Supplementary Section~S2.
 On a running platform, the bank stays frozen for each evaluation. When the
 source centers change or their data change over time, the bank is rebuilt
 offline and frozen again before the next evaluation; it is not updated
-automatically during target deployment.
+automatically during target deployment. In deployment, a frozen bank can be
+versioned and checksummed, with the previous version retained until the rebuilt
+bank passes its checks; the reference architecture and fallback rule remain
+fixed across versions.
 
 \paperfig[trim={150bp 1350bp 480bp 160bp},clip]{0.98\linewidth}
 {fig3.pdf}
@@ -757,8 +760,11 @@ held-out cases. All reported outputs satisfy both deployment limits.
 {Predictive performance on the held-out target cases: (a) MAE, (b) MSE, (c) Worst-10\% error, and (d) CVaR90 (lower is better).}
 {fig:overall-performance}
 
-MSA-DTI gives the lowest values for all four error measures. PT+FT is the
-strongest baseline. Under the 50-update budget-matched setting, the
+All methods use the same target cases, deployment limits, and architecture
+definitions, while method-specific settings are retained. Table 2 adds an
+optimizer-matched diagnostic. MSA-DTI gives the lowest values for all four
+error measures. PT+FT is the strongest
+baseline. Under the 50-update budget-matched setting, the
 task-matched H-Meta-NAS-based adaptation obtains an MSE of 0.013747,
 compared with 0.005120 for PT+FT and 0.004219 for MSA-DTI.
 Relative to PT+FT, MSA-DTI reduces MAE by 8.55\%, MSE by 14.60\%, and Worst-10\% error by 13.76\% on average across paired cases. The center-cluster bootstrap 95\% confidence interval for the paired MSE reduction is $[9.41\%,20.14\%]$.
@@ -892,6 +898,8 @@ complexity.
 MSA-DTI requires $5.676\pm0.059$ seconds per case and adapts 6.25 models on
 average. It is slower than PT+FT, but is $2.37\times$ faster than few-shot
 NAS and $3.10\times$ faster than zero-shot NAS with fine-tuning.
+This cost is for one case on one GPU and covers low-frequency instantiation;
+concurrent-case scaling is left to platform-level scheduling.
 
 Hardware profiling in Supplementary Section~S5 reports every executable
 architecture on an Intel Core i7-12700H CPU and an NVIDIA RTX 3060 Laptop
@@ -982,7 +990,7 @@ Section~S7.
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper presented MSA-DTI for few-shot DT model instantiation subject to two per-model deployment limits. MSA-DTI filters a source-trained candidate bank, adapts feasible candidates with a common target budget, and applies reference-based selection. MSA-DTI reduces MSE by 14.60\% on average across paired cases relative to PT+FT while satisfying both limits, and 44 of 47 alternative selections improve test MSE. The all-case harmful-selection rate is 3.75\%, and its 95\% confidence interval of $[0.00\%,7.50\%]$ does not prove that the population rate is below 5\%. Independent rescreening shows that candidate discovery is sample-sensitive, so the frozen bank is treated as a prespecified evaluated artifact rather than a uniquely recoverable architecture set; the reference fallback remains essential. The transferred rule also gives a positive mean gain on Alibaba workloads, but its harmful-selection rate is 6.25\%, above the 5\% criterion, so the calibrated deployment policy retains the reference and reports the frozen-margin result only as a transfer audit. Future work will develop more stable candidate-discovery procedures, uncertainty-aware selection, and measured deployment limits on additional platforms.
+This paper presented MSA-DTI for few-shot DT model instantiation subject to two per-model deployment limits. MSA-DTI filters a source-trained candidate bank, adapts feasible candidates with a common target budget, and applies reference-based selection. MSA-DTI reduces MSE by 14.60\% on average across paired cases relative to PT+FT while satisfying both limits, and 44 of 47 alternative selections improve test MSE. The all-case harmful-selection rate is 3.75\%, and its 95\% confidence interval of $[0.00\%,7.50\%]$ does not prove that the population rate is below 5\%. Independent rescreening shows that candidate discovery is sample-sensitive, so the frozen bank is treated as a prespecified evaluated artifact rather than a uniquely recoverable architecture set; the reference fallback remains essential. The transferred rule also gives a positive mean gain on Alibaba workloads, but its harmful-selection rate is 6.25\%, above the 5\% criterion, so the calibrated deployment policy retains the reference and reports the frozen-margin result only as a transfer audit. The evidence now comes from one controlled benchmark and one external trace, so more real workloads are needed before the gains can be promised on new platforms. Future work will develop more stable candidate-discovery procedures, uncertainty-aware selection, and measured deployment limits on additional platforms.
 
 \section*{CRediT Authorship Contribution Statement}
 
