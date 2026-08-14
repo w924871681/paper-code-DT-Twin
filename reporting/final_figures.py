@@ -186,7 +186,7 @@ def plot_fig6(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     fig, axes = plt.subplots(1, 2, figsize=CANVAS_SIZES["fig6"])
     fig.subplots_adjust(left=0.085, right=0.985, top=0.78, bottom=0.25, wspace=0.28)
     for ax, reference_key, proposed_key in (
-        (axes[0], "pt_ft_wmse", "proposed_wmse"),
+        (axes[0], "pt_ft_mse", "proposed_mse"),
         (axes[1], "pt_ft_worst10", "proposed_worst10"),
     ):
         values = [100.0 * float(row[key]) for row in rows for key in (reference_key, proposed_key)]
@@ -303,7 +303,7 @@ def plot_fig9(
     ax_c = fig.add_subplot(outer[0, 2])
 
     x_a = np.asarray([float(row["retained_architectures"]) for row in bank])
-    y_a = np.asarray([1000 * float(row["diagnostic_wmse"]) for row in bank])
+    y_a = np.asarray([1000 * float(row["diagnostic_mse"]) for row in bank])
     ax_a.plot(x_a, y_a, color="#0072B2", marker="o", markerfacecolor="white")
     ax_a.axvspan(4, 6.15, color="#0072B2", alpha=0.08, lw=0)
     ax_a.annotate("Saturation after 4", xy=(4, y_a[3]), xytext=(3.1, 4.48), arrowprops={"arrowstyle": "->", "lw": 0.7}, fontsize=6.4)
@@ -313,7 +313,7 @@ def plot_fig9(
 
     x_b_values = np.asarray([float(row["adaptation_steps"]) for row in steps])
     x_b = np.arange(len(x_b_values))
-    y_b1 = np.asarray([1000 * float(row["selected_check_wmse_mean"]) for row in steps])
+    y_b1 = np.asarray([1000 * float(row["selected_check_mse_mean"]) for row in steps])
     y_b2 = np.asarray([100 * float(row["selection_agreement_with_50"]) for row in steps])
     line_mse = ax_b1.plot(x_b, y_b1, color="#0072B2", marker="o", markerfacecolor="white", label="Check MSE")[0]
     ax_b1.set_ylabel(r"Check MSE ($\times 10^{-3}$)", color="#0072B2")

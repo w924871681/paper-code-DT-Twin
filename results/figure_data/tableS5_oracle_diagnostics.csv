@@ -1,7 +1,7 @@
 ﻿Measure,Value
-Full method WMSE,0.004063
-Reference candidate WMSE,0.005051
-Test-oracle WMSE,0.003851
+Full method MSE,0.004063
+Reference candidate MSE,0.005051
+Test-oracle MSE,0.003851
 Mean selector-to-oracle regret (%),5.58
 Full method matches test oracle (%),58.75
 Check-set oracle matches test oracle (%),75.00

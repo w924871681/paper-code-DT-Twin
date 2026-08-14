@@ -187,7 +187,7 @@ def check_numbers() -> list[str]:
     fig6 = _csv(ROOT / "results/figure_data/fig6_paired_instantiation_data.csv")
     fig6_counts = {name: sum(row["selection_category"] == name for row in fig6) for name in ("beneficial alternative", "reference retained", "harmful alternative")}
     paired_gain = 100 * sum(
-        (float(row["pt_ft_wmse"]) - float(row["proposed_wmse"])) / float(row["pt_ft_wmse"])
+        (float(row["pt_ft_mse"]) - float(row["proposed_mse"])) / float(row["pt_ft_mse"])
         for row in fig6
     ) / len(fig6)
     if len(fig6) != 80 or fig6_counts != {"beneficial alternative": 44, "reference retained": 33, "harmful alternative": 3}: errors.append("Fig. 6 public paired data changed")
@@ -352,8 +352,8 @@ def check_paper_alignment() -> list[str]:
             if char.isalnum() or char == "."
         )
 
-        if len(reader.pages) != 14:
-            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 14")
+        if len(reader.pages) != 15:
+            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 15")
 
         for phrase in (
             "Joint Model Selection and Adaptation",

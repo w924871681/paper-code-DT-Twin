@@ -96,8 +96,8 @@ def derive_fig6_fig8(ours_path: Path, pt_path: Path, output_dir: Path) -> None:
                 "K": proposed["K"],
                 "budget_tier": proposed["budget_tier"],
                 "selection_category": category,
-                "pt_ft_wmse": reference["test"]["weighted_mse"],
-                "proposed_wmse": proposed["test"]["weighted_mse"],
+                "pt_ft_mse": reference["test"]["weighted_mse"],
+                "proposed_mse": proposed["test"]["weighted_mse"],
                 "pt_ft_worst10": reference["test"]["worst10"],
                 "proposed_worst10": proposed["test"]["worst10"],
             }
@@ -150,7 +150,7 @@ def derive_fig9(output_dir: Path) -> None:
         (
             {
                 "retained_architectures": row["UniqueArchitectures"],
-                "diagnostic_wmse": row["WMSE"],
+                "diagnostic_mse": row["WMSE"],
             }
             for row in bank
         ),
@@ -165,7 +165,7 @@ def derive_fig9(output_dir: Path) -> None:
         (
             {
                 "adaptation_steps": row["step"],
-                "selected_check_wmse_mean": row["selected_check_wmse_mean"],
+                "selected_check_mse_mean": row["selected_check_wmse_mean"],
                 "selection_agreement_with_50": row["selector_agreement_with_50"],
             }
             for row in trajectory

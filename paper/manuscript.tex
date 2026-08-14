@@ -270,6 +270,12 @@ parameter vector. We retain the notation $\mathrm{DT}_c$ as shorthand for
 this model instance; it does not represent the complete DT system. Model
 instantiation must therefore determine both terms.
 
+In the experiments, workload forecasting is used as a representative task to
+evaluate the quality of the instantiated center-specific model. It is an
+evaluation task rather than an additional component of MSA-DTI; the method
+itself instantiates the architecture--parameter pair in
+Eq.~\eqref{eq:dt-instance}.
+
 \subsection{Candidate Models and Deployment Limits}
 
 A candidate model is written as
@@ -689,8 +695,8 @@ Table~\ref{tab:configuration} reports the main settings.
 The initial space contains 66 MLP, TCN, and GRU configurations.
 A57, a one-layer GRU with 32 hidden units, is fixed as the reference before
 screening and is also used by PT+FT.
-An alternative is retained when it outperforms A57 on validation or check
-data in at least two screening cases.
+An alternative is retained when it records at least two check-oracle wins
+over A57, or at least two validation-selected positive check wins over A57.
 This gives six retained configurations, five executable architectures, and
 seven candidates.
 
@@ -765,7 +771,7 @@ definitions, while method-specific settings are retained. Table 2 adds an
 optimizer-matched diagnostic. MSA-DTI gives the lowest values for all four
 error measures. PT+FT is the strongest
 baseline. Under the 50-update budget-matched setting, the
-task-matched H-Meta-NAS-based adaptation obtains an MSE of 0.013747,
+task-matched H-Meta-NAS-based adaptation obtains an MSE of 0.013574,
 compared with 0.005120 for PT+FT and 0.004219 for MSA-DTI.
 Relative to PT+FT, MSA-DTI reduces MAE by 8.55\%, MSE by 14.60\%, and Worst-10\% error by 13.76\% on average across paired cases. The center-cluster bootstrap 95\% confidence interval for the paired MSE reduction is $[9.41\%,20.14\%]$.
 
@@ -898,8 +904,9 @@ complexity.
 MSA-DTI requires $5.676\pm0.059$ seconds per case and adapts 6.25 models on
 average. It is slower than PT+FT, but is $2.37\times$ faster than few-shot
 NAS and $3.10\times$ faster than zero-shot NAS with fine-tuning.
-This cost is for one case on one GPU and covers low-frequency instantiation;
-concurrent-case scaling is left to platform-level scheduling.
+This cost is measured for one instantiation case on one GPU;
+concurrent-case scaling and platform-level scheduling are outside the present
+evaluation.
 
 Hardware profiling in Supplementary Section~S5 reports every executable
 architecture on an Intel Core i7-12700H CPU and an NVIDIA RTX 3060 Laptop
@@ -1011,8 +1018,8 @@ influence the work reported in this paper.
 
 The source code, frozen configurations, processed results, plot-ready data,
 and reproduction scripts underlying the reported results are available in
-GitHub Release v1.2.2:
-\url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.2}.
+GitHub Release v1.2.3:
+\url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.3}.
 The original Alibaba Cluster Trace v2018 is not redistributed and remains
 available from its official repository:
 \url{https://github.com/alibaba/clusterdata}. The released documentation

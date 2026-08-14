@@ -3,14 +3,14 @@
 This repository is the reproducibility archive for **Joint Model Selection
 and Adaptation for Few-Shot Digital Twin Instantiation under Deployment
 Limits**. The public method name is **MSA-DTI** (Model Selection and
-Adaptation for Digital Twin Instantiation). Release `v1.2.2` is the current
+Adaptation for Digital Twin Instantiation). Release `v1.2.3` is the current
 archived scientific release underlying the revised manuscript and
 supplementary package, plot-ready data, frozen protocols, audit evidence,
 and public reproduction commands.
 
 ## What is frozen
 
-The following scientific choices remain unchanged in v1.2.2:
+The following scientific choices remain unchanged in v1.2.3:
 
 - data seed `2904` and source-training seeds `2904`, `2905`, `2906`;
 - source, development, diagnostic, and held-out target splits;
@@ -152,7 +152,7 @@ processed evaluation values only.
 ## Citation and release integrity
 
 Use `CITATION.cff` and Release
-[`v1.2.2`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.2).
+[`v1.2.3`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.3).
 Every release asset is covered by `SHA256SUMS.txt`; the audit report records
 the Git commit, annotated tag target, release state, and asset hashes.
 Author and DOI metadata remain explicitly pending.

@@ -106,8 +106,9 @@ The initial architecture space contains 66 indexed configurations: 18 MLPs,
 36 TCNs, and 12 GRUs. Configuration A57, a one-layer GRU with 32 hidden
 units, is fixed as the reference architecture before screening.
 
-An alternative configuration is retained when it outperforms A57 on the
-validation or check set in at least two screening cases.
+An alternative configuration is retained when it records at least two
+check-oracle wins over A57, or at least two validation-selected positive check
+wins over A57.
 These cases belong to the architecture-screening pool and are disjoint from
 the margin-calibration and held-out target pools.
 The retained list contains three MLP and three GRU configurations.

@@ -1,4 +1,4 @@
-﻿Source centers,Proposed WMSE,Reference WMSE,Gain (%),95% CI (%)
+﻿Source centers,Proposed MSE,Reference MSE,Gain (%),95% CI (%)
 10,0.004845,0.005171,6.46,"[3.82, 9.17]"
 20,0.004770,0.005010,4.92,"[2.24, 7.91]"
 30,0.004787,0.004984,3.78,"[1.55, 6.54]"

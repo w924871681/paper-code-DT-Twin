@@ -1,4 +1,4 @@
-adaptation_steps,selected_check_wmse_mean,selection_agreement_with_50
+adaptation_steps,selected_check_mse_mean,selection_agreement_with_50
 0,0.003972650150899426,0.5125
 1,0.003908012179817888,0.5125
 5,0.0037805604395543925,0.5875

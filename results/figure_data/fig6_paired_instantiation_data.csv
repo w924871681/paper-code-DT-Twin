@@ -1,4 +1,4 @@
-case_key,center_id,H,K,budget_tier,selection_category,pt_ft_wmse,proposed_wmse,pt_ft_worst10,proposed_worst10
+case_key,center_id,H,K,budget_tier,selection_category,pt_ft_mse,proposed_mse,pt_ft_worst10,proposed_worst10
 c980_h1_k10_bloose,980,1,10,loose,beneficial alternative,0.0016601579263806343,0.0006271048332564533,0.0060514118522405624,0.0026978852692991495
 c980_h1_k20_bloose,980,1,20,loose,beneficial alternative,0.0010454281000420451,0.0006243708194233477,0.004386352840811014,0.0026960617396980524
 c980_h4_k10_bloose,980,4,10,loose,beneficial alternative,0.0017278268933296204,0.0014753984287381172,0.00612100213766098,0.005138734821230173

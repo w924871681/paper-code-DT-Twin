@@ -327,7 +327,7 @@ def _table3(root: Path) -> list[dict[str, str]]:
             {
                 "Method": public,
                 "MAE": _fmt(_float(row, "MAE"), 5),
-                "WMSE": _fmt(_float(row, "WMSE"), 6),
+                "MSE": _fmt(_float(row, "WMSE"), 6),
                 "Worst-10%": _fmt(_float(row, "Worst10"), 6),
                 "CVaR90": _fmt(_float(row, "CVaR90_WMSE"), 6),
                 "Complexity-feasible outputs (%)": _fmt(100 * _float(row, "FeasibleRate"), 1),
@@ -352,7 +352,7 @@ def _table4(root: Path) -> list[dict[str, str]]:
     return [
         {
             "Variant": public,
-            "WMSE": _fmt(_float(source[key], "WMSE"), 6),
+            "MSE": _fmt(_float(source[key], "WMSE"), 6),
             "Worst-10%": _fmt(_float(source[key], "Worst10"), 6),
             "Gain vs reference (%)": _pct(_float(source[key], "WMSEGainVsPT"), 2),
             "Harmful alternative selection / all cases (%)": _pct(_float(source[key], "HarmfulSwitchRate"), 2),
@@ -440,8 +440,8 @@ def _scale_rows(root: Path) -> list[dict[str, str]]:
     return [
         {
             "Source centers": str(int(_float(row, "SourceCenters"))),
-            "Proposed WMSE": _fmt(_float(row, "OursWMSE"), 6),
-            "Reference WMSE": _fmt(_float(row, "A57WMSE"), 6),
+            "Proposed MSE": _fmt(_float(row, "OursWMSE"), 6),
+            "Reference MSE": _fmt(_float(row, "A57WMSE"), 6),
             "Gain (%)": _pct(_float(row, "WMSEGainVsA57"), 2),
             "95% CI (%)": f"[{_pct(_float(row, 'CI_low'), 2)}, {_pct(_float(row, 'CI_high'), 2)}]",
         }
@@ -453,8 +453,8 @@ def _seed_rows(root: Path) -> list[dict[str, str]]:
     return [
         {
             "Source-initialization seed": row["SourceSeed"],
-            "Proposed WMSE": _fmt(_float(row, "OursWMSE"), 6),
-            "Reference WMSE": _fmt(_float(row, "A57WMSE"), 6),
+            "Proposed MSE": _fmt(_float(row, "OursWMSE"), 6),
+            "Reference MSE": _fmt(_float(row, "A57WMSE"), 6),
             "Gain (%)": _pct(_float(row, "WMSEGainVsA57"), 2),
             "95% CI (%)": f"[{_pct(_float(row, 'CI_low'), 2)}, {_pct(_float(row, 'CI_high'), 2)}]",
         }
@@ -467,12 +467,12 @@ def _real_rows(root: Path) -> list[dict[str, str]]:
     measures = _real_measures(root)
     oracle_wmse = measures["Test-oracle WMSE"]
     rows = [
-        {"Method": "MSA-DTI", "WMSE": _fmt(_float(main["Ours"], "WMSE"), 6), "MAE": _fmt(_float(main["Ours"], "MAE"), 5), "W10": _fmt(_float(main["Ours"], "Worst10"), 6)},
-        {"Method": "Reference candidate", "WMSE": _fmt(_float(main["PT+FT"], "WMSE"), 6), "MAE": _fmt(_float(main["PT+FT"], "MAE"), 5), "W10": _fmt(_float(main["PT+FT"], "Worst10"), 6)},
-        {"Method": "Test oracle (diagnostic)", "WMSE": _fmt(oracle_wmse, 6), "MAE": _fmt(measures.get("Test-oracle MAE", 0.02028), 5), "W10": _fmt(measures.get("Test-oracle Worst10", 0.006884), 6)},
-        {"Method": "Selected gain vs reference", "WMSE": f"{100 * measures['Selected gain vs A57']:.2f}%", "MAE": "--", "W10": "--"},
-        {"Method": "Oracle gain vs reference", "WMSE": f"{100 * measures['Oracle gain vs A57']:.2f}%", "MAE": "--", "W10": "--"},
-        {"Method": "Captured oracle headroom", "WMSE": f"{100 * measures['Mean captured oracle headroom']:.2f}%", "MAE": "--", "W10": "--"},
+        {"Method": "MSA-DTI", "MSE": _fmt(_float(main["Ours"], "WMSE"), 6), "MAE": _fmt(_float(main["Ours"], "MAE"), 5), "W10": _fmt(_float(main["Ours"], "Worst10"), 6)},
+        {"Method": "Reference candidate", "MSE": _fmt(_float(main["PT+FT"], "WMSE"), 6), "MAE": _fmt(_float(main["PT+FT"], "MAE"), 5), "W10": _fmt(_float(main["PT+FT"], "Worst10"), 6)},
+        {"Method": "Test oracle (diagnostic)", "MSE": _fmt(oracle_wmse, 6), "MAE": _fmt(measures.get("Test-oracle MAE", 0.02028), 5), "W10": _fmt(measures.get("Test-oracle Worst10", 0.006884), 6)},
+        {"Method": "Selected gain vs reference", "MSE": f"{100 * measures['Selected gain vs A57']:.2f}%", "MAE": "--", "W10": "--"},
+        {"Method": "Oracle gain vs reference", "MSE": f"{100 * measures['Oracle gain vs A57']:.2f}%", "MAE": "--", "W10": "--"},
+        {"Method": "Captured oracle headroom", "MSE": f"{100 * measures['Mean captured oracle headroom']:.2f}%", "MAE": "--", "W10": "--"},
     ]
     return rows
 
@@ -484,8 +484,8 @@ def _table6(root: Path) -> list[dict[str, str]]:
             {
                 "Study": "Source-initialization seed",
                 "Setting": row["SourceSeed"],
-                "Proposed WMSE": _fmt(_float(row, "OursWMSE"), 6),
-                "Reference WMSE": _fmt(_float(row, "A57WMSE"), 6),
+                "Proposed MSE": _fmt(_float(row, "OursWMSE"), 6),
+                "Reference MSE": _fmt(_float(row, "A57WMSE"), 6),
                 "Gain (%)": _pct(_float(row, "WMSEGainVsA57"), 2),
                 "95% CI (%)": f"[{_pct(_float(row, 'CI_low'), 2)}, {_pct(_float(row, 'CI_high'), 2)}]",
             }
@@ -496,8 +496,8 @@ def _table6(root: Path) -> list[dict[str, str]]:
         {
             "Study": "Alibaba semi-real",
             "Setting": "20 target machines / 80 cases",
-            "Proposed WMSE": _fmt(_float(main["Ours"], "WMSE"), 6),
-            "Reference WMSE": _fmt(_float(main["PT+FT"], "WMSE"), 6),
+            "Proposed MSE": _fmt(_float(main["Ours"], "WMSE"), 6),
+            "Reference MSE": _fmt(_float(main["PT+FT"], "WMSE"), 6),
             "Gain (%)": _pct(real["Selected gain vs A57"], 2),
             "95% CI (%)": f"[{_pct(real['Selected gain CI low'], 2)}, {_pct(real['Selected gain CI high'], 2)}]",
         }
@@ -509,7 +509,7 @@ def _table_s4(root: Path) -> list[dict[str, str]]:
     return [
         {
             "Architectures": str(int(_float(row, "UniqueArchitectures"))),
-            "WMSE": _fmt(_float(row, "WMSE"), 6),
+            "MSE": _fmt(_float(row, "WMSE"), 6),
             "MAE": _fmt(_float(row, "MAE"), 5),
             "W10": _fmt(_float(row, "Worst10"), 6),
             "Reference-replacement rate / all cases (%)": _pct(_float(row, "SwitchRate"), 2),
@@ -653,7 +653,7 @@ def paper_table_rows(project_root: str | Path) -> OrderedDict[str, list[dict[str
     ablation = [
         {
             "Variant": ablation_labels.get(row["Variant"], row["Variant"]),
-            "MSE": row["WMSE"],
+            "MSE": row["MSE"],
             "Worst-10%": row["Worst-10%"],
             "Gain (%)": row["Gain vs reference (%)"],
             "Harmful selection (%)": row[

@@ -15,13 +15,15 @@
     },
     "results/figure_data/tableS6_alibaba_semi_real.csv": {
       "original_sha256": "f359191c43ace927d9c607e0b00cf7e7db6957bca6daa1220d03382cae0b80fd",
-      "corrected_sha256": "5f8a626c1813640c5e348f02183e4be8578d87d2e9957a2390f36135fffde205",
-      "correction": "Use the V2 mean captured oracle headroom of 65.42% and the final MSA-DTI public name."
+      "corrected_sha256": "2b2ede6dc6bd96f5d3d3e88a6f39a448442aa409190fe518b294c6f028e77ed5",
+      "correction": "Use the V2 mean captured oracle headroom of 65.42% and the final MSA-DTI public name.",
+      "previous_corrected_sha256": "5f8a626c1813640c5e348f02183e4be8578d87d2e9957a2390f36135fffde205"
     },
     "results/figure_data/tableS5_oracle_diagnostics.csv": {
       "original_sha256": "3a00b57a6f30a4471ac36c54423720857c0aca5692836f0130473f5121210b43",
-      "corrected_sha256": "6ce3782c810e23944ceddc86731c8d8097588525c2960a6eeb31b875b09e9f22",
-      "correction": "Label 75.00% as check-set-oracle/test-oracle agreement and add percent units."
+      "corrected_sha256": "28561481adf4a423600afc522d678a4967213c2db49fac3fcb835655647405a7",
+      "correction": "Label 75.00% as check-set-oracle/test-oracle agreement and add percent units.",
+      "previous_corrected_sha256": "6ce3782c810e23944ceddc86731c8d8097588525c2960a6eeb31b875b09e9f22"
     },
     "results/figure_data/tableS7_architecture_coverage.csv": {
       "original_sha256": "a723543a3a6a01125d27920b843ebeab02d8a2341f67de7366904d8347271aa8",
@@ -35,13 +37,15 @@
     },
     "results/figure_data/table4_component_ablation.csv": {
       "original_sha256": "2a910569b40f9d53399d7c411d322d43fa8ebdc2bb5ed3e910ec63bd44e3b203",
-      "corrected_sha256": "cbd72dbef93b8d4333c31eeda275a986680de9db360b3b78699b36ded944cad0",
-      "correction": "Rebuild complete paper Table 4, including harmful alternative selection, 96.25% limit satisfaction, and the final MSA-DTI label."
+      "corrected_sha256": "d3e1cb914896a69c0a8eb55b0de07d02e7abcc1db42c86b85a3664956ac413ff",
+      "correction": "Rebuild complete paper Table 4, including harmful alternative selection, 96.25% limit satisfaction, and the final MSA-DTI label.",
+      "previous_corrected_sha256": "cbd72dbef93b8d4333c31eeda275a986680de9db360b3b78699b36ded944cad0"
     },
     "results/figure_data/tableS4_bank_size.csv": {
       "original_sha256": "04c273edb89578726571dfc30b0fab33e959fe20d5ba0379a7fb44d8f589b3a6",
-      "corrected_sha256": "f448fe70675b19367eb592b25f5a8e21399d62c93ed95025edb7bae1ed7db3f1",
-      "correction": "Identify the switch metric as reference replacement over all cases."
+      "corrected_sha256": "1ac6f515e797edb34d62012615ca99e2d475f0c2de09c04ffd2c29626e8e6c7b",
+      "correction": "Identify the switch metric as reference replacement over all cases.",
+      "previous_corrected_sha256": "f448fe70675b19367eb592b25f5a8e21399d62c93ed95025edb7bae1ed7db3f1"
     },
     "results/figure_data/table1_experimental_configuration.csv": {
       "original_sha256": "ce51a42b2a2212b82ce7fa5d0cc6c08abcdbc6e4ebfdeb846d9a5d377a8bcbed",
@@ -50,8 +54,13 @@
     },
     "results/figure_data/table2_baseline_fairness.csv": {
       "original_sha256": "970202f403e146875280196712e65ca9bc70b2e1a107492e125fcdcd95bfe8d3",
-      "corrected_sha256": "61b08e807ca3a41d0e7c269e4dd4c940d2d062b5bca08348d26cfaa3b86b728a",
-      "correction": "Synchronize the MSA-DTI public name and target-side protocol descriptions with revised-paper Table 2."
+      "corrected_sha256": "ff0828868d0603eadf68fc4228b9f843c3dd3f27f8b500b7f569d5c08ccfd68c",
+      "correction": "Synchronize the MSA-DTI public name and target-side protocol descriptions with revised-paper Table 2.",
+      "previous_corrected_sha256": "61b08e807ca3a41d0e7c269e4dd4c940d2d062b5bca08348d26cfaa3b86b728a"
     }
+  },
+  "version_history": {
+    "v1.2.2": "historical frozen corrected hashes recorded in previous_corrected_sha256",
+    "v1.2.3": "current corrected hashes after WMSE->MSE terminology cleanup and Table S5 label sync"
   }
 }
