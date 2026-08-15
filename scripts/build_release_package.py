@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import os
 import subprocess
 import sys
 import zipfile
@@ -126,12 +127,22 @@ def ensure_clean_tagged_head(root: Path, version: str) -> list[str]:
         errors.append("working tree is not clean; refusing to package uncommitted content")
     describe = subprocess.run(
         ["git", "-C", str(root), "describe", "--exact-match", "HEAD"],
-        check=True,
         capture_output=True,
     )
-    tag = describe.stdout.decode("utf-8", errors="replace").strip()
-    if tag != version:
-        errors.append(f"HEAD is not exactly tagged {version!r} (got {tag!r})")
+    if describe.returncode == 0:
+        tag = describe.stdout.decode("utf-8", errors="replace").strip()
+        if tag != version:
+            errors.append(f"HEAD is not exactly tagged {version!r} (got {tag!r})")
+    elif os.environ.get("GITHUB_REF") == f"refs/tags/{version}":
+        head = subprocess.run(
+            ["git", "-C", str(root), "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
+        )
+        if head.stdout.decode("utf-8", errors="replace").strip() != os.environ.get("GITHUB_SHA", "").strip():
+            errors.append("HEAD does not match the pushed tag commit")
+    else:
+        errors.append(f"HEAD is not exactly tagged {version!r}")
     return errors
 
 
