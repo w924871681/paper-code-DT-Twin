@@ -3,14 +3,14 @@
 This repository is the reproducibility archive for **Adaptation-Aware Model
 Selection for Few-Shot Digital Twin Instantiation under Deployment
 Limits**. The public method name is **MSA-DTI** (Model Selection and
-Adaptation for Digital Twin Instantiation). Release `v1.2.4` is the current
+Adaptation for Digital Twin Instantiation). Release `v1.2.5` is the current
 archived scientific release underlying the revised manuscript and
 supplementary package, plot-ready data, frozen protocols, audit evidence,
 and public reproduction commands.
 
 ## What is frozen
 
-The following scientific choices remain unchanged in v1.2.4:
+The following scientific choices remain unchanged in v1.2.5:
 
 - data seed `2904` and source-training seeds `2904`, `2905`, `2906`;
 - source, development, diagnostic, and held-out target splits;
@@ -36,14 +36,11 @@ used only for reporting and never for candidate selection.
 - `results/audited_provenance/`: publishable immutable audit records.
 - `scripts/`: verification, reconstruction, smoke-test, and replay commands.
 - `docs/`: method, figure, provenance, availability, and reproducibility notes.
-- `docs/FINAL_MSA_DTI_SYNC_AUDIT.md`: paper-evidence mapping, public-asset
-  classification, and release-parity audit.
 - `audit/v1.1.9/`: machine-readable and human-readable release audit evidence.
 
 Historical internal identifiers remain only where changing them would break
 the provenance chain. Their public meaning is documented in
-`docs/INTERNAL_PROVENANCE_NAMES.md`; archived plotting code lives under
-`reporting/legacy/` and is not a paper-figure entry point. In particular, the
+`docs/INTERNAL_PROVENANCE_NAMES.md`. In particular, the
 `WMSE` and `CVaR90_WMSE` fields in `results/main/*.csv` are historical names
 for the uniformly horizon-weighted MSE, and with the released uniform weights
 they are numerically equal to the MSE reported in the paper.
@@ -155,7 +152,7 @@ processed evaluation values only.
 ## Citation and release integrity
 
 Use `CITATION.cff` and Release
-[`v1.2.4`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.4).
+[`v1.2.5`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.5).
 Every release asset is covered by `SHA256SUMS.txt`; the audit report records
 the Git commit, annotated tag target, release state, and asset hashes.
 Author and DOI metadata remain explicitly pending.

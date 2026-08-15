@@ -178,10 +178,10 @@ margin calibration.
 The candidate bank and reference candidate are fixed when the margin grid is
 evaluated.
 
-If no margin is eligible in a new domain, calibrated deployment retains the
-adapted reference and records margin calibration as unsupported. A previously
-frozen margin may still be evaluated without recalibration as a transfer
-audit. The released calibration CSV contains the complete six-margin grid,
+If no margin satisfies the calibration criteria in a new domain, the adapted
+reference is retained. A margin fixed in another domain may still be
+evaluated without recalibration to assess transfer. The released calibration
+CSV contains the complete six-margin grid,
 harmful-selection rates, mean gains, and confidence bounds.
 
 \section{Additional Analytical Details}
@@ -357,7 +357,7 @@ It is used only for the component comparisons reported in this subsection.
 
 The component variants are reported in Table~4 of the main text.
 
-Because the historical source-training variant changes the full
+Because the earlier source-training variant changes the full
 alternative-initialization pipeline, it measures candidate-bank sensitivity
 rather than a single-component effect.
 The reference-only and two-reference-initialization variants show that
@@ -452,7 +452,7 @@ and limit tier. Peak GPU allocation is not monotonic in parameter count
 across the two horizons, supporting parameter count as a model-size
 indicator. The profiling results characterize the measured CPU/GPU host.
 
-\subsection{Single-limit feasible-space audit}
+\subsection{Single-limit feasible-space analysis}
 
 To identify the active constraint in the frozen candidate bank, we apply the
 operation-count and parameter-count limits separately to the same seven
@@ -470,9 +470,9 @@ satisfies both limits in all six horizon--tier combinations.
 \clearpage
 \null
 \vspace{-1.5em}
-\subsection{Expanded-bank dual-limit stress audit}
+\subsection{Expanded-bank dual-limit stress analysis}
 
-The preceding audit shows that the operation-count limit is inactive for
+The preceding analysis shows that the operation-count limit is inactive for
 the frozen seven-candidate main bank under the main limit tiers.
 To examine whether operation count and parameter count can independently
 restrict candidate feasibility, we additionally construct an eight-candidate
@@ -568,7 +568,7 @@ architecture space, initialization recipe, SGD/MSE--50 target recipe, and
 retention rule are unchanged. A configuration is retained when it records at
 least two check-oracle wins or at least two validation-selected positive
 check wins. None of these pools overlaps the 20-center robustness pool used
-below, and Test is never read.
+below. No test data are used during screening.
 
 \begin{suppTableBlock}{Independent candidate-screening stability and evaluation on centers 1160--1179.}{tab:supp-screening-stability}
 \scriptsize
@@ -625,9 +625,9 @@ main study. This setting isolates external workload-domain transfer under the
 frozen deployment protocol.
 
 No margin in the fixed grid satisfies all Alibaba calibration criteria.
-Calibrated deployment therefore retains the adapted reference, while the
-main-study margin $\tau=0.10$, fixed before the Alibaba evaluation, is
-evaluated separately as a transfer audit.
+Under the calibration rule, the adapted reference is therefore retained,
+while the fixed main-study margin $\tau=0.10$ is reported separately to
+assess transfer without recalibration.
 
 On the 160 held-out cases, the adapted reference and MSA-DTI have mean MSE
 values of 0.001337 and 0.001279, respectively, corresponding to a 4.29\%

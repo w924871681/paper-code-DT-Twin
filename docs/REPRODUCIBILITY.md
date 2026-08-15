@@ -29,6 +29,17 @@ training, target adaptation, candidate selection, or bootstrap resampling.
 implementation. The former direct plotting command is a compatibility shim
 that calls this same module.
 
+## Canonical target-side implementation
+
+The current MSA-DTI held-out protocol uses the SGD/MSE 50-update target
+adaptation and the frozen reference-margin candidate-selection implementation
+in `main_evaluation/pipeline.py`, with frozen values defined in
+`configs/methods/main_evaluation_cfg.py`. `core/methods/ours/adapt.py` and
+`core/methods/ours/c23_mode_selector.py` contain historical or
+general-purpose adaptation components retained for reproducibility and
+compatibility; they are not the canonical implementation of the current
+protocol.
+
 ## Manuscript build
 
 From `paper/`, compile `manuscript.tex` with a LaTeX distribution containing
@@ -57,6 +68,15 @@ python .\scripts\run_full_reproduction.py `
 It stages the exact archived files, runs the seven locked methods, analyzes
 80 records per method, and executes the formal audit. It uses frozen
 source-trained weights and does not retrain the source bank.
+
+The published 32-file portable bootstrap package carries a release checksum
+and includes all frozen source-initialization weights, the pooled bundle,
+selector evidence, shared evaluator records, and external-baseline assets
+required by the locked main evaluation. A fresh CUDA replay through this
+public entry point completed on an NVIDIA GeForce RTX 3060 Laptop GPU with
+ledger decision `PASS_FROZEN_MAIN_EVALUATION_REPLAY` and formal audit
+`PASS_C33_LOCKED_EVALUATION_COMPLETE_AND_AUDITED`; all non-timing case
+records and reported metrics matched the historical frozen outputs.
 
 The original Alibaba trace is separate because it is not redistributed.
 Follow `data/alibaba2018/README.md`.

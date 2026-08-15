@@ -49,21 +49,21 @@ jobs:
           cd ../../release-assets
           sha256sum "paper_alignment_${GITHUB_REF_NAME}.zip" > \
             "paper_alignment_${GITHUB_REF_NAME}.zip.sha256"
-      - name: Build complete paper and final figure-code assets
+      - name: Build complete archive from the public allowlist
         run: |
-          zip -X -r "release-assets/msa_dti_${GITHUB_REF_NAME}_complete.zip" \
-            paper paper_assets/current_figures results/figure_data configs \
-            reporting/final_figures.py reporting/frozen.py \
-            scripts/generate_paper_outputs.py scripts/validate_paper_outputs.py \
-            scripts/verify_repository.py docs audit \
-            README.md CITATION.cff CHANGELOG.md \
-            "RELEASE_NOTES_${GITHUB_REF_NAME}.md"
+          python scripts/build_release_package.py \
+            --out-dir release-assets \
+            --version "${GITHUB_REF_NAME}"
+          python scripts/check_release_hygiene.py \
+            "release-assets/msa_dti_${GITHUB_REF_NAME}_complete.zip"
+      - name: Build final figure-code asset
+        run: |
           mkdir -p figure-code-package/scripts figure-code-package/paper_assets \
             figure-code-package/paper
           cp -r reporting figure-code-package/
           cp scripts/generate_paper_outputs.py \
             scripts/validate_paper_outputs.py figure-code-package/scripts/
-          cp -r results configs figure-code-package/
+          cp -r results/figure_data configs figure-code-package/
           cp -r paper_assets/current_figures figure-code-package/paper_assets/
           cp -r paper/tables figure-code-package/paper/
           cp docs/FIGURE_REPRODUCTION.md requirements.txt \
@@ -71,8 +71,6 @@ jobs:
           cd figure-code-package
           zip -X -r "../release-assets/MSA_DTI_FIGURE_CODE_${GITHUB_REF_NAME}.zip" .
           cd ../release-assets
-          sha256sum "msa_dti_${GITHUB_REF_NAME}_complete.zip" > \
-            "msa_dti_${GITHUB_REF_NAME}_complete.zip.sha256"
           sha256sum "MSA_DTI_FIGURE_CODE_${GITHUB_REF_NAME}.zip" > \
             "MSA_DTI_FIGURE_CODE_${GITHUB_REF_NAME}.zip.sha256"
           sha256sum *.zip > SHA256SUMS.txt
@@ -81,9 +79,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           NOTES_FILE="RELEASE_NOTES_${GITHUB_REF_NAME}.md"
-          if [ ! -f "${NOTES_FILE}" ]; then
-            NOTES_FILE="RELEASE_NOTES_v1.1.0.md"
-          fi
+          test -f "${NOTES_FILE}"
           if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
             gh release edit "${GITHUB_REF_NAME}" \
               --verify-tag \
@@ -129,6 +125,9 @@ jobs:
           sha256sum -c "msa_dti_${GITHUB_REF_NAME}_complete.zip.sha256"
           sha256sum -c "MSA_DTI_FIGURE_CODE_${GITHUB_REF_NAME}.zip.sha256"
           sha256sum -c SHA256SUMS.txt
+          python ../scripts/check_release_hygiene.py \
+            "msa_dti_${GITHUB_REF_NAME}_complete.zip"
+          python -c "import zipfile,sys;n=zipfile.ZipFile('msa_dti_${GITHUB_REF_NAME}_complete.zip').namelist();sys.exit(0 if any(x.startswith('results/main/') for x in n) else 1)"
           python ../scripts/verify_release_evidence.py \
             "cuda_replay_evidence_${GITHUB_REF_NAME}.zip"
           test "$(stat -c%s "level_c_bootstrap_${GITHUB_REF_NAME}.zip")" = "64258937"

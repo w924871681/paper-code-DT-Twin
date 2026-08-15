@@ -21,6 +21,7 @@ from reporting.frozen import (
 )
 from scripts.verify_assets import load_asset_manifest
 from scripts.level_c_bootstrap import load_manifest as load_bootstrap_manifest
+from scripts.check_release_hygiene import check_tracked_paths
 
 SANITIZED_FILES = {
     "RESTRUCTURE_REPORT.json",
@@ -45,8 +46,8 @@ DERIVED_AUDIT_FILES = {
 }
 REQUIRED_FILES = {
     "README.md", "CITATION.cff", "LICENSE", "pyproject.toml", "environment.yml",
-    "CHANGELOG.md", "AUTHOR_METADATA_REQUIRED.md", "RELEASE_NOTES_v1.1.0.md", "RELEASE_NOTES_v1.1.1.md", "RELEASE_NOTES_v1.1.2.md", "RELEASE_NOTES_v1.1.3.md", "RELEASE_NOTES_v1.1.4.md", "RELEASE_NOTES_v1.1.5.md", "RELEASE_NOTES_v1.1.6.md", "RELEASE_NOTES_v1.1.7.md", "RELEASE_NOTES_v1.1.8.md", "RELEASE_NOTES_v1.1.9.md", "RELEASE_NOTES_v1.2.0.md", "CODEX_V1_1_5_PAPER_ALIGNMENT_AUDIT.md", "CODEX_V1_1_6_RELEASE_AUDIT.md", "CODEX_V1_1_7_PAPER_ALIGNMENT_AUDIT.md", "CODEX_V1_1_8_PACKAGING_AUDIT.md", "CODEX_V1_2_0_PAPER_FIG10_AUDIT.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
-    "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md", "docs/LEVEL_C_COMPLETION_PLAN.md", "docs/FIGURE_REPRODUCTION.md", "docs/INTERNAL_PROVENANCE_NAMES.md",
+    "CHANGELOG.md", "RELEASE_NOTES_v1.2.5.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
+    "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md", "docs/FIGURE_REPRODUCTION.md", "docs/INTERNAL_PROVENANCE_NAMES.md",
     "assets/README.md", "assets/model_assets.csv", "assets/level_c_bootstrap_files.csv", "data/README.md", "data/alibaba2018/README.md",
     "results/README.md", "results/audited_provenance/SANITIZATION_MANIFEST.json",
     "results/audited_provenance/NUMERICAL_CORRECTIONS.json",
@@ -56,7 +57,7 @@ REQUIRED_FILES = {
     "scripts/finalize_cuda_replay.py", "scripts/verify_release_evidence.py",
     "scripts/plot_reproducible_figures.py", "scripts/derive_reproducible_figure_data.py",
     "reporting/final_figures.py", "reporting/reproducible_figures.py",
-    "scripts/validate_paper_outputs.py", "reporting/frozen.py", "paper_assets/legacy_figures/manifest.json", "paper_assets/current_figures/manifest.json",
+    "scripts/validate_paper_outputs.py", "scripts/check_release_hygiene.py", "scripts/build_release_package.py", "reporting/frozen.py", "paper_assets/current_figures/manifest.json",
     "paper/manuscript.tex", "paper/manuscript.pdf",
     "audit/v1.1.7/README.md", "audit/v1.1.7/local_verification.json",
     "audit/v1.1.8/README.md", "audit/v1.1.8/local_verification.json",
@@ -384,14 +385,20 @@ def check_version_metadata() -> list[str]:
             encoding="utf-8"
         )
     )
-    if 'version = "1.2.2"' not in pyproject:
-        errors.append("pyproject version is not 1.2.2")
-    if not re.search(r"(?m)^version:\s*1\.2\.2\s*$", citation):
-        errors.append("CITATION.cff version is not 1.2.2")
+    if 'version = "1.2.5"' not in pyproject:
+        errors.append("pyproject version is not 1.2.5")
+    if not re.search(r"(?m)^version:\s*1\.2\.5\s*$", citation):
+        errors.append("CITATION.cff version is not 1.2.5")
     if fixed_manifest.get("paper_version") != "v1.2.0":
         errors.append("fixed-figure manifest must preserve v1.2.0 provenance")
     if "cp -r paper/tables figure-code-package/paper/" not in workflow:
         errors.append("standalone figure-code package does not include paper/tables")
+    if "build_release_package.py" not in workflow:
+        errors.append("release workflow does not use the explicit public allowlist packager")
+    if "check_release_hygiene.py" not in workflow:
+        errors.append("release workflow does not run the archive hygiene guard")
+    if "RELEASE_NOTES_v1.1.0.md" in workflow:
+        errors.append("release workflow still falls back to an obsolete historical note")
     for asset in (
         "level_c_bootstrap_${GITHUB_REF_NAME}.zip",
         "level_c_bootstrap_${GITHUB_REF_NAME}.zip.sha256",
@@ -441,6 +448,7 @@ def run_verification(generated_root: Path | None=None) -> dict[str,Any]:
         ("paper_alignment",check_paper_alignment),
         ("public_terminology",check_public_terms),
         ("privacy",check_privacy),
+        ("release_hygiene",lambda:check_tracked_paths(ROOT)),
         ("version_metadata",check_version_metadata),
         ("generated_outputs",lambda:check_generated(generated_root)),
     ]

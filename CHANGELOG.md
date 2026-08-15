@@ -3,6 +3,20 @@
 All notable public changes to this repository are documented here. Release
 dates are recorded only after a version is actually published.
 
+## [1.2.5] - 2026-08-15
+
+- Normalize manuscript and supplementary journal tone and remove residual
+  internal audit wording without changing any scientific statement.
+- Remove internal review, reviewer-response, revision-matrix, patch-status,
+  and Codex audit artifacts from the public repository.
+- Simplify public documentation and restrict the release archive to an
+  explicit public allowlist with automated hygiene checks.
+- Synchronize README, CITATION.cff, pyproject.toml, Data Availability, and
+  release metadata to v1.2.5.
+- Ensure the complete archive includes `results/main/` and the full frozen
+  scientific result set, and rebuild the manuscript and supplementary PDFs
+  with the same frozen scientific content.
+
 ## [Unreleased]
 
 - Prepare v1.2.0 with formal CPU/CUDA hosting-profile evidence and the

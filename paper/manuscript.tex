@@ -396,10 +396,7 @@ Section~\ref{subsec:experimental-setup} and Supplementary Section~S2.
 On a running platform, the bank stays frozen for each evaluation. When the
 source centers change or their data change over time, the bank is rebuilt
 offline and frozen again before the next evaluation; it is not updated
-automatically during target deployment. In deployment, a frozen bank can be
-versioned and checksummed, with the previous version retained until the rebuilt
-bank passes its checks; the reference architecture and fallback rule remain
-fixed across versions.
+automatically during target deployment.
 
 \paperfig[trim={150bp 1350bp 480bp 160bp},clip]{0.98\linewidth}
 {fig3.pdf}
@@ -589,10 +586,10 @@ Section~\ref{subsec:experimental-setup} and Supplementary Section~S2.
 The 5\% harmful-rate requirement is an empirical calibration tolerance
 applied to the observed harmful-selection rate. Eligibility also requires
 both mean check-loss gains to reach 3\% and both lower 95\% confidence bounds
-to remain above zero. If no margin is eligible in a new domain, calibrated
-deployment retains the adapted reference and marks margin calibration as
-unsupported. A previously frozen margin may still be evaluated in that domain
-as a transfer audit. Calibration is therefore domain-specific.
+to remain above zero. If no margin satisfies the calibration criteria in a new
+domain, the adapted reference is retained. A margin fixed in another domain
+may still be evaluated without recalibration to assess transfer. Calibration
+is therefore domain-specific.
 
 \subsection{Analytical Properties}
 
@@ -854,7 +851,7 @@ settings affect candidate feasibility and final model selection.
 
 The tight setting reduces the bank from seven candidates to four, whereas
 the medium and loose settings retain all seven.
-A single-limit audit in Supplementary Section~S5 shows that this reduction
+A single-limit analysis in Supplementary Section~S5 shows that this reduction
 is caused by the parameter-count limit: all seven candidates satisfy the
 operation-count limit, while the tight parameter-count limit excludes three
 MLP candidates. To examine whether the two limits can independently constrain candidate
@@ -953,15 +950,16 @@ the main study.
 When the main-study margin $\tau=0.10$, fixed before the Alibaba evaluation,
 is transferred without recalibration, the mean paired MSE reduction is
 4.20\%, with a 95\% confidence interval of $[2.03\%,6.70\%]$. The harmful-selection rate is 6.25\%,
-exceeding the original 5\% calibration criterion. Because no Alibaba-specific
-margin satisfies the calibration criteria, calibrated deployment retains the
-adapted reference; the $\tau=0.10$ result is reported as an external transfer
-audit. The full protocol and results are given in Supplementary Section~S7.
+exceeding the original 5\% calibration criterion. No Alibaba-specific margin
+satisfies the calibration criteria. Under the calibration rule, the adapted
+reference is therefore retained, while the fixed $\tau=0.10$ result is
+reported separately to assess transfer without recalibration. The full
+protocol and results are given in Supplementary Section~S7.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper presented MSA-DTI for few-shot DT model instantiation subject to two per-model deployment limits. MSA-DTI filters a source-trained candidate bank, adapts feasible candidates with a common target budget, and applies reference-based selection. MSA-DTI reduces MSE by 14.60\% on average across paired cases relative to PT+FT while satisfying both limits, and 44 of 47 alternative selections improve test MSE. Additional analyses reveal three evidence boundaries: the harmful-selection confidence interval spans the 5\% calibration criterion, candidate discovery is sample-sensitive, and Alibaba transfer yields a positive mean gain without satisfying the original calibration criterion. Current evidence covers one controlled benchmark and one external trace. Future work will investigate more stable candidate-discovery procedures, uncertainty-aware selection, and measured deployment limits on additional platforms.
+This paper presented MSA-DTI for few-shot DT model instantiation subject to two per-model deployment limits. MSA-DTI filters a source-trained candidate bank, adapts feasible candidates with a common target budget, and applies reference-based selection. MSA-DTI reduces MSE by 14.60\% on average across paired cases relative to PT+FT while satisfying both limits, and 44 of 47 alternative selections improve test MSE. The additional analyses show that the harmful-selection confidence interval spans the 5\% calibration criterion, candidate discovery is sample-sensitive, and the transferred margin on Alibaba yields a positive mean gain without satisfying the original calibration criterion. The current evaluation is limited to one controlled benchmark and one external workload trace. Future work will investigate more stable candidate-discovery procedures, uncertainty-aware selection, and measured deployment limits on additional platforms.
 
 \section*{CRediT Authorship Contribution Statement}
 
@@ -982,8 +980,8 @@ influence the work reported in this paper.
 
 The source code, frozen configurations, processed results, plot-ready data,
 and reproduction scripts underlying the reported results are available in
-GitHub Release v1.2.4:
-\url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.4}.
+GitHub Release v1.2.5:
+\url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.5}.
 The original Alibaba Cluster Trace v2018 is not redistributed and remains
 available from its official repository:
 \url{https://github.com/alibaba/clusterdata}. The released documentation
