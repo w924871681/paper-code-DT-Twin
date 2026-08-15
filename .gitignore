@@ -26,6 +26,10 @@ paper/*-source-reference.pdf
 paper/supplementary/
 paper/tectonic_*.err
 tmp_msa_figures/
+source-assets/
+release-assets/
+figure-code-package/
+downloaded-assets/
 .DS_Store
 data/alibaba2018/raw/*
 data/alibaba2018/processed/*

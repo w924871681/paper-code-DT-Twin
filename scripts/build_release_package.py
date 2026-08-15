@@ -119,7 +119,7 @@ def blob_bytes(root: Path, name: str) -> bytes:
 def ensure_clean_tagged_head(root: Path, version: str) -> list[str]:
     errors: list[str] = []
     status = subprocess.run(
-        ["git", "-C", str(root), "status", "--porcelain"],
+        ["git", "-C", str(root), "status", "--porcelain", "--untracked-files=no"],
         check=True,
         capture_output=True,
     )
