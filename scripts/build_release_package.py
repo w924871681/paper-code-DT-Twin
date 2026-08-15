@@ -100,6 +100,36 @@ def tracked_files(root: Path) -> list[str]:
     return [n for n in result.stdout.decode("utf-8", errors="replace").split("\0") if n]
 
 
+def blob_bytes(root: Path, name: str) -> bytes:
+    """Read a path's committed blob bytes, independent of checkout EOL settings."""
+    result = subprocess.run(
+        ["git", "-C", str(root), "show", f"HEAD:{name}"],
+        check=True,
+        capture_output=True,
+    )
+    return result.stdout
+
+
+def ensure_clean_tagged_head(root: Path, version: str) -> list[str]:
+    errors: list[str] = []
+    status = subprocess.run(
+        ["git", "-C", str(root), "status", "--porcelain"],
+        check=True,
+        capture_output=True,
+    )
+    if status.stdout:
+        errors.append("working tree is not clean; refusing to package uncommitted content")
+    describe = subprocess.run(
+        ["git", "-C", str(root), "describe", "--exact-match", "HEAD"],
+        check=True,
+        capture_output=True,
+    )
+    tag = describe.stdout.decode("utf-8", errors="replace").strip()
+    if tag != version:
+        errors.append(f"HEAD is not exactly tagged {version!r} (got {tag!r})")
+    return errors
+
+
 def _matches(name: str) -> bool:
     for entry in ALLOWLIST:
         if entry.endswith("/"):
@@ -128,6 +158,13 @@ def main() -> int:
     args.out_dir.mkdir(parents=True, exist_ok=True)
     archive_path = args.out_dir / f"msa_dti_{args.version}_complete.zip"
 
+    guard_errors = ensure_clean_tagged_head(root, args.version)
+    if guard_errors:
+        print("RELEASE-PACKAGE: FAIL")
+        for error in guard_errors:
+            print(error)
+        return 1
+
     selected = sorted(name for name in tracked_files(root) if _matches(name))
     missing_sentinels = [
         sentinel
@@ -145,7 +182,7 @@ def main() -> int:
 
     with zipfile.ZipFile(archive_path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for name in selected:
-            archive.write(root / name, arcname=name)
+            archive.writestr(name, blob_bytes(root, name))
 
     hygiene = check_archive(archive_path)
     if hygiene:
