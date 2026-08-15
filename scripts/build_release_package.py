@@ -10,8 +10,13 @@ from __future__ import annotations
 import argparse
 import hashlib
 import subprocess
+import sys
 import zipfile
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from scripts.check_release_hygiene import check_archive
 
@@ -154,7 +159,7 @@ def main() -> int:
     parser.add_argument("--version", required=True, help="release tag, e.g. v1.2.5")
     args = parser.parse_args()
 
-    root = Path(__file__).resolve().parents[1]
+    root = ROOT
     args.out_dir.mkdir(parents=True, exist_ok=True)
     archive_path = args.out_dir / f"msa_dti_{args.version}_complete.zip"
 
