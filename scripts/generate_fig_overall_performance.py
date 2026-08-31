@@ -5,6 +5,7 @@ the frozen eight-method comparison.  MSA-DTI is explicitly identified as the
 proposed method with ``(ours)`` in both the legend and row labels.
 """
 
+import csv
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -26,19 +27,42 @@ METHODS = (
     "MSA-DTI (ours)",
 )
 
-# Frozen values shown in Error (x 10^-2). Source of truth for the four
-# H-Meta-NAS entries is the audited canonical result
-# results/main/overall_comparison.csv (MAE 0.0902667091, MSE 0.0135739418,
-# Worst-10% 0.0461530964, CVaR90 0.0349348963), multiplied by 10^2 for the
-# panel units.
+# Frozen values shown in Error (x 10^-2). All non-H-Meta-NAS entries remain
+# fixed here. The audited H-Meta-NAS entries are loaded from the canonical
+# result CSV below so that the plotted values cannot drift from the release
+# evidence.
 PANELS = (
-    ("MAE", (5.382, 6.409, 12.562, 6.428, 13.500, 6.654, 9.027, 4.866), (0, 17.0), (0, 4, 8, 12)),
-    ("MSE", (0.512, 0.712, 2.620, 0.711, 3.039, 0.753, 1.357, 0.422), (0, 3.8), (0.0, 0.8, 1.6, 2.4, 3.2)),
-    ("Worst-10% error", (1.908, 2.417, 7.330, 2.650, 7.519, 2.854, 4.615, 1.576), (0, 9.1), (0, 2, 4, 6, 8)),
-    ("CVaR90", (1.387, 2.240, 8.688, 1.909, 11.063, 1.878, 3.493, 1.171), (0, 14.2), (0, 3, 6, 9, 12)),
+    ("MAE", (5.382, 6.409, 12.562, 6.428, 13.500, 6.654, None, 4.866), (0, 17.0), (0, 4, 8, 12)),
+    ("MSE", (0.512, 0.712, 2.620, 0.711, 3.039, 0.753, None, 0.422), (0, 3.8), (0.0, 0.8, 1.6, 2.4, 3.2)),
+    ("Worst-10% error", (1.908, 2.417, 7.330, 2.650, 7.519, 2.854, None, 1.576), (0, 9.1), (0, 2, 4, 6, 8)),
+    ("CVaR90", (1.387, 2.240, 8.688, 1.909, 11.063, 1.878, None, 1.171), (0, 14.2), (0, 3, 6, 9, 12)),
 )
 
+CANONICAL_RESULTS = ROOT / "results" / "main" / "overall_comparison.csv"
+H_META_NAS_INDEX = METHODS.index("H-Meta-NAS")
+H_META_NAS_COLUMNS = ("MAE", "WMSE", "Worst10", "CVaR90_WMSE")
+
 COLORS = ("#6e8fb3", "#8db8b0", "#c6c2bd", "#d9a25f", "#c77979", "#b39bbc", "#8f99a6", "#4f7f5c")
+
+
+def load_h_meta_nas_values() -> tuple[float, ...]:
+    """Load audited H-Meta-NAS metrics and convert them to panel units."""
+    with CANONICAL_RESULTS.open(newline="", encoding="utf-8") as stream:
+        rows = [row for row in csv.DictReader(stream) if row["Method"] == "H-Meta-NAS"]
+    if len(rows) != 1:
+        raise ValueError(f"Expected one H-Meta-NAS row in {CANONICAL_RESULTS}, found {len(rows)}")
+    return tuple(float(rows[0][column]) * 100.0 for column in H_META_NAS_COLUMNS)
+
+
+def panel_data() -> tuple[tuple[str, tuple[float, ...], tuple[float, float], tuple[float, ...]], ...]:
+    """Insert only the audited H-Meta-NAS values into the frozen panel data."""
+    audited_values = load_h_meta_nas_values()
+    panels = []
+    for (panel, values, xlim, ticks), audited_value in zip(PANELS, audited_values):
+        plotted_values = list(values)
+        plotted_values[H_META_NAS_INDEX] = audited_value
+        panels.append((panel, tuple(plotted_values), xlim, ticks))
+    return tuple(panels)
 
 
 def main() -> None:
@@ -57,7 +81,7 @@ def main() -> None:
     fig.subplots_adjust(left=0.180, right=0.970, bottom=0.180, top=0.840, wspace=0.620, hspace=0.720)
 
     y = np.arange(len(METHODS))
-    for index, (ax, (panel, values, xlim, ticks)) in enumerate(zip(axes.flat, PANELS)):
+    for index, (ax, (panel, values, xlim, ticks)) in enumerate(zip(axes.flat, panel_data())):
         bars = ax.barh(y, values, height=0.68, color=COLORS, edgecolor="#5d5d5d", linewidth=0.55)
         bars[-1].set_hatch("//")
         ax.set_yticks(y, METHODS)
