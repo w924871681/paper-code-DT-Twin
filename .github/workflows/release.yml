@@ -62,33 +62,15 @@ jobs:
         run: |
           mkdir -p figure-code-package/scripts figure-code-package/paper_assets \
             figure-code-package/paper/figures \
-            figure-code-package/results/main \
-            figure-code-package/results/robustness \
-            figure-code-package/results/supplementary \
-            figure-code-package/results/audited_provenance
+            figure-code-package/results
           cp -r reporting figure-code-package/
           cp scripts/generate_paper_outputs.py \
             scripts/generate_fig_overall_performance.py \
             scripts/validate_paper_outputs.py figure-code-package/scripts/
           cp -r configs figure-code-package/
-          cp -r results/figure_data figure-code-package/results/
-          cp results/main/alibaba_semi_real.csv \
-            results/main/baseline_fairness.csv \
-            results/main/center_type_robustness.csv \
-            results/main/component_ablation.csv \
-            results/main/horizon_support_robustness.csv \
-            results/main/mechanism_and_cost.csv \
-            results/main/overall_comparison.csv \
-            figure-code-package/results/main/
-          cp results/robustness/alibaba_oracle_diagnostics.csv \
-            results/robustness/controlled_source_scale.csv \
-            results/robustness/source_bank_seed.csv \
-            figure-code-package/results/robustness/
-          cp results/supplementary/optimizer_matched_control_summary.csv \
-            results/supplementary/repeated_runtime_summary.csv \
-            figure-code-package/results/supplementary/
-          cp results/audited_provenance/fig12_case_level_gain_manifest.json \
-            figure-code-package/results/audited_provenance/
+          cp -r results/figure_data results/main results/robustness \
+            results/supplementary results/audited_provenance \
+            figure-code-package/results/
           cp -r paper_assets/current_figures figure-code-package/paper_assets/
           cp -r paper/tables figure-code-package/paper/
           cp paper/figures/fig_overall_performance_ours.pdf \

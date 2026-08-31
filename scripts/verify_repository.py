@@ -413,10 +413,15 @@ def check_version_metadata() -> list[str]:
         errors.append("standalone figure-code package does not include paper/tables")
     if "scripts/generate_fig_overall_performance.py" not in workflow:
         errors.append("standalone figure-code package does not include the current Figure 5 generator")
-    if "results/main/overall_comparison.csv" not in workflow:
-        errors.append("standalone figure-code package does not include the canonical Figure 5 source")
-    if "cp -r results/figure_data figure-code-package/results/" not in workflow:
-        errors.append("standalone figure-code package does not preserve the results/figure_data layout")
+    for result_tree in (
+        "results/figure_data",
+        "results/main",
+        "results/robustness",
+        "results/supplementary",
+        "results/audited_provenance",
+    ):
+        if result_tree not in workflow:
+            errors.append(f"standalone figure-code package omits {result_tree}")
     if "build_release_package.py" not in workflow:
         errors.append("release workflow does not use the explicit public allowlist packager")
     if "check_release_hygiene.py" not in workflow:
