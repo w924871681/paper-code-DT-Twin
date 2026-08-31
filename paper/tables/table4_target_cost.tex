@@ -7,13 +7,13 @@
 \renewcommand{\arraystretch}{1.07}
 \setlength{\tabcolsep}{2.8pt}
 \begin{tabularx}{\linewidth}
-{Y Z{0.20\linewidth} Z{0.16\linewidth} Z{0.17\linewidth} Z{0.19\linewidth}}
+{Y Z{0.20\linewidth} Z{0.18\linewidth} Z{0.16\linewidth} Z{0.19\linewidth}}
 \toprule
 Method
 & Time per case (s)
-& Adapted models
-& Parameters
-& Estimated operations \\
+& Adapted models per case
+& Parameter count
+& Estimated operation count \\
 \midrule
 PT+FT
 & $0.204\pm0.004$
@@ -25,6 +25,11 @@ Few-shot NAS
 & 12.00
 & 30{,}995
 & 1{,}468{,}894 \\
+H-Meta-NAS
+& $20.349\pm5.722$
+& 12.00
+& 26{,}627
+& 1{,}700{,}279 \\
 Zero-shot NAS + fine-tuning
 & $17.601\pm0.150$
 & 12.00
@@ -39,7 +44,8 @@ Zero-shot NAS + fine-tuning
 \end{tabularx}
 \vspace{2pt}
 \par\footnotesize
-Time is mean $\pm$ standard deviation over five runs. Complexity values are
-averaged over the final models selected in the held-out cases.
+Time is mean $\pm$ standard deviation over five runs. Parameter
+counts and estimated operation counts are averaged over the final models
+selected in the held-out cases.
 \end{minipage}
 \end{center}

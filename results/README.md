@@ -13,6 +13,9 @@ The result tree has two deliberately different layers.
 - `audited_provenance/` contains publishable immutable audit files, path-only
   sanitized copies with both hashes, and the manifest for narrowly corrected
   stale diagnostics.
+- `supplementary/h_meta_nas_runtime_audit/` contains the sanitized 5 x 80
+  frozen H-Meta-NAS target-side runtime audit. Its canonical paper statistic
+  is `20.349 ± 5.722 s` per case; the frozen performance result is unchanged.
 
 No correction changes the frozen method, seeds, data split, hyperparameters,
 or selected models. See

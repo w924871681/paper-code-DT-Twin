@@ -43,14 +43,19 @@ CORRECTED_FILES = {
 }
 DERIVED_AUDIT_FILES = {
     "results/audited_provenance/fig12_case_level_gain_manifest.json",
+    "results/audited_provenance/h_meta_nas_runtime_audit_manifest.json",
 }
 REQUIRED_FILES = {
     "README.md", "CITATION.cff", "LICENSE", "pyproject.toml", "environment.yml",
-    "CHANGELOG.md", "RELEASE_NOTES_v1.2.5.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
+    "CHANGELOG.md", "RELEASE_NOTES_v1.2.6.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
     "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md", "docs/FIGURE_REPRODUCTION.md", "docs/INTERNAL_PROVENANCE_NAMES.md",
     "assets/README.md", "assets/model_assets.csv", "assets/level_c_bootstrap_files.csv", "data/README.md", "data/alibaba2018/README.md",
     "results/README.md", "results/audited_provenance/SANITIZATION_MANIFEST.json",
     "results/audited_provenance/NUMERICAL_CORRECTIONS.json",
+    "results/audited_provenance/h_meta_nas_runtime_audit_manifest.json",
+    "results/supplementary/h_meta_nas_runtime_audit/per_case_runtime_all_repeats.csv",
+    "results/supplementary/h_meta_nas_runtime_audit/per_repeat_80_case_runtime.csv",
+    "results/supplementary/h_meta_nas_runtime_audit/h_meta_nas_five_repeat_runtime_summary.json",
     "scripts/generate_paper_outputs.py", "scripts/verify_repository.py", "scripts/verify_assets.py",
     "scripts/run_smoke_test.py", "scripts/run_full_reproduction.py", "scripts/build_alibaba2018_bank.py",
     "scripts/level_c_bootstrap.py", "scripts/build_level_c_bootstrap.py", "scripts/stage_level_c_bootstrap.py",
@@ -176,6 +181,11 @@ def check_numbers() -> list[str]:
     runtime = {row["method"]: row for row in _csv(ROOT / "results/supplementary/repeated_runtime_summary.csv")}
     ours = runtime["ours_c32_locked"]
     if abs(float(ours["mean_seconds"])-5.676108809500022)>1e-12 or abs(float(ours["repeat_mean_std_seconds"])-0.059080506136177456)>1e-12: errors.append("repeated proposed runtime changed")
+    h_meta = runtime["h_meta_nas"]
+    if int(h_meta["N_observations"]) != 400 or int(h_meta["N_repeats"]) != 5: errors.append("H-Meta-NAS repeated-runtime cardinality changed")
+    if abs(float(h_meta["mean_seconds"])-20.34946890149808)>1e-12 or abs(float(h_meta["repeat_mean_std_seconds"])-5.7224156375452475)>1e-12: errors.append("H-Meta-NAS repeated runtime changed")
+    h_meta_audit = json.loads((ROOT / "results/supplementary/h_meta_nas_runtime_audit/h_meta_nas_five_repeat_runtime_summary.json").read_text(encoding="utf-8"))
+    if h_meta_audit.get("decision") != "PASS_H_META_NAS_FIVE_REPEAT_FROZEN_RUNTIME_AUDIT" or not h_meta_audit.get("performance_unchanged"): errors.append("H-Meta-NAS frozen runtime audit is not complete and unchanged")
     mechanism = next(row for row in _csv(ROOT / "results/main/mechanism_and_cost.csv") if row["Method"]=="Ours")
     dist = json.loads(mechanism["SelectedArchitectureDistribution"])
     if abs(float(mechanism["AnchorRetentionRate"])-.4125)>1e-12 or int(dist.get("PT_A57_A57",0))!=33: errors.append("reference retention is inconsistent")
@@ -262,6 +272,7 @@ def check_privacy() -> list[str]:
             or "outputs" in path.parts
             or ".git" in path.parts
             or "__pycache__" in path.parts
+            or path.name in {"manuscript.log", "supplementary.log"}
             or path.name in {"verify_repository.py", "verify_release_evidence.py"}
         ):
             continue
@@ -315,8 +326,8 @@ def check_paper_alignment() -> list[str]:
     tex = (ROOT / "paper/manuscript.tex").read_text(encoding="utf-8")
     required_source = (
         "Adaptation-Aware Model Selection for Few-Shot Digital Twin Instantiation under Deployment Limits",
-        "Model Selection and Adaptation for Digital Twin Instantiation (MSA-DTI)",
-        "six retained configurations, five executable architectures, and",
+        "Model Selection and Adaptation for Digital Twin Instantiation",
+        "screening retains six configurations corresponding to five executable",
         "seven candidates",
         "Mean squared error (MSE) is the task loss.",
         "Data Availability",
@@ -353,8 +364,8 @@ def check_paper_alignment() -> list[str]:
             if char.isalnum() or char == "."
         )
 
-        if len(reader.pages) != 14:
-            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 14")
+        if len(reader.pages) != 15:
+            errors.append(f"current manuscript PDF has {len(reader.pages)} pages, expected 15")
 
         for phrase in (
             "Adaptation-Aware Model Selection",
@@ -370,6 +381,12 @@ def check_paper_alignment() -> list[str]:
                 errors.append(f"current manuscript PDF is missing: {phrase}")
         if "RCF-DTI" in pdf_text or "RB-DTI" in pdf_text:
             errors.append("current manuscript PDF contains a stale public method name")
+
+        supplementary_reader = PdfReader(str(ROOT / "paper/supplementary.pdf"))
+        if len(supplementary_reader.pages) != 9:
+            errors.append(
+                f"current supplementary PDF has {len(supplementary_reader.pages)} pages, expected 9"
+            )
     except Exception as exc:
         errors.append(f"cannot inspect current manuscript PDF: {exc}")
     return errors
@@ -385,10 +402,10 @@ def check_version_metadata() -> list[str]:
             encoding="utf-8"
         )
     )
-    if 'version = "1.2.5"' not in pyproject:
-        errors.append("pyproject version is not 1.2.5")
-    if not re.search(r"(?m)^version:\s*1\.2\.5\s*$", citation):
-        errors.append("CITATION.cff version is not 1.2.5")
+    if 'version = "1.2.6"' not in pyproject:
+        errors.append("pyproject version is not 1.2.6")
+    if not re.search(r"(?m)^version:\s*1\.2\.6\s*$", citation):
+        errors.append("CITATION.cff version is not 1.2.6")
     if fixed_manifest.get("paper_version") != "v1.2.0":
         errors.append("fixed-figure manifest must preserve v1.2.0 provenance")
     if "cp -r paper/tables figure-code-package/paper/" not in workflow:

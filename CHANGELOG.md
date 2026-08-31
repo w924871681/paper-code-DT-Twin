@@ -3,6 +3,19 @@
 All notable public changes to this repository are documented here. Release
 dates are recorded only after a version is actually published.
 
+## [1.2.6] - 2026-08-31
+
+- Adopt the supplied latest manuscript and supplementary LaTeX sources and
+  rebuild their synchronized final PDFs.
+- Publish the complete H-Meta-NAS five-repeat frozen target-side runtime audit,
+  including 400 case-level measurements, repeat summaries, hardware metadata,
+  verification tolerance amendment, and interruption records.
+- Replace the protocol-incompatible legacy 43.061-s paper value with the
+  synchronized five-repeat result, 20.349 ± 5.722 s per target case.
+- Confirm that the frozen H-Meta-NAS selected models and aggregate performance
+  remain unchanged; no method, search, data, seed, optimizer, or adaptation
+  setting is modified.
+
 ## [1.2.5] - 2026-08-15
 
 - Normalize manuscript and supplementary journal tone and remove residual

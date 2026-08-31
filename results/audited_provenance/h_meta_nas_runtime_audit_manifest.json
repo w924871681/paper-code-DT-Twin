@@ -1,0 +1,29 @@
+{
+  "title": "H-Meta-NAS five-repeat frozen target-side runtime audit",
+  "decision": "PASS_H_META_NAS_FIVE_REPEAT_FROZEN_RUNTIME_AUDIT",
+  "canonical_paper_runtime_seconds_per_case": {
+    "mean": 20.34946890149808,
+    "sample_standard_deviation_across_repeat_means": 5.7224156375452475,
+    "repeats": 5,
+    "cases_per_repeat": 80
+  },
+  "frozen_performance_unchanged": true,
+  "legacy_43_061_seconds_counted": false,
+  "legacy_exclusion_reason": "Incompatible timing scope, held-out test inclusion, and CUDA synchronization procedure.",
+  "verification_tolerance": {
+    "rtol": 1e-06,
+    "atol": 1e-09,
+    "scope": "post-timing frozen-performance equivalence verification only"
+  },
+  "protocol_amendments_recorded": true,
+  "public_artifact_sha256": {
+    "AUDIT_REPORT.md": "ca87bce7a91a212c8171d8406a7b0bac87c788f3baea449498974547ebb794de",
+    "five_repeat_summary.csv": "ca340b34549ca6f01762c7a915a08c727919904572e0ace09b32417e0efc667b",
+    "h_meta_nas_five_repeat_runtime_raw.json": "4fde8e914df3631608b5cc78c05aac8ec95282261df139e03ee84e4df9b4a06e",
+    "h_meta_nas_five_repeat_runtime_summary.json": "35bf0f3da7c285c92fcbf8b9eb86a9354451694a32897111ea17845922a1f6fe",
+    "legacy_43_061_protocol_compatibility_audit.json": "ca79b8555b28b59ce086cdd6b2c0ebd4c34e659a38b3ce240b3928e362976211",
+    "per_case_runtime_all_repeats.csv": "13a9a35002440f9b853f07f9a4c25ed6264f22c274551c11e5ac850c2efb8696",
+    "per_repeat_80_case_runtime.csv": "2bc581458cf20e6ae6037bd6300d49ff0946b260104b0a48f36f39b5c8b402e4",
+    "protocol_amendments_and_execution_events.json": "630a662d2c0cb0a0005e85cbdf5dba8c1e9678629e2fc0ab671d8fed8d77b762"
+  }
+}

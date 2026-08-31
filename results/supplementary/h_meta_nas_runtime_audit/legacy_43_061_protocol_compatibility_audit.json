@@ -1,0 +1,65 @@
+{
+  "subject": "existing H-Meta-NAS 80-case timing result",
+  "reported_mean_seconds": 43.06143279250027,
+  "N_cases": 80,
+  "fully_protocol_compatible": false,
+  "counted_as_repeat": false,
+  "decision": "EXCLUDED_FROM_FIVE_REPEAT_RUNTIME_STATISTICS",
+  "criteria": [
+    {
+      "criterion": "same frozen H-Meta-NAS configuration",
+      "status": "PASS",
+      "evidence": "Legacy formal-result protocol and frozen meta-bank hashes match the audited h_meta_nas_recovery_v1 artifacts."
+    },
+    {
+      "criterion": "same 80 target cases",
+      "status": "PASS",
+      "evidence": "Both use centers 980-999 crossed with H={1,4} and K={10,20}."
+    },
+    {
+      "criterion": "same hardware",
+      "status": "UNVERIFIABLE",
+      "evidence": "The legacy formal result contains no GPU/environment metadata."
+    },
+    {
+      "criterion": "same target-side timing scope",
+      "status": "FAIL",
+      "evidence": "Legacy timing begins after feasible-set/population construction and ends after selected-model reconstruction plus Check/Test evaluation."
+    },
+    {
+      "criterion": "target-side architecture/search included",
+      "status": "PARTIAL",
+      "evidence": "Evolution/adaptation search is timed, but initial feasible-set and population construction occur before the legacy timer."
+    },
+    {
+      "criterion": "target adaptation included",
+      "status": "PASS",
+      "evidence": "All 12 candidates receive the frozen 50-step SGD target adaptation inside the legacy timer."
+    },
+    {
+      "criterion": "validation evaluation and final selection included",
+      "status": "PASS",
+      "evidence": "Validation metrics and validation-only best-candidate selection occur inside the legacy timer."
+    },
+    {
+      "criterion": "source/meta training excluded",
+      "status": "PASS",
+      "evidence": "The legacy timer starts only after the source meta-bank is built or loaded."
+    },
+    {
+      "criterion": "held-out test evaluation excluded",
+      "status": "FAIL",
+      "evidence": "The legacy timer remains active while get_test_only and Test evaluation execute."
+    },
+    {
+      "criterion": "compatible CUDA synchronization and timing procedure",
+      "status": "FAIL",
+      "evidence": "Per-candidate synchronization exists, but there is no synchronization immediately before the overall timer and no final synchronization after Check/Test work."
+    }
+  ],
+  "resulting_measurement_plan": {
+    "legacy_repeats_counted": 0,
+    "new_complete_repeats_required": 5,
+    "new_case_measurements_required": 400
+  }
+}

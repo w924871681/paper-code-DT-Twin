@@ -109,8 +109,64 @@
       "max_seconds": 27.189807199999905,
       "repeat_mean_std_seconds": 0.14963508571363301,
       "adapted_candidates_mean": 12.0
+    },
+    {
+      "method": "h_meta_nas",
+      "N_observations": 400,
+      "N_repeats": 5,
+      "mean_seconds": 20.34946890149808,
+      "std_seconds": 11.008738987711837,
+      "median_seconds": 17.271055500023067,
+      "q1_seconds": 13.996855100034736,
+      "q3_seconds": 22.83852007499081,
+      "min_seconds": 7.34969619999174,
+      "max_seconds": 75.63693169993348,
+      "repeat_mean_std_seconds": 5.7224156375452475,
+      "adapted_candidates_mean": 12.0
     }
   ],
   "test_used": false,
-  "check_used": false
+  "check_used": false,
+  "method_environments": {
+    "h_meta_nas": {
+      "captured_at_utc": "2026-08-30T16:23:48.734254+00:00",
+      "hostname": "<redacted-host>",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "python": "3.11.15",
+      "python_executable": "python (rcf-dti-py311 environment)",
+      "torch": "2.5.1+cu121",
+      "numpy": "2.4.6",
+      "cuda_available": true,
+      "cuda_runtime": "12.1",
+      "cudnn_version": 90100,
+      "cuda_device_index": 0,
+      "cuda_device_name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "cuda_total_memory_bytes": 6441926656,
+      "cuda_compute_capability": [
+        8,
+        6
+      ],
+      "nvidia_smi": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "592.82",
+        "memory.total": "6144",
+        "pstate": "P0",
+        "temperature.gpu": "57",
+        "power.draw": "33.51",
+        "power.limit": "[N/A]",
+        "clocks.current.graphics": "1425",
+        "clocks.current.memory": "7001"
+      }
+    }
+  },
+  "method_timer_scopes": {
+    "h_meta_nas": "feasible candidate/population construction; candidate model construction; frozen architecture-indexed initialization restoration; two-generation population/mutation target architecture search; 50-step SGD target adaptation; validation evaluation; parameter/FLOP profiling retained from the frozen run; and final validation-only model selection. Excludes data construction, source/meta training, Check evaluation, held-out Test evaluation, verification, and reporting."
+  },
+  "h_meta_nas_audit": {
+    "decision": "PASS_H_META_NAS_FIVE_REPEAT_FROZEN_RUNTIME_AUDIT",
+    "frozen_performance_unchanged": true,
+    "verification_rtol": 1e-06,
+    "legacy_43_061_seconds_counted": false,
+    "public_evidence": "results/supplementary/h_meta_nas_runtime_audit/"
+  }
 }

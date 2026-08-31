@@ -3,14 +3,14 @@
 This repository is the reproducibility archive for **Adaptation-Aware Model
 Selection for Few-Shot Digital Twin Instantiation under Deployment
 Limits**. The public method name is **MSA-DTI** (Model Selection and
-Adaptation for Digital Twin Instantiation). Release `v1.2.5` is the current
+Adaptation for Digital Twin Instantiation). Release `v1.2.6` is the current
 archived scientific release underlying the revised manuscript and
 supplementary package, plot-ready data, frozen protocols, audit evidence,
 and public reproduction commands.
 
 ## What is frozen
 
-The following scientific choices remain unchanged in v1.2.5:
+The following scientific choices remain unchanged in v1.2.6:
 
 - data seed `2904` and source-training seeds `2904`, `2905`, `2906`;
 - source, development, diagnostic, and held-out target splits;
@@ -18,7 +18,14 @@ The following scientific choices remain unchanged in v1.2.5:
 - reference candidate (internal architecture index `57`);
 - SGD/MSE target adaptation with exactly 50 updates and learning rate `0.01`;
 - the preset 10% reference-based selection threshold;
-- the optimizer, candidate bank, complexity limits, and all reported values.
+- the optimizer, candidate bank, and complexity limits.
+
+The H-Meta-NAS target-side time is now supported by a complete frozen
+five-repeat audit: `20.349 ± 5.722 s` per target case across five 80-case
+repetitions. The earlier `43.061 s` value remains legacy provenance only
+because its timing boundary included held-out test evaluation and omitted
+initial candidate construction. The replacement changes no model setting,
+selected architecture, or frozen performance value.
 
 The main evaluation contains 80 held-out cases. MSA-DTI selects an alternative
 in 47 cases: 44 beneficial and 3 harmful under the post-selection test-MSE
@@ -34,6 +41,8 @@ used only for reporting and never for candidate selection.
   data-driven figure.
 - `configs/`, `core/`, `experiments/`: frozen protocol and experiment code.
 - `results/audited_provenance/`: publishable immutable audit records.
+- `results/supplementary/h_meta_nas_runtime_audit/`: sanitized case-level and
+  repeat-level evidence for the H-Meta-NAS five-repeat target-side audit.
 - `scripts/`: verification, reconstruction, smoke-test, and replay commands.
 - `docs/`: method, figure, provenance, availability, and reproducibility notes.
 - `audit/v1.1.9/`: machine-readable and human-readable release audit evidence.
@@ -152,7 +161,7 @@ processed evaluation values only.
 ## Citation and release integrity
 
 Use `CITATION.cff` and Release
-[`v1.2.5`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.5).
+[`v1.2.6`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.6).
 Every release asset is covered by `SHA256SUMS.txt`; the audit report records
 the Git commit, annotated tag target, release state, and asset hashes.
 Author and DOI metadata remain explicitly pending.

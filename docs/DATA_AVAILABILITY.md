@@ -1,10 +1,14 @@
 # Data availability
 
 Release
-[`v1.2.5`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.5)
+[`v1.2.6`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.6)
 contains the manuscript source/PDF, Fig. 1--12, plot-ready figure data,
 structured tables, frozen configurations, reproduction code, audit evidence,
 and SHA-256 checksums.
+
+The release also contains all 400 sanitized H-Meta-NAS target-side timing
+records, the five repeat summaries, environment metadata, protocol amendments,
+and the compatibility audit that excludes the legacy 43.061-s measurement.
 
 Synthetic multi-center data can be regenerated from the released simulator,
 configurations, and fixed seeds. Level B requires neither model weights nor

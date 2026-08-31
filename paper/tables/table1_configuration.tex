@@ -21,31 +21,34 @@ Bank
 & Initial / retained / executable / candidates
 & $66/6/5/7$ \\
 & Reference and screening
-& A57: one-layer GRU-32, fixed before screening and shared with PT+FT;
-alternative kept after wins in at least two screening cases \\
+& A57: one-layer GRU-32, fixed before screening; alternative retained if
+either screening evidence count in Section~4.2 is $\geq 2$ \\
 & Source-model records
 & Reference pooled-source initialization; five common alternative
-initializations; one additional A57 paired control (Supplementary S2) \\
+initializations; one additional A57 paired control \\
 \midrule
 Training
 & Source models
 & Adam / MSE / 50 epochs; learning rate $10^{-3}$; batch size 64 \\
 & Target adaptation
-& SGD / MSE / 50 updates; learning rate 0.01; gradient limit 1.0;
+& SGD / MSE / 50 updates; learning rate 0.01; gradient-norm limit 1.0;
 complete support set \\
 \midrule
 Selection
 & Grid and eligibility
 & $\{0.05,0.075,0.10,0.125,0.15,0.20\}$;
-harmful rate $\leq5\%$; both mean gains $\geq3\%$;
-both lower 95\% bounds $>0$ \\
+harmful-selection rate $\leq5\%$; both mean gains $\geq3\%$;
+both 95\% lower confidence bounds $>0$ \\
 & Frozen margin
 & $\tau=0.10$ \\
 \midrule
 Limits
-& Tight / medium / loose
-& Operations: $1.5{\times}10^6/5{\times}10^6/2{\times}10^7$;
-parameters: $3{\times}10^4/10^5/5{\times}10^5$ \\
+& Operation-count limits
+& Tight / medium / loose:
+$1.5{\times}10^6/5{\times}10^6/2{\times}10^7$ \\
+& Parameter-count limits
+& Tight / medium / loose:
+$3{\times}10^4/10^5/5{\times}10^5$ \\
 \midrule
 Statistics
 & Confidence intervals

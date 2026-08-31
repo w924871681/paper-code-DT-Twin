@@ -1,0 +1,54 @@
+{
+  "title": "H-Meta-NAS five-repeat frozen target-side runtime audit",
+  "protocol_amendments": [
+    {
+      "amendment_id": "verification_tolerance_after_interrupted_partial_v1",
+      "applied_before_clean_restart": true,
+      "old_rtol": 1e-07,
+      "new_rtol": 1e-06,
+      "atol_unchanged": 1e-09,
+      "reason": "The interrupted partial run stopped on a 1.49e-8 absolute check-MAE difference, identified as numerical precision noise.",
+      "scope": "equivalence verification only",
+      "method_or_timing_setting_changed": false,
+      "interrupted_partial_run": {
+        "completed_measurements": 9,
+        "interrupted_repeat": 1,
+        "interrupted_case_number": 10,
+        "interrupted_case_measurement_saved": false,
+        "discarded_from_final_statistics": true,
+        "archive": "<repository>\\outputs\\h_meta_nas_five_repeat_frozen_target_side_runtime_audit_interrupted_partial_20260831_001"
+      }
+    },
+    {
+      "amendment_id": "unplanned_host_session_interruption_after_355_records",
+      "scope": "execution continuity metadata only",
+      "method_or_timing_setting_changed": false,
+      "completed_measurements_discarded": false,
+      "completed_measurements_remeasured": false,
+      "final_statistics_affected_by_filtering": false,
+      "note": "The process was relaunched in the identical validated environment and resumed atomically from record 356/400."
+    }
+  ],
+  "execution_events": [
+    {
+      "event": "requested_pause_for_legacy_compatibility_audit",
+      "boundary": "after repeat 1 reached 80/80 and before repeat 2",
+      "saved_records_at_pause": 80,
+      "repeat_2_records_at_pause": 0,
+      "process_action": "same Python process suspended and resumed",
+      "inside_any_timed_case": false,
+      "measurement_discarded": false
+    },
+    {
+      "event": "unplanned_host_session_interruption",
+      "boundary": "after 355/400 records; repeat 5 had 35/80 records",
+      "saved_records_preserved": 355,
+      "resume_started_at": "repeat 5, case 36",
+      "completed_record_remeasured": false,
+      "command_environment_and_frozen_assets_unchanged": true,
+      "method_or_timing_setting_changed": false,
+      "potential_runtime_state_discontinuity": true,
+      "handling": "The first post-resume case and every other observation were retained without filtering."
+    }
+  ]
+}

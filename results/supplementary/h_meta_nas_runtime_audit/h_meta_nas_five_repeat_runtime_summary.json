@@ -1,0 +1,301 @@
+{
+  "title": "H-Meta-NAS five-repeat frozen target-side runtime audit",
+  "study": "h_meta_nas_five_repeat_frozen_target_side_runtime_audit",
+  "decision": "PASS_H_META_NAS_FIVE_REPEAT_FROZEN_RUNTIME_AUDIT",
+  "complete": true,
+  "N_repeats": 5,
+  "N_cases_per_repeat": 80,
+  "N_observations": 400,
+  "five_repeat_mean_seconds": 20.34946890149808,
+  "five_repeat_std_seconds": 5.7224156375452475,
+  "five_repeat_median_seconds": 17.700981322511506,
+  "five_repeat_min_seconds": 17.592423620000773,
+  "five_repeat_max_seconds": 30.575096123744153,
+  "five_repeat_total_mean_seconds": 1627.9575121198466,
+  "five_repeat_total_std_seconds": 457.79325100361973,
+  "all_case_mean_seconds": 20.34946890149808,
+  "all_case_std_seconds": 11.008738987711837,
+  "repeat_results": [
+    {
+      "repeat": 1,
+      "N_cases": 80,
+      "total_seconds": 2446.007689899532,
+      "mean_seconds": 30.575096123744153,
+      "std_case_seconds": 18.081750455615175,
+      "median_case_seconds": 24.540804599993862,
+      "min_case_seconds": 7.88899639993906,
+      "max_case_seconds": 75.63693169993348,
+      "performance_unchanged": true
+    },
+    {
+      "repeat": 2,
+      "N_cases": 80,
+      "total_seconds": 1459.698935699067,
+      "mean_seconds": 18.246236696238338,
+      "std_case_seconds": 6.804758205315449,
+      "median_case_seconds": 17.38965799997095,
+      "min_case_seconds": 7.34969619999174,
+      "max_case_seconds": 59.024494700017385,
+      "performance_unchanged": true
+    },
+    {
+      "repeat": 3,
+      "N_cases": 80,
+      "total_seconds": 1407.3938896000618,
+      "mean_seconds": 17.592423620000773,
+      "std_case_seconds": 5.0445243952017815,
+      "median_case_seconds": 16.637378999963403,
+      "min_case_seconds": 7.42578070005402,
+      "max_case_seconds": 31.63899060001131,
+      "performance_unchanged": true
+    },
+    {
+      "repeat": 4,
+      "N_cases": 80,
+      "total_seconds": 1416.0785058009205,
+      "mean_seconds": 17.700981322511506,
+      "std_case_seconds": 5.354868453563157,
+      "median_case_seconds": 16.62142225005664,
+      "min_case_seconds": 7.824361400096677,
+      "max_case_seconds": 33.6179333999753,
+      "performance_unchanged": true
+    },
+    {
+      "repeat": 5,
+      "N_cases": 80,
+      "total_seconds": 1410.6085395996513,
+      "mean_seconds": 17.63260674499564,
+      "std_case_seconds": 7.216614484442958,
+      "median_case_seconds": 15.9725007499801,
+      "min_case_seconds": 7.365045800000075,
+      "max_case_seconds": 57.06061539996881,
+      "performance_unchanged": true
+    }
+  ],
+  "performance_unchanged": true,
+  "protocol_deviation": true,
+  "protocol_amendments": [
+    {
+      "amendment_id": "verification_tolerance_after_interrupted_partial_v1",
+      "applied_before_clean_restart": true,
+      "old_rtol": 1e-07,
+      "new_rtol": 1e-06,
+      "atol_unchanged": 1e-09,
+      "reason": "The interrupted partial run stopped on a 1.49e-8 absolute check-MAE difference, identified as numerical precision noise.",
+      "scope": "equivalence verification only",
+      "method_or_timing_setting_changed": false,
+      "interrupted_partial_run": {
+        "completed_measurements": 9,
+        "interrupted_repeat": 1,
+        "interrupted_case_number": 10,
+        "interrupted_case_measurement_saved": false,
+        "discarded_from_final_statistics": true,
+        "archive": "<repository>\\outputs\\h_meta_nas_five_repeat_frozen_target_side_runtime_audit_interrupted_partial_20260831_001"
+      }
+    },
+    {
+      "amendment_id": "unplanned_host_session_interruption_after_355_records",
+      "scope": "execution continuity metadata only",
+      "method_or_timing_setting_changed": false,
+      "completed_measurements_discarded": false,
+      "completed_measurements_remeasured": false,
+      "final_statistics_affected_by_filtering": false,
+      "note": "The process was relaunched in the identical validated environment and resumed atomically from record 356/400."
+    }
+  ],
+  "pre_restart_verification": {
+    "verified_at_utc": "2026-08-30T16:23:48.932101+00:00",
+    "passed": true,
+    "rtol": 1e-06,
+    "atol": 1e-09,
+    "interrupted_partial_records_checked": 9,
+    "selection_matches": 9,
+    "candidate_order_matches": 9,
+    "stored_metric_comparisons": 81,
+    "stored_metric_max_abs_difference": 0.0,
+    "case10_check_mae_actual": 0.0822545513510704,
+    "case10_check_mae_frozen": 0.08225453644990921,
+    "case10_check_mae_abs_difference": 1.4901161193847656e-08,
+    "case10_within_amended_tolerance": true,
+    "case10_selection_and_validation_checks_passed_before_check_metric_failure": true,
+    "frozen_aggregate": {
+      "MAE": 0.09026670912280679,
+      "WMSE": 0.013573941797949374,
+      "Worst10": 0.04615309640066698
+    },
+    "substantive_performance_or_selection_change": false
+  },
+  "legacy_43_061_compatibility_audit": {
+    "subject": "existing H-Meta-NAS 80-case timing result",
+    "reported_mean_seconds": 43.06143279250027,
+    "N_cases": 80,
+    "fully_protocol_compatible": false,
+    "counted_as_repeat": false,
+    "decision": "EXCLUDED_FROM_FIVE_REPEAT_RUNTIME_STATISTICS",
+    "criteria": [
+      {
+        "criterion": "same frozen H-Meta-NAS configuration",
+        "status": "PASS",
+        "evidence": "Legacy formal-result protocol and frozen meta-bank hashes match the audited h_meta_nas_recovery_v1 artifacts."
+      },
+      {
+        "criterion": "same 80 target cases",
+        "status": "PASS",
+        "evidence": "Both use centers 980-999 crossed with H={1,4} and K={10,20}."
+      },
+      {
+        "criterion": "same hardware",
+        "status": "UNVERIFIABLE",
+        "evidence": "The legacy formal result contains no GPU/environment metadata."
+      },
+      {
+        "criterion": "same target-side timing scope",
+        "status": "FAIL",
+        "evidence": "Legacy timing begins after feasible-set/population construction and ends after selected-model reconstruction plus Check/Test evaluation."
+      },
+      {
+        "criterion": "target-side architecture/search included",
+        "status": "PARTIAL",
+        "evidence": "Evolution/adaptation search is timed, but initial feasible-set and population construction occur before the legacy timer."
+      },
+      {
+        "criterion": "target adaptation included",
+        "status": "PASS",
+        "evidence": "All 12 candidates receive the frozen 50-step SGD target adaptation inside the legacy timer."
+      },
+      {
+        "criterion": "validation evaluation and final selection included",
+        "status": "PASS",
+        "evidence": "Validation metrics and validation-only best-candidate selection occur inside the legacy timer."
+      },
+      {
+        "criterion": "source/meta training excluded",
+        "status": "PASS",
+        "evidence": "The legacy timer starts only after the source meta-bank is built or loaded."
+      },
+      {
+        "criterion": "held-out test evaluation excluded",
+        "status": "FAIL",
+        "evidence": "The legacy timer remains active while get_test_only and Test evaluation execute."
+      },
+      {
+        "criterion": "compatible CUDA synchronization and timing procedure",
+        "status": "FAIL",
+        "evidence": "Per-candidate synchronization exists, but there is no synchronization immediately before the overall timer and no final synchronization after Check/Test work."
+      }
+    ],
+    "resulting_measurement_plan": {
+      "legacy_repeats_counted": 0,
+      "new_complete_repeats_required": 5,
+      "new_case_measurements_required": 400
+    }
+  },
+  "execution_events": [
+    {
+      "event": "requested_pause_for_legacy_compatibility_audit",
+      "boundary": "after repeat 1 reached 80/80 and before repeat 2",
+      "saved_records_at_pause": 80,
+      "repeat_2_records_at_pause": 0,
+      "process_action": "same Python process suspended and resumed",
+      "inside_any_timed_case": false,
+      "measurement_discarded": false
+    },
+    {
+      "event": "unplanned_host_session_interruption",
+      "boundary": "after 355/400 records; repeat 5 had 35/80 records",
+      "saved_records_preserved": 355,
+      "resume_started_at": "repeat 5, case 36",
+      "completed_record_remeasured": false,
+      "command_environment_and_frozen_assets_unchanged": true,
+      "method_or_timing_setting_changed": false,
+      "potential_runtime_state_discontinuity": true,
+      "handling": "The first post-resume case and every other observation were retained without filtering."
+    }
+  ],
+  "performance_verification_tolerance": {
+    "rtol": 1e-06,
+    "atol": 1e-09,
+    "scope": "post-timing frozen-performance equivalence verification only"
+  },
+  "selection_uses_check": false,
+  "selection_uses_test": false,
+  "test_evaluation_timed": false,
+  "environment": {
+    "captured_at_utc": "2026-08-30T16:23:48.734254+00:00",
+    "hostname": "<redacted-host>",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.15",
+    "python_executable": "python (rcf-dti-py311 environment)",
+    "torch": "2.5.1+cu121",
+    "numpy": "2.4.6",
+    "cuda_available": true,
+    "cuda_runtime": "12.1",
+    "cudnn_version": 90100,
+    "cuda_device_index": 0,
+    "cuda_device_name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "cuda_total_memory_bytes": 6441926656,
+    "cuda_compute_capability": [
+      8,
+      6
+    ],
+    "nvidia_smi": {
+      "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "driver_version": "592.82",
+      "memory.total": "6144",
+      "pstate": "P0",
+      "temperature.gpu": "57",
+      "power.draw": "33.51",
+      "power.limit": "[N/A]",
+      "clocks.current.graphics": "1425",
+      "clocks.current.memory": "7001"
+    }
+  },
+  "frozen_assets": {
+    "source_meta_bank_path": "<repository>\\outputs\\h_meta_nas_recovery_v1\\source_meta_bank.pt",
+    "source_meta_bank_sha256": "ad0255c9d91fe891ab2bdb8290df83cdb7517fdd46dad777b3c02dfa49c0b93e",
+    "formal_result_path": "<repository>\\outputs\\h_meta_nas_recovery_v1\\h_meta_nas_formal.json",
+    "formal_result_sha256": "24aea7e8dbad5ebedede381e4eedf667c44ad1d9bfa7d6b24849c5d199280a63",
+    "provenance_manifest_path": "<repository>\\results\\audited_provenance\\h_meta_nas_recovery_manifest.json",
+    "provenance_manifest_sha256": "6abe81872f56edfda8e92bdb63784510aad8fc2ca8beb3ec6f6c616dbd77c8cb"
+  },
+  "timer_scope": "feasible candidate/population construction; candidate model construction; frozen architecture-indexed initialization restoration; two-generation population/mutation target architecture search; 50-step SGD target adaptation; validation evaluation; parameter/FLOP profiling retained from the frozen run; and final validation-only model selection. Excludes data construction, source/meta training, Check evaluation, held-out Test evaluation, verification, and reporting.",
+  "warmup": {
+    "protocol": "one untimed first-case warm-up, matching the existing repeated-runtime protocol",
+    "case_key": "c980_h1_k10_bloose",
+    "complete": true,
+    "completed_at_utc": "2026-08-30T16:24:40.677122+00:00",
+    "reported_or_included_in_statistics": false
+  },
+  "protocol": {
+    "protocol_version": "h_meta_nas_recovery_v1",
+    "data_seed": 2904,
+    "train_seed": 2904,
+    "source_centers": 20,
+    "locked_pool": [
+      980,
+      20,
+      220000
+    ],
+    "H_list": [
+      1,
+      4
+    ],
+    "K_list": [
+      10,
+      20
+    ],
+    "architecture_count": 66,
+    "source_outer_iterations": 240,
+    "source_architectures_per_task": 12,
+    "source_inner_steps": 5,
+    "source_inner_lr": 0.01,
+    "source_meta_lr": 0.001,
+    "population_size": 6,
+    "generations": 2,
+    "parent_count": 3,
+    "target_steps": 50,
+    "target_lr": 0.01,
+    "target_grad_clip": 1.0,
+    "output_root": "outputs/h_meta_nas_recovery_v1"
+  }
+}

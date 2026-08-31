@@ -48,6 +48,7 @@ ALLOWLIST = (
     "shared/",
     "experiments/__init__.py",
     "experiments/h_meta_nas_recovery.py",
+    "experiments/h_meta_nas_runtime_audit.py",
     "experiments/main/",
     "experiments/robustness/",
     "experiments/supplementary/",
@@ -71,7 +72,7 @@ ALLOWLIST = (
     "CITATION.cff",
     "LICENSE",
     "CHANGELOG.md",
-    "RELEASE_NOTES_v1.2.5.md",
+    "RELEASE_NOTES_v1.2.6.md",
     "FILE_INDEX.csv",
     "COPY_MAP.csv",
     "RESTRUCTURE_REPORT.json",
@@ -167,7 +168,7 @@ def sha256(path: Path) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out-dir", type=Path, required=True)
-    parser.add_argument("--version", required=True, help="release tag, e.g. v1.2.5")
+    parser.add_argument("--version", required=True, help="release tag, e.g. v1.2.6")
     args = parser.parse_args()
 
     root = ROOT

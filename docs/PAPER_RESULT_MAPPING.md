@@ -1,16 +1,16 @@
 # Paper-result mapping
 
 The released files below are the numerical and asset sources of truth for
-v1.1.9 paper outputs.
+v1.2.6 paper outputs.
 
 | Paper content | Frozen or checksum-tracked source | Rebuilt output |
 |---|---|---|
 | Table 1: experimental configuration | `configs/main_cfg.py`, frozen method configs, corrected mechanism summary | `table1_configuration.csv` |
 | Table 2: compared methods and fairness | `results/main/baseline_fairness.csv` | `table2_fairness.csv` |
-| Table 3: overall comparison | `results/main/overall_comparison.csv` | `table3_overall.csv` |
+| Table 3: overall comparison | `results/main/overall_comparison.csv`, `results/supplementary/repeated_runtime_summary.csv` | `table3_overall.csv` |
 | Table 4: optimizer-matched control | `results/supplementary/optimizer_matched_control_summary.csv` from the independent control target pool | `table4_matched_control.csv` |
 | Table 5: component ablation | `results/main/component_ablation.csv` | `table5_ablation.csv` |
-| Runtime and model complexity (public supplementary layer) | `results/supplementary/repeated_runtime_summary.csv`, selected-model complexity | broader public CSV/LaTeX outputs; not a manuscript Table 6 |
+| Runtime and model complexity | `results/supplementary/repeated_runtime_summary.csv`, `results/supplementary/h_meta_nas_runtime_audit/`, selected-model complexity | manuscript target-cost table and broader public CSV/LaTeX outputs |
 | Fig. 1: scenario | `paper_assets/current_figures/fig1.pdf` and `.png` | checksum-verified copy |
 | Fig. 2--5: method, bank, filtering, adaptation/selection | `paper_assets/current_figures/fig2`--`fig5` PDF/PNG assets | checksum-verified copies |
 | Fig. 6: paired instantiation | locked proposed-method and PT+FT records | `fig6_paired_instantiation_data.csv` |
@@ -29,11 +29,16 @@ values are derived before rounding. The public proposed runtime is
 `5.676 +/- 0.059 s`; the earlier one-pass diagnostic remains historical
 provenance only.
 
+The public H-Meta-NAS runtime is `20.349 +/- 5.722 s`, computed from five
+complete 80-case repetitions. The legacy `43.061 s` value is not
+protocol-compatible and is retained only in its original recovery provenance.
+
 Table 4 uses a disjoint optimizer-control target pool. The controlled
 source-scale, source-seed, and Alibaba studies are separate diagnostic pools;
 none is used to tune a reported method.
 
-Release v1.1.9 changes the revised manuscript, Fig. 10 presentation, reporting
-code, and public documentation only. It does not change frozen configurations, model
-weights, seeds, data splits, candidate bank, optimizer, adaptation budget,
-selection threshold, or core numerical results.
+Release v1.2.6 synchronizes the supplied latest manuscript and supplementary
+sources with the completed H-Meta-NAS runtime audit. It does not change frozen
+configurations, model weights, seeds, data splits, candidate bank, optimizer,
+adaptation budget, selection threshold, selected models, or performance
+results.
