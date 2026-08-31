@@ -118,6 +118,10 @@ jobs:
             "release-assets/MSA_DTI_FIGURE_CODE_${GITHUB_REF_NAME}.zip" \
             "release-assets/MSA_DTI_FIGURE_CODE_${GITHUB_REF_NAME}.zip.sha256" \
             "release-assets/SHA256SUMS.txt" \
+            "paper/manuscript.tex" \
+            "paper/manuscript.pdf" \
+            "paper/supplementary.tex" \
+            "paper/supplementary.pdf" \
             --clobber
       - name: Download and verify published assets
         env:

@@ -45,3 +45,7 @@ model, or performance output was changed.
 - Keep the v1.2.7 tag, code snapshot, manuscript PDFs, and release packages on
   the same final commit; the figure-code bundle includes the Figure 5
   generator, canonical CSV, and generated PDF.
+- Publish the synchronized main manuscript and supplementary material as
+  directly downloadable `.tex` and `.pdf` assets. The supplementary PDF is
+  rebuilt from the current 11-page LaTeX source rather than the stale 10-page
+  binary previously tracked in the repository.

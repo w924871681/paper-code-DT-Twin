@@ -384,9 +384,9 @@ def check_paper_alignment() -> list[str]:
             errors.append("current manuscript PDF contains a stale public method name")
 
         supplementary_reader = PdfReader(str(ROOT / "paper/supplementary.pdf"))
-        if len(supplementary_reader.pages) != 10:
+        if len(supplementary_reader.pages) != 11:
             errors.append(
-                f"current supplementary PDF has {len(supplementary_reader.pages)} pages, expected 10"
+                f"current supplementary PDF has {len(supplementary_reader.pages)} pages, expected 11"
             )
     except Exception as exc:
         errors.append(f"cannot inspect current manuscript PDF: {exc}")
@@ -440,6 +440,10 @@ def check_version_metadata() -> list[str]:
         "MSA_DTI_FIGURE_CODE_${GITHUB_REF_NAME}.zip",
         "MSA_DTI_FIGURE_CODE_${GITHUB_REF_NAME}.zip.sha256",
         "SHA256SUMS.txt",
+        "paper/manuscript.tex",
+        "paper/manuscript.pdf",
+        "paper/supplementary.tex",
+        "paper/supplementary.pdf",
     ):
         if asset not in workflow:
             errors.append(f"release workflow does not handle {asset}")

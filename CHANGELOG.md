@@ -20,6 +20,8 @@ dates are recorded only after a version is actually published.
 - Integrate the canonical CSV-driven current Figure 5 generator into the formal
   paper-output pipeline and synchronize the v1.2.7 tag and release packages to
   the same final repository snapshot.
+- Rebuild the supplementary PDF from its current LaTeX source and expose both
+  main and supplementary `.tex`/`.pdf` files as direct v1.2.7 release assets.
 
 ## [1.2.6] - 2026-08-31
 
