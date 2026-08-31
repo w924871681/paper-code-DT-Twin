@@ -1,7 +1,7 @@
 # Paper-result mapping
 
 The released files below are the numerical and asset sources of truth for
-v1.2.6 paper outputs.
+v1.2.7 paper outputs.
 
 | Paper content | Frozen or checksum-tracked source | Rebuilt output |
 |---|---|---|
@@ -37,8 +37,8 @@ Table 4 uses a disjoint optimizer-control target pool. The controlled
 source-scale, source-seed, and Alibaba studies are separate diagnostic pools;
 none is used to tune a reported method.
 
-Release v1.2.6 synchronizes the supplied latest manuscript and supplementary
-sources with the completed H-Meta-NAS runtime audit. It does not change frozen
-configurations, model weights, seeds, data splits, candidate bank, optimizer,
-adaptation budget, selection threshold, selected models, or performance
-results.
+Release v1.2.7 synchronizes the supplied latest manuscript and supplementary
+sources/PDFs, including the completed paired-baseline, adaptation-trajectory,
+and threshold-sensitivity reporting. It does not change frozen configurations,
+model weights, seeds, data splits, candidate bank, optimizer, adaptation budget,
+selection threshold, selected models, or performance results.

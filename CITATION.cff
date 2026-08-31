@@ -6,7 +6,7 @@ message: >-
   Replace the anonymous author placeholder and add the paper DOI before
   publication.
 type: software
-version: 1.2.6
+version: 1.2.7
 date-released: 2026-08-31
 license: MIT
 repository-code: https://github.com/w924871681/paper-code-DT-Twin

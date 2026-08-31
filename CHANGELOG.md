@@ -3,6 +3,21 @@
 All notable public changes to this repository are documented here. Release
 dates are recorded only after a version is actually published.
 
+## [1.2.7] - 2026-08-31
+
+- Adopt the supplied latest manuscript and supplementary LaTeX sources,
+  restore the retained `ref4` entry to its original DT-background citation
+  group to eliminate an orphan reference, and synchronize the 15-page and
+  10-page PDFs.
+- Add the completed frozen paired-baseline MSE comparison table, including the
+  H-Meta-NAS paired confidence interval, to the supplementary manuscript.
+- Add the completed frozen step-0/step-50 adaptation diagnostic and the
+  zero-training threshold-sensitivity boundary to the supplementary manuscript.
+- Clarify the DT instantiation scope, deployment-proxy claim boundary, and
+  full-pipeline interpretation in the main manuscript.
+- Preserve every frozen configuration, model, split, candidate bank, optimizer,
+  adaptation budget, selection threshold, selected output, and performance result.
+
 ## [1.2.6] - 2026-08-31
 
 - Adopt the supplied latest manuscript and supplementary LaTeX sources and

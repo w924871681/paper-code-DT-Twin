@@ -1,7 +1,7 @@
 # Data availability
 
 Release
-[`v1.2.6`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.6)
+[`v1.2.7`](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.7)
 contains the manuscript source/PDF, Fig. 1--12, plot-ready figure data,
 structured tables, frozen configurations, reproduction code, audit evidence,
 and SHA-256 checksums.

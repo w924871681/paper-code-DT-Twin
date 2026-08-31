@@ -47,7 +47,7 @@ DERIVED_AUDIT_FILES = {
 }
 REQUIRED_FILES = {
     "README.md", "CITATION.cff", "LICENSE", "pyproject.toml", "environment.yml",
-    "CHANGELOG.md", "RELEASE_NOTES_v1.2.6.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
+    "CHANGELOG.md", "RELEASE_NOTES_v1.2.7.md", ".github/workflows/ci.yml", ".github/workflows/release.yml",
     "docs/METHOD.md", "docs/DATA_AVAILABILITY.md", "docs/REPRODUCIBILITY.md", "docs/PAPER_RESULT_MAPPING.md", "docs/FIGURE_REPRODUCTION.md", "docs/INTERNAL_PROVENANCE_NAMES.md",
     "assets/README.md", "assets/model_assets.csv", "assets/level_c_bootstrap_files.csv", "data/README.md", "data/alibaba2018/README.md",
     "results/README.md", "results/audited_provenance/SANITIZATION_MANIFEST.json",
@@ -383,9 +383,9 @@ def check_paper_alignment() -> list[str]:
             errors.append("current manuscript PDF contains a stale public method name")
 
         supplementary_reader = PdfReader(str(ROOT / "paper/supplementary.pdf"))
-        if len(supplementary_reader.pages) != 9:
+        if len(supplementary_reader.pages) != 10:
             errors.append(
-                f"current supplementary PDF has {len(supplementary_reader.pages)} pages, expected 9"
+                f"current supplementary PDF has {len(supplementary_reader.pages)} pages, expected 10"
             )
     except Exception as exc:
         errors.append(f"cannot inspect current manuscript PDF: {exc}")
@@ -402,10 +402,10 @@ def check_version_metadata() -> list[str]:
             encoding="utf-8"
         )
     )
-    if 'version = "1.2.6"' not in pyproject:
-        errors.append("pyproject version is not 1.2.6")
-    if not re.search(r"(?m)^version:\s*1\.2\.6\s*$", citation):
-        errors.append("CITATION.cff version is not 1.2.6")
+    if 'version = "1.2.7"' not in pyproject:
+        errors.append("pyproject version is not 1.2.7")
+    if not re.search(r"(?m)^version:\s*1\.2\.7\s*$", citation):
+        errors.append("CITATION.cff version is not 1.2.7")
     if fixed_manifest.get("paper_version") != "v1.2.0":
         errors.append("fixed-figure manifest must preserve v1.2.0 provenance")
     if "cp -r paper/tables figure-code-package/paper/" not in workflow:

@@ -250,7 +250,8 @@ reference when
 \label{eq:supp-sufficient-condition}
 \end{equation}
 Equation~\eqref{eq:supp-sufficient-condition} is a sufficient condition under
-assumption~\eqref{eq:supp-validation-error}.
+assumption~\eqref{eq:supp-validation-error}. The present experiments do not
+estimate an empirical bound on $\epsilon_c$.
 
 \section{Additional Experimental and Diagnostic Results}
 \label{supp:diagnostics}
@@ -294,14 +295,59 @@ Before adaptation and output \\
 \vspace{0.15em}
 
 \footnotesize
-PT+FT and MSA-DTI use the same source-trained reference and target
-adaptation procedure. H-Meta-NAS-based adaptation uses the 50-update
-budget-matched condition in the main comparison. It uses the same 66
-architecture definitions, filters infeasible architectures before search,
-uses source-only first-order meta-initializations, and selects the final
-architecture using target validation data. Its settings are fixed without
-held-out test data. All methods use the same target cases, deployment
-limits, and architecture definitions.
+PT+FT and MSA-DTI use the same source-trained reference and target adaptation
+procedure. H-Meta-NAS-based adaptation uses the 50-update budget-matched
+condition in the main comparison. It uses the same 66 architecture
+definitions, filters infeasible architectures before search, uses source-only
+first-order meta-initializations, and selects the final architecture using
+target validation data. Its settings are fixed without held-out test data.
+All methods use the same target cases, deployment limits, and architecture
+definitions.
+\end{suppTableBlock}
+
+\subsection{Paired held-out baseline comparisons}
+
+Table~\ref{tab:supp-paired-baselines} summarizes the paired MSE comparisons
+between MSA-DTI and the main baselines on the 80 held-out cases.
+
+\begin{suppTableBlock}
+{Paired MSE comparisons between MSA-DTI and the main baselines on the held-out cases.}
+{tab:supp-paired-baselines}
+\scriptsize
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{3.0pt}
+\begin{tabular}{lrrr}
+\toprule
+Baseline
+& MSE win rate (\%)
+& Mean paired MSE reduction (\%)
+& 95\% CI (\%) \\
+\midrule
+PT+FT
+& 71.25 & 14.60 & $[9.41,20.14]$ \\
+MeDeT-based adaptation
+& 87.50 & 35.37 & $[25.39,44.26]$ \\
+Random initialization
+& 100.00 & 80.71 & $[78.07,83.22]$ \\
+Few-shot NAS
+& 95.00 & 40.40 & $[32.65,47.58]$ \\
+Zero-shot NAS
+& 100.00 & 76.29 & $[68.95,82.65]$ \\
+Zero-shot NAS + fine-tuning
+& 98.75 & 45.03 & $[36.53,52.55]$ \\
+H-Meta-NAS-based adaptation
+& 100.00 & 68.94 & $[64.12,73.43]$ \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.15em}
+\footnotesize
+MSE win rate is the percentage of paired cases in which MSA-DTI has lower
+test MSE. Positive reductions favor MSA-DTI. The 95\% intervals are the
+2.5th and 97.5th percentiles of 4000 center-cluster bootstrap replicates,
+with the four cases of each sampled target center kept together. The released
+evaluator derives the bootstrap seed deterministically from the frozen
+training seed, method name, and metric.
 \end{suppTableBlock}
 
 \subsection{Optimizer-matched diagnostic comparison}
@@ -505,9 +551,18 @@ while this diagnostic does not optimize the bank size itself.
 
 Most of the observed reduction in diagnostic check MSE occurs within the
 first ten target updates. The main experiment nevertheless uses 50 updates
-for every feasible candidate to preserve a common fixed target budget. The relative-margin
-analysis shows that 10\% is the smallest value satisfying all preset
-calibration criteria.
+for every feasible candidate to preserve a common fixed target budget.
+
+Using the same frozen candidate bank, source initializations, feasibility
+rule, and reference-based selection rule at both endpoints, selected check
+MSE is 0.003973 with zero target updates and 0.003784 after 50 updates. The
+mean paired reduction is 4.75\%, with a 95\% confidence interval of
+$[-1.62\%,10.23\%]$, and the same candidate is selected at both endpoints in
+51.25\% of cases. The interval spans zero, so the isolated performance
+difference remains uncertain in this diagnostic.
+
+The relative-margin analysis shows that 10\% is the smallest value satisfying
+all preset calibration criteria.
 
 \section{Source Sensitivity and External Transfer}
 \label{supp:external}
@@ -578,11 +633,21 @@ initialization in two. S1 falls back to PT-A57 in all 80 cases. S2 selects
 PT-A57 in 71 cases, A55 in three, A56 in three, the paired-control A57
 initialization in two, and A59 in one.
 
-The rescreening results show substantial sample sensitivity: retained-list
-sizes are 6, 0, and 4. The two nonempty retained lists, S0 and S2, both have
-paired-gain intervals that include zero on the robustness pool. Accordingly,
-the main evaluation uses the frozen S0 bank, while the persistent A57
-reference provides a fallback when a screening pool retains no alternative.
+The two nonempty retained lists, S0 and S2, both have paired-gain intervals
+that include zero on the robustness pool, indicating substantial sample
+sensitivity. Accordingly, the main evaluation uses the frozen S0 bank, while
+the persistent A57 reference provides a fallback when a screening pool retains
+no alternative.
+
+Reapplying the recorded screening counts with retention thresholds of one,
+two, and three wins retains 10, 6, and 2 configurations, respectively. The
+frozen threshold-two list is S0, whereas threshold three retains only A55 and
+A57. On the existing step-50 diagnostic trajectory, threshold three increases
+selected check MSE by 3.79\% relative to threshold two, with a 95\% confidence
+interval of $[1.58\%,6.30\%]$. The threshold-one list additionally contains
+A4, A5, A12, and A59, for which source-trained initializations under the
+frozen bank-construction protocol are unavailable; downstream results are
+therefore reported only for thresholds two and three.
 
 \subsection{Alibaba external-domain transfer}
 

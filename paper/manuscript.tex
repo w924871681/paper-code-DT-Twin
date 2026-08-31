@@ -277,12 +277,16 @@ The target dataset for center $c$ is represented as
 \begin{equation}
 \mathcal{D}_{c}^{\mathrm{tar}}
 =
-\{(x_{c,i},y_{c,i})\}_{i=1}^{K_c},
+\left\{
+(x_{c,i},y_{c,i})
+\right\}_{i=1}^{K_c},
 \label{eq:target-data}
 \end{equation}
 
 where $x_{c,i}\in\mathcal{X}$, $y_{c,i}\in\mathcal{Y}$, and $K_c$ denotes
-the number of samples available during instantiation.
+the number of samples available during instantiation. The present problem
+concerns determining $(a_c,\theta_c)$ from this limited target data; later
+model updates are outside the scope of this study.
 
 \subsection{Reusable Models and Deployment Limits}
 
@@ -802,6 +806,8 @@ MSA-DTI gives the lowest values for all four error measures. Compared with
 PT+FT, the strongest baseline, MSA-DTI reduces MAE by 8.55\%, MSE by 14.60\%,
 and Worst-10\% error by 13.76\% on average across paired cases. The 95\%
 confidence interval for the paired MSE reduction is $[9.41\%,20.14\%]$.
+Paired MSE comparisons with the remaining baselines are summarized in
+Supplementary Section~S4.2; each 95\% confidence interval lies above zero.
 
 Figure~\ref{fig:paired-instantiation} compares MSA-DTI with PT+FT at the case
 level.
@@ -893,8 +899,10 @@ when no alternative configuration is retained.
 \subsection{Deployment Feasibility and Cost}
 \label{subsec:deployment}
 
-Figure~\ref{fig:budget-architecture} shows how the three deployment-limit
-settings affect candidate feasibility and final model selection.
+Feasibility in this subsection is assessed using the operation-count and
+parameter-count limits defined in Section~3.2. Figure~\ref{fig:budget-architecture}
+shows how the three deployment-limit settings affect candidate feasibility and
+final model selection.
 
 \paperfig{0.98\linewidth}
 {fig8.pdf}
@@ -956,9 +964,12 @@ observed rather than statistically established difference. Removing deployment
 filtering slightly lowers MSE but reduces limit satisfaction from 100\% to
 96.25\%.
 
-Overall, the gain is not reproduced by the same-architecture controls and is
-sensitive to source training. The relative margin mainly affects replacement
-conservativeness, whereas deployment filtering enforces limit satisfaction.
+Overall, the main held-out result evaluates the complete MSA-DTI pipeline,
+while the diagnostic controls distinguish the roles of individual design
+choices. The cross-architecture gain is not reproduced by the
+same-architecture controls and remains sensitive to source training. The
+relative margin mainly affects replacement conservativeness, whereas
+deployment filtering enforces limit satisfaction.
 
 \begin{center}
 \begin{minipage}{\linewidth}
@@ -1056,8 +1067,8 @@ influence the work reported in this paper.
 
 The source code, frozen configurations, processed results, plot-ready data,
 and reproduction scripts underlying the reported results are available in
-GitHub Release v1.2.6:
-\url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.6}.
+GitHub Release v1.2.7:
+\url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.7}.
 The original Alibaba Cluster Trace v2018 is not redistributed and remains
 available from its official repository:
 \url{https://github.com/alibaba/clusterdata}. The released documentation
