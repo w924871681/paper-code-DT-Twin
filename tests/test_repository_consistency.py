@@ -2,6 +2,13 @@ from __future__ import annotations
 from pathlib import Path
 from reporting.frozen import PAPER_TABLE_NAMES, PUBLIC_TABLE_NAMES, paper_table_rows, public_table_rows
 from scripts.verify_repository import ROOT, run_verification
+from reporting.overall_performance import (
+    EXPECTED_H_META_NAS_LABELS,
+    H_META_NAS_INDEX,
+    PANEL_TEMPLATES,
+    load_h_meta_nas_values,
+    panel_data,
+)
 
 
 def test_level_a_verification() -> None:
@@ -23,6 +30,18 @@ def test_runtime_value() -> None:
     rows = public_table_rows(ROOT)["table3_overall_comparison"]
     proposed = next(row for row in rows if row["Method"] == "MSA-DTI")
     assert proposed["Target-side time (s)"] == "5.676 ± 0.059"
+
+
+def test_current_figure5_uses_canonical_h_meta_nas_values() -> None:
+    source = ROOT / "results/main/overall_comparison.csv"
+    audited = load_h_meta_nas_values(source)
+    assert tuple(f"{value:.3f}" for value in audited) == EXPECTED_H_META_NAS_LABELS
+    panels = panel_data(source)
+    for template, panel, audited_value in zip(PANEL_TEMPLATES, panels, audited):
+        assert panel[1][H_META_NAS_INDEX] == audited_value
+        for index, value in enumerate(template[1]):
+            if index != H_META_NAS_INDEX:
+                assert panel[1][index] == value
 
 
 def test_table4_is_complete() -> None:

@@ -39,3 +39,9 @@ model, or performance output was changed.
 - Publish checksum-bound paper-alignment, complete-repository, figure-code,
   Level-C bootstrap, and CUDA replay assets through the existing release
   workflow.
+- Regenerate the current manuscript Figure 5 from the canonical
+  `results/main/overall_comparison.csv` H-Meta-NAS row through both its
+  dedicated CLI and the formal paper-output entry point.
+- Keep the v1.2.7 tag, code snapshot, manuscript PDFs, and release packages on
+  the same final commit; the figure-code bundle includes the Figure 5
+  generator, canonical CSV, and generated PDF.

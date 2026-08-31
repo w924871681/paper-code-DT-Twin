@@ -17,6 +17,9 @@ dates are recorded only after a version is actually published.
   full-pipeline interpretation in the main manuscript.
 - Preserve every frozen configuration, model, split, candidate bank, optimizer,
   adaptation budget, selection threshold, selected output, and performance result.
+- Integrate the canonical CSV-driven current Figure 5 generator into the formal
+  paper-output pipeline and synchronize the v1.2.7 tag and release packages to
+  the same final repository snapshot.
 
 ## [1.2.6] - 2026-08-31
 

@@ -2,11 +2,11 @@
 """Deterministic paper-alignment reconstruction from released repository results.
 
 This module deliberately does not import experiment runners or load model
-weights.  It converts the checksum-tracked CSV sources into the public table
-layer, the exact current-manuscript formal tables, and the complete Fig. 1--12
-set. Fig. 1--5 are checksum-bound fixed manuscript assets; Fig. 6--12 are
-reconstructed from released derived CSVs by the same plotting code exposed
-through the standalone public CLI.
+weights. It converts the checksum-tracked CSV sources into the public table
+layer, the exact current-manuscript formal tables, and the complete released
+figure set. The manually designed assets are checksum-bound; the current
+manuscript Figure 5 and data-driven Fig. 6--12 are reconstructed from released
+CSV sources by the same plotting code exposed through public CLIs.
 """
 
 from __future__ import annotations
@@ -30,6 +30,12 @@ from reporting.final_figures import (
     plot_fig10,
     plot_fig11,
     plot_fig12,
+)
+from reporting.overall_performance import (
+    EXPECTED_H_META_NAS_LABELS,
+    FIGURE_SIZE as OVERALL_PERFORMANCE_SIZE,
+    FIGURE_STEM as OVERALL_PERFORMANCE_FIGURE,
+    generate_overall_performance,
 )
 
 
@@ -94,6 +100,8 @@ CANONICAL_SOURCES = (
     "configs/main_cfg.py",
     "configs/methods/main_evaluation_cfg.py",
     "configs/methods/main_experiments_cfg.py",
+    "reporting/overall_performance.py",
+    "scripts/generate_fig_overall_performance.py",
     *(f"paper_assets/current_figures/{name}.{suffix}" for name in FIXED_FIGURES for suffix in ("pdf", "png")),
     "paper_assets/current_figures/manifest.json",
     *(f"results/figure_data/{name}.csv" for name in PUBLIC_TABLE_NAMES),
@@ -134,6 +142,10 @@ def _expected_generated_files() -> tuple[str, ...]:
     files.extend(f"figure_data/{name}.csv" for name in PUBLIC_TABLE_NAMES)
     files.extend(f"figures/{name}.pdf" for name in REVISED_FIGURES)
     files.extend(f"figures/{name}.png" for name in REVISED_FIGURES)
+    files.extend(
+        f"figures/{OVERALL_PERFORMANCE_FIGURE}.{suffix}"
+        for suffix in ("pdf", "png")
+    )
     files.extend(f"figures/{name}.{suffix}" for name in FIXED_FIGURES for suffix in ("pdf", "png"))
     for name in REVISED_FIGURES:
         files.append(f"figures/qa/{name}_grayscale.png")
@@ -756,8 +768,13 @@ CAPTIONS = """# Generated figure captions
   latest manuscript asset.
 - **Fig. 2:** MSA-DTI few-shot instantiation method.
 - **Fig. 3:** Multi-architecture source model bank.
-- **Fig. 4:** Target-side complexity filtering.
-- **Fig. 5:** Few-shot adaptation and minimum-improvement selection.
+- **Fixed asset `fig4`:** Target-side complexity filtering (retained legacy
+  asset; not referenced by the current manuscript).
+- **Current manuscript Fig. 4 / fixed asset `fig5`:** Few-shot adaptation and
+  minimum-improvement selection.
+- **Current manuscript Fig. 5 / `fig_overall_performance_ours`:** Predictive
+  performance across MAE, MSE, Worst-10% error, and CVaR90. The H-Meta-NAS
+  values are loaded from `results/main/overall_comparison.csv`.
 - **Fig. 6:** Paired case-level MSE and worst-10% error. The diagonal denotes
   equality with PT+FT; all 80 locked cases are shown.
 - **Fig. 7:** Heterogeneity robustness across horizon/support combinations and
@@ -780,8 +797,9 @@ CAPTIONS = """# Generated figure captions
   means and 95% center-cluster bootstrap confidence intervals. Four Alibaba
   cases below -25% are explicitly marked and their minimum is reported.
 
-Fig. 1--5 are checksum-verified fixed manuscript assets. Fig. 6--12 are
-reconstructed from released CSV data without model weights or private paths.
+The manually designed assets are checksum verified. Current manuscript Fig. 5
+and data-driven Fig. 6--12 are reconstructed from released CSV data without
+model weights, target adaptation, or private paths.
 """
 
 
@@ -882,6 +900,46 @@ def validate_output(output_root: str | Path) -> dict[str, Any]:
             }
         except Exception as exc:  # collect every figure failure in one report
             errors.append(f"{stem}: {exc}")
+    try:
+        overall_pdf = out / f"figures/{OVERALL_PERFORMANCE_FIGURE}.pdf"
+        overall_png = out / f"figures/{OVERALL_PERFORMANCE_FIGURE}.png"
+        size, images, type3 = _pdf_summary(overall_pdf)
+        if any(abs(size[index] - OVERALL_PERFORMANCE_SIZE[index]) > 0.05 for index in (0, 1)):
+            raise ValueError(
+                f"unexpected PDF size {size}, expected {OVERALL_PERFORMANCE_SIZE}"
+            )
+        if images:
+            raise ValueError(f"generated vector PDF contains {images} raster image(s)")
+        if type3:
+            raise ValueError(f"generated PDF contains Type 3 fonts: {type3}")
+        from pypdf import PdfReader
+
+        extracted = "\n".join(page.extract_text() or "" for page in PdfReader(str(overall_pdf)).pages)
+        missing_labels = [label for label in EXPECTED_H_META_NAS_LABELS if label not in extracted]
+        if missing_labels:
+            raise ValueError(f"missing audited H-Meta-NAS labels: {missing_labels}")
+        with Image.open(overall_png) as image:
+            expected_pixels = [
+                round(600 * OVERALL_PERFORMANCE_SIZE[0]),
+                round(600 * OVERALL_PERFORMANCE_SIZE[1]),
+            ]
+            if list(image.size) != expected_pixels:
+                raise ValueError(
+                    f"unexpected PNG dimensions {image.size}, expected {expected_pixels}"
+                )
+            dpi = image.info.get("dpi", (0, 0))
+            if dpi[0] < 590 or dpi[1] < 590:
+                raise ValueError(f"PNG DPI is below target: {dpi}")
+        checks[OVERALL_PERFORMANCE_FIGURE] = {
+            "scope": "current manuscript Figure 5; regenerated from canonical CSV",
+            "pdf_size_inches": size,
+            "pdf_raster_images": images,
+            "pdf_type3_fonts": type3,
+            "png_expected_pixels": expected_pixels,
+            "h_meta_nas_labels": list(EXPECTED_H_META_NAS_LABELS),
+        }
+    except Exception as exc:
+        errors.append(f"{OVERALL_PERFORMANCE_FIGURE}: {exc}")
     fixed_manifest = json.loads(
         (Path(__file__).resolve().parents[1] / "paper_assets/current_figures/manifest.json").read_text(
             encoding="utf-8"
@@ -963,6 +1021,11 @@ def generate(project_root: str | Path, output_root: str | Path) -> dict[str, Any
     plot_fig10(root / "results/figure_data", out / "figures")
     plot_fig11(root / "results/figure_data", out / "figures")
     plot_fig12(root / "results/figure_data", out / "figures")
+    generate_overall_performance(
+        root / "results/main/overall_comparison.csv",
+        out / "figures",
+        png_dpi=600,
+    )
     _copy_fixed_figures(root, out)
     (out / "FIGURE_CAPTIONS.md").write_text(CAPTIONS, encoding="utf-8")
     validation = validate_output(out)
@@ -1004,6 +1067,7 @@ __all__ = [
     "EXPECTED_GENERATED_FILES",
     "FIXED_FIGURES",
     "LEGACY_FIGURES",
+    "OVERALL_PERFORMANCE_FIGURE",
     "PAPER_TABLE_NAMES",
     "PUBLIC_TABLE_NAMES",
     "REVISED_FIGURES",

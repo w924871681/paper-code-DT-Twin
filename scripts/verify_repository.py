@@ -61,6 +61,7 @@ REQUIRED_FILES = {
     "scripts/level_c_bootstrap.py", "scripts/build_level_c_bootstrap.py", "scripts/stage_level_c_bootstrap.py",
     "scripts/finalize_cuda_replay.py", "scripts/verify_release_evidence.py",
     "scripts/plot_reproducible_figures.py", "scripts/derive_reproducible_figure_data.py",
+    "scripts/generate_fig_overall_performance.py", "reporting/overall_performance.py",
     "reporting/final_figures.py", "reporting/reproducible_figures.py",
     "scripts/validate_paper_outputs.py", "scripts/check_release_hygiene.py", "scripts/build_release_package.py", "reporting/frozen.py", "paper_assets/current_figures/manifest.json",
     "paper/manuscript.tex", "paper/manuscript.pdf",
@@ -70,7 +71,7 @@ REQUIRED_FILES = {
     *{f"paper/figures/fig{i}.pdf" for i in range(1, 13) if i != 4},
     *CANONICAL_SOURCES,
 }
-MODULES = ["core.data.sim", "core.space.profile", "source_prior_bank.pipeline", "anchor_safe_selector.pipeline", "main_evaluation.pipeline", "experiments.main.pipeline", "experiments.robustness.pipeline", "experiments.supplementary.pipeline", "reporting.frozen", "reporting.final_figures", "reporting.reproducible_figures"]
+MODULES = ["core.data.sim", "core.space.profile", "source_prior_bank.pipeline", "anchor_safe_selector.pipeline", "main_evaluation.pipeline", "experiments.main.pipeline", "experiments.robustness.pipeline", "experiments.supplementary.pipeline", "reporting.frozen", "reporting.final_figures", "reporting.overall_performance", "reporting.reproducible_figures"]
 
 
 def _sha256(path: Path) -> str:
@@ -410,6 +411,12 @@ def check_version_metadata() -> list[str]:
         errors.append("fixed-figure manifest must preserve v1.2.0 provenance")
     if "cp -r paper/tables figure-code-package/paper/" not in workflow:
         errors.append("standalone figure-code package does not include paper/tables")
+    if "scripts/generate_fig_overall_performance.py" not in workflow:
+        errors.append("standalone figure-code package does not include the current Figure 5 generator")
+    if "results/main/overall_comparison.csv" not in workflow:
+        errors.append("standalone figure-code package does not include the canonical Figure 5 source")
+    if "cp -r results/figure_data figure-code-package/results/" not in workflow:
+        errors.append("standalone figure-code package does not preserve the results/figure_data layout")
     if "build_release_package.py" not in workflow:
         errors.append("release workflow does not use the explicit public allowlist packager")
     if "check_release_hygiene.py" not in workflow:
