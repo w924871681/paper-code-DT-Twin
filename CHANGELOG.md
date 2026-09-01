@@ -13,8 +13,16 @@ dates are recorded only after a version is actually published.
   H-Meta-NAS paired confidence interval, to the supplementary manuscript.
 - Add the completed frozen step-0/step-50 adaptation diagnostic and the
   zero-training threshold-sensitivity boundary to the supplementary manuscript.
+- Add the end-to-end propagation audit of screening outcomes, its three
+  predefined scenarios, and the corresponding reproducibility artifacts.
 - Clarify the DT instantiation scope, deployment-proxy claim boundary, and
   full-pipeline interpretation in the main manuscript.
+- Correct the Supplement Fig. 9--11 semantic mapping so Fig. 9 is selection
+  outcomes, Fig. 10 is selected-configuration complexity/performance, and
+  Fig. 11 is configuration analysis.
+- Retain the deployment trade-off radar as an unnumbered reproducibility
+  artifact, draw all five frozen methods including MSA-DTI, and add explicit
+  row/plot/legend-count and caption/content semantic validation.
 - Preserve every frozen configuration, model, split, candidate bank, optimizer,
   adaptation budget, selection threshold, selected output, and performance result.
 - Integrate the canonical CSV-driven current Figure 5 generator into the formal
@@ -52,14 +60,6 @@ dates are recorded only after a version is actually published.
 
 ## [Unreleased]
 
-- Correct the Supplement Fig. 9--11 semantic mapping so Fig. 9 is selection
-  outcomes, Fig. 10 is selected-configuration complexity/performance, and
-  Fig. 11 is configuration analysis.
-- Retain the deployment trade-off radar as an unnumbered reproducibility
-  artifact, draw all five frozen methods including MSA-DTI, and add explicit
-  row/plot/legend-count validation.
-- Add caption/content semantic checks without retraining, target adaptation,
-  bootstrap resampling, or any change to frozen scientific values.
 - Prepare v1.2.0 with formal CPU/CUDA hosting-profile evidence and the
   Alibaba 20/20/40 external-domain protocol.
 - Update Fig. 12 to 400 released case-level gains, including 160 held-out

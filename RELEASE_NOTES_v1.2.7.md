@@ -19,6 +19,9 @@ manuscript, reporting, and release-metadata update over v1.2.6.
   interval.
 - Add the zero-training threshold-one/two/three screening sensitivity and the
   explicit boundary on what cannot be reconstructed from the frozen bank.
+- Add the end-to-end propagation audit of screening outcomes for the three
+  predefined scenarios and publish its checksum-bound reproducibility
+  artifacts.
 - State explicitly that the analytical sufficient condition does not provide
   an empirical bound on the validation-error term.
 
@@ -42,10 +45,13 @@ model, or performance output was changed.
 - Regenerate the current manuscript Figure 5 from the canonical
   `results/main/overall_comparison.csv` H-Meta-NAS row through both its
   dedicated CLI and the formal paper-output entry point.
+- Correct the Supplement Fig. 9--11 semantic mapping, retain the deployment
+  trade-off radar as an unnumbered reproducibility artifact, and validate the
+  figure rows, plotted series, legends, captions, and content semantics.
 - Keep the v1.2.7 tag, code snapshot, manuscript PDFs, and release packages on
   the same final commit; the figure-code bundle includes the Figure 5
   generator, canonical CSV, and generated PDF.
 - Publish the synchronized main manuscript and supplementary material as
-  directly downloadable `.tex` and `.pdf` assets. The supplementary PDF is
-  rebuilt from the current 11-page LaTeX source rather than the stale 10-page
-  binary previously tracked in the repository.
+  directly downloadable `.tex` and `.pdf` assets. The supplied and tracked
+  files are byte-identical: a 15-page main manuscript and a 10-page
+  supplementary document, each paired with its current LaTeX source.
