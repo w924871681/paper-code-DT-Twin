@@ -1,0 +1,4523 @@
+{
+  "study": "R1 independent bank-specific margin calibration",
+  "screen": "S0",
+  "pool": [
+    940,
+    20,
+    200000
+  ],
+  "margin_grid_results": {
+    "0.050000": {
+      "margin_rel": 0.05,
+      "primary_gain_over_adapted_PT_A57": {
+        "mean": 0.1250352850921796,
+        "median": 0.10920708009969446,
+        "ci_low": 0.06970969695097552,
+        "ci_high": 0.18194433104183305,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 2905
+      },
+      "gain_over_dual_A57_paired_initialization": {
+        "mean": 0.11674351749905745,
+        "median": 0.10920708009969446,
+        "ci_low": 0.06955915802295337,
+        "ci_high": 0.16650144274897605,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 2906
+      },
+      "switch_rate": 0.6875,
+      "harmful_switch_rate_all_cases": 0.1,
+      "harmful_switch_count": 8,
+      "paired_control_available": true,
+      "eligible": false,
+      "selections": {
+        "c940_h1_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003107889322564006,
+          "best_alternative_validation_mse": 0.0030733966268599033,
+          "switch_threshold_validation_mse": 0.0029524948564358055,
+          "margin_rel": 0.05
+        },
+        "c940_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0028348951600492,
+          "best_alternative_validation_mse": 0.0027118725702166557,
+          "switch_threshold_validation_mse": 0.00269315040204674,
+          "margin_rel": 0.05
+        },
+        "c940_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0047410777769982815,
+          "best_alternative_validation_mse": 0.004042273387312889,
+          "switch_threshold_validation_mse": 0.004504023888148368,
+          "margin_rel": 0.05
+        },
+        "c940_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.00449545681476593,
+          "best_alternative_validation_mse": 0.004053219687193632,
+          "switch_threshold_validation_mse": 0.004270683974027634,
+          "margin_rel": 0.05
+        },
+        "c941_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.009424534626305103,
+          "best_alternative_validation_mse": 0.009714942425489426,
+          "switch_threshold_validation_mse": 0.008953307894989848,
+          "margin_rel": 0.05
+        },
+        "c941_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006995828822255135,
+          "best_alternative_validation_mse": 0.006849257275462151,
+          "switch_threshold_validation_mse": 0.006646037381142378,
+          "margin_rel": 0.05
+        },
+        "c941_h4_k10_btight": {
+          "selected_token": "LEGACY_C1_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.011311493813991547,
+          "best_alternative_validation_mse": 0.010410211980342865,
+          "switch_threshold_validation_mse": 0.010745919123291968,
+          "margin_rel": 0.05
+        },
+        "c941_h4_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.010157549753785133,
+          "best_alternative_validation_mse": 0.010144172236323357,
+          "switch_threshold_validation_mse": 0.009649672266095876,
+          "margin_rel": 0.05
+        },
+        "c942_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.001905212877318263,
+          "best_alternative_validation_mse": 0.0017612407682463527,
+          "switch_threshold_validation_mse": 0.0018099522334523498,
+          "margin_rel": 0.05
+        },
+        "c942_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0018085946794599295,
+          "best_alternative_validation_mse": 0.0018525943160057068,
+          "switch_threshold_validation_mse": 0.001718164945486933,
+          "margin_rel": 0.05
+        },
+        "c942_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0023542477283626795,
+          "best_alternative_validation_mse": 0.002092750510200858,
+          "switch_threshold_validation_mse": 0.0022365353419445456,
+          "margin_rel": 0.05
+        },
+        "c942_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002295962767675519,
+          "best_alternative_validation_mse": 0.001967938616871834,
+          "switch_threshold_validation_mse": 0.002181164629291743,
+          "margin_rel": 0.05
+        },
+        "c943_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004207026679068804,
+          "best_alternative_validation_mse": 0.003517639357596636,
+          "switch_threshold_validation_mse": 0.003996675345115363,
+          "margin_rel": 0.05
+        },
+        "c943_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0038167370948940516,
+          "best_alternative_validation_mse": 0.0032476079650223255,
+          "switch_threshold_validation_mse": 0.003625900240149349,
+          "margin_rel": 0.05
+        },
+        "c943_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031455622520297766,
+          "best_alternative_validation_mse": 0.003183036809787154,
+          "switch_threshold_validation_mse": 0.0029882841394282874,
+          "margin_rel": 0.05
+        },
+        "c943_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0032361734192818403,
+          "best_alternative_validation_mse": 0.0032489034347236156,
+          "switch_threshold_validation_mse": 0.003074364748317748,
+          "margin_rel": 0.05
+        },
+        "c944_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005899431183934212,
+          "best_alternative_validation_mse": 0.003075719578191638,
+          "switch_threshold_validation_mse": 0.0056044596247375005,
+          "margin_rel": 0.05
+        },
+        "c944_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0034866442438215017,
+          "best_alternative_validation_mse": 0.0015912341186776757,
+          "switch_threshold_validation_mse": 0.0033123120316304266,
+          "margin_rel": 0.05
+        },
+        "c944_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004570792894810438,
+          "best_alternative_validation_mse": 0.0015488401986658573,
+          "switch_threshold_validation_mse": 0.004342253250069916,
+          "margin_rel": 0.05
+        },
+        "c944_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002221690258011222,
+          "best_alternative_validation_mse": 0.0016503410879522562,
+          "switch_threshold_validation_mse": 0.002110605745110661,
+          "margin_rel": 0.05
+        },
+        "c945_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0009832464857026935,
+          "best_alternative_validation_mse": 0.0008170462679117918,
+          "switch_threshold_validation_mse": 0.0009340841614175587,
+          "margin_rel": 0.05
+        },
+        "c945_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.001020021503791213,
+          "best_alternative_validation_mse": 0.0008303832146339118,
+          "switch_threshold_validation_mse": 0.0009690204286016523,
+          "margin_rel": 0.05
+        },
+        "c945_h4_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0013689793413504958,
+          "best_alternative_validation_mse": 0.0012924002949148417,
+          "switch_threshold_validation_mse": 0.001300530374282971,
+          "margin_rel": 0.05
+        },
+        "c945_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0023520078975707293,
+          "best_alternative_validation_mse": 0.0012333157937973738,
+          "switch_threshold_validation_mse": 0.002234407502692193,
+          "margin_rel": 0.05
+        },
+        "c946_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.003498842939734459,
+          "best_alternative_validation_mse": 0.0026007499545812607,
+          "switch_threshold_validation_mse": 0.003323900792747736,
+          "margin_rel": 0.05
+        },
+        "c946_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0035064793191850185,
+          "best_alternative_validation_mse": 0.0025627983268350363,
+          "switch_threshold_validation_mse": 0.0033311553532257674,
+          "margin_rel": 0.05
+        },
+        "c946_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003732172539457679,
+          "best_alternative_validation_mse": 0.003806791501119733,
+          "switch_threshold_validation_mse": 0.0035455639124847946,
+          "margin_rel": 0.05
+        },
+        "c946_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003745570546016097,
+          "best_alternative_validation_mse": 0.003902663476765156,
+          "switch_threshold_validation_mse": 0.003558292018715292,
+          "margin_rel": 0.05
+        },
+        "c947_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.007071502972394228,
+          "best_alternative_validation_mse": 0.006951779592782259,
+          "switch_threshold_validation_mse": 0.006717927823774516,
+          "margin_rel": 0.05
+        },
+        "c947_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.006361474748700857,
+          "best_alternative_validation_mse": 0.005251958966255188,
+          "switch_threshold_validation_mse": 0.006043401011265814,
+          "margin_rel": 0.05
+        },
+        "c947_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006849625613540411,
+          "best_alternative_validation_mse": 0.007047348655760288,
+          "switch_threshold_validation_mse": 0.00650714433286339,
+          "margin_rel": 0.05
+        },
+        "c947_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006772076711058617,
+          "best_alternative_validation_mse": 0.006693827919661999,
+          "switch_threshold_validation_mse": 0.006433472875505685,
+          "margin_rel": 0.05
+        },
+        "c948_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004333309829235077,
+          "best_alternative_validation_mse": 0.0027352578472346067,
+          "switch_threshold_validation_mse": 0.004116644337773323,
+          "margin_rel": 0.05
+        },
+        "c948_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0031704127322882414,
+          "best_alternative_validation_mse": 0.0030100340954959393,
+          "switch_threshold_validation_mse": 0.003011892095673829,
+          "margin_rel": 0.05
+        },
+        "c948_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0038343241903930902,
+          "best_alternative_validation_mse": 0.003440774278715253,
+          "switch_threshold_validation_mse": 0.0036426079808734354,
+          "margin_rel": 0.05
+        },
+        "c948_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004897504113614559,
+          "best_alternative_validation_mse": 0.004242073278874159,
+          "switch_threshold_validation_mse": 0.004652628907933831,
+          "margin_rel": 0.05
+        },
+        "c949_h1_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0008648293442092836,
+          "best_alternative_validation_mse": 0.0008768329280428588,
+          "switch_threshold_validation_mse": 0.0008215878769988194,
+          "margin_rel": 0.05
+        },
+        "c949_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.000864077010191977,
+          "best_alternative_validation_mse": 0.0008551701321266592,
+          "switch_threshold_validation_mse": 0.0008208731596823782,
+          "margin_rel": 0.05
+        },
+        "c949_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0010446073720231652,
+          "best_alternative_validation_mse": 0.001399585627950728,
+          "switch_threshold_validation_mse": 0.0009923770034220068,
+          "margin_rel": 0.05
+        },
+        "c949_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.000986106926575303,
+          "best_alternative_validation_mse": 0.0013426856603473425,
+          "switch_threshold_validation_mse": 0.0009368015802465379,
+          "margin_rel": 0.05
+        },
+        "c950_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.001663806033320725,
+          "best_alternative_validation_mse": 0.0013566025299951434,
+          "switch_threshold_validation_mse": 0.0015806157316546887,
+          "margin_rel": 0.05
+        },
+        "c950_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0015132862608879805,
+          "best_alternative_validation_mse": 0.0013427920639514923,
+          "switch_threshold_validation_mse": 0.0014376219478435814,
+          "margin_rel": 0.05
+        },
+        "c950_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002257151762023568,
+          "best_alternative_validation_mse": 0.0018045468023046851,
+          "switch_threshold_validation_mse": 0.0021442941739223897,
+          "margin_rel": 0.05
+        },
+        "c950_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0019551145378500223,
+          "best_alternative_validation_mse": 0.0017663300968706608,
+          "switch_threshold_validation_mse": 0.0018573588109575211,
+          "margin_rel": 0.05
+        },
+        "c951_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0009046048508025706,
+          "best_alternative_validation_mse": 0.0005575974355451763,
+          "switch_threshold_validation_mse": 0.000859374608262442,
+          "margin_rel": 0.05
+        },
+        "c951_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0007151160971261561,
+          "best_alternative_validation_mse": 0.0005801192601211369,
+          "switch_threshold_validation_mse": 0.0006793602922698482,
+          "margin_rel": 0.05
+        },
+        "c951_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0007453946745954454,
+          "best_alternative_validation_mse": 0.0007548695430159569,
+          "switch_threshold_validation_mse": 0.0007081249408656731,
+          "margin_rel": 0.05
+        },
+        "c951_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0007608089363202453,
+          "best_alternative_validation_mse": 0.0008565973839722574,
+          "switch_threshold_validation_mse": 0.000722768489504233,
+          "margin_rel": 0.05
+        },
+        "c952_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004578420892357826,
+          "best_alternative_validation_mse": 0.003977231681346893,
+          "switch_threshold_validation_mse": 0.004349499847739934,
+          "margin_rel": 0.05
+        },
+        "c952_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031765399035066366,
+          "best_alternative_validation_mse": 0.0031691603362560272,
+          "switch_threshold_validation_mse": 0.003017712908331305,
+          "margin_rel": 0.05
+        },
+        "c952_h4_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004372075200080872,
+          "best_alternative_validation_mse": 0.0029308111406862736,
+          "switch_threshold_validation_mse": 0.004153471440076828,
+          "margin_rel": 0.05
+        },
+        "c952_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004303332418203354,
+          "best_alternative_validation_mse": 0.00284366006962955,
+          "switch_threshold_validation_mse": 0.004088165797293186,
+          "margin_rel": 0.05
+        },
+        "c953_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005401792470365763,
+          "best_alternative_validation_mse": 0.0051780580542981625,
+          "switch_threshold_validation_mse": 0.005131702846847474,
+          "margin_rel": 0.05
+        },
+        "c953_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005499557591974735,
+          "best_alternative_validation_mse": 0.004589546471834183,
+          "switch_threshold_validation_mse": 0.0052245797123759985,
+          "margin_rel": 0.05
+        },
+        "c953_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004862102679908276,
+          "best_alternative_validation_mse": 0.004103139042854309,
+          "switch_threshold_validation_mse": 0.0046189975459128615,
+          "margin_rel": 0.05
+        },
+        "c953_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004332283977419138,
+          "best_alternative_validation_mse": 0.0040773977525532246,
+          "switch_threshold_validation_mse": 0.0041156697785481805,
+          "margin_rel": 0.05
+        },
+        "c954_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0062009370885789394,
+          "best_alternative_validation_mse": 0.006548240780830383,
+          "switch_threshold_validation_mse": 0.005890890234149992,
+          "margin_rel": 0.05
+        },
+        "c954_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005679219029843807,
+          "best_alternative_validation_mse": 0.0057425848208367825,
+          "switch_threshold_validation_mse": 0.005395258078351617,
+          "margin_rel": 0.05
+        },
+        "c954_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.006958910264074802,
+          "best_alternative_validation_mse": 0.006604830734431744,
+          "switch_threshold_validation_mse": 0.006610964750871062,
+          "margin_rel": 0.05
+        },
+        "c954_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005892398301512003,
+          "best_alternative_validation_mse": 0.005395890679210424,
+          "switch_threshold_validation_mse": 0.005597778386436402,
+          "margin_rel": 0.05
+        },
+        "c955_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0006625325768254697,
+          "best_alternative_validation_mse": 0.0006260218797251582,
+          "switch_threshold_validation_mse": 0.0006294059479841962,
+          "margin_rel": 0.05
+        },
+        "c955_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0006704150000587106,
+          "best_alternative_validation_mse": 0.0005700398469343781,
+          "switch_threshold_validation_mse": 0.0006368942500557751,
+          "margin_rel": 0.05
+        },
+        "c955_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.001200451166369021,
+          "best_alternative_validation_mse": 0.0015805457951501012,
+          "switch_threshold_validation_mse": 0.00114042860805057,
+          "margin_rel": 0.05
+        },
+        "c955_h4_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0009857658296823502,
+          "best_alternative_validation_mse": 0.0014085458824411035,
+          "switch_threshold_validation_mse": 0.0009364775381982326,
+          "margin_rel": 0.05
+        },
+        "c956_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.00271639134734869,
+          "best_alternative_validation_mse": 0.002244899282231927,
+          "switch_threshold_validation_mse": 0.0025805717799812556,
+          "margin_rel": 0.05
+        },
+        "c956_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.003283996367827058,
+          "best_alternative_validation_mse": 0.002600457053631544,
+          "switch_threshold_validation_mse": 0.0031197965494357046,
+          "margin_rel": 0.05
+        },
+        "c956_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004912205506116152,
+          "best_alternative_validation_mse": 0.0038777857553213835,
+          "switch_threshold_validation_mse": 0.004666595230810344,
+          "margin_rel": 0.05
+        },
+        "c956_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.00605903472751379,
+          "best_alternative_validation_mse": 0.0042768074199557304,
+          "switch_threshold_validation_mse": 0.0057560829911381005,
+          "margin_rel": 0.05
+        },
+        "c957_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.008515100926160812,
+          "best_alternative_validation_mse": 0.006244074087589979,
+          "switch_threshold_validation_mse": 0.008089345879852772,
+          "margin_rel": 0.05
+        },
+        "c957_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007739413063973188,
+          "best_alternative_validation_mse": 0.006425288040190935,
+          "switch_threshold_validation_mse": 0.007352442410774529,
+          "margin_rel": 0.05
+        },
+        "c957_h4_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.01192165445536375,
+          "best_alternative_validation_mse": 0.008532069623470306,
+          "switch_threshold_validation_mse": 0.011325571732595562,
+          "margin_rel": 0.05
+        },
+        "c957_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.011090480722486973,
+          "best_alternative_validation_mse": 0.007094888016581535,
+          "switch_threshold_validation_mse": 0.010535956686362624,
+          "margin_rel": 0.05
+        },
+        "c958_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002698484342545271,
+          "best_alternative_validation_mse": 0.0016953764716163278,
+          "switch_threshold_validation_mse": 0.0025635601254180075,
+          "margin_rel": 0.05
+        },
+        "c958_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0024610329419374466,
+          "best_alternative_validation_mse": 0.0016176028875634074,
+          "switch_threshold_validation_mse": 0.002337981294840574,
+          "margin_rel": 0.05
+        },
+        "c958_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0029800720512866974,
+          "best_alternative_validation_mse": 0.00260759680531919,
+          "switch_threshold_validation_mse": 0.002831068448722362,
+          "margin_rel": 0.05
+        },
+        "c958_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0028424521442502737,
+          "best_alternative_validation_mse": 0.002493474865332246,
+          "switch_threshold_validation_mse": 0.0027003295370377598,
+          "margin_rel": 0.05
+        },
+        "c959_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005092307459563017,
+          "best_alternative_validation_mse": 0.004308093339204788,
+          "switch_threshold_validation_mse": 0.004837692086584866,
+          "margin_rel": 0.05
+        },
+        "c959_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004949441645294428,
+          "best_alternative_validation_mse": 0.004318713676184416,
+          "switch_threshold_validation_mse": 0.0047019695630297065,
+          "margin_rel": 0.05
+        },
+        "c959_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007809123024344444,
+          "best_alternative_validation_mse": 0.005707874894142151,
+          "switch_threshold_validation_mse": 0.0074186668731272215,
+          "margin_rel": 0.05
+        },
+        "c959_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007650875020772219,
+          "best_alternative_validation_mse": 0.005886822007596493,
+          "switch_threshold_validation_mse": 0.007268331269733607,
+          "margin_rel": 0.05
+        }
+      }
+    },
+    "0.075000": {
+      "margin_rel": 0.075,
+      "primary_gain_over_adapted_PT_A57": {
+        "mean": 0.12572210794572194,
+        "median": 0.0870269410991245,
+        "ci_low": 0.07247057534672062,
+        "ci_high": 0.1824088125563374,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 3005
+      },
+      "gain_over_dual_A57_paired_initialization": {
+        "mean": 0.11743034035259978,
+        "median": 0.0870269410991245,
+        "ci_low": 0.07168495687598701,
+        "ci_high": 0.16733911990379166,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 3006
+      },
+      "switch_rate": 0.625,
+      "harmful_switch_rate_all_cases": 0.05,
+      "harmful_switch_count": 4,
+      "paired_control_available": true,
+      "eligible": true,
+      "selections": {
+        "c940_h1_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003107889322564006,
+          "best_alternative_validation_mse": 0.0030733966268599033,
+          "switch_threshold_validation_mse": 0.0028747976233717055,
+          "margin_rel": 0.075
+        },
+        "c940_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0028348951600492,
+          "best_alternative_validation_mse": 0.0027118725702166557,
+          "switch_threshold_validation_mse": 0.00262227802304551,
+          "margin_rel": 0.075
+        },
+        "c940_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0047410777769982815,
+          "best_alternative_validation_mse": 0.004042273387312889,
+          "switch_threshold_validation_mse": 0.00438549694372341,
+          "margin_rel": 0.075
+        },
+        "c940_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.00449545681476593,
+          "best_alternative_validation_mse": 0.004053219687193632,
+          "switch_threshold_validation_mse": 0.004158297553658485,
+          "margin_rel": 0.075
+        },
+        "c941_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.009424534626305103,
+          "best_alternative_validation_mse": 0.009714942425489426,
+          "switch_threshold_validation_mse": 0.00871769452933222,
+          "margin_rel": 0.075
+        },
+        "c941_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006995828822255135,
+          "best_alternative_validation_mse": 0.006849257275462151,
+          "switch_threshold_validation_mse": 0.006471141660586,
+          "margin_rel": 0.075
+        },
+        "c941_h4_k10_btight": {
+          "selected_token": "LEGACY_C1_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.011311493813991547,
+          "best_alternative_validation_mse": 0.010410211980342865,
+          "switch_threshold_validation_mse": 0.010463131777942182,
+          "margin_rel": 0.075
+        },
+        "c941_h4_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.010157549753785133,
+          "best_alternative_validation_mse": 0.010144172236323357,
+          "switch_threshold_validation_mse": 0.009395733522251249,
+          "margin_rel": 0.075
+        },
+        "c942_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.001905212877318263,
+          "best_alternative_validation_mse": 0.0017612407682463527,
+          "switch_threshold_validation_mse": 0.0017623219115193935,
+          "margin_rel": 0.075
+        },
+        "c942_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0018085946794599295,
+          "best_alternative_validation_mse": 0.0018525943160057068,
+          "switch_threshold_validation_mse": 0.0016729500785004348,
+          "margin_rel": 0.075
+        },
+        "c942_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0023542477283626795,
+          "best_alternative_validation_mse": 0.002092750510200858,
+          "switch_threshold_validation_mse": 0.0021776791487354784,
+          "margin_rel": 0.075
+        },
+        "c942_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002295962767675519,
+          "best_alternative_validation_mse": 0.001967938616871834,
+          "switch_threshold_validation_mse": 0.002123765560099855,
+          "margin_rel": 0.075
+        },
+        "c943_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004207026679068804,
+          "best_alternative_validation_mse": 0.003517639357596636,
+          "switch_threshold_validation_mse": 0.003891499678138644,
+          "margin_rel": 0.075
+        },
+        "c943_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0038167370948940516,
+          "best_alternative_validation_mse": 0.0032476079650223255,
+          "switch_threshold_validation_mse": 0.003530481812776998,
+          "margin_rel": 0.075
+        },
+        "c943_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031455622520297766,
+          "best_alternative_validation_mse": 0.003183036809787154,
+          "switch_threshold_validation_mse": 0.0029096450831275437,
+          "margin_rel": 0.075
+        },
+        "c943_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0032361734192818403,
+          "best_alternative_validation_mse": 0.0032489034347236156,
+          "switch_threshold_validation_mse": 0.0029934604128357026,
+          "margin_rel": 0.075
+        },
+        "c944_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005899431183934212,
+          "best_alternative_validation_mse": 0.003075719578191638,
+          "switch_threshold_validation_mse": 0.0054569738451391465,
+          "margin_rel": 0.075
+        },
+        "c944_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0034866442438215017,
+          "best_alternative_validation_mse": 0.0015912341186776757,
+          "switch_threshold_validation_mse": 0.003225145925534889,
+          "margin_rel": 0.075
+        },
+        "c944_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004570792894810438,
+          "best_alternative_validation_mse": 0.0015488401986658573,
+          "switch_threshold_validation_mse": 0.0042279834276996555,
+          "margin_rel": 0.075
+        },
+        "c944_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002221690258011222,
+          "best_alternative_validation_mse": 0.0016503410879522562,
+          "switch_threshold_validation_mse": 0.00205506348866038,
+          "margin_rel": 0.075
+        },
+        "c945_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0009832464857026935,
+          "best_alternative_validation_mse": 0.0008170462679117918,
+          "switch_threshold_validation_mse": 0.0009095029992749915,
+          "margin_rel": 0.075
+        },
+        "c945_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.001020021503791213,
+          "best_alternative_validation_mse": 0.0008303832146339118,
+          "switch_threshold_validation_mse": 0.0009435198910068721,
+          "margin_rel": 0.075
+        },
+        "c945_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0013689793413504958,
+          "best_alternative_validation_mse": 0.0012924002949148417,
+          "switch_threshold_validation_mse": 0.0012663058907492087,
+          "margin_rel": 0.075
+        },
+        "c945_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0023520078975707293,
+          "best_alternative_validation_mse": 0.0012333157937973738,
+          "switch_threshold_validation_mse": 0.0021756073052529245,
+          "margin_rel": 0.075
+        },
+        "c946_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.003498842939734459,
+          "best_alternative_validation_mse": 0.0026007499545812607,
+          "switch_threshold_validation_mse": 0.0032364297192543747,
+          "margin_rel": 0.075
+        },
+        "c946_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0035064793191850185,
+          "best_alternative_validation_mse": 0.0025627983268350363,
+          "switch_threshold_validation_mse": 0.0032434933702461424,
+          "margin_rel": 0.075
+        },
+        "c946_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003732172539457679,
+          "best_alternative_validation_mse": 0.003806791501119733,
+          "switch_threshold_validation_mse": 0.003452259598998353,
+          "margin_rel": 0.075
+        },
+        "c946_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003745570546016097,
+          "best_alternative_validation_mse": 0.003902663476765156,
+          "switch_threshold_validation_mse": 0.00346465275506489,
+          "margin_rel": 0.075
+        },
+        "c947_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.007071502972394228,
+          "best_alternative_validation_mse": 0.006951779592782259,
+          "switch_threshold_validation_mse": 0.006541140249464662,
+          "margin_rel": 0.075
+        },
+        "c947_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.006361474748700857,
+          "best_alternative_validation_mse": 0.005251958966255188,
+          "switch_threshold_validation_mse": 0.005884364142548293,
+          "margin_rel": 0.075
+        },
+        "c947_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006849625613540411,
+          "best_alternative_validation_mse": 0.007047348655760288,
+          "switch_threshold_validation_mse": 0.006335903692524881,
+          "margin_rel": 0.075
+        },
+        "c947_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006772076711058617,
+          "best_alternative_validation_mse": 0.006693827919661999,
+          "switch_threshold_validation_mse": 0.006264170957729221,
+          "margin_rel": 0.075
+        },
+        "c948_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004333309829235077,
+          "best_alternative_validation_mse": 0.0027352578472346067,
+          "switch_threshold_validation_mse": 0.004008311592042446,
+          "margin_rel": 0.075
+        },
+        "c948_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031704127322882414,
+          "best_alternative_validation_mse": 0.0030100340954959393,
+          "switch_threshold_validation_mse": 0.0029326317773666235,
+          "margin_rel": 0.075
+        },
+        "c948_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0038343241903930902,
+          "best_alternative_validation_mse": 0.003440774278715253,
+          "switch_threshold_validation_mse": 0.003546749876113609,
+          "margin_rel": 0.075
+        },
+        "c948_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004897504113614559,
+          "best_alternative_validation_mse": 0.004242073278874159,
+          "switch_threshold_validation_mse": 0.004530191305093467,
+          "margin_rel": 0.075
+        },
+        "c949_h1_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0008648293442092836,
+          "best_alternative_validation_mse": 0.0008768329280428588,
+          "switch_threshold_validation_mse": 0.0007999671433935873,
+          "margin_rel": 0.075
+        },
+        "c949_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.000864077010191977,
+          "best_alternative_validation_mse": 0.0008551701321266592,
+          "switch_threshold_validation_mse": 0.0007992712344275787,
+          "margin_rel": 0.075
+        },
+        "c949_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0010446073720231652,
+          "best_alternative_validation_mse": 0.001399585627950728,
+          "switch_threshold_validation_mse": 0.0009662618191214279,
+          "margin_rel": 0.075
+        },
+        "c949_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.000986106926575303,
+          "best_alternative_validation_mse": 0.0013426856603473425,
+          "switch_threshold_validation_mse": 0.0009121489070821554,
+          "margin_rel": 0.075
+        },
+        "c950_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.001663806033320725,
+          "best_alternative_validation_mse": 0.0013566025299951434,
+          "switch_threshold_validation_mse": 0.0015390205808216706,
+          "margin_rel": 0.075
+        },
+        "c950_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0015132862608879805,
+          "best_alternative_validation_mse": 0.0013427920639514923,
+          "switch_threshold_validation_mse": 0.001399789791321382,
+          "margin_rel": 0.075
+        },
+        "c950_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002257151762023568,
+          "best_alternative_validation_mse": 0.0018045468023046851,
+          "switch_threshold_validation_mse": 0.0020878653798718006,
+          "margin_rel": 0.075
+        },
+        "c950_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0019551145378500223,
+          "best_alternative_validation_mse": 0.0017663300968706608,
+          "switch_threshold_validation_mse": 0.0018084809475112707,
+          "margin_rel": 0.075
+        },
+        "c951_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0009046048508025706,
+          "best_alternative_validation_mse": 0.0005575974355451763,
+          "switch_threshold_validation_mse": 0.0008367594869923778,
+          "margin_rel": 0.075
+        },
+        "c951_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0007151160971261561,
+          "best_alternative_validation_mse": 0.0005801192601211369,
+          "switch_threshold_validation_mse": 0.0006614823898416944,
+          "margin_rel": 0.075
+        },
+        "c951_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0007453946745954454,
+          "best_alternative_validation_mse": 0.0007548695430159569,
+          "switch_threshold_validation_mse": 0.000689490074000787,
+          "margin_rel": 0.075
+        },
+        "c951_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0007608089363202453,
+          "best_alternative_validation_mse": 0.0008565973839722574,
+          "switch_threshold_validation_mse": 0.0007037482660962269,
+          "margin_rel": 0.075
+        },
+        "c952_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004578420892357826,
+          "best_alternative_validation_mse": 0.003977231681346893,
+          "switch_threshold_validation_mse": 0.00423503932543099,
+          "margin_rel": 0.075
+        },
+        "c952_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031765399035066366,
+          "best_alternative_validation_mse": 0.0031691603362560272,
+          "switch_threshold_validation_mse": 0.002938299410743639,
+          "margin_rel": 0.075
+        },
+        "c952_h4_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004372075200080872,
+          "best_alternative_validation_mse": 0.0029308111406862736,
+          "switch_threshold_validation_mse": 0.004044169560074806,
+          "margin_rel": 0.075
+        },
+        "c952_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004303332418203354,
+          "best_alternative_validation_mse": 0.00284366006962955,
+          "switch_threshold_validation_mse": 0.003980582486838103,
+          "margin_rel": 0.075
+        },
+        "c953_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005401792470365763,
+          "best_alternative_validation_mse": 0.0051780580542981625,
+          "switch_threshold_validation_mse": 0.004996658035088331,
+          "margin_rel": 0.075
+        },
+        "c953_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005499557591974735,
+          "best_alternative_validation_mse": 0.004589546471834183,
+          "switch_threshold_validation_mse": 0.00508709077257663,
+          "margin_rel": 0.075
+        },
+        "c953_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004862102679908276,
+          "best_alternative_validation_mse": 0.004103139042854309,
+          "switch_threshold_validation_mse": 0.004497444978915155,
+          "margin_rel": 0.075
+        },
+        "c953_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.004332283977419138,
+          "best_alternative_validation_mse": 0.0040773977525532246,
+          "switch_threshold_validation_mse": 0.004007362679112703,
+          "margin_rel": 0.075
+        },
+        "c954_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0062009370885789394,
+          "best_alternative_validation_mse": 0.006548240780830383,
+          "switch_threshold_validation_mse": 0.005735866806935519,
+          "margin_rel": 0.075
+        },
+        "c954_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005679219029843807,
+          "best_alternative_validation_mse": 0.0057425848208367825,
+          "switch_threshold_validation_mse": 0.005253277602605522,
+          "margin_rel": 0.075
+        },
+        "c954_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006958910264074802,
+          "best_alternative_validation_mse": 0.006604830734431744,
+          "switch_threshold_validation_mse": 0.0064369919942691926,
+          "margin_rel": 0.075
+        },
+        "c954_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005892398301512003,
+          "best_alternative_validation_mse": 0.005395890679210424,
+          "switch_threshold_validation_mse": 0.005450468428898603,
+          "margin_rel": 0.075
+        },
+        "c955_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0006625325768254697,
+          "best_alternative_validation_mse": 0.0006260218797251582,
+          "switch_threshold_validation_mse": 0.0006128426335635595,
+          "margin_rel": 0.075
+        },
+        "c955_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0006704150000587106,
+          "best_alternative_validation_mse": 0.0005700398469343781,
+          "switch_threshold_validation_mse": 0.0006201338750543073,
+          "margin_rel": 0.075
+        },
+        "c955_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.001200451166369021,
+          "best_alternative_validation_mse": 0.0015805457951501012,
+          "switch_threshold_validation_mse": 0.0011104173288913443,
+          "margin_rel": 0.075
+        },
+        "c955_h4_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0009857658296823502,
+          "best_alternative_validation_mse": 0.0014085458824411035,
+          "switch_threshold_validation_mse": 0.0009118333924561739,
+          "margin_rel": 0.075
+        },
+        "c956_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.00271639134734869,
+          "best_alternative_validation_mse": 0.002244899282231927,
+          "switch_threshold_validation_mse": 0.002512661996297538,
+          "margin_rel": 0.075
+        },
+        "c956_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.003283996367827058,
+          "best_alternative_validation_mse": 0.002600457053631544,
+          "switch_threshold_validation_mse": 0.003037696640240029,
+          "margin_rel": 0.075
+        },
+        "c956_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004912205506116152,
+          "best_alternative_validation_mse": 0.0038777857553213835,
+          "switch_threshold_validation_mse": 0.004543790093157441,
+          "margin_rel": 0.075
+        },
+        "c956_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.00605903472751379,
+          "best_alternative_validation_mse": 0.0042768074199557304,
+          "switch_threshold_validation_mse": 0.005604607122950256,
+          "margin_rel": 0.075
+        },
+        "c957_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.008515100926160812,
+          "best_alternative_validation_mse": 0.006244074087589979,
+          "switch_threshold_validation_mse": 0.007876468356698751,
+          "margin_rel": 0.075
+        },
+        "c957_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007739413063973188,
+          "best_alternative_validation_mse": 0.006425288040190935,
+          "switch_threshold_validation_mse": 0.0071589570841751994,
+          "margin_rel": 0.075
+        },
+        "c957_h4_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.01192165445536375,
+          "best_alternative_validation_mse": 0.008532069623470306,
+          "switch_threshold_validation_mse": 0.01102753037121147,
+          "margin_rel": 0.075
+        },
+        "c957_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.011090480722486973,
+          "best_alternative_validation_mse": 0.007094888016581535,
+          "switch_threshold_validation_mse": 0.01025869466830045,
+          "margin_rel": 0.075
+        },
+        "c958_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002698484342545271,
+          "best_alternative_validation_mse": 0.0016953764716163278,
+          "switch_threshold_validation_mse": 0.0024960980168543755,
+          "margin_rel": 0.075
+        },
+        "c958_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0024610329419374466,
+          "best_alternative_validation_mse": 0.0016176028875634074,
+          "switch_threshold_validation_mse": 0.0022764554712921383,
+          "margin_rel": 0.075
+        },
+        "c958_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0029800720512866974,
+          "best_alternative_validation_mse": 0.00260759680531919,
+          "switch_threshold_validation_mse": 0.0027565666474401954,
+          "margin_rel": 0.075
+        },
+        "c958_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0028424521442502737,
+          "best_alternative_validation_mse": 0.002493474865332246,
+          "switch_threshold_validation_mse": 0.0026292682334315034,
+          "margin_rel": 0.075
+        },
+        "c959_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005092307459563017,
+          "best_alternative_validation_mse": 0.004308093339204788,
+          "switch_threshold_validation_mse": 0.0047103844000957905,
+          "margin_rel": 0.075
+        },
+        "c959_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004949441645294428,
+          "best_alternative_validation_mse": 0.004318713676184416,
+          "switch_threshold_validation_mse": 0.004578233521897346,
+          "margin_rel": 0.075
+        },
+        "c959_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007809123024344444,
+          "best_alternative_validation_mse": 0.005707874894142151,
+          "switch_threshold_validation_mse": 0.0072234387975186115,
+          "margin_rel": 0.075
+        },
+        "c959_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007650875020772219,
+          "best_alternative_validation_mse": 0.005886822007596493,
+          "switch_threshold_validation_mse": 0.007077059394214303,
+          "margin_rel": 0.075
+        }
+      }
+    },
+    "0.100000": {
+      "margin_rel": 0.1,
+      "primary_gain_over_adapted_PT_A57": {
+        "mean": 0.11941717504136433,
+        "median": 0.07228009624967979,
+        "ci_low": 0.06891475741811577,
+        "ci_high": 0.1776102896845188,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 3105
+      },
+      "gain_over_dual_A57_paired_initialization": {
+        "mean": 0.11198262500736493,
+        "median": 0.07228009624967979,
+        "ci_low": 0.06446674083435006,
+        "ci_high": 0.16053957914664693,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 3106
+      },
+      "switch_rate": 0.5625,
+      "harmful_switch_rate_all_cases": 0.0375,
+      "harmful_switch_count": 3,
+      "paired_control_available": true,
+      "eligible": true,
+      "selections": {
+        "c940_h1_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003107889322564006,
+          "best_alternative_validation_mse": 0.0030733966268599033,
+          "switch_threshold_validation_mse": 0.0027971003903076055,
+          "margin_rel": 0.1
+        },
+        "c940_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0028348951600492,
+          "best_alternative_validation_mse": 0.0027118725702166557,
+          "switch_threshold_validation_mse": 0.0025514056440442802,
+          "margin_rel": 0.1
+        },
+        "c940_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0047410777769982815,
+          "best_alternative_validation_mse": 0.004042273387312889,
+          "switch_threshold_validation_mse": 0.004266969999298454,
+          "margin_rel": 0.1
+        },
+        "c940_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.00449545681476593,
+          "best_alternative_validation_mse": 0.004053219687193632,
+          "switch_threshold_validation_mse": 0.004045911133289337,
+          "margin_rel": 0.1
+        },
+        "c941_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.009424534626305103,
+          "best_alternative_validation_mse": 0.009714942425489426,
+          "switch_threshold_validation_mse": 0.008482081163674594,
+          "margin_rel": 0.1
+        },
+        "c941_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006995828822255135,
+          "best_alternative_validation_mse": 0.006849257275462151,
+          "switch_threshold_validation_mse": 0.006296245940029622,
+          "margin_rel": 0.1
+        },
+        "c941_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.011311493813991547,
+          "best_alternative_validation_mse": 0.010410211980342865,
+          "switch_threshold_validation_mse": 0.010180344432592392,
+          "margin_rel": 0.1
+        },
+        "c941_h4_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.010157549753785133,
+          "best_alternative_validation_mse": 0.010144172236323357,
+          "switch_threshold_validation_mse": 0.00914179477840662,
+          "margin_rel": 0.1
+        },
+        "c942_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.001905212877318263,
+          "best_alternative_validation_mse": 0.0017612407682463527,
+          "switch_threshold_validation_mse": 0.0017146915895864367,
+          "margin_rel": 0.1
+        },
+        "c942_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0018085946794599295,
+          "best_alternative_validation_mse": 0.0018525943160057068,
+          "switch_threshold_validation_mse": 0.0016277352115139365,
+          "margin_rel": 0.1
+        },
+        "c942_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0023542477283626795,
+          "best_alternative_validation_mse": 0.002092750510200858,
+          "switch_threshold_validation_mse": 0.0021188229555264117,
+          "margin_rel": 0.1
+        },
+        "c942_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002295962767675519,
+          "best_alternative_validation_mse": 0.001967938616871834,
+          "switch_threshold_validation_mse": 0.002066366490907967,
+          "margin_rel": 0.1
+        },
+        "c943_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004207026679068804,
+          "best_alternative_validation_mse": 0.003517639357596636,
+          "switch_threshold_validation_mse": 0.0037863240111619236,
+          "margin_rel": 0.1
+        },
+        "c943_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0038167370948940516,
+          "best_alternative_validation_mse": 0.0032476079650223255,
+          "switch_threshold_validation_mse": 0.0034350633854046465,
+          "margin_rel": 0.1
+        },
+        "c943_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031455622520297766,
+          "best_alternative_validation_mse": 0.003183036809787154,
+          "switch_threshold_validation_mse": 0.002831006026826799,
+          "margin_rel": 0.1
+        },
+        "c943_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0032361734192818403,
+          "best_alternative_validation_mse": 0.0032489034347236156,
+          "switch_threshold_validation_mse": 0.002912556077353656,
+          "margin_rel": 0.1
+        },
+        "c944_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005899431183934212,
+          "best_alternative_validation_mse": 0.003075719578191638,
+          "switch_threshold_validation_mse": 0.005309488065540791,
+          "margin_rel": 0.1
+        },
+        "c944_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0034866442438215017,
+          "best_alternative_validation_mse": 0.0015912341186776757,
+          "switch_threshold_validation_mse": 0.003137979819439352,
+          "margin_rel": 0.1
+        },
+        "c944_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004570792894810438,
+          "best_alternative_validation_mse": 0.0015488401986658573,
+          "switch_threshold_validation_mse": 0.004113713605329395,
+          "margin_rel": 0.1
+        },
+        "c944_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002221690258011222,
+          "best_alternative_validation_mse": 0.0016503410879522562,
+          "switch_threshold_validation_mse": 0.0019995212322101,
+          "margin_rel": 0.1
+        },
+        "c945_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0009832464857026935,
+          "best_alternative_validation_mse": 0.0008170462679117918,
+          "switch_threshold_validation_mse": 0.0008849218371324241,
+          "margin_rel": 0.1
+        },
+        "c945_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.001020021503791213,
+          "best_alternative_validation_mse": 0.0008303832146339118,
+          "switch_threshold_validation_mse": 0.0009180193534120918,
+          "margin_rel": 0.1
+        },
+        "c945_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0013689793413504958,
+          "best_alternative_validation_mse": 0.0012924002949148417,
+          "switch_threshold_validation_mse": 0.0012320814072154464,
+          "margin_rel": 0.1
+        },
+        "c945_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0023520078975707293,
+          "best_alternative_validation_mse": 0.0012333157937973738,
+          "switch_threshold_validation_mse": 0.0021168071078136565,
+          "margin_rel": 0.1
+        },
+        "c946_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.003498842939734459,
+          "best_alternative_validation_mse": 0.0026007499545812607,
+          "switch_threshold_validation_mse": 0.003148958645761013,
+          "margin_rel": 0.1
+        },
+        "c946_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0035064793191850185,
+          "best_alternative_validation_mse": 0.0025627983268350363,
+          "switch_threshold_validation_mse": 0.0031558313872665166,
+          "margin_rel": 0.1
+        },
+        "c946_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003732172539457679,
+          "best_alternative_validation_mse": 0.003806791501119733,
+          "switch_threshold_validation_mse": 0.003358955285511911,
+          "margin_rel": 0.1
+        },
+        "c946_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003745570546016097,
+          "best_alternative_validation_mse": 0.003902663476765156,
+          "switch_threshold_validation_mse": 0.0033710134914144876,
+          "margin_rel": 0.1
+        },
+        "c947_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.007071502972394228,
+          "best_alternative_validation_mse": 0.006951779592782259,
+          "switch_threshold_validation_mse": 0.0063643526751548055,
+          "margin_rel": 0.1
+        },
+        "c947_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.006361474748700857,
+          "best_alternative_validation_mse": 0.005251958966255188,
+          "switch_threshold_validation_mse": 0.005725327273830772,
+          "margin_rel": 0.1
+        },
+        "c947_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006849625613540411,
+          "best_alternative_validation_mse": 0.007047348655760288,
+          "switch_threshold_validation_mse": 0.00616466305218637,
+          "margin_rel": 0.1
+        },
+        "c947_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006772076711058617,
+          "best_alternative_validation_mse": 0.006693827919661999,
+          "switch_threshold_validation_mse": 0.006094869039952755,
+          "margin_rel": 0.1
+        },
+        "c948_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004333309829235077,
+          "best_alternative_validation_mse": 0.0027352578472346067,
+          "switch_threshold_validation_mse": 0.003899978846311569,
+          "margin_rel": 0.1
+        },
+        "c948_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031704127322882414,
+          "best_alternative_validation_mse": 0.0030100340954959393,
+          "switch_threshold_validation_mse": 0.002853371459059417,
+          "margin_rel": 0.1
+        },
+        "c948_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0038343241903930902,
+          "best_alternative_validation_mse": 0.003440774278715253,
+          "switch_threshold_validation_mse": 0.0034508917713537814,
+          "margin_rel": 0.1
+        },
+        "c948_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004897504113614559,
+          "best_alternative_validation_mse": 0.004242073278874159,
+          "switch_threshold_validation_mse": 0.004407753702253103,
+          "margin_rel": 0.1
+        },
+        "c949_h1_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0008648293442092836,
+          "best_alternative_validation_mse": 0.0008768329280428588,
+          "switch_threshold_validation_mse": 0.0007783464097883552,
+          "margin_rel": 0.1
+        },
+        "c949_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.000864077010191977,
+          "best_alternative_validation_mse": 0.0008551701321266592,
+          "switch_threshold_validation_mse": 0.0007776693091727793,
+          "margin_rel": 0.1
+        },
+        "c949_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0010446073720231652,
+          "best_alternative_validation_mse": 0.001399585627950728,
+          "switch_threshold_validation_mse": 0.0009401466348208488,
+          "margin_rel": 0.1
+        },
+        "c949_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.000986106926575303,
+          "best_alternative_validation_mse": 0.0013426856603473425,
+          "switch_threshold_validation_mse": 0.0008874962339177728,
+          "margin_rel": 0.1
+        },
+        "c950_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.001663806033320725,
+          "best_alternative_validation_mse": 0.0013566025299951434,
+          "switch_threshold_validation_mse": 0.0014974254299886525,
+          "margin_rel": 0.1
+        },
+        "c950_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0015132862608879805,
+          "best_alternative_validation_mse": 0.0013427920639514923,
+          "switch_threshold_validation_mse": 0.0013619576347991824,
+          "margin_rel": 0.1
+        },
+        "c950_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002257151762023568,
+          "best_alternative_validation_mse": 0.0018045468023046851,
+          "switch_threshold_validation_mse": 0.0020314365858212116,
+          "margin_rel": 0.1
+        },
+        "c950_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0019551145378500223,
+          "best_alternative_validation_mse": 0.0017663300968706608,
+          "switch_threshold_validation_mse": 0.0017596030840650201,
+          "margin_rel": 0.1
+        },
+        "c951_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0009046048508025706,
+          "best_alternative_validation_mse": 0.0005575974355451763,
+          "switch_threshold_validation_mse": 0.0008141443657223136,
+          "margin_rel": 0.1
+        },
+        "c951_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0007151160971261561,
+          "best_alternative_validation_mse": 0.0005801192601211369,
+          "switch_threshold_validation_mse": 0.0006436044874135405,
+          "margin_rel": 0.1
+        },
+        "c951_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0007453946745954454,
+          "best_alternative_validation_mse": 0.0007548695430159569,
+          "switch_threshold_validation_mse": 0.0006708552071359009,
+          "margin_rel": 0.1
+        },
+        "c951_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0007608089363202453,
+          "best_alternative_validation_mse": 0.0008565973839722574,
+          "switch_threshold_validation_mse": 0.0006847280426882208,
+          "margin_rel": 0.1
+        },
+        "c952_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004578420892357826,
+          "best_alternative_validation_mse": 0.003977231681346893,
+          "switch_threshold_validation_mse": 0.0041205788031220434,
+          "margin_rel": 0.1
+        },
+        "c952_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031765399035066366,
+          "best_alternative_validation_mse": 0.0031691603362560272,
+          "switch_threshold_validation_mse": 0.002858885913155973,
+          "margin_rel": 0.1
+        },
+        "c952_h4_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004372075200080872,
+          "best_alternative_validation_mse": 0.0029308111406862736,
+          "switch_threshold_validation_mse": 0.003934867680072784,
+          "margin_rel": 0.1
+        },
+        "c952_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004303332418203354,
+          "best_alternative_validation_mse": 0.00284366006962955,
+          "switch_threshold_validation_mse": 0.0038729991763830187,
+          "margin_rel": 0.1
+        },
+        "c953_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005401792470365763,
+          "best_alternative_validation_mse": 0.0051780580542981625,
+          "switch_threshold_validation_mse": 0.004861613223329187,
+          "margin_rel": 0.1
+        },
+        "c953_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005499557591974735,
+          "best_alternative_validation_mse": 0.004589546471834183,
+          "switch_threshold_validation_mse": 0.004949601832777262,
+          "margin_rel": 0.1
+        },
+        "c953_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004862102679908276,
+          "best_alternative_validation_mse": 0.004103139042854309,
+          "switch_threshold_validation_mse": 0.004375892411917448,
+          "margin_rel": 0.1
+        },
+        "c953_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.004332283977419138,
+          "best_alternative_validation_mse": 0.0040773977525532246,
+          "switch_threshold_validation_mse": 0.0038990555796772244,
+          "margin_rel": 0.1
+        },
+        "c954_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0062009370885789394,
+          "best_alternative_validation_mse": 0.006548240780830383,
+          "switch_threshold_validation_mse": 0.005580843379721046,
+          "margin_rel": 0.1
+        },
+        "c954_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005679219029843807,
+          "best_alternative_validation_mse": 0.0057425848208367825,
+          "switch_threshold_validation_mse": 0.0051112971268594265,
+          "margin_rel": 0.1
+        },
+        "c954_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006958910264074802,
+          "best_alternative_validation_mse": 0.006604830734431744,
+          "switch_threshold_validation_mse": 0.006263019237667322,
+          "margin_rel": 0.1
+        },
+        "c954_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005892398301512003,
+          "best_alternative_validation_mse": 0.005395890679210424,
+          "switch_threshold_validation_mse": 0.0053031584713608025,
+          "margin_rel": 0.1
+        },
+        "c955_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0006625325768254697,
+          "best_alternative_validation_mse": 0.0006260218797251582,
+          "switch_threshold_validation_mse": 0.0005962793191429228,
+          "margin_rel": 0.1
+        },
+        "c955_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0006704150000587106,
+          "best_alternative_validation_mse": 0.0005700398469343781,
+          "switch_threshold_validation_mse": 0.0006033735000528396,
+          "margin_rel": 0.1
+        },
+        "c955_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.001200451166369021,
+          "best_alternative_validation_mse": 0.0015805457951501012,
+          "switch_threshold_validation_mse": 0.001080406049732119,
+          "margin_rel": 0.1
+        },
+        "c955_h4_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0009857658296823502,
+          "best_alternative_validation_mse": 0.0014085458824411035,
+          "switch_threshold_validation_mse": 0.0008871892467141152,
+          "margin_rel": 0.1
+        },
+        "c956_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.00271639134734869,
+          "best_alternative_validation_mse": 0.002244899282231927,
+          "switch_threshold_validation_mse": 0.002444752212613821,
+          "margin_rel": 0.1
+        },
+        "c956_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.003283996367827058,
+          "best_alternative_validation_mse": 0.002600457053631544,
+          "switch_threshold_validation_mse": 0.0029555967310443522,
+          "margin_rel": 0.1
+        },
+        "c956_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004912205506116152,
+          "best_alternative_validation_mse": 0.0038777857553213835,
+          "switch_threshold_validation_mse": 0.004420984955504537,
+          "margin_rel": 0.1
+        },
+        "c956_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.00605903472751379,
+          "best_alternative_validation_mse": 0.0042768074199557304,
+          "switch_threshold_validation_mse": 0.005453131254762412,
+          "margin_rel": 0.1
+        },
+        "c957_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.008515100926160812,
+          "best_alternative_validation_mse": 0.006244074087589979,
+          "switch_threshold_validation_mse": 0.007663590833544731,
+          "margin_rel": 0.1
+        },
+        "c957_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007739413063973188,
+          "best_alternative_validation_mse": 0.006425288040190935,
+          "switch_threshold_validation_mse": 0.00696547175757587,
+          "margin_rel": 0.1
+        },
+        "c957_h4_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.01192165445536375,
+          "best_alternative_validation_mse": 0.008532069623470306,
+          "switch_threshold_validation_mse": 0.010729489009827375,
+          "margin_rel": 0.1
+        },
+        "c957_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.011090480722486973,
+          "best_alternative_validation_mse": 0.007094888016581535,
+          "switch_threshold_validation_mse": 0.009981432650238277,
+          "margin_rel": 0.1
+        },
+        "c958_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002698484342545271,
+          "best_alternative_validation_mse": 0.0016953764716163278,
+          "switch_threshold_validation_mse": 0.002428635908290744,
+          "margin_rel": 0.1
+        },
+        "c958_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0024610329419374466,
+          "best_alternative_validation_mse": 0.0016176028875634074,
+          "switch_threshold_validation_mse": 0.002214929647743702,
+          "margin_rel": 0.1
+        },
+        "c958_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0029800720512866974,
+          "best_alternative_validation_mse": 0.00260759680531919,
+          "switch_threshold_validation_mse": 0.002682064846158028,
+          "margin_rel": 0.1
+        },
+        "c958_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0028424521442502737,
+          "best_alternative_validation_mse": 0.002493474865332246,
+          "switch_threshold_validation_mse": 0.0025582069298252462,
+          "margin_rel": 0.1
+        },
+        "c959_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005092307459563017,
+          "best_alternative_validation_mse": 0.004308093339204788,
+          "switch_threshold_validation_mse": 0.0045830767136067155,
+          "margin_rel": 0.1
+        },
+        "c959_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004949441645294428,
+          "best_alternative_validation_mse": 0.004318713676184416,
+          "switch_threshold_validation_mse": 0.004454497480764985,
+          "margin_rel": 0.1
+        },
+        "c959_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007809123024344444,
+          "best_alternative_validation_mse": 0.005707874894142151,
+          "switch_threshold_validation_mse": 0.00702821072191,
+          "margin_rel": 0.1
+        },
+        "c959_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007650875020772219,
+          "best_alternative_validation_mse": 0.005886822007596493,
+          "switch_threshold_validation_mse": 0.006885787518694997,
+          "margin_rel": 0.1
+        }
+      }
+    },
+    "0.125000": {
+      "margin_rel": 0.125,
+      "primary_gain_over_adapted_PT_A57": {
+        "mean": 0.1184449025334344,
+        "median": 0.07850782385150097,
+        "ci_low": 0.06723009106790229,
+        "ci_high": 0.17565675753804166,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 3205
+      },
+      "gain_over_dual_A57_paired_initialization": {
+        "mean": 0.11101035249943503,
+        "median": 0.07850782385150097,
+        "ci_low": 0.06683480235506699,
+        "ci_high": 0.15669597483614292,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 3206
+      },
+      "switch_rate": 0.5,
+      "harmful_switch_rate_all_cases": 0.025,
+      "harmful_switch_count": 2,
+      "paired_control_available": true,
+      "eligible": true,
+      "selections": {
+        "c940_h1_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003107889322564006,
+          "best_alternative_validation_mse": 0.0030733966268599033,
+          "switch_threshold_validation_mse": 0.002719403157243505,
+          "margin_rel": 0.125
+        },
+        "c940_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0028348951600492,
+          "best_alternative_validation_mse": 0.0027118725702166557,
+          "switch_threshold_validation_mse": 0.00248053326504305,
+          "margin_rel": 0.125
+        },
+        "c940_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0047410777769982815,
+          "best_alternative_validation_mse": 0.004042273387312889,
+          "switch_threshold_validation_mse": 0.004148443054873496,
+          "margin_rel": 0.125
+        },
+        "c940_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.00449545681476593,
+          "best_alternative_validation_mse": 0.004053219687193632,
+          "switch_threshold_validation_mse": 0.003933524712920189,
+          "margin_rel": 0.125
+        },
+        "c941_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.009424534626305103,
+          "best_alternative_validation_mse": 0.009714942425489426,
+          "switch_threshold_validation_mse": 0.008246467798016965,
+          "margin_rel": 0.125
+        },
+        "c941_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006995828822255135,
+          "best_alternative_validation_mse": 0.006849257275462151,
+          "switch_threshold_validation_mse": 0.006121350219473243,
+          "margin_rel": 0.125
+        },
+        "c941_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.011311493813991547,
+          "best_alternative_validation_mse": 0.010410211980342865,
+          "switch_threshold_validation_mse": 0.009897557087242603,
+          "margin_rel": 0.125
+        },
+        "c941_h4_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.010157549753785133,
+          "best_alternative_validation_mse": 0.010144172236323357,
+          "switch_threshold_validation_mse": 0.008887856034561992,
+          "margin_rel": 0.125
+        },
+        "c942_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.001905212877318263,
+          "best_alternative_validation_mse": 0.0017612407682463527,
+          "switch_threshold_validation_mse": 0.0016670612676534802,
+          "margin_rel": 0.125
+        },
+        "c942_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0018085946794599295,
+          "best_alternative_validation_mse": 0.0018525943160057068,
+          "switch_threshold_validation_mse": 0.0015825203445274383,
+          "margin_rel": 0.125
+        },
+        "c942_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0023542477283626795,
+          "best_alternative_validation_mse": 0.002092750510200858,
+          "switch_threshold_validation_mse": 0.0020599667623173445,
+          "margin_rel": 0.125
+        },
+        "c942_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002295962767675519,
+          "best_alternative_validation_mse": 0.001967938616871834,
+          "switch_threshold_validation_mse": 0.002008967421716079,
+          "margin_rel": 0.125
+        },
+        "c943_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004207026679068804,
+          "best_alternative_validation_mse": 0.003517639357596636,
+          "switch_threshold_validation_mse": 0.0036811483441852033,
+          "margin_rel": 0.125
+        },
+        "c943_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0038167370948940516,
+          "best_alternative_validation_mse": 0.0032476079650223255,
+          "switch_threshold_validation_mse": 0.003339644958032295,
+          "margin_rel": 0.125
+        },
+        "c943_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031455622520297766,
+          "best_alternative_validation_mse": 0.003183036809787154,
+          "switch_threshold_validation_mse": 0.0027523669705260545,
+          "margin_rel": 0.125
+        },
+        "c943_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0032361734192818403,
+          "best_alternative_validation_mse": 0.0032489034347236156,
+          "switch_threshold_validation_mse": 0.0028316517418716103,
+          "margin_rel": 0.125
+        },
+        "c944_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005899431183934212,
+          "best_alternative_validation_mse": 0.003075719578191638,
+          "switch_threshold_validation_mse": 0.005162002285942435,
+          "margin_rel": 0.125
+        },
+        "c944_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0034866442438215017,
+          "best_alternative_validation_mse": 0.0015912341186776757,
+          "switch_threshold_validation_mse": 0.003050813713343814,
+          "margin_rel": 0.125
+        },
+        "c944_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004570792894810438,
+          "best_alternative_validation_mse": 0.0015488401986658573,
+          "switch_threshold_validation_mse": 0.003999443782959133,
+          "margin_rel": 0.125
+        },
+        "c944_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002221690258011222,
+          "best_alternative_validation_mse": 0.0016503410879522562,
+          "switch_threshold_validation_mse": 0.0019439789757598191,
+          "margin_rel": 0.125
+        },
+        "c945_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0009832464857026935,
+          "best_alternative_validation_mse": 0.0008170462679117918,
+          "switch_threshold_validation_mse": 0.0008603406749898568,
+          "margin_rel": 0.125
+        },
+        "c945_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.001020021503791213,
+          "best_alternative_validation_mse": 0.0008303832146339118,
+          "switch_threshold_validation_mse": 0.0008925188158173114,
+          "margin_rel": 0.125
+        },
+        "c945_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0013689793413504958,
+          "best_alternative_validation_mse": 0.0012924002949148417,
+          "switch_threshold_validation_mse": 0.0011978569236816838,
+          "margin_rel": 0.125
+        },
+        "c945_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0023520078975707293,
+          "best_alternative_validation_mse": 0.0012333157937973738,
+          "switch_threshold_validation_mse": 0.002058006910374388,
+          "margin_rel": 0.125
+        },
+        "c946_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.003498842939734459,
+          "best_alternative_validation_mse": 0.0026007499545812607,
+          "switch_threshold_validation_mse": 0.0030614875722676516,
+          "margin_rel": 0.125
+        },
+        "c946_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0035064793191850185,
+          "best_alternative_validation_mse": 0.0025627983268350363,
+          "switch_threshold_validation_mse": 0.0030681694042868912,
+          "margin_rel": 0.125
+        },
+        "c946_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003732172539457679,
+          "best_alternative_validation_mse": 0.003806791501119733,
+          "switch_threshold_validation_mse": 0.003265650972025469,
+          "margin_rel": 0.125
+        },
+        "c946_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003745570546016097,
+          "best_alternative_validation_mse": 0.003902663476765156,
+          "switch_threshold_validation_mse": 0.003277374227764085,
+          "margin_rel": 0.125
+        },
+        "c947_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.007071502972394228,
+          "best_alternative_validation_mse": 0.006951779592782259,
+          "switch_threshold_validation_mse": 0.0061875651008449495,
+          "margin_rel": 0.125
+        },
+        "c947_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.006361474748700857,
+          "best_alternative_validation_mse": 0.005251958966255188,
+          "switch_threshold_validation_mse": 0.00556629040511325,
+          "margin_rel": 0.125
+        },
+        "c947_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006849625613540411,
+          "best_alternative_validation_mse": 0.007047348655760288,
+          "switch_threshold_validation_mse": 0.00599342241184786,
+          "margin_rel": 0.125
+        },
+        "c947_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006772076711058617,
+          "best_alternative_validation_mse": 0.006693827919661999,
+          "switch_threshold_validation_mse": 0.0059255671221762896,
+          "margin_rel": 0.125
+        },
+        "c948_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004333309829235077,
+          "best_alternative_validation_mse": 0.0027352578472346067,
+          "switch_threshold_validation_mse": 0.0037916461005806923,
+          "margin_rel": 0.125
+        },
+        "c948_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031704127322882414,
+          "best_alternative_validation_mse": 0.0030100340954959393,
+          "switch_threshold_validation_mse": 0.002774111140752211,
+          "margin_rel": 0.125
+        },
+        "c948_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0038343241903930902,
+          "best_alternative_validation_mse": 0.003440774278715253,
+          "switch_threshold_validation_mse": 0.003355033666593954,
+          "margin_rel": 0.125
+        },
+        "c948_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004897504113614559,
+          "best_alternative_validation_mse": 0.004242073278874159,
+          "switch_threshold_validation_mse": 0.004285316099412739,
+          "margin_rel": 0.125
+        },
+        "c949_h1_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0008648293442092836,
+          "best_alternative_validation_mse": 0.0008768329280428588,
+          "switch_threshold_validation_mse": 0.0007567256761831231,
+          "margin_rel": 0.125
+        },
+        "c949_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.000864077010191977,
+          "best_alternative_validation_mse": 0.0008551701321266592,
+          "switch_threshold_validation_mse": 0.0007560673839179799,
+          "margin_rel": 0.125
+        },
+        "c949_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0010446073720231652,
+          "best_alternative_validation_mse": 0.001399585627950728,
+          "switch_threshold_validation_mse": 0.0009140314505202696,
+          "margin_rel": 0.125
+        },
+        "c949_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.000986106926575303,
+          "best_alternative_validation_mse": 0.0013426856603473425,
+          "switch_threshold_validation_mse": 0.0008628435607533902,
+          "margin_rel": 0.125
+        },
+        "c950_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.001663806033320725,
+          "best_alternative_validation_mse": 0.0013566025299951434,
+          "switch_threshold_validation_mse": 0.0014558302791556343,
+          "margin_rel": 0.125
+        },
+        "c950_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0015132862608879805,
+          "best_alternative_validation_mse": 0.0013427920639514923,
+          "switch_threshold_validation_mse": 0.001324125478276983,
+          "margin_rel": 0.125
+        },
+        "c950_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002257151762023568,
+          "best_alternative_validation_mse": 0.0018045468023046851,
+          "switch_threshold_validation_mse": 0.001975007791770622,
+          "margin_rel": 0.125
+        },
+        "c950_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0019551145378500223,
+          "best_alternative_validation_mse": 0.0017663300968706608,
+          "switch_threshold_validation_mse": 0.0017107252206187695,
+          "margin_rel": 0.125
+        },
+        "c951_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0009046048508025706,
+          "best_alternative_validation_mse": 0.0005575974355451763,
+          "switch_threshold_validation_mse": 0.0007915292444522493,
+          "margin_rel": 0.125
+        },
+        "c951_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0007151160971261561,
+          "best_alternative_validation_mse": 0.0005801192601211369,
+          "switch_threshold_validation_mse": 0.0006257265849853866,
+          "margin_rel": 0.125
+        },
+        "c951_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0007453946745954454,
+          "best_alternative_validation_mse": 0.0007548695430159569,
+          "switch_threshold_validation_mse": 0.0006522203402710147,
+          "margin_rel": 0.125
+        },
+        "c951_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0007608089363202453,
+          "best_alternative_validation_mse": 0.0008565973839722574,
+          "switch_threshold_validation_mse": 0.0006657078192802146,
+          "margin_rel": 0.125
+        },
+        "c952_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004578420892357826,
+          "best_alternative_validation_mse": 0.003977231681346893,
+          "switch_threshold_validation_mse": 0.004006118280813098,
+          "margin_rel": 0.125
+        },
+        "c952_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031765399035066366,
+          "best_alternative_validation_mse": 0.0031691603362560272,
+          "switch_threshold_validation_mse": 0.002779472415568307,
+          "margin_rel": 0.125
+        },
+        "c952_h4_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004372075200080872,
+          "best_alternative_validation_mse": 0.0029308111406862736,
+          "switch_threshold_validation_mse": 0.0038255658000707626,
+          "margin_rel": 0.125
+        },
+        "c952_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004303332418203354,
+          "best_alternative_validation_mse": 0.00284366006962955,
+          "switch_threshold_validation_mse": 0.0037654158659279346,
+          "margin_rel": 0.125
+        },
+        "c953_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005401792470365763,
+          "best_alternative_validation_mse": 0.0051780580542981625,
+          "switch_threshold_validation_mse": 0.004726568411570042,
+          "margin_rel": 0.125
+        },
+        "c953_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005499557591974735,
+          "best_alternative_validation_mse": 0.004589546471834183,
+          "switch_threshold_validation_mse": 0.004812112892977893,
+          "margin_rel": 0.125
+        },
+        "c953_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004862102679908276,
+          "best_alternative_validation_mse": 0.004103139042854309,
+          "switch_threshold_validation_mse": 0.004254339844919741,
+          "margin_rel": 0.125
+        },
+        "c953_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.004332283977419138,
+          "best_alternative_validation_mse": 0.0040773977525532246,
+          "switch_threshold_validation_mse": 0.0037907484802417457,
+          "margin_rel": 0.125
+        },
+        "c954_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0062009370885789394,
+          "best_alternative_validation_mse": 0.006548240780830383,
+          "switch_threshold_validation_mse": 0.005425819952506572,
+          "margin_rel": 0.125
+        },
+        "c954_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005679219029843807,
+          "best_alternative_validation_mse": 0.0057425848208367825,
+          "switch_threshold_validation_mse": 0.004969316651113331,
+          "margin_rel": 0.125
+        },
+        "c954_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006958910264074802,
+          "best_alternative_validation_mse": 0.006604830734431744,
+          "switch_threshold_validation_mse": 0.006089046481065452,
+          "margin_rel": 0.125
+        },
+        "c954_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005892398301512003,
+          "best_alternative_validation_mse": 0.005395890679210424,
+          "switch_threshold_validation_mse": 0.005155848513823003,
+          "margin_rel": 0.125
+        },
+        "c955_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0006625325768254697,
+          "best_alternative_validation_mse": 0.0006260218797251582,
+          "switch_threshold_validation_mse": 0.000579716004722286,
+          "margin_rel": 0.125
+        },
+        "c955_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0006704150000587106,
+          "best_alternative_validation_mse": 0.0005700398469343781,
+          "switch_threshold_validation_mse": 0.0005866131250513718,
+          "margin_rel": 0.125
+        },
+        "c955_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.001200451166369021,
+          "best_alternative_validation_mse": 0.0015805457951501012,
+          "switch_threshold_validation_mse": 0.0010503947705728933,
+          "margin_rel": 0.125
+        },
+        "c955_h4_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0009857658296823502,
+          "best_alternative_validation_mse": 0.0014085458824411035,
+          "switch_threshold_validation_mse": 0.0008625451009720564,
+          "margin_rel": 0.125
+        },
+        "c956_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.00271639134734869,
+          "best_alternative_validation_mse": 0.002244899282231927,
+          "switch_threshold_validation_mse": 0.0023768424289301038,
+          "margin_rel": 0.125
+        },
+        "c956_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.003283996367827058,
+          "best_alternative_validation_mse": 0.002600457053631544,
+          "switch_threshold_validation_mse": 0.0028734968218486756,
+          "margin_rel": 0.125
+        },
+        "c956_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004912205506116152,
+          "best_alternative_validation_mse": 0.0038777857553213835,
+          "switch_threshold_validation_mse": 0.004298179817851633,
+          "margin_rel": 0.125
+        },
+        "c956_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.00605903472751379,
+          "best_alternative_validation_mse": 0.0042768074199557304,
+          "switch_threshold_validation_mse": 0.005301655386574566,
+          "margin_rel": 0.125
+        },
+        "c957_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.008515100926160812,
+          "best_alternative_validation_mse": 0.006244074087589979,
+          "switch_threshold_validation_mse": 0.007450713310390711,
+          "margin_rel": 0.125
+        },
+        "c957_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007739413063973188,
+          "best_alternative_validation_mse": 0.006425288040190935,
+          "switch_threshold_validation_mse": 0.00677198643097654,
+          "margin_rel": 0.125
+        },
+        "c957_h4_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.01192165445536375,
+          "best_alternative_validation_mse": 0.008532069623470306,
+          "switch_threshold_validation_mse": 0.010431447648443282,
+          "margin_rel": 0.125
+        },
+        "c957_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.011090480722486973,
+          "best_alternative_validation_mse": 0.007094888016581535,
+          "switch_threshold_validation_mse": 0.009704170632176101,
+          "margin_rel": 0.125
+        },
+        "c958_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002698484342545271,
+          "best_alternative_validation_mse": 0.0016953764716163278,
+          "switch_threshold_validation_mse": 0.002361173799727112,
+          "margin_rel": 0.125
+        },
+        "c958_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0024610329419374466,
+          "best_alternative_validation_mse": 0.0016176028875634074,
+          "switch_threshold_validation_mse": 0.0021534038241952658,
+          "margin_rel": 0.125
+        },
+        "c958_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0029800720512866974,
+          "best_alternative_validation_mse": 0.00260759680531919,
+          "switch_threshold_validation_mse": 0.00260756304487586,
+          "margin_rel": 0.125
+        },
+        "c958_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0028424521442502737,
+          "best_alternative_validation_mse": 0.002493474865332246,
+          "switch_threshold_validation_mse": 0.0024871456262189895,
+          "margin_rel": 0.125
+        },
+        "c959_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005092307459563017,
+          "best_alternative_validation_mse": 0.004308093339204788,
+          "switch_threshold_validation_mse": 0.00445576902711764,
+          "margin_rel": 0.125
+        },
+        "c959_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004949441645294428,
+          "best_alternative_validation_mse": 0.004318713676184416,
+          "switch_threshold_validation_mse": 0.004330761439632624,
+          "margin_rel": 0.125
+        },
+        "c959_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007809123024344444,
+          "best_alternative_validation_mse": 0.005707874894142151,
+          "switch_threshold_validation_mse": 0.006832982646301389,
+          "margin_rel": 0.125
+        },
+        "c959_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007650875020772219,
+          "best_alternative_validation_mse": 0.005886822007596493,
+          "switch_threshold_validation_mse": 0.006694515643175691,
+          "margin_rel": 0.125
+        }
+      }
+    },
+    "0.150000": {
+      "margin_rel": 0.15,
+      "primary_gain_over_adapted_PT_A57": {
+        "mean": 0.10844073654506432,
+        "median": 0.07228009624967979,
+        "ci_low": 0.05812926947755838,
+        "ci_high": 0.1655529751573378,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 3305
+      },
+      "gain_over_dual_A57_paired_initialization": {
+        "mean": 0.10100618651106492,
+        "median": 0.07228009624967979,
+        "ci_low": 0.056881808689359284,
+        "ci_high": 0.14925423752181807,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 3306
+      },
+      "switch_rate": 0.4125,
+      "harmful_switch_rate_all_cases": 0.0125,
+      "harmful_switch_count": 1,
+      "paired_control_available": true,
+      "eligible": true,
+      "selections": {
+        "c940_h1_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003107889322564006,
+          "best_alternative_validation_mse": 0.0030733966268599033,
+          "switch_threshold_validation_mse": 0.0026417059241794047,
+          "margin_rel": 0.15
+        },
+        "c940_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0028348951600492,
+          "best_alternative_validation_mse": 0.0027118725702166557,
+          "switch_threshold_validation_mse": 0.00240966088604182,
+          "margin_rel": 0.15
+        },
+        "c940_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0047410777769982815,
+          "best_alternative_validation_mse": 0.004042273387312889,
+          "switch_threshold_validation_mse": 0.004029916110448539,
+          "margin_rel": 0.15
+        },
+        "c940_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.00449545681476593,
+          "best_alternative_validation_mse": 0.004053219687193632,
+          "switch_threshold_validation_mse": 0.0038211382925510406,
+          "margin_rel": 0.15
+        },
+        "c941_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.009424534626305103,
+          "best_alternative_validation_mse": 0.009714942425489426,
+          "switch_threshold_validation_mse": 0.008010854432359337,
+          "margin_rel": 0.15
+        },
+        "c941_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006995828822255135,
+          "best_alternative_validation_mse": 0.006849257275462151,
+          "switch_threshold_validation_mse": 0.005946454498916864,
+          "margin_rel": 0.15
+        },
+        "c941_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.011311493813991547,
+          "best_alternative_validation_mse": 0.010410211980342865,
+          "switch_threshold_validation_mse": 0.009614769741892815,
+          "margin_rel": 0.15
+        },
+        "c941_h4_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.010157549753785133,
+          "best_alternative_validation_mse": 0.010144172236323357,
+          "switch_threshold_validation_mse": 0.008633917290717363,
+          "margin_rel": 0.15
+        },
+        "c942_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.001905212877318263,
+          "best_alternative_validation_mse": 0.0017612407682463527,
+          "switch_threshold_validation_mse": 0.0016194309457205236,
+          "margin_rel": 0.15
+        },
+        "c942_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0018085946794599295,
+          "best_alternative_validation_mse": 0.0018525943160057068,
+          "switch_threshold_validation_mse": 0.00153730547754094,
+          "margin_rel": 0.15
+        },
+        "c942_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0023542477283626795,
+          "best_alternative_validation_mse": 0.002092750510200858,
+          "switch_threshold_validation_mse": 0.0020011105691082774,
+          "margin_rel": 0.15
+        },
+        "c942_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.002295962767675519,
+          "best_alternative_validation_mse": 0.001967938616871834,
+          "switch_threshold_validation_mse": 0.0019515683525241911,
+          "margin_rel": 0.15
+        },
+        "c943_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004207026679068804,
+          "best_alternative_validation_mse": 0.003517639357596636,
+          "switch_threshold_validation_mse": 0.003575972677208483,
+          "margin_rel": 0.15
+        },
+        "c943_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0038167370948940516,
+          "best_alternative_validation_mse": 0.0032476079650223255,
+          "switch_threshold_validation_mse": 0.0032442265306599437,
+          "margin_rel": 0.15
+        },
+        "c943_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031455622520297766,
+          "best_alternative_validation_mse": 0.003183036809787154,
+          "switch_threshold_validation_mse": 0.00267372791422531,
+          "margin_rel": 0.15
+        },
+        "c943_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0032361734192818403,
+          "best_alternative_validation_mse": 0.0032489034347236156,
+          "switch_threshold_validation_mse": 0.0027507474063895644,
+          "margin_rel": 0.15
+        },
+        "c944_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005899431183934212,
+          "best_alternative_validation_mse": 0.003075719578191638,
+          "switch_threshold_validation_mse": 0.00501451650634408,
+          "margin_rel": 0.15
+        },
+        "c944_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0034866442438215017,
+          "best_alternative_validation_mse": 0.0015912341186776757,
+          "switch_threshold_validation_mse": 0.002963647607248276,
+          "margin_rel": 0.15
+        },
+        "c944_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004570792894810438,
+          "best_alternative_validation_mse": 0.0015488401986658573,
+          "switch_threshold_validation_mse": 0.0038851739605888723,
+          "margin_rel": 0.15
+        },
+        "c944_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002221690258011222,
+          "best_alternative_validation_mse": 0.0016503410879522562,
+          "switch_threshold_validation_mse": 0.0018884367193095386,
+          "margin_rel": 0.15
+        },
+        "c945_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0009832464857026935,
+          "best_alternative_validation_mse": 0.0008170462679117918,
+          "switch_threshold_validation_mse": 0.0008357595128472894,
+          "margin_rel": 0.15
+        },
+        "c945_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.001020021503791213,
+          "best_alternative_validation_mse": 0.0008303832146339118,
+          "switch_threshold_validation_mse": 0.0008670182782225311,
+          "margin_rel": 0.15
+        },
+        "c945_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0013689793413504958,
+          "best_alternative_validation_mse": 0.0012924002949148417,
+          "switch_threshold_validation_mse": 0.0011636324401479213,
+          "margin_rel": 0.15
+        },
+        "c945_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0023520078975707293,
+          "best_alternative_validation_mse": 0.0012333157937973738,
+          "switch_threshold_validation_mse": 0.0019992067129351197,
+          "margin_rel": 0.15
+        },
+        "c946_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.003498842939734459,
+          "best_alternative_validation_mse": 0.0026007499545812607,
+          "switch_threshold_validation_mse": 0.00297401649877429,
+          "margin_rel": 0.15
+        },
+        "c946_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0035064793191850185,
+          "best_alternative_validation_mse": 0.0025627983268350363,
+          "switch_threshold_validation_mse": 0.002980507421307266,
+          "margin_rel": 0.15
+        },
+        "c946_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003732172539457679,
+          "best_alternative_validation_mse": 0.003806791501119733,
+          "switch_threshold_validation_mse": 0.003172346658539027,
+          "margin_rel": 0.15
+        },
+        "c946_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003745570546016097,
+          "best_alternative_validation_mse": 0.003902663476765156,
+          "switch_threshold_validation_mse": 0.0031837349641136822,
+          "margin_rel": 0.15
+        },
+        "c947_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.007071502972394228,
+          "best_alternative_validation_mse": 0.006951779592782259,
+          "switch_threshold_validation_mse": 0.0060107775265350934,
+          "margin_rel": 0.15
+        },
+        "c947_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.006361474748700857,
+          "best_alternative_validation_mse": 0.005251958966255188,
+          "switch_threshold_validation_mse": 0.005407253536395728,
+          "margin_rel": 0.15
+        },
+        "c947_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006849625613540411,
+          "best_alternative_validation_mse": 0.007047348655760288,
+          "switch_threshold_validation_mse": 0.0058221817715093495,
+          "margin_rel": 0.15
+        },
+        "c947_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006772076711058617,
+          "best_alternative_validation_mse": 0.006693827919661999,
+          "switch_threshold_validation_mse": 0.005756265204399824,
+          "margin_rel": 0.15
+        },
+        "c948_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004333309829235077,
+          "best_alternative_validation_mse": 0.0027352578472346067,
+          "switch_threshold_validation_mse": 0.0036833133548498155,
+          "margin_rel": 0.15
+        },
+        "c948_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031704127322882414,
+          "best_alternative_validation_mse": 0.0030100340954959393,
+          "switch_threshold_validation_mse": 0.0026948508224450053,
+          "margin_rel": 0.15
+        },
+        "c948_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0038343241903930902,
+          "best_alternative_validation_mse": 0.003440774278715253,
+          "switch_threshold_validation_mse": 0.0032591755618341265,
+          "margin_rel": 0.15
+        },
+        "c948_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.004897504113614559,
+          "best_alternative_validation_mse": 0.004242073278874159,
+          "switch_threshold_validation_mse": 0.004162878496572375,
+          "margin_rel": 0.15
+        },
+        "c949_h1_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0008648293442092836,
+          "best_alternative_validation_mse": 0.0008768329280428588,
+          "switch_threshold_validation_mse": 0.000735104942577891,
+          "margin_rel": 0.15
+        },
+        "c949_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.000864077010191977,
+          "best_alternative_validation_mse": 0.0008551701321266592,
+          "switch_threshold_validation_mse": 0.0007344654586631805,
+          "margin_rel": 0.15
+        },
+        "c949_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0010446073720231652,
+          "best_alternative_validation_mse": 0.001399585627950728,
+          "switch_threshold_validation_mse": 0.0008879162662196904,
+          "margin_rel": 0.15
+        },
+        "c949_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.000986106926575303,
+          "best_alternative_validation_mse": 0.0013426856603473425,
+          "switch_threshold_validation_mse": 0.0008381908875890076,
+          "margin_rel": 0.15
+        },
+        "c950_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.001663806033320725,
+          "best_alternative_validation_mse": 0.0013566025299951434,
+          "switch_threshold_validation_mse": 0.0014142351283226162,
+          "margin_rel": 0.15
+        },
+        "c950_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0015132862608879805,
+          "best_alternative_validation_mse": 0.0013427920639514923,
+          "switch_threshold_validation_mse": 0.0012862933217547834,
+          "margin_rel": 0.15
+        },
+        "c950_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002257151762023568,
+          "best_alternative_validation_mse": 0.0018045468023046851,
+          "switch_threshold_validation_mse": 0.0019185789977200329,
+          "margin_rel": 0.15
+        },
+        "c950_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0019551145378500223,
+          "best_alternative_validation_mse": 0.0017663300968706608,
+          "switch_threshold_validation_mse": 0.001661847357172519,
+          "margin_rel": 0.15
+        },
+        "c951_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0009046048508025706,
+          "best_alternative_validation_mse": 0.0005575974355451763,
+          "switch_threshold_validation_mse": 0.0007689141231821849,
+          "margin_rel": 0.15
+        },
+        "c951_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0007151160971261561,
+          "best_alternative_validation_mse": 0.0005801192601211369,
+          "switch_threshold_validation_mse": 0.0006078486825572327,
+          "margin_rel": 0.15
+        },
+        "c951_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0007453946745954454,
+          "best_alternative_validation_mse": 0.0007548695430159569,
+          "switch_threshold_validation_mse": 0.0006335854734061285,
+          "margin_rel": 0.15
+        },
+        "c951_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0007608089363202453,
+          "best_alternative_validation_mse": 0.0008565973839722574,
+          "switch_threshold_validation_mse": 0.0006466875958722084,
+          "margin_rel": 0.15
+        },
+        "c952_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.004578420892357826,
+          "best_alternative_validation_mse": 0.003977231681346893,
+          "switch_threshold_validation_mse": 0.003891657758504152,
+          "margin_rel": 0.15
+        },
+        "c952_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031765399035066366,
+          "best_alternative_validation_mse": 0.0031691603362560272,
+          "switch_threshold_validation_mse": 0.002700058917980641,
+          "margin_rel": 0.15
+        },
+        "c952_h4_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004372075200080872,
+          "best_alternative_validation_mse": 0.0029308111406862736,
+          "switch_threshold_validation_mse": 0.003716263920068741,
+          "margin_rel": 0.15
+        },
+        "c952_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004303332418203354,
+          "best_alternative_validation_mse": 0.00284366006962955,
+          "switch_threshold_validation_mse": 0.0036578325554728506,
+          "margin_rel": 0.15
+        },
+        "c953_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005401792470365763,
+          "best_alternative_validation_mse": 0.0051780580542981625,
+          "switch_threshold_validation_mse": 0.004591523599810898,
+          "margin_rel": 0.15
+        },
+        "c953_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005499557591974735,
+          "best_alternative_validation_mse": 0.004589546471834183,
+          "switch_threshold_validation_mse": 0.004674623953178525,
+          "margin_rel": 0.15
+        },
+        "c953_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004862102679908276,
+          "best_alternative_validation_mse": 0.004103139042854309,
+          "switch_threshold_validation_mse": 0.004132787277922034,
+          "margin_rel": 0.15
+        },
+        "c953_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.004332283977419138,
+          "best_alternative_validation_mse": 0.0040773977525532246,
+          "switch_threshold_validation_mse": 0.003682441380806267,
+          "margin_rel": 0.15
+        },
+        "c954_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0062009370885789394,
+          "best_alternative_validation_mse": 0.006548240780830383,
+          "switch_threshold_validation_mse": 0.005270796525292098,
+          "margin_rel": 0.15
+        },
+        "c954_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005679219029843807,
+          "best_alternative_validation_mse": 0.0057425848208367825,
+          "switch_threshold_validation_mse": 0.004827336175367236,
+          "margin_rel": 0.15
+        },
+        "c954_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006958910264074802,
+          "best_alternative_validation_mse": 0.006604830734431744,
+          "switch_threshold_validation_mse": 0.005915073724463582,
+          "margin_rel": 0.15
+        },
+        "c954_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005892398301512003,
+          "best_alternative_validation_mse": 0.005395890679210424,
+          "switch_threshold_validation_mse": 0.005008538556285203,
+          "margin_rel": 0.15
+        },
+        "c955_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0006625325768254697,
+          "best_alternative_validation_mse": 0.0006260218797251582,
+          "switch_threshold_validation_mse": 0.0005631526903016492,
+          "margin_rel": 0.15
+        },
+        "c955_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0006704150000587106,
+          "best_alternative_validation_mse": 0.0005700398469343781,
+          "switch_threshold_validation_mse": 0.0005698527500499039,
+          "margin_rel": 0.15
+        },
+        "c955_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.001200451166369021,
+          "best_alternative_validation_mse": 0.0015805457951501012,
+          "switch_threshold_validation_mse": 0.0010203834914136677,
+          "margin_rel": 0.15
+        },
+        "c955_h4_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0009857658296823502,
+          "best_alternative_validation_mse": 0.0014085458824411035,
+          "switch_threshold_validation_mse": 0.0008379009552299976,
+          "margin_rel": 0.15
+        },
+        "c956_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.00271639134734869,
+          "best_alternative_validation_mse": 0.002244899282231927,
+          "switch_threshold_validation_mse": 0.0023089326452463864,
+          "margin_rel": 0.15
+        },
+        "c956_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.003283996367827058,
+          "best_alternative_validation_mse": 0.002600457053631544,
+          "switch_threshold_validation_mse": 0.002791396912652999,
+          "margin_rel": 0.15
+        },
+        "c956_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004912205506116152,
+          "best_alternative_validation_mse": 0.0038777857553213835,
+          "switch_threshold_validation_mse": 0.004175374680198729,
+          "margin_rel": 0.15
+        },
+        "c956_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.00605903472751379,
+          "best_alternative_validation_mse": 0.0042768074199557304,
+          "switch_threshold_validation_mse": 0.005150179518386721,
+          "margin_rel": 0.15
+        },
+        "c957_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.008515100926160812,
+          "best_alternative_validation_mse": 0.006244074087589979,
+          "switch_threshold_validation_mse": 0.0072378357872366905,
+          "margin_rel": 0.15
+        },
+        "c957_h1_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007739413063973188,
+          "best_alternative_validation_mse": 0.006425288040190935,
+          "switch_threshold_validation_mse": 0.00657850110437721,
+          "margin_rel": 0.15
+        },
+        "c957_h4_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.01192165445536375,
+          "best_alternative_validation_mse": 0.008532069623470306,
+          "switch_threshold_validation_mse": 0.010133406287059188,
+          "margin_rel": 0.15
+        },
+        "c957_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.011090480722486973,
+          "best_alternative_validation_mse": 0.007094888016581535,
+          "switch_threshold_validation_mse": 0.009426908614113926,
+          "margin_rel": 0.15
+        },
+        "c958_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002698484342545271,
+          "best_alternative_validation_mse": 0.0016953764716163278,
+          "switch_threshold_validation_mse": 0.00229371169116348,
+          "margin_rel": 0.15
+        },
+        "c958_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0024610329419374466,
+          "best_alternative_validation_mse": 0.0016176028875634074,
+          "switch_threshold_validation_mse": 0.0020918780006468295,
+          "margin_rel": 0.15
+        },
+        "c958_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0029800720512866974,
+          "best_alternative_validation_mse": 0.00260759680531919,
+          "switch_threshold_validation_mse": 0.0025330612435936926,
+          "margin_rel": 0.15
+        },
+        "c958_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0028424521442502737,
+          "best_alternative_validation_mse": 0.002493474865332246,
+          "switch_threshold_validation_mse": 0.0024160843226127327,
+          "margin_rel": 0.15
+        },
+        "c959_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005092307459563017,
+          "best_alternative_validation_mse": 0.004308093339204788,
+          "switch_threshold_validation_mse": 0.004328461340628564,
+          "margin_rel": 0.15
+        },
+        "c959_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.004949441645294428,
+          "best_alternative_validation_mse": 0.004318713676184416,
+          "switch_threshold_validation_mse": 0.004207025398500264,
+          "margin_rel": 0.15
+        },
+        "c959_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007809123024344444,
+          "best_alternative_validation_mse": 0.005707874894142151,
+          "switch_threshold_validation_mse": 0.006637754570692778,
+          "margin_rel": 0.15
+        },
+        "c959_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007650875020772219,
+          "best_alternative_validation_mse": 0.005886822007596493,
+          "switch_threshold_validation_mse": 0.006503243767656386,
+          "margin_rel": 0.15
+        }
+      }
+    },
+    "0.200000": {
+      "margin_rel": 0.2,
+      "primary_gain_over_adapted_PT_A57": {
+        "mean": 0.09027660919433125,
+        "median": 0.04273865058773479,
+        "ci_low": 0.043253569410756094,
+        "ci_high": 0.14846832549730574,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 3405
+      },
+      "gain_over_dual_A57_paired_initialization": {
+        "mean": 0.08284205916033185,
+        "median": 0.04273865058773479,
+        "ci_low": 0.044253150789398496,
+        "ci_high": 0.12703543086917896,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 3406
+      },
+      "switch_rate": 0.275,
+      "harmful_switch_rate_all_cases": 0.0,
+      "harmful_switch_count": 0,
+      "paired_control_available": true,
+      "eligible": true,
+      "selections": {
+        "c940_h1_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003107889322564006,
+          "best_alternative_validation_mse": 0.0030733966268599033,
+          "switch_threshold_validation_mse": 0.0024863114580512048,
+          "margin_rel": 0.2
+        },
+        "c940_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0028348951600492,
+          "best_alternative_validation_mse": 0.0027118725702166557,
+          "switch_threshold_validation_mse": 0.00226791612803936,
+          "margin_rel": 0.2
+        },
+        "c940_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0047410777769982815,
+          "best_alternative_validation_mse": 0.004042273387312889,
+          "switch_threshold_validation_mse": 0.0037928622215986254,
+          "margin_rel": 0.2
+        },
+        "c940_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.00449545681476593,
+          "best_alternative_validation_mse": 0.004053219687193632,
+          "switch_threshold_validation_mse": 0.003596365451812744,
+          "margin_rel": 0.2
+        },
+        "c941_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.009424534626305103,
+          "best_alternative_validation_mse": 0.009714942425489426,
+          "switch_threshold_validation_mse": 0.007539627701044083,
+          "margin_rel": 0.2
+        },
+        "c941_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006995828822255135,
+          "best_alternative_validation_mse": 0.006849257275462151,
+          "switch_threshold_validation_mse": 0.005596663057804108,
+          "margin_rel": 0.2
+        },
+        "c941_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.011311493813991547,
+          "best_alternative_validation_mse": 0.010410211980342865,
+          "switch_threshold_validation_mse": 0.009049195051193238,
+          "margin_rel": 0.2
+        },
+        "c941_h4_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.010157549753785133,
+          "best_alternative_validation_mse": 0.010144172236323357,
+          "switch_threshold_validation_mse": 0.008126039803028107,
+          "margin_rel": 0.2
+        },
+        "c942_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.001905212877318263,
+          "best_alternative_validation_mse": 0.0017612407682463527,
+          "switch_threshold_validation_mse": 0.0015241703018546106,
+          "margin_rel": 0.2
+        },
+        "c942_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0018085946794599295,
+          "best_alternative_validation_mse": 0.0018525943160057068,
+          "switch_threshold_validation_mse": 0.0014468757435679436,
+          "margin_rel": 0.2
+        },
+        "c942_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0023542477283626795,
+          "best_alternative_validation_mse": 0.002092750510200858,
+          "switch_threshold_validation_mse": 0.0018833981826901437,
+          "margin_rel": 0.2
+        },
+        "c942_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.002295962767675519,
+          "best_alternative_validation_mse": 0.001967938616871834,
+          "switch_threshold_validation_mse": 0.0018367702141404152,
+          "margin_rel": 0.2
+        },
+        "c943_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.004207026679068804,
+          "best_alternative_validation_mse": 0.003517639357596636,
+          "switch_threshold_validation_mse": 0.0033656213432550434,
+          "margin_rel": 0.2
+        },
+        "c943_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0038167370948940516,
+          "best_alternative_validation_mse": 0.0032476079650223255,
+          "switch_threshold_validation_mse": 0.0030533896759152414,
+          "margin_rel": 0.2
+        },
+        "c943_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031455622520297766,
+          "best_alternative_validation_mse": 0.003183036809787154,
+          "switch_threshold_validation_mse": 0.0025164498016238216,
+          "margin_rel": 0.2
+        },
+        "c943_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0032361734192818403,
+          "best_alternative_validation_mse": 0.0032489034347236156,
+          "switch_threshold_validation_mse": 0.0025889387354254725,
+          "margin_rel": 0.2
+        },
+        "c944_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.005899431183934212,
+          "best_alternative_validation_mse": 0.003075719578191638,
+          "switch_threshold_validation_mse": 0.00471954494714737,
+          "margin_rel": 0.2
+        },
+        "c944_h1_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0034866442438215017,
+          "best_alternative_validation_mse": 0.0015912341186776757,
+          "switch_threshold_validation_mse": 0.0027893153950572015,
+          "margin_rel": 0.2
+        },
+        "c944_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004570792894810438,
+          "best_alternative_validation_mse": 0.0015488401986658573,
+          "switch_threshold_validation_mse": 0.0036566343158483507,
+          "margin_rel": 0.2
+        },
+        "c944_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002221690258011222,
+          "best_alternative_validation_mse": 0.0016503410879522562,
+          "switch_threshold_validation_mse": 0.0017773522064089776,
+          "margin_rel": 0.2
+        },
+        "c945_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0009832464857026935,
+          "best_alternative_validation_mse": 0.0008170462679117918,
+          "switch_threshold_validation_mse": 0.0007865971885621548,
+          "margin_rel": 0.2
+        },
+        "c945_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.001020021503791213,
+          "best_alternative_validation_mse": 0.0008303832146339118,
+          "switch_threshold_validation_mse": 0.0008160172030329705,
+          "margin_rel": 0.2
+        },
+        "c945_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0013689793413504958,
+          "best_alternative_validation_mse": 0.0012924002949148417,
+          "switch_threshold_validation_mse": 0.0010951834730803967,
+          "margin_rel": 0.2
+        },
+        "c945_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0023520078975707293,
+          "best_alternative_validation_mse": 0.0012333157937973738,
+          "switch_threshold_validation_mse": 0.0018816063180565835,
+          "margin_rel": 0.2
+        },
+        "c946_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.003498842939734459,
+          "best_alternative_validation_mse": 0.0026007499545812607,
+          "switch_threshold_validation_mse": 0.0027990743517875673,
+          "margin_rel": 0.2
+        },
+        "c946_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0035064793191850185,
+          "best_alternative_validation_mse": 0.0025627983268350363,
+          "switch_threshold_validation_mse": 0.002805183455348015,
+          "margin_rel": 0.2
+        },
+        "c946_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003732172539457679,
+          "best_alternative_validation_mse": 0.003806791501119733,
+          "switch_threshold_validation_mse": 0.0029857380315661433,
+          "margin_rel": 0.2
+        },
+        "c946_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.003745570546016097,
+          "best_alternative_validation_mse": 0.003902663476765156,
+          "switch_threshold_validation_mse": 0.0029964564368128777,
+          "margin_rel": 0.2
+        },
+        "c947_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.007071502972394228,
+          "best_alternative_validation_mse": 0.006951779592782259,
+          "switch_threshold_validation_mse": 0.005657202377915383,
+          "margin_rel": 0.2
+        },
+        "c947_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006361474748700857,
+          "best_alternative_validation_mse": 0.005251958966255188,
+          "switch_threshold_validation_mse": 0.005089179798960686,
+          "margin_rel": 0.2
+        },
+        "c947_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006849625613540411,
+          "best_alternative_validation_mse": 0.007047348655760288,
+          "switch_threshold_validation_mse": 0.005479700490832329,
+          "margin_rel": 0.2
+        },
+        "c947_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006772076711058617,
+          "best_alternative_validation_mse": 0.006693827919661999,
+          "switch_threshold_validation_mse": 0.005417661368846894,
+          "margin_rel": 0.2
+        },
+        "c948_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004333309829235077,
+          "best_alternative_validation_mse": 0.0027352578472346067,
+          "switch_threshold_validation_mse": 0.003466647863388062,
+          "margin_rel": 0.2
+        },
+        "c948_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031704127322882414,
+          "best_alternative_validation_mse": 0.0030100340954959393,
+          "switch_threshold_validation_mse": 0.0025363301858305934,
+          "margin_rel": 0.2
+        },
+        "c948_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0038343241903930902,
+          "best_alternative_validation_mse": 0.003440774278715253,
+          "switch_threshold_validation_mse": 0.0030674593523144725,
+          "margin_rel": 0.2
+        },
+        "c948_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.004897504113614559,
+          "best_alternative_validation_mse": 0.004242073278874159,
+          "switch_threshold_validation_mse": 0.003918003290891647,
+          "margin_rel": 0.2
+        },
+        "c949_h1_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0008648293442092836,
+          "best_alternative_validation_mse": 0.0008768329280428588,
+          "switch_threshold_validation_mse": 0.0006918634753674269,
+          "margin_rel": 0.2
+        },
+        "c949_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.000864077010191977,
+          "best_alternative_validation_mse": 0.0008551701321266592,
+          "switch_threshold_validation_mse": 0.0006912616081535816,
+          "margin_rel": 0.2
+        },
+        "c949_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0010446073720231652,
+          "best_alternative_validation_mse": 0.001399585627950728,
+          "switch_threshold_validation_mse": 0.0008356858976185322,
+          "margin_rel": 0.2
+        },
+        "c949_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.000986106926575303,
+          "best_alternative_validation_mse": 0.0013426856603473425,
+          "switch_threshold_validation_mse": 0.0007888855412602425,
+          "margin_rel": 0.2
+        },
+        "c950_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.001663806033320725,
+          "best_alternative_validation_mse": 0.0013566025299951434,
+          "switch_threshold_validation_mse": 0.00133104482665658,
+          "margin_rel": 0.2
+        },
+        "c950_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0015132862608879805,
+          "best_alternative_validation_mse": 0.0013427920639514923,
+          "switch_threshold_validation_mse": 0.0012106290087103844,
+          "margin_rel": 0.2
+        },
+        "c950_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002257151762023568,
+          "best_alternative_validation_mse": 0.0018045468023046851,
+          "switch_threshold_validation_mse": 0.0018057214096188546,
+          "margin_rel": 0.2
+        },
+        "c950_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0019551145378500223,
+          "best_alternative_validation_mse": 0.0017663300968706608,
+          "switch_threshold_validation_mse": 0.001564091630280018,
+          "margin_rel": 0.2
+        },
+        "c951_h1_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0009046048508025706,
+          "best_alternative_validation_mse": 0.0005575974355451763,
+          "switch_threshold_validation_mse": 0.0007236838806420565,
+          "margin_rel": 0.2
+        },
+        "c951_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0007151160971261561,
+          "best_alternative_validation_mse": 0.0005801192601211369,
+          "switch_threshold_validation_mse": 0.0005720928777009249,
+          "margin_rel": 0.2
+        },
+        "c951_h4_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0007453946745954454,
+          "best_alternative_validation_mse": 0.0007548695430159569,
+          "switch_threshold_validation_mse": 0.0005963157396763563,
+          "margin_rel": 0.2
+        },
+        "c951_h4_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0007608089363202453,
+          "best_alternative_validation_mse": 0.0008565973839722574,
+          "switch_threshold_validation_mse": 0.0006086471490561962,
+          "margin_rel": 0.2
+        },
+        "c952_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.004578420892357826,
+          "best_alternative_validation_mse": 0.003977231681346893,
+          "switch_threshold_validation_mse": 0.003662736713886261,
+          "margin_rel": 0.2
+        },
+        "c952_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0031765399035066366,
+          "best_alternative_validation_mse": 0.0031691603362560272,
+          "switch_threshold_validation_mse": 0.0025412319228053093,
+          "margin_rel": 0.2
+        },
+        "c952_h4_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004372075200080872,
+          "best_alternative_validation_mse": 0.0029308111406862736,
+          "switch_threshold_validation_mse": 0.0034976601600646973,
+          "margin_rel": 0.2
+        },
+        "c952_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004303332418203354,
+          "best_alternative_validation_mse": 0.00284366006962955,
+          "switch_threshold_validation_mse": 0.0034426659345626835,
+          "margin_rel": 0.2
+        },
+        "c953_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005401792470365763,
+          "best_alternative_validation_mse": 0.0051780580542981625,
+          "switch_threshold_validation_mse": 0.0043214339762926105,
+          "margin_rel": 0.2
+        },
+        "c953_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005499557591974735,
+          "best_alternative_validation_mse": 0.004589546471834183,
+          "switch_threshold_validation_mse": 0.004399646073579788,
+          "margin_rel": 0.2
+        },
+        "c953_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.004862102679908276,
+          "best_alternative_validation_mse": 0.004103139042854309,
+          "switch_threshold_validation_mse": 0.003889682143926621,
+          "margin_rel": 0.2
+        },
+        "c953_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.004332283977419138,
+          "best_alternative_validation_mse": 0.0040773977525532246,
+          "switch_threshold_validation_mse": 0.0034658271819353105,
+          "margin_rel": 0.2
+        },
+        "c954_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0062009370885789394,
+          "best_alternative_validation_mse": 0.006548240780830383,
+          "switch_threshold_validation_mse": 0.004960749670863152,
+          "margin_rel": 0.2
+        },
+        "c954_h1_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005679219029843807,
+          "best_alternative_validation_mse": 0.0057425848208367825,
+          "switch_threshold_validation_mse": 0.004543375223875046,
+          "margin_rel": 0.2
+        },
+        "c954_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.006958910264074802,
+          "best_alternative_validation_mse": 0.006604830734431744,
+          "switch_threshold_validation_mse": 0.005567128211259842,
+          "margin_rel": 0.2
+        },
+        "c954_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005892398301512003,
+          "best_alternative_validation_mse": 0.005395890679210424,
+          "switch_threshold_validation_mse": 0.004713918641209603,
+          "margin_rel": 0.2
+        },
+        "c955_h1_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0006625325768254697,
+          "best_alternative_validation_mse": 0.0006260218797251582,
+          "switch_threshold_validation_mse": 0.0005300260614603758,
+          "margin_rel": 0.2
+        },
+        "c955_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0006704150000587106,
+          "best_alternative_validation_mse": 0.0005700398469343781,
+          "switch_threshold_validation_mse": 0.0005363320000469684,
+          "margin_rel": 0.2
+        },
+        "c955_h4_k10_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.001200451166369021,
+          "best_alternative_validation_mse": 0.0015805457951501012,
+          "switch_threshold_validation_mse": 0.0009603609330952168,
+          "margin_rel": 0.2
+        },
+        "c955_h4_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0009857658296823502,
+          "best_alternative_validation_mse": 0.0014085458824411035,
+          "switch_threshold_validation_mse": 0.0007886126637458801,
+          "margin_rel": 0.2
+        },
+        "c956_h1_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.00271639134734869,
+          "best_alternative_validation_mse": 0.002244899282231927,
+          "switch_threshold_validation_mse": 0.002173113077878952,
+          "margin_rel": 0.2
+        },
+        "c956_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.003283996367827058,
+          "best_alternative_validation_mse": 0.002600457053631544,
+          "switch_threshold_validation_mse": 0.0026271970942616466,
+          "margin_rel": 0.2
+        },
+        "c956_h4_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.004912205506116152,
+          "best_alternative_validation_mse": 0.0038777857553213835,
+          "switch_threshold_validation_mse": 0.003929764404892922,
+          "margin_rel": 0.2
+        },
+        "c956_h4_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.00605903472751379,
+          "best_alternative_validation_mse": 0.0042768074199557304,
+          "switch_threshold_validation_mse": 0.004847227782011032,
+          "margin_rel": 0.2
+        },
+        "c957_h1_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.008515100926160812,
+          "best_alternative_validation_mse": 0.006244074087589979,
+          "switch_threshold_validation_mse": 0.00681208074092865,
+          "margin_rel": 0.2
+        },
+        "c957_h1_k20_btight": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.007739413063973188,
+          "best_alternative_validation_mse": 0.006425288040190935,
+          "switch_threshold_validation_mse": 0.006191530451178551,
+          "margin_rel": 0.2
+        },
+        "c957_h4_k10_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.01192165445536375,
+          "best_alternative_validation_mse": 0.008532069623470306,
+          "switch_threshold_validation_mse": 0.009537323564291001,
+          "margin_rel": 0.2
+        },
+        "c957_h4_k20_btight": {
+          "selected_token": "STRONG_COMPACT_A55",
+          "selected_arch_idx": 55,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.011090480722486973,
+          "best_alternative_validation_mse": 0.007094888016581535,
+          "switch_threshold_validation_mse": 0.008872384577989579,
+          "margin_rel": 0.2
+        },
+        "c958_h1_k10_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.002698484342545271,
+          "best_alternative_validation_mse": 0.0016953764716163278,
+          "switch_threshold_validation_mse": 0.0021587874740362166,
+          "margin_rel": 0.2
+        },
+        "c958_h1_k20_bmedium": {
+          "selected_token": "STRONG_COMPACT_A56",
+          "selected_arch_idx": 56,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.0024610329419374466,
+          "best_alternative_validation_mse": 0.0016176028875634074,
+          "switch_threshold_validation_mse": 0.0019688263535499574,
+          "margin_rel": 0.2
+        },
+        "c958_h4_k10_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0029800720512866974,
+          "best_alternative_validation_mse": 0.00260759680531919,
+          "switch_threshold_validation_mse": 0.0023840576410293583,
+          "margin_rel": 0.2
+        },
+        "c958_h4_k20_bmedium": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.0028424521442502737,
+          "best_alternative_validation_mse": 0.002493474865332246,
+          "switch_threshold_validation_mse": 0.0022739617154002192,
+          "margin_rel": 0.2
+        },
+        "c959_h1_k10_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.005092307459563017,
+          "best_alternative_validation_mse": 0.004308093339204788,
+          "switch_threshold_validation_mse": 0.004073845967650413,
+          "margin_rel": 0.2
+        },
+        "c959_h1_k20_bloose": {
+          "selected_token": "PT_A57_A57",
+          "selected_arch_idx": 57,
+          "switched_from_pt_anchor": false,
+          "anchor_validation_mse": 0.004949441645294428,
+          "best_alternative_validation_mse": 0.004318713676184416,
+          "switch_threshold_validation_mse": 0.003959553316235542,
+          "margin_rel": 0.2
+        },
+        "c959_h4_k10_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007809123024344444,
+          "best_alternative_validation_mse": 0.005707874894142151,
+          "switch_threshold_validation_mse": 0.006247298419475556,
+          "margin_rel": 0.2
+        },
+        "c959_h4_k20_bloose": {
+          "selected_token": "STRONG_COMPACT_A6",
+          "selected_arch_idx": 6,
+          "switched_from_pt_anchor": true,
+          "anchor_validation_mse": 0.007650875020772219,
+          "best_alternative_validation_mse": 0.005886822007596493,
+          "switch_threshold_validation_mse": 0.0061207000166177755,
+          "margin_rel": 0.2
+        }
+      }
+    }
+  },
+  "eligible_margins": [
+    0.075,
+    0.1,
+    0.125,
+    0.15,
+    0.2
+  ],
+  "selected_margin_rel": 0.075,
+  "deployment_mode": "calibrated_margin",
+  "decision": "PASS_R1_CALIBRATION_FROZEN",
+  "candidate_cache_sha256": "200ae5288752adf36ca9dc2c30bc4fb7367a2167a95a44a07237a6042d8da5fd",
+  "test_used": false
+}

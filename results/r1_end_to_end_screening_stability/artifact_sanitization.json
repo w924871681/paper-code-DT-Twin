@@ -1,0 +1,16 @@
+{
+  "decision": "PASS_ARTIFACT_ONLY_PATH_SANITIZATION",
+  "scientific_values_changed": false,
+  "training_or_evaluation_rerun": false,
+  "executed_protocol_sha256": "c960589cb8da9888b488668c6f3854c2465181865b0c45f6d6d4c3ae23fec89e",
+  "public_protocol_sha256": "27a3e786b7ef33b7ebdc7b4e6dd844a68f8e7204747791f4e1eeb3a181f2e7ed",
+  "changed_fields": [
+    "frozen_inputs.external_source_manifest.path",
+    "frozen_inputs.paired_c1_bank.path",
+    "isolation.output_root"
+  ],
+  "execution_command_changed_fields": [
+    "working_directory"
+  ],
+  "reason": "replace machine-local absolute paths with repository-relative public paths"
+}

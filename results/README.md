@@ -8,8 +8,9 @@ The result tree has two deliberately different layers.
   or `FLOPs`; these are provenance fields, not recommended public paper terms.
 - `figure_data/` is the public presentation layer. Its labels use the revised
   paper terminology, and `reporting/frozen.py` derives cross-file values before
-  rounding. It also contains the public derived CSVs for Fig. 6, Fig. 8, and
-  Fig. 9; these are the direct inputs to the independent plotting CLI.
+  rounding. It also contains the public plot-ready CSVs for Fig. 6--12 and the
+  auxiliary deployment radar; these are the direct inputs to the independent
+  plotting CLI.
 - `audited_provenance/` contains publishable immutable audit files, path-only
   sanitized copies with both hashes, and the manifest for narrowly corrected
   stale diagnostics.

@@ -1,0 +1,302 @@
+{
+  "screens": [
+    {
+      "screen": "S0",
+      "screening_pool_identity": {
+        "center_ids": [
+          900,
+          901,
+          902,
+          903,
+          904,
+          905,
+          906,
+          907,
+          908,
+          909,
+          910,
+          911,
+          912,
+          913,
+          914,
+          915,
+          916,
+          917,
+          918,
+          919
+        ],
+        "seed_offset": null,
+        "seed_offset_status": "not recorded in retained R2 artifact; screening is not rerun"
+      },
+      "retained_indexed_configurations": [
+        1,
+        6,
+        13,
+        55,
+        56,
+        57
+      ],
+      "executable_architecture_count": 5,
+      "candidate_bank_identities": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt"
+        },
+        {
+          "token": "LEGACY_C1_A57_A57",
+          "arch_idx": 57,
+          "initialization": "paired_c1"
+        },
+        {
+          "token": "STRONG_COMPACT_A1",
+          "arch_idx": 1,
+          "initialization": "r1_source_trained"
+        },
+        {
+          "token": "STRONG_COMPACT_A6",
+          "arch_idx": 6,
+          "initialization": "r1_source_trained"
+        },
+        {
+          "token": "STRONG_COMPACT_A13",
+          "arch_idx": 13,
+          "initialization": "r1_source_trained"
+        },
+        {
+          "token": "STRONG_COMPACT_A55",
+          "arch_idx": 55,
+          "initialization": "r1_source_trained"
+        },
+        {
+          "token": "STRONG_COMPACT_A56",
+          "arch_idx": 56,
+          "initialization": "r1_source_trained"
+        }
+      ],
+      "candidate_bank_size": 7,
+      "calibrated_tau": 0.075,
+      "calibration_deployment_mode": "calibrated_margin",
+      "pt_ft_mean_test_mse": 0.005401304942643037,
+      "msa_dti_mean_test_mse": 0.00470189750813006,
+      "mean_paired_mse_reduction_vs_pt_ft": 0.10033984848476193,
+      "mse_win_rate_vs_pt_ft": 0.525,
+      "center_cluster_bootstrap_95_ci": [
+        0.046019586273716655,
+        0.1601918498869172
+      ],
+      "bootstrap": {
+        "mean": 0.10033984848476193,
+        "median": 0.07872368750567578,
+        "ci_low": 0.046019586273716655,
+        "ci_high": 0.1601918498869172,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 3635
+      },
+      "reference_retained_cases": 32,
+      "alternative_selected_cases": 48,
+      "beneficial_alternatives": 42,
+      "harmful_alternatives": 6,
+      "all_case_harmful_selection_rate": 0.075,
+      "conditional_harmful_selection_rate": 0.125,
+      "deployment_limit_satisfaction": 1.0,
+      "selected_candidate_counts": {
+        "PT_A57_A57": 32,
+        "STRONG_COMPACT_A13": 2,
+        "STRONG_COMPACT_A55": 21,
+        "STRONG_COMPACT_A56": 19,
+        "STRONG_COMPACT_A6": 6
+      },
+      "selected_configuration_counts": {
+        "A13": 2,
+        "A55": 21,
+        "A56": 19,
+        "A57": 32,
+        "A6": 6
+      },
+      "N_centers": 20,
+      "N_cases": 80
+    },
+    {
+      "screen": "S1",
+      "screening_pool_identity": {
+        "center_ids": [
+          1120,
+          1121,
+          1122,
+          1123,
+          1124,
+          1125,
+          1126,
+          1127,
+          1128,
+          1129,
+          1130,
+          1131,
+          1132,
+          1133,
+          1134,
+          1135,
+          1136,
+          1137,
+          1138,
+          1139
+        ],
+        "seed_offset": null,
+        "seed_offset_status": "not recorded in retained R2 artifact; screening is not rerun"
+      },
+      "retained_indexed_configurations": [],
+      "executable_architecture_count": 1,
+      "candidate_bank_identities": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt"
+        }
+      ],
+      "candidate_bank_size": 1,
+      "calibrated_tau": null,
+      "calibration_deployment_mode": "adapted_reference_fallback",
+      "pt_ft_mean_test_mse": 0.005401304942643037,
+      "msa_dti_mean_test_mse": 0.005401304942643037,
+      "mean_paired_mse_reduction_vs_pt_ft": 0.0,
+      "mse_win_rate_vs_pt_ft": 0.0,
+      "center_cluster_bootstrap_95_ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap": {
+        "mean": 0.0,
+        "median": 0.0,
+        "ci_low": 0.0,
+        "ci_high": 0.0,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 3635
+      },
+      "reference_retained_cases": 80,
+      "alternative_selected_cases": 0,
+      "beneficial_alternatives": 0,
+      "harmful_alternatives": 0,
+      "all_case_harmful_selection_rate": 0.0,
+      "conditional_harmful_selection_rate": 0.0,
+      "deployment_limit_satisfaction": 1.0,
+      "selected_candidate_counts": {
+        "PT_A57_A57": 80
+      },
+      "selected_configuration_counts": {
+        "A57": 80
+      },
+      "N_centers": 20,
+      "N_cases": 80
+    },
+    {
+      "screen": "S2",
+      "screening_pool_identity": {
+        "center_ids": [
+          1140,
+          1141,
+          1142,
+          1143,
+          1144,
+          1145,
+          1146,
+          1147,
+          1148,
+          1149,
+          1150,
+          1151,
+          1152,
+          1153,
+          1154,
+          1155,
+          1156,
+          1157,
+          1158,
+          1159
+        ],
+        "seed_offset": null,
+        "seed_offset_status": "not recorded in retained R2 artifact; screening is not rerun"
+      },
+      "retained_indexed_configurations": [
+        55,
+        56,
+        57,
+        59
+      ],
+      "executable_architecture_count": 3,
+      "candidate_bank_identities": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt"
+        },
+        {
+          "token": "LEGACY_C1_A57_A57",
+          "arch_idx": 57,
+          "initialization": "paired_c1"
+        },
+        {
+          "token": "STRONG_COMPACT_A55",
+          "arch_idx": 55,
+          "initialization": "r1_source_trained"
+        },
+        {
+          "token": "STRONG_COMPACT_A56",
+          "arch_idx": 56,
+          "initialization": "r1_source_trained"
+        },
+        {
+          "token": "STRONG_COMPACT_A59",
+          "arch_idx": 59,
+          "initialization": "r1_source_trained"
+        }
+      ],
+      "candidate_bank_size": 5,
+      "calibrated_tau": 0.125,
+      "calibration_deployment_mode": "calibrated_margin",
+      "pt_ft_mean_test_mse": 0.005401304942643037,
+      "msa_dti_mean_test_mse": 0.004822332258845563,
+      "mean_paired_mse_reduction_vs_pt_ft": 0.08783902039039272,
+      "mse_win_rate_vs_pt_ft": 0.4125,
+      "center_cluster_bootstrap_95_ci": [
+        0.0383321583209547,
+        0.14238059842959225
+      ],
+      "bootstrap": {
+        "mean": 0.08783902039039272,
+        "median": 0.08161952821964322,
+        "ci_low": 0.0383321583209547,
+        "ci_high": 0.14238059842959225,
+        "N_centers": 20,
+        "N_cases": 80,
+        "bootstrap_repetitions": 4000,
+        "bootstrap_seed": 3635
+      },
+      "reference_retained_cases": 41,
+      "alternative_selected_cases": 39,
+      "beneficial_alternatives": 33,
+      "harmful_alternatives": 6,
+      "all_case_harmful_selection_rate": 0.075,
+      "conditional_harmful_selection_rate": 0.15384615384615385,
+      "deployment_limit_satisfaction": 1.0,
+      "selected_candidate_counts": {
+        "PT_A57_A57": 41,
+        "STRONG_COMPACT_A55": 16,
+        "STRONG_COMPACT_A56": 17,
+        "STRONG_COMPACT_A59": 6
+      },
+      "selected_configuration_counts": {
+        "A55": 16,
+        "A56": 17,
+        "A57": 41,
+        "A59": 6
+      },
+      "N_centers": 20,
+      "N_cases": 80
+    }
+  ]
+}

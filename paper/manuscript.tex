@@ -169,11 +169,10 @@ MSA-DTI filters out infeasible candidates before target adaptation and
 compares the remaining candidates only after adapting them using the same
 target data and update budget.
 
-\item \textbf{Calibrated reference-model replacement rule.}
-We introduce a relative-improvement threshold calibrated on disjoint
-development data, ensuring that an adapted alternative replaces the
-predefined reference model only after achieving the required relative
-reduction in validation loss.
+\item \textbf{Empirically calibrated reference-model replacement rule.}
+We introduce a relative-improvement threshold selected on disjoint development
+data so that an adapted alternative replaces the predefined reference model
+only after achieving the required relative reduction in validation loss.
 
 \end{itemize}
 
@@ -208,6 +207,12 @@ been applied to DT construction and workload prediction \cite{ref11,ref25}.
 Most parameter-adaptation methods operate with a fixed architecture. For
 heterogeneous target centers, a fixed architecture may be unsuitable,
 motivating selection among reusable source-trained models.
+
+Model selection with limited data introduces a related challenge because
+performance estimates from small validation sets may provide uncertain
+candidate rankings \cite{ref33,ref34}. Existing studies have examined model
+selection in small-data regimes and uncertainty over finite candidate sets.
+This motivates a conservative target-side decision when adapted reusable models are compared using limited validation data.
 
 \subsection{Deployment-Aware Architecture Selection}
 
@@ -269,8 +274,7 @@ a_c\in\mathcal{A},\;
 \label{eq:dt-instance}
 \end{equation}
 
-where $a_c$ and $\theta_c$ denote the target architecture and target-specific
-parameters, respectively.
+where \(a_c\) and \(\theta_c\) denote the target architecture and target-specific parameters, respectively.
 
 The target dataset for center $c$ is represented as
 
@@ -378,10 +382,7 @@ available.
 Figure~\ref{fig:method-overview} summarizes the three-stage MSA-DTI workflow
 for addressing the instantiation problem in Eq.~\eqref{eq:instantiation-problem}:
 candidate bank construction, dual-limit candidate filtering, and common-budget
-adaptation followed by reference-based selection. The first stage combines
-architecture screening and source pretraining to construct a reusable candidate
-bank and designates one candidate as the reference before margin calibration
-and final target evaluation. For each target center, candidates that violate
+adaptation followed by reference-based selection. The first stage combines architecture screening and source pretraining to construct a reusable candidate bank and designates one candidate as the reference. For each target center, candidates that violate
 the deployment limits are removed before adaptation. The remaining candidates
 are adapted using the same target support set and update budget, after which
 their post-adaptation performance is compared on a common validation set. A
@@ -655,8 +656,7 @@ When $\mathcal{T}_{\mathrm{elig}}$ is nonempty, MSA-DTI sets
 \[
 \tau^*=\min\mathcal{T}_{\mathrm{elig}}.
 \]
-The margin grid, threshold values, and resulting $\tau^*$ are reported in
-Section~\ref{sec:experiments}. The calibrated margin is fixed before final
+The calibrated margin is fixed before final
 target evaluation.
 
 If $\mathcal{T}_{\mathrm{elig}}=\varnothing$, MSA-DTI retains the adapted
@@ -709,7 +709,6 @@ the $|\mathcal{Q}|$ term accounts for deployment filtering.
 
 We evaluate prediction accuracy, selection reliability, deployment
 feasibility, target-side cost, and robustness across target conditions.
-Additional component and transfer analyses are reported.
 
 \subsection{Experimental Setup}
 \label{subsec:experimental-setup}
@@ -774,7 +773,9 @@ We compare MSA-DTI with pre-training and fine-tuning (PT+FT), MeDeT-based
 adaptation, random initialization, few-shot NAS, zero-shot NAS, zero-shot NAS
 with fine-tuning, and task-matched H-Meta-NAS-based adaptation
 \cite{ref30}. PT+FT is the main controlled baseline because it shares the
-source-trained reference and target adaptation procedure with MSA-DTI.
+source-trained reference and target adaptation procedure with MSA-DTI. The
+remaining baselines provide method-level comparisons while retaining their
+method-specific initialization or search procedures.
 
 As the closest evaluated architecture-adaptation baseline, H-Meta-NAS-based
 adaptation uses source-learned meta-initializations and validation-only target
@@ -883,18 +884,25 @@ under three source-training seeds yield paired MSE reductions ranging from
 
 We additionally apply the full 66-configuration screening procedure to two
 new 20-center pools, giving three screening pools in total when the original
-pool is included. Each screening outcome is then evaluated on a fourth,
-untouched 20-center pool. The retained-list sizes are 6, 0, and 4; the two new
+pool is included. The retained-list sizes are 6, 0, and 4, and the two new
 lists have Jaccard similarities of 0 and 0.429 to the frozen six-configuration
-list. On the independent diagnostic pool, validation-based selection from the
-frozen list gives a 0.30\% mean paired check-MSE reduction, with a 95\%
-confidence interval of $[-0.65\%,1.56\%]$ and a 2.50\% harmful-selection
-rate.
+list. A separate screening-stability diagnostic evaluates these retained lists
+on a fourth, untouched 20-center pool without retraining or retuning the
+downstream pipeline. The paired-gain intervals of both nonempty lists include
+zero.
 
-These results show that the preset candidate-discovery rule is
-sample-sensitive. The main experiment uses the prespecified bank frozen before
-held-out evaluation. In the rescreening analysis, A57 remains the reference
-when no alternative configuration is retained.
+The retained-list variation confirms sample sensitivity in candidate
+discovery. To examine how this variability propagates through the complete
+instantiation procedure, we then construct the corresponding source-trained
+banks, apply the unchanged margin-calibration rule to each bank, and evaluate
+the resulting pipelines on a new 20-center held-out pool. The S0- and
+S2-derived nonempty banks achieve mean paired MSE reductions of 10.03\%
+(95\% CI $[4.60\%,16.02\%]$) and 8.78\%
+(95\% CI $[3.83\%,14.24\%]$) relative to PT+FT, respectively; each produces
+six harmful alternative selections, corresponding to 7.50\% of the 80
+held-out cases. S1 retains no alternative and therefore reverts to the
+protected reference, yielding zero paired difference. All three pipelines
+satisfy both deployment limits in every case.
 
 \subsection{Deployment Feasibility and Cost}
 \label{subsec:deployment}
@@ -935,9 +943,8 @@ MSA-DTI.
 
 \input{tables/table4_target_cost.tex}
 
-MSA-DTI is slower than PT+FT but $2.37\times$ faster than few-shot NAS and
-$3.10\times$ faster than zero-shot NAS with fine-tuning. The reported
-target-side times are measured for one instantiation case on one GPU;
+Relative to PT+FT, MSA-DTI incurs higher target-side instantiation time while achieving lower held-out MSE in the main evaluation. It is \(2.37\times\) faster than few-shot NAS and \(3.10\times\) faster than zero-shot NAS with fine-tuning. The
+reported target-side times are measured for one instantiation case on one GPU;
 concurrent-case scaling and platform-level scheduling are outside the present
 evaluation.
 
@@ -966,8 +973,7 @@ filtering slightly lowers MSE but reduces limit satisfaction from 100\% to
 
 Overall, the main held-out result evaluates the complete MSA-DTI pipeline,
 while the diagnostic controls distinguish the roles of individual design
-choices. The cross-architecture gain is not reproduced by the
-same-architecture controls and remains sensitive to source training. The
+choices. The cross-architecture gain remains sensitive to source training. The
 relative margin mainly affects replacement conservativeness, whereas
 deployment filtering enforces limit satisfaction.
 
@@ -1040,9 +1046,14 @@ performance. In the main held-out evaluation, MSA-DTI reduces MSE by 14.60\%
 on average across paired cases relative to PT+FT while satisfying both
 deployment limits in all cases. The confidence interval for the held-out
 harmful-selection rate spans the 5\% calibration criterion, and the
-candidate-discovery rule is sample-sensitive. On Alibaba, direct transfer of
-the fixed main-study margin yields a positive mean paired MSE reduction, but
-no margin in the preset grid satisfies the calibration criteria. The current
+candidate-discovery rule is sample-sensitive. In a separate end-to-end
+screening analysis, the two nonempty screening-derived banks yield positive
+mean paired MSE reductions relative to PT+FT with confidence intervals above
+zero, while the no-alternative screening outcome reverts to the protected
+reference. On
+Alibaba, direct transfer of the fixed main-study margin yields a positive mean
+paired MSE reduction, but no margin in the preset grid satisfies the
+calibration criteria. The current
 evaluation is limited to a controlled synthetic benchmark and one external
 workload trace. Future work includes investigating more stable
 candidate-discovery procedures, uncertainty-aware selection, and deployment
@@ -1179,6 +1190,20 @@ Art. no. 103669, 2023, doi: 10.1016/j.jnca.2023.103669.
 v2018,'' GitHub repository, 2018. [Online]. Available:
 \url{https://github.com/alibaba/clusterdata/tree/master/cluster-trace-v2018}.
 Accessed: Jul. 3, 2026.
+
+\bibitem{ref33}
+J. Bornschein, F. Visin, and S. Osindero,
+``Small data, big decisions: Model selection in the small-data regime,''
+in \emph{Proc. 37th Int. Conf. Mach. Learn. (ICML)},
+vol. 119 of \emph{Proc. Mach. Learn. Res.},
+pp. 1035--1044, 2020.
+
+\bibitem{ref34}
+A. Lacoste, M. Marchand, F. Laviolette, and H. Larochelle,
+``Agnostic Bayesian learning of ensembles,''
+in \emph{Proc. 31st Int. Conf. Mach. Learn. (ICML)},
+vol. 32 of \emph{Proc. Mach. Learn. Res.},
+pp. 611--619, 2014.
 
 
 \end{thebibliography}

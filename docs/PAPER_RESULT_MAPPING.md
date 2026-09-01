@@ -16,9 +16,10 @@ v1.2.7 paper outputs.
 | Fig. 6: paired instantiation | locked proposed-method and PT+FT records | `fig6_paired_instantiation_data.csv` |
 | Fig. 7: heterogeneity | `tableS1_robustness_details.csv` | `fig7_heterogeneity_data.csv` |
 | Fig. 8: filtering and selection | locked proposed-method records | candidate-filtering and architecture-selection CSVs |
-| Fig. 9: bank/steps/threshold | bank-size, adaptation-trajectory, and sanitized margin results | three Fig. 9 CSVs |
-| Fig. 10: normalized target-side trade-off | overall comparison plus repeated target-side runtime | `fig10_deployment_tradeoff_data.csv`; labels distinguish target-side time, parameter count, and estimated operation count |
-| Fig. 11: complexity--performance map | locked architecture coverage plus frozen architecture complexity | `fig11_architecture_complexity_data.csv` |
+| Fig. 9: selection outcomes | frozen anchor-risk summary and already released center-cluster intervals | `fig9_selection_outcomes_data.csv` |
+| Fig. 10: selected-configuration complexity--performance map | locked architecture coverage plus frozen architecture complexity | `fig10_architecture_complexity_data.csv` |
+| Fig. 11: bank/steps/threshold configuration analysis | bank-size, adaptation-trajectory, and sanitized margin results | three Fig. 11 CSVs |
+| Auxiliary normalized deployment trade-off radar | overall comparison plus repeated target-side runtime | `deployment_tradeoff_radar_data.csv`; all five methods are plotted and the artifact is not referenced by the Supplement |
 | Fig. 12(a): controlled source scale | `tableS2_controlled_source_scale.csv` | source-scale panel |
 | Fig. 12(b): seed and Alibaba case distributions | frozen 240 source-seed and 80 anonymized Alibaba evaluation records | `fig12_case_level_gains.csv` and `fig12_group_summary.csv` |
 

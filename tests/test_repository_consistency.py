@@ -1,4 +1,7 @@
 from __future__ import annotations
+import json
+import subprocess
+import sys
 from pathlib import Path
 from reporting.frozen import PAPER_TABLE_NAMES, PUBLIC_TABLE_NAMES, paper_table_rows, public_table_rows
 from scripts.verify_repository import ROOT, run_verification
@@ -60,9 +63,10 @@ def test_reproducible_figures_have_public_data() -> None:
     assert len(rows) == 80
     assert sum(row["selection_category"] == "beneficial alternative" for row in rows) == 44
     assert (ROOT / "results/figure_data/fig8_architecture_selection_data.csv").is_file()
-    assert (ROOT / "results/figure_data/fig9_margin_data.csv").is_file()
-    assert (ROOT / "results/figure_data/fig10_deployment_tradeoff_data.csv").is_file()
-    assert (ROOT / "results/figure_data/fig11_architecture_complexity_data.csv").is_file()
+    assert (ROOT / "results/figure_data/fig9_selection_outcomes_data.csv").is_file()
+    assert (ROOT / "results/figure_data/fig10_architecture_complexity_data.csv").is_file()
+    assert (ROOT / "results/figure_data/fig11_margin_data.csv").is_file()
+    assert (ROOT / "results/figure_data/deployment_tradeoff_radar_data.csv").is_file()
     with (ROOT / "results/figure_data/fig12_case_level_gains.csv").open(
         encoding="utf-8-sig", newline=""
     ) as handle:
@@ -73,6 +77,54 @@ def test_reproducible_figures_have_public_data() -> None:
         row["group"] == "Alibaba" and float(row["gain_percent"]) < -25
         for row in fig12
     ) == 1
+
+
+def test_supplement_figure_generator_roles_and_radar_counts(tmp_path: Path) -> None:
+    data = ROOT / "results/figure_data"
+    script = """
+import json
+import sys
+from pathlib import Path
+from reporting.final_figures import (
+    plot_deployment_tradeoff_radar,
+    plot_fig9,
+    plot_fig10,
+    plot_fig11,
+)
+data = Path(sys.argv[1])
+output = Path(sys.argv[2])
+print(json.dumps({
+    "fig9": plot_fig9(data, output),
+    "fig10": plot_fig10(data, output),
+    "fig11": plot_fig11(data, output),
+    "radar": plot_deployment_tradeoff_radar(data, output),
+}))
+"""
+    completed = subprocess.run(
+        [sys.executable, "-c", script, str(data), str(tmp_path)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    audits = json.loads(completed.stdout)
+    expected = (
+        ("fig9", "selection_outcomes"),
+        ("fig10", "selected_configuration_complexity"),
+        ("fig11", "configuration_analysis"),
+    )
+    for stem, role in expected:
+        audit = audits[stem]
+        assert audit["figure"] == stem
+        assert audit["semantic"]["role"] == role
+        assert (tmp_path / f"{stem}.pdf").is_file()
+
+    radar = audits["radar"]
+    assert radar["figure"] == "deployment_tradeoff_radar"
+    assert radar["semantic"]["data_rows"] == 5
+    assert radar["semantic"]["plotted_methods"] == 5
+    assert radar["semantic"]["legend_methods"] == 5
+    assert radar["semantic"]["methods"][-1] == "MSA-DTI"
 
 
 def test_level_c_bootstrap_manifest_is_portable() -> None:

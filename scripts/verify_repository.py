@@ -64,7 +64,8 @@ REQUIRED_FILES = {
     "scripts/generate_fig_overall_performance.py", "reporting/overall_performance.py",
     "reporting/final_figures.py", "reporting/reproducible_figures.py",
     "scripts/validate_paper_outputs.py", "scripts/check_release_hygiene.py", "scripts/build_release_package.py", "reporting/frozen.py", "paper_assets/current_figures/manifest.json",
-    "paper/manuscript.tex", "paper/manuscript.pdf",
+    "paper/manuscript.tex", "paper/manuscript.pdf", "paper/supplementary.tex", "paper/supplementary.pdf",
+    "paper/figures/deployment_tradeoff_radar.pdf",
     "audit/v1.1.7/README.md", "audit/v1.1.7/local_verification.json",
     "audit/v1.1.8/README.md", "audit/v1.1.8/local_verification.json",
     "audit/v1.1.9/README.md", "audit/v1.1.9/local_verification.json",
@@ -209,16 +210,31 @@ def check_numbers() -> list[str]:
     if [(row["budget_tier"], row["case_count"], row["initialized_candidates_per_case"], row["feasible_candidates_per_case_mean"]) for row in filtering] != [("tight", "20", "7", "4"), ("medium", "52", "7", "7"), ("loose", "8", "7", "7")]: errors.append("Fig. 8 candidate-filtering data changed")
     selection = _csv(ROOT / "results/figure_data/fig8_architecture_selection_data.csv")
     if len(selection) != 15 or any(sum(int(row["selection_count"]) for row in selection if row["budget_tier"] == tier) != n for tier, n in (("tight", 20), ("medium", 52), ("loose", 8))): errors.append("Fig. 8 architecture-selection data changed")
-    margin = {float(row["minimum_improvement"]): row for row in _csv(ROOT / "results/figure_data/fig9_margin_data.csv")}
-    if float(margin[0.1]["harmful_selection_rate"]) != 0.05 or margin[0.1]["eligible_under_5pct_criterion"] != "true": errors.append("Fig. 9 margin data changed")
-    tradeoff = _csv(ROOT / "results/figure_data/fig10_deployment_tradeoff_data.csv")
+    outcomes = _csv(ROOT / "results/figure_data/fig9_selection_outcomes_data.csv")
+    outcome_tuples = [
+        (
+            row["selection_rule"],
+            int(row["beneficial_alternative"]),
+            int(row["harmful_alternative"]),
+            int(row["reference_retained"]),
+        )
+        for row in outcomes
+    ]
+    if outcome_tuples != [
+        ("MSA-DTI margin", 49, 12, 19),
+        ("Lowest validation loss", 55, 14, 11),
+    ]:
+        errors.append("Fig. 9 selection-outcome data changed")
+    tradeoff = _csv(ROOT / "results/figure_data/deployment_tradeoff_radar_data.csv")
     if [row["method"] for row in tradeoff] != ["PT+FT", "Few-shot NAS", "H-Meta-NAS", "Zero-shot NAS+FT", "MSA-DTI"]:
-        errors.append("Fig. 10 representative-method mapping changed")
-    architecture = {row["configuration"]: row for row in _csv(ROOT / "results/figure_data/fig11_architecture_complexity_data.csv")}
+        errors.append("deployment-radar representative-method mapping changed")
+    architecture = {row["configuration"]: row for row in _csv(ROOT / "results/figure_data/fig10_architecture_complexity_data.csv")}
     if set(architecture) != {"3-layer MLP-32", "4-layer MLP-32", "Alt. GRU-16", "Alt. GRU-32", "Ref. GRU-32"}:
-        errors.append("Fig. 11 architecture mapping changed")
+        errors.append("Fig. 10 architecture mapping changed")
     if architecture.get("Alt. GRU-32", {}).get("harmful_selected_cases") != "2" or architecture.get("Alt. GRU-16", {}).get("harmful_selected_cases") != "1":
-        errors.append("Fig. 11 harmful-case annotations changed")
+        errors.append("Fig. 10 harmful-case annotations changed")
+    margin = {float(row["minimum_improvement"]): row for row in _csv(ROOT / "results/figure_data/fig11_margin_data.csv")}
+    if float(margin[0.1]["harmful_selection_rate"]) != 0.05 or margin[0.1]["eligible_under_5pct_criterion"] != "true": errors.append("Fig. 11 margin data changed")
     cases = _csv(ROOT / "results/figure_data/fig12_case_level_gains.csv")
     alibaba_gains = [float(row["gain_percent"]) for row in cases if row["group"] == "Alibaba"]
     if (
@@ -299,9 +315,70 @@ def check_test_leakage() -> list[str]:
     for field, value in expected.items():
         if selector.get(field) != value:
             errors.append(f"selector leakage invariant changed: {field}")
-    fig9_caption = (ROOT / "reporting/frozen.py").read_text(encoding="utf-8")
-    if "Held-out target cases are not used" not in fig9_caption:
-        errors.append("Fig. 9 held-out isolation disclosure is missing")
+    figure_captions = (ROOT / "reporting/frozen.py").read_text(encoding="utf-8")
+    if "Held-out target cases are not used" not in figure_captions:
+        errors.append("Fig. 11 held-out isolation disclosure is missing")
+    return errors
+
+
+def check_supplement_figure_semantics() -> list[str]:
+    errors: list[str] = []
+    tex = (ROOT / "paper/supplementary.tex").read_text(encoding="utf-8")
+    expected = (
+        (
+            r"\paperfig{0.88\linewidth}{fig9.pdf}",
+            "Selection outcomes on the 80-case diagnostic pool.",
+        ),
+        (
+            r"\paperfig{0.88\linewidth}{fig10.pdf}",
+            "Selected-configuration complexity and performance. Marker area shows the",
+        ),
+        (
+            r"\paperfig{0.92\linewidth}{fig11.pdf}",
+            "Configuration analysis of (a) the retained configuration count,",
+        ),
+    )
+    for figure_call, caption in expected:
+        if figure_call not in tex or caption not in tex:
+            errors.append(f"supplement figure/caption mapping is stale: {figure_call}")
+
+    try:
+        from pypdf import PdfReader
+
+        required_pdf_tokens = {
+            "fig9.pdf": (
+                "MSA-DTI margin",
+                "Lowest validation loss",
+                "Beneficial alternative",
+            ),
+            "fig10.pdf": (
+                "Estimated operation count",
+                "Mean paired MSE reduction",
+                "Candidate role",
+            ),
+            "fig11.pdf": (
+                "Retained configurations",
+                "Adaptation steps",
+                "Selection threshold",
+            ),
+            "deployment_tradeoff_radar.pdf": (
+                "PT+FT",
+                "Few-shot NAS",
+                "H-Meta-NAS",
+                "Zero-shot NAS + FT",
+                "MSA-DTI",
+            ),
+        }
+        for filename, tokens in required_pdf_tokens.items():
+            path = ROOT / "paper/figures" / filename
+            extracted = "\n".join(
+                page.extract_text() or "" for page in PdfReader(str(path)).pages
+            )
+            missing = [token for token in tokens if token not in extracted]
+            if missing:
+                errors.append(f"{filename} semantic labels missing: {missing}")
+    except Exception as exc:
+        errors.append(f"cannot inspect Supplement figure semantics: {exc}")
     return errors
 
 
@@ -384,9 +461,9 @@ def check_paper_alignment() -> list[str]:
             errors.append("current manuscript PDF contains a stale public method name")
 
         supplementary_reader = PdfReader(str(ROOT / "paper/supplementary.pdf"))
-        if len(supplementary_reader.pages) != 11:
+        if len(supplementary_reader.pages) != 10:
             errors.append(
-                f"current supplementary PDF has {len(supplementary_reader.pages)} pages, expected 11"
+                f"current supplementary PDF has {len(supplementary_reader.pages)} pages, expected 10"
             )
     except Exception as exc:
         errors.append(f"cannot inspect current manuscript PDF: {exc}")
@@ -478,6 +555,7 @@ def run_verification(generated_root: Path | None=None) -> dict[str,Any]:
         ("numerical_consistency",check_numbers),
         ("test_leakage",check_test_leakage),
         ("unique_figure_implementation",check_unique_figure_implementation),
+        ("supplement_figure_semantics",check_supplement_figure_semantics),
         ("paper_alignment",check_paper_alignment),
         ("public_terminology",check_public_terms),
         ("privacy",check_privacy),

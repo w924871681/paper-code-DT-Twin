@@ -1,0 +1,82 @@
+{
+  "study": "R1 candidate-discovery end-to-end stability",
+  "screen": "S1",
+  "decision": "PASS_R1_BANK_FROZEN",
+  "retained_indexed_configurations": [],
+  "candidate_identities": [
+    {
+      "token": "PT_A57_A57",
+      "arch_idx": 57,
+      "initialization": "protected_pt"
+    }
+  ],
+  "candidate_bank_size": 1,
+  "source_centers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "source_recipe": {
+    "optimizer": "Adam",
+    "loss": "MSE",
+    "epochs": 50,
+    "lr": 0.001,
+    "batch_size": 64,
+    "weight_decay": 0.0,
+    "source_data": "support_plus_validation_K20"
+  },
+  "assets": {
+    "h1_a57": {
+      "path": "results/r1_end_to_end_screening_stability/banks/S1/source_h1_a57.pt",
+      "sha256": "9faaf152f58bb1be4261369914169868b024f4b5baf7ac621b92619ff25682b5",
+      "H": 1,
+      "arch_idx": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "provenance": "exact_frozen_PT_A57_copy",
+      "source_seed": null,
+      "epochs_completed": 50,
+      "elapsed_seconds": 0.0
+    },
+    "h4_a57": {
+      "path": "results/r1_end_to_end_screening_stability/banks/S1/source_h4_a57.pt",
+      "sha256": "de14f4fbaf86aeb68c774a2c1148ba890b7804c3a2f6acd2cd605ff32f7212ac",
+      "H": 4,
+      "arch_idx": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "provenance": "exact_frozen_PT_A57_copy",
+      "source_seed": null,
+      "epochs_completed": 50,
+      "elapsed_seconds": 0.0
+    }
+  },
+  "paired_c1_input": {
+    "included": false,
+    "path": "outputs/formal_c1_seed2904/shared_artifacts/ours_weight_bank_source_pooled_c1_v1_src20.pt",
+    "sha256": "bb3a655606af3b554a8f088bb1d2f3f8d9f190b0911a812fd3755d3de3216b9d"
+  },
+  "target_pool_used": false,
+  "calibration_pool_used": true,
+  "test_used": false,
+  "completed_assets": 2,
+  "expected_assets": 2,
+  "elapsed_seconds": 0.2487970999791287
+}

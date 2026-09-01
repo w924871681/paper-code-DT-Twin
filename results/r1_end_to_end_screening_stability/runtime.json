@@ -1,0 +1,15 @@
+{
+  "protocol_sha256": "27a3e786b7ef33b7ebdc7b4e6dd844a68f8e7204747791f4e1eeb3a181f2e7ed",
+  "total_elapsed_seconds": 14297.240599700017,
+  "phase_runtime_seconds": {
+    "S0_bank_and_calibration_seconds": 5216.83987549998,
+    "S1_bank_and_calibration_seconds": 149.22835369998938,
+    "S2_bank_and_calibration_seconds": 6937.525925299997,
+    "S0_heldout_evaluation_seconds": 824.412103700015,
+    "S1_heldout_evaluation_seconds": 216.21362190000946,
+    "S2_heldout_evaluation_seconds": 948.5687660000112
+  },
+  "completed_at_unix_s": 1788260813.3018572,
+  "executed_protocol_sha256": "c960589cb8da9888b488668c6f3854c2465181865b0c45f6d6d4c3ae23fec89e",
+  "artifact_only_refinalization": true
+}

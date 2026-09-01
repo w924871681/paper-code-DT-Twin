@@ -30,6 +30,7 @@ from reporting.final_figures import (
     plot_fig10,
     plot_fig11,
     plot_fig12,
+    plot_deployment_tradeoff_radar,
 )
 from reporting.overall_performance import (
     EXPECTED_H_META_NAS_LABELS,
@@ -73,6 +74,9 @@ PAPER_TABLE_META: Mapping[str, tuple[str, str]] = {
 REVISED_FIGURES: Mapping[str, tuple[float, float]] = OrderedDict(
     (name, FIGURE_SIZES[name]) for name in (f"fig{index}" for index in range(6, 13))
 )
+AUXILIARY_FIGURES: Mapping[str, tuple[float, float]] = OrderedDict(
+    (("deployment_tradeoff_radar", (3.526, 3.420)),)
+)
 FIGURE_SIZE_TOLERANCE_INCHES = 0.25
 FIGURE_PIXEL_TOLERANCE = round(600 * FIGURE_SIZE_TOLERANCE_INCHES)
 
@@ -83,12 +87,13 @@ REPRODUCIBLE_FIGURE_DATA = (
     "fig6_paired_instantiation_data.csv",
     "fig8_candidate_filtering_data.csv",
     "fig8_architecture_selection_data.csv",
-    "fig9_bank_size_data.csv",
-    "fig9_adaptation_steps_data.csv",
-    "fig9_margin_data.csv",
+    "fig9_selection_outcomes_data.csv",
     "fig7_heterogeneity_data.csv",
-    "fig10_deployment_tradeoff_data.csv",
-    "fig11_architecture_complexity_data.csv",
+    "fig10_architecture_complexity_data.csv",
+    "fig11_bank_size_data.csv",
+    "fig11_adaptation_steps_data.csv",
+    "fig11_margin_data.csv",
+    "deployment_tradeoff_radar_data.csv",
     "fig12_case_level_gains.csv",
     "fig12_group_summary.csv",
 )
@@ -101,6 +106,7 @@ CANONICAL_SOURCES = (
     "configs/methods/main_evaluation_cfg.py",
     "configs/methods/main_experiments_cfg.py",
     "reporting/overall_performance.py",
+    "paper/supplementary.tex",
     "scripts/generate_fig_overall_performance.py",
     *(f"paper_assets/current_figures/{name}.{suffix}" for name in FIXED_FIGURES for suffix in ("pdf", "png")),
     "paper_assets/current_figures/manifest.json",
@@ -142,12 +148,14 @@ def _expected_generated_files() -> tuple[str, ...]:
     files.extend(f"figure_data/{name}.csv" for name in PUBLIC_TABLE_NAMES)
     files.extend(f"figures/{name}.pdf" for name in REVISED_FIGURES)
     files.extend(f"figures/{name}.png" for name in REVISED_FIGURES)
+    files.extend(f"figures/{name}.pdf" for name in AUXILIARY_FIGURES)
+    files.extend(f"figures/{name}.png" for name in AUXILIARY_FIGURES)
     files.extend(
         f"figures/{OVERALL_PERFORMANCE_FIGURE}.{suffix}"
         for suffix in ("pdf", "png")
     )
     files.extend(f"figures/{name}.{suffix}" for name in FIXED_FIGURES for suffix in ("pdf", "png"))
-    for name in REVISED_FIGURES:
+    for name in (*REVISED_FIGURES, *AUXILIARY_FIGURES):
         files.append(f"figures/qa/{name}_grayscale.png")
         files.append(f"figures/qa/{name}_layout_audit.json")
     files.append("paper_output_validation.json")
@@ -782,16 +790,19 @@ CAPTIONS = """# Generated figure captions
   intervals.
 - **Fig. 8:** Candidate filtering and final architecture selection by
   complexity-limit tier.
-- **Fig. 9:** Retained architecture count, fixed 50-update adaptation budget,
-  and selection-threshold diagnostics. Held-out target cases are not used to
-  choose these settings.
-- **Fig. 10:** Deployment trade-off radar for four representative methods.
-  Every raw metric is lower-is-better and is transformed as
-  `100 * best / method`.
-- **Fig. 11:** Two-dimensional architecture complexity--performance map.
+- **Fig. 9:** Selection outcomes on the 80-case diagnostic pool for the
+  relative-margin rule and direct lowest-validation-loss selection.
+- **Fig. 10:** Two-dimensional selected-configuration
+  complexity--performance map.
   Color encodes parameter count, marker area encodes selected cases, and marker
   shape distinguishes alternative from reference configurations. `h` is the
   harmful selected-case count.
+- **Fig. 11:** Retained configuration count, fixed 50-update adaptation budget,
+  and relative-margin diagnostics. Held-out target cases are not used to
+  choose these settings.
+- **Auxiliary `deployment_tradeoff_radar`:** Deployment trade-off radar for all
+  five released methods, including MSA-DTI. Every raw metric is
+  lower-is-better and is transformed as `100 * best / method`.
 - **Fig. 12:** Controlled source-center scale and case-level gain
   distributions. Points show every released case; diamonds and error bars show
   means and 95% center-cluster bootstrap confidence intervals. Four Alibaba
@@ -862,7 +873,7 @@ def validate_output(output_root: str | Path) -> dict[str, Any]:
             }
         except Exception as exc:
             errors.append(f"{stem}: {exc}")
-    for stem, expected_size in REVISED_FIGURES.items():
+    for stem, expected_size in {**REVISED_FIGURES, **AUXILIARY_FIGURES}.items():
         try:
             size, images, type3 = _pdf_summary(out / f"figures/{stem}.pdf")
             # Tight bounding boxes legitimately vary with the font renderer and
@@ -900,6 +911,84 @@ def validate_output(output_root: str | Path) -> dict[str, Any]:
             }
         except Exception as exc:  # collect every figure failure in one report
             errors.append(f"{stem}: {exc}")
+    semantic_tokens = {
+        "fig9": (
+            "MSA-DTI margin",
+            "Lowest validation loss",
+            "Beneficial alternative",
+            "Harmful alternative",
+            "Reference retained",
+        ),
+        "fig10": (
+            "Estimated operation count",
+            "Mean paired MSE reduction",
+            "Candidate role",
+            "Ref. GRU-32",
+        ),
+        "fig11": (
+            "Retained configurations",
+            "Adaptation steps",
+            "Selection threshold",
+        ),
+        "deployment_tradeoff_radar": (
+            "PT+FT",
+            "Few-shot NAS",
+            "H-Meta-NAS",
+            "Zero-shot NAS + FT",
+            "MSA-DTI",
+        ),
+    }
+    from pypdf import PdfReader
+
+    for stem, tokens in semantic_tokens.items():
+        try:
+            extracted = "\n".join(
+                page.extract_text() or ""
+                for page in PdfReader(str(out / f"figures/{stem}.pdf")).pages
+            )
+            missing = [token for token in tokens if token not in extracted]
+            if missing:
+                raise ValueError(f"semantic labels missing from PDF: {missing}")
+            audit = json.loads(
+                (out / f"figures/qa/{stem}_layout_audit.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            if "semantic" not in audit:
+                raise ValueError("semantic generator audit is missing")
+            checks[f"{stem}_semantic"] = {
+                "role": audit["semantic"].get("role"),
+                "required_labels": list(tokens),
+                "status": "PASS",
+            }
+        except Exception as exc:
+            errors.append(f"{stem} semantic validation: {exc}")
+
+    supplementary = (
+        Path(__file__).resolve().parents[1] / "paper/supplementary.tex"
+    ).read_text(encoding="utf-8")
+    expected_supplement_mappings = (
+        ("fig9.pdf", "Selection outcomes on the 80-case diagnostic pool."),
+        (
+            "fig10.pdf",
+            "Selected-configuration complexity and performance. Marker area shows the",
+        ),
+        (
+            "fig11.pdf",
+            "Configuration analysis of (a) the retained configuration count,",
+        ),
+    )
+    for filename, caption_prefix in expected_supplement_mappings:
+        if f"{{{filename}}}" not in supplementary or caption_prefix not in supplementary:
+            errors.append(
+                f"Supplement mapping missing or stale for {filename}: {caption_prefix}"
+            )
+    if "{fig10.pdf}\n{Deployment trade-off radar" in supplementary:
+        errors.append("Supplement still maps fig10.pdf to the deployment radar")
+    checks["supplement_figure_semantics"] = {
+        "expected_mappings": [item[0] for item in expected_supplement_mappings],
+        "status": "PASS" if not any("Supplement" in item for item in errors) else "FAIL",
+    }
     try:
         overall_pdf = out / f"figures/{OVERALL_PERFORMANCE_FIGURE}.pdf"
         overall_png = out / f"figures/{OVERALL_PERFORMANCE_FIGURE}.png"
@@ -1020,6 +1109,7 @@ def generate(project_root: str | Path, output_root: str | Path) -> dict[str, Any
     plot_fig9(root / "results/figure_data", out / "figures")
     plot_fig10(root / "results/figure_data", out / "figures")
     plot_fig11(root / "results/figure_data", out / "figures")
+    plot_deployment_tradeoff_radar(root / "results/figure_data", out / "figures")
     plot_fig12(root / "results/figure_data", out / "figures")
     generate_overall_performance(
         root / "results/main/overall_comparison.csv",
@@ -1062,6 +1152,7 @@ def generate(project_root: str | Path, output_root: str | Path) -> dict[str, Any
 
 __all__ = [
     "CANONICAL_SOURCES",
+    "AUXILIARY_FIGURES",
     "DECISION",
     "DYNAMIC_TABLES",
     "EXPECTED_GENERATED_FILES",

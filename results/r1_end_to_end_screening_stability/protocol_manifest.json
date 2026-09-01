@@ -1,0 +1,1086 @@
+{
+  "protocol_version": "r1_candidate_discovery_e2e_stability_v1_0",
+  "created_at_unix_s": 1788246426.550484,
+  "repository": {
+    "commit": "e705ff222e3ebdcb06a5314a3266e497df2fbdc2",
+    "describe": "v1.2.7-dirty",
+    "status_short": [
+      " M CHANGELOG.md",
+      " M docs/FIGURE_REPRODUCTION.md",
+      " M docs/METHOD.md",
+      " M docs/PAPER_RESULT_MAPPING.md",
+      " M paper/figures/fig10.pdf",
+      " M paper/figures/fig9.pdf",
+      " M paper/supplementary.pdf",
+      " M reporting/final_figures.py",
+      " M reporting/frozen.py",
+      " M reporting/reproducible_figures.py",
+      " M results/README.md",
+      "R  results/figure_data/fig10_deployment_tradeoff_data.csv -> results/figure_data/deployment_tradeoff_radar_data.csv",
+      "R  results/figure_data/fig11_architecture_complexity_data.csv -> results/figure_data/fig10_architecture_complexity_data.csv",
+      "R  results/figure_data/fig9_adaptation_steps_data.csv -> results/figure_data/fig11_adaptation_steps_data.csv",
+      "R  results/figure_data/fig9_bank_size_data.csv -> results/figure_data/fig11_bank_size_data.csv",
+      "R  results/figure_data/fig9_margin_data.csv -> results/figure_data/fig11_margin_data.csv",
+      " M scripts/derive_reproducible_figure_data.py",
+      " M scripts/generate_fig11_configuration_analysis.py",
+      " M scripts/sync_h_meta_nas_runtime_audit.py",
+      " M scripts/verify_repository.py",
+      " M tests/test_repository_consistency.py",
+      "?? paper/figures/deployment_tradeoff_radar.pdf",
+      "?? results/figure_data/fig9_selection_outcomes_data.csv",
+      "?? scripts/run_r1_end_to_end_screening_stability.py",
+      "?? tests/test_r1_end_to_end_screening_stability_runner.py"
+    ]
+  },
+  "environment": {
+    "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "torch": "2.13.0+cpu",
+    "numpy": "2.1.3",
+    "device": "cpu",
+    "safe_mode": "default",
+    "cuda_available": false
+  },
+  "architecture_space": {
+    "count": 66,
+    "indexing": "literal zero-based internal IDs A0--A65",
+    "family_counts": {
+      "MLP": 18,
+      "TCN": 36,
+      "GRU": 12
+    },
+    "reference_arch_idx": 57,
+    "selected_specs": {
+      "1": {
+        "arch_id": 1,
+        "arch_key": "MLP_L2_H32_D0.1",
+        "family": "MLP",
+        "hparams": {
+          "n_layers": 2,
+          "hidden_dim": 32,
+          "dropout": 0.1
+        }
+      },
+      "6": {
+        "arch_id": 6,
+        "arch_key": "MLP_L3_H32_D0.0",
+        "family": "MLP",
+        "hparams": {
+          "n_layers": 3,
+          "hidden_dim": 32,
+          "dropout": 0.0
+        }
+      },
+      "13": {
+        "arch_id": 13,
+        "arch_key": "MLP_L4_H32_D0.1",
+        "family": "MLP",
+        "hparams": {
+          "n_layers": 4,
+          "hidden_dim": 32,
+          "dropout": 0.1
+        }
+      },
+      "55": {
+        "arch_id": 55,
+        "arch_key": "GRU_L1_H16_D0.1",
+        "family": "GRU",
+        "hparams": {
+          "n_layers": 1,
+          "hidden_dim": 16,
+          "dropout": 0.1
+        }
+      },
+      "56": {
+        "arch_id": 56,
+        "arch_key": "GRU_L1_H32_D0.0",
+        "family": "GRU",
+        "hparams": {
+          "n_layers": 1,
+          "hidden_dim": 32,
+          "dropout": 0.0
+        }
+      },
+      "57": {
+        "arch_id": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "hparams": {
+          "n_layers": 1,
+          "hidden_dim": 32,
+          "dropout": 0.1
+        }
+      },
+      "59": {
+        "arch_id": 59,
+        "arch_key": "GRU_L1_H64_D0.1",
+        "family": "GRU",
+        "hparams": {
+          "n_layers": 1,
+          "hidden_dim": 64,
+          "dropout": 0.1
+        }
+      }
+    },
+    "A56_A57_executable_duplicate": true,
+    "duplicate_reason": "single-layer torch GRU disables recurrent dropout"
+  },
+  "screening": {
+    "retention_rule": "check_true_wins>=2 OR validation_positive_wins>=2",
+    "check_true_win": "feasible check oracle improves on PT-A57",
+    "validation_positive_win": "validation-selected alternative improves on PT-A57 check MSE",
+    "outcomes": {
+      "S0": {
+        "screening_pool": {
+          "center_ids": [
+            900,
+            901,
+            902,
+            903,
+            904,
+            905,
+            906,
+            907,
+            908,
+            909,
+            910,
+            911,
+            912,
+            913,
+            914,
+            915,
+            916,
+            917,
+            918,
+            919
+          ],
+          "seed_offset": null,
+          "seed_offset_status": "not recorded in retained R2 artifact; screening is not rerun"
+        },
+        "retained_indexed_configurations": [
+          1,
+          6,
+          13,
+          55,
+          56,
+          57
+        ],
+        "candidate_identities": [
+          {
+            "token": "PT_A57_A57",
+            "arch_idx": 57,
+            "initialization": "protected_pt"
+          },
+          {
+            "token": "LEGACY_C1_A57_A57",
+            "arch_idx": 57,
+            "initialization": "paired_c1"
+          },
+          {
+            "token": "STRONG_COMPACT_A1",
+            "arch_idx": 1,
+            "initialization": "r1_source_trained"
+          },
+          {
+            "token": "STRONG_COMPACT_A6",
+            "arch_idx": 6,
+            "initialization": "r1_source_trained"
+          },
+          {
+            "token": "STRONG_COMPACT_A13",
+            "arch_idx": 13,
+            "initialization": "r1_source_trained"
+          },
+          {
+            "token": "STRONG_COMPACT_A55",
+            "arch_idx": 55,
+            "initialization": "r1_source_trained"
+          },
+          {
+            "token": "STRONG_COMPACT_A56",
+            "arch_idx": 56,
+            "initialization": "r1_source_trained"
+          }
+        ],
+        "candidate_bank_size": 7
+      },
+      "S1": {
+        "screening_pool": {
+          "center_ids": [
+            1120,
+            1121,
+            1122,
+            1123,
+            1124,
+            1125,
+            1126,
+            1127,
+            1128,
+            1129,
+            1130,
+            1131,
+            1132,
+            1133,
+            1134,
+            1135,
+            1136,
+            1137,
+            1138,
+            1139
+          ],
+          "seed_offset": null,
+          "seed_offset_status": "not recorded in retained R2 artifact; screening is not rerun"
+        },
+        "retained_indexed_configurations": [],
+        "candidate_identities": [
+          {
+            "token": "PT_A57_A57",
+            "arch_idx": 57,
+            "initialization": "protected_pt"
+          }
+        ],
+        "candidate_bank_size": 1
+      },
+      "S2": {
+        "screening_pool": {
+          "center_ids": [
+            1140,
+            1141,
+            1142,
+            1143,
+            1144,
+            1145,
+            1146,
+            1147,
+            1148,
+            1149,
+            1150,
+            1151,
+            1152,
+            1153,
+            1154,
+            1155,
+            1156,
+            1157,
+            1158,
+            1159
+          ],
+          "seed_offset": null,
+          "seed_offset_status": "not recorded in retained R2 artifact; screening is not rerun"
+        },
+        "retained_indexed_configurations": [
+          55,
+          56,
+          57,
+          59
+        ],
+        "candidate_identities": [
+          {
+            "token": "PT_A57_A57",
+            "arch_idx": 57,
+            "initialization": "protected_pt"
+          },
+          {
+            "token": "LEGACY_C1_A57_A57",
+            "arch_idx": 57,
+            "initialization": "paired_c1"
+          },
+          {
+            "token": "STRONG_COMPACT_A55",
+            "arch_idx": 55,
+            "initialization": "r1_source_trained"
+          },
+          {
+            "token": "STRONG_COMPACT_A56",
+            "arch_idx": 56,
+            "initialization": "r1_source_trained"
+          },
+          {
+            "token": "STRONG_COMPACT_A59",
+            "arch_idx": 59,
+            "initialization": "r1_source_trained"
+          }
+        ],
+        "candidate_bank_size": 5
+      }
+    }
+  },
+  "source_training": {
+    "center_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "data_seed": 2904,
+    "seed_offset": 0,
+    "data": "support_plus_validation_K20",
+    "optimizer": "Adam",
+    "loss": "MSE",
+    "epochs": 50,
+    "learning_rate": 0.001,
+    "batch_size": 64,
+    "weight_decay": 0.0,
+    "asset_seed_rule": "2904 + 101*H + arch_idx",
+    "asset_seeds": {
+      "S0": {
+        "h1_a1": 3006,
+        "h1_a6": 3011,
+        "h1_a13": 3018,
+        "h1_a55": 3060,
+        "h1_a56": 3061,
+        "h4_a1": 3309,
+        "h4_a6": 3314,
+        "h4_a13": 3321,
+        "h4_a55": 3363,
+        "h4_a56": 3364
+      },
+      "S1": {},
+      "S2": {
+        "h1_a55": 3060,
+        "h1_a56": 3061,
+        "h1_a59": 3064,
+        "h4_a55": 3363,
+        "h4_a56": 3364,
+        "h4_a59": 3367
+      }
+    }
+  },
+  "candidate_bank_semantics": {
+    "protected_reference": "copy exact frozen PT-A57 source asset for each H",
+    "paired_A57": "include frozen legacy C1-A57 only when A57 is retained",
+    "retained_non_reference": "independently source-train per screen under the frozen recipe",
+    "A56_A57": "keep indexed candidates and initializations separate; do not deduplicate",
+    "no_alternative": "S1 contains PT-A57 only"
+  },
+  "calibration": {
+    "pool": [
+      940,
+      20,
+      200000
+    ],
+    "center_ids": [
+      940,
+      941,
+      942,
+      943,
+      944,
+      945,
+      946,
+      947,
+      948,
+      949,
+      950,
+      951,
+      952,
+      953,
+      954,
+      955,
+      956,
+      957,
+      958,
+      959
+    ],
+    "shared_identically_across_banks": true,
+    "margin_grid": [
+      0.05,
+      0.075,
+      0.1,
+      0.125,
+      0.15,
+      0.2
+    ],
+    "harmful_selection_rate_max": 0.05,
+    "mean_gain_vs_reference_min": 0.03,
+    "ci_low_vs_reference_strictly_greater_than": 0.0,
+    "mean_gain_vs_paired_min": 0.03,
+    "ci_low_vs_paired_strictly_greater_than": 0.0,
+    "rule": "smallest eligible margin; otherwise deploy adapted PT-A57 only",
+    "bootstrap_repetitions": 4000,
+    "test_used": false
+  },
+  "target_evaluation": {
+    "pool": [
+      1180,
+      20,
+      320000
+    ],
+    "pool_master_seed": 322904,
+    "center_ids": [
+      1180,
+      1181,
+      1182,
+      1183,
+      1184,
+      1185,
+      1186,
+      1187,
+      1188,
+      1189,
+      1190,
+      1191,
+      1192,
+      1193,
+      1194,
+      1195,
+      1196,
+      1197,
+      1198,
+      1199
+    ],
+    "center_seed_records": [
+      {
+        "center_id": 1180,
+        "center_type": "B",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 910693803,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1194091
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1194621
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1194202
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1194732
+          }
+        ]
+      },
+      {
+        "center_id": 1181,
+        "center_type": "B",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 441580697,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1195100
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1195630
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1195211
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1195741
+          }
+        ]
+      },
+      {
+        "center_id": 1182,
+        "center_type": "B",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 208127544,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1196109
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1196639
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1196220
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1196750
+          }
+        ]
+      },
+      {
+        "center_id": 1183,
+        "center_type": "C",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 878484435,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1197118
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1197648
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1197229
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1197759
+          }
+        ]
+      },
+      {
+        "center_id": 1184,
+        "center_type": "B",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 754124055,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1198127
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1198657
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1198238
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1198768
+          }
+        ]
+      },
+      {
+        "center_id": 1185,
+        "center_type": "A",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 1794519571,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1199136
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1199666
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1199247
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1199777
+          }
+        ]
+      },
+      {
+        "center_id": 1186,
+        "center_type": "C",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 959656181,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1200145
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1200675
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1200256
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1200786
+          }
+        ]
+      },
+      {
+        "center_id": 1187,
+        "center_type": "C",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 440708348,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1201154
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1201684
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1201265
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1201795
+          }
+        ]
+      },
+      {
+        "center_id": 1188,
+        "center_type": "A",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 618313417,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1202163
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1202693
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1202274
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1202804
+          }
+        ]
+      },
+      {
+        "center_id": 1189,
+        "center_type": "A",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 116211594,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1203172
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1203702
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1203283
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1203813
+          }
+        ]
+      },
+      {
+        "center_id": 1190,
+        "center_type": "B",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 217694049,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1204181
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1204711
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1204292
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1204822
+          }
+        ]
+      },
+      {
+        "center_id": 1191,
+        "center_type": "A",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 1631281555,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1205190
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1205720
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1205301
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1205831
+          }
+        ]
+      },
+      {
+        "center_id": 1192,
+        "center_type": "B",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 291908019,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1206199
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1206729
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1206310
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1206840
+          }
+        ]
+      },
+      {
+        "center_id": 1193,
+        "center_type": "A",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 1280460447,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1207208
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1207738
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1207319
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1207849
+          }
+        ]
+      },
+      {
+        "center_id": 1194,
+        "center_type": "C",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 569553250,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1208217
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1208747
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1208328
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1208858
+          }
+        ]
+      },
+      {
+        "center_id": 1195,
+        "center_type": "C",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 1399348651,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1209226
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1209756
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1209337
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1209867
+          }
+        ]
+      },
+      {
+        "center_id": 1196,
+        "center_type": "B",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 1636755598,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1210235
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1210765
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1210346
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1210876
+          }
+        ]
+      },
+      {
+        "center_id": 1197,
+        "center_type": "A",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 367080708,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1211244
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1211774
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1211355
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1211885
+          }
+        ]
+      },
+      {
+        "center_id": 1198,
+        "center_type": "B",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 1865698697,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1212253
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1212783
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1212364
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1212894
+          }
+        ]
+      },
+      {
+        "center_id": 1199,
+        "center_type": "C",
+        "pool_master_seed": 322904,
+        "center_rng_seed": 632141968,
+        "role": "r1_heldout_target_only",
+        "cases": [
+          {
+            "H": 1,
+            "K": 10,
+            "target_adaptation_seed": 1213262
+          },
+          {
+            "H": 1,
+            "K": 20,
+            "target_adaptation_seed": 1213792
+          },
+          {
+            "H": 4,
+            "K": 10,
+            "target_adaptation_seed": 1213373
+          },
+          {
+            "H": 4,
+            "K": 20,
+            "target_adaptation_seed": 1213903
+          }
+        ]
+      }
+    ],
+    "H": [
+      1,
+      4
+    ],
+    "K": [
+      10,
+      20
+    ],
+    "case_count": 80,
+    "split": "chronological support/validation/check/test with disjoint raw segments",
+    "test_policy": "materialize Test only after deployment filtering, adaptation, and validation selection",
+    "optimizer": "SGD",
+    "loss": "MSE",
+    "updates": 50,
+    "learning_rate": 0.01,
+    "gradient_norm_limit": 1.0,
+    "batching": "complete support set",
+    "target_seed_rule": "2904 + 1009*center_id + 37*H + 53*K",
+    "bootstrap_seed_rule": "2904 + 701 + len(method) + len(metric)",
+    "bootstrap_seeds": {
+      "S0": 3635,
+      "S1": 3635,
+      "S2": 3635
+    }
+  },
+  "deployment_limits": {
+    "tight": {
+      "flops": 1500000,
+      "params": 30000
+    },
+    "medium": {
+      "flops": 5000000,
+      "params": 100000
+    },
+    "loose": {
+      "flops": 20000000,
+      "params": 500000
+    },
+    "filter_before_adaptation": true
+  },
+  "frozen_inputs": {
+    "paired_c1_bank": {
+      "path": "outputs/formal_c1_seed2904/shared_artifacts/ours_weight_bank_source_pooled_c1_v1_src20.pt",
+      "sha256": "bb3a655606af3b554a8f088bb1d2f3f8d9f190b0911a812fd3755d3de3216b9d"
+    },
+    "external_source_manifest": {
+      "path": "outputs/shared.evaluation_external_d2904_t2904/source_assets/source_assets_manifest.json",
+      "sha256": "30042bd54eb70c8bd7722d712690ec659e9e5094ab8e14a7c436bae0a43b87a2"
+    },
+    "external_source_decision": "PASS_EXTERNAL_SOURCE_ASSETS_FROZEN"
+  },
+  "isolation": {
+    "output_root": "results/r1_end_to_end_screening_stability",
+    "manuscript_edits_allowed": false,
+    "canonical_result_edits_allowed": false,
+    "test_used_upstream": false
+  }
+}

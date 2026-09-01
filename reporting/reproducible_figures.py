@@ -14,6 +14,7 @@ from .final_figures import (
     plot_fig10,
     plot_fig11,
     plot_fig12,
+    plot_deployment_tradeoff_radar,
 )
 
 __all__ = [
@@ -26,4 +27,5 @@ __all__ = [
     "plot_fig10",
     "plot_fig11",
     "plot_fig12",
+    "plot_deployment_tradeoff_radar",
 ]

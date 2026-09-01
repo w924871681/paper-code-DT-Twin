@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Derive the public Fig. 6/8/9/12 CSV layer from frozen experiment records.
+"""Derive the public plot-ready CSV layer from frozen experiment records.
 
 Fig. 6 and Fig. 8 require the custodian-side locked-evaluation JSON files.
-Fig. 9 is derived entirely from sources already released in this repository.
+Fig. 9 and Fig. 11 are derived entirely from sources already released in this
+repository. The unnumbered deployment radar and Fig. 10 use the same frozen
+overall/runtime and architecture-coverage records as v1.2.7.
 The resulting compact CSV files are versioned so plotting never requires
 private paths, model weights, or a rerun of training/evaluation. Fig. 12 keeps
 every anonymized case-level gain so the published distribution is auditable.
@@ -142,11 +144,57 @@ def derive_fig6_fig8(ours_path: Path, pt_path: Path, output_dir: Path) -> None:
     _write(output_dir / "fig8_architecture_selection_data.csv", selection)
 
 
-def derive_fig9(output_dir: Path) -> None:
+def derive_fig9_selection_outcomes(output_dir: Path) -> None:
+    """Synchronize the frozen Supplement Fig. 9 outcome counts and CIs."""
+    with (ROOT / "results/supplementary/anchor_risk_summary.csv").open(
+        encoding="utf-8-sig", newline=""
+    ) as handle:
+        summary = {row["variant"]: row for row in csv.DictReader(handle)}
+    expected = (
+        ("full_method", "MSA-DTI margin", 49, 12, 19, "15.0", "6.25", "25.00"),
+        (
+            "without_anchor_protection",
+            "Lowest validation loss",
+            55,
+            14,
+            11,
+            "17.5",
+            "7.50",
+            "28.75",
+        ),
+    )
+    rows = []
+    for variant, label, beneficial, harmful, retained, rate, ci_low, ci_high in expected:
+        source = summary[variant]
+        observed = (
+            int(source["N_beneficial_switches"]),
+            int(source["N_harmful_switches"]),
+            int(source["N_cases"]) - int(source["N_switches"]),
+            100.0 * float(source["harmful_switch_rate_all_cases"]),
+        )
+        if observed != (beneficial, harmful, retained, float(rate)):
+            raise ValueError(f"Frozen Fig. 9 outcome values changed for {variant}: {observed}")
+        rows.append(
+            {
+                "selection_rule": label,
+                "beneficial_alternative": beneficial,
+                "harmful_alternative": harmful,
+                "reference_retained": retained,
+                "harmful_rate_percent": rate,
+                # These are the already released center-cluster intervals shown
+                # in v1.2.7 Fig. 9; this reporting sync performs no resampling.
+                "harmful_ci_low_percent": ci_low,
+                "harmful_ci_high_percent": ci_high,
+            }
+        )
+    _write(output_dir / "fig9_selection_outcomes_data.csv", rows)
+
+
+def derive_fig11_configuration_analysis(output_dir: Path) -> None:
     with (ROOT / "results/main/bank_size.csv").open(encoding="utf-8-sig", newline="") as handle:
         bank = list(csv.DictReader(handle))
     _write(
-        output_dir / "fig9_bank_size_data.csv",
+        output_dir / "fig11_bank_size_data.csv",
         (
             {
                 "retained_architectures": row["UniqueArchitectures"],
@@ -161,7 +209,7 @@ def derive_fig9(output_dir: Path) -> None:
     ) as handle:
         trajectory = list(csv.DictReader(handle))
     _write(
-        output_dir / "fig9_adaptation_steps_data.csv",
+        output_dir / "fig11_adaptation_steps_data.csv",
         (
             {
                 "adaptation_steps": row["step"],
@@ -179,7 +227,7 @@ def derive_fig9(output_dir: Path) -> None:
     )
     grid = sorted(manifest["margin_grid_results"].values(), key=lambda row: row["margin_rel"])
     _write(
-        output_dir / "fig9_margin_data.csv",
+        output_dir / "fig11_margin_data.csv",
         (
             {
                 "minimum_improvement": row["margin_rel"],
@@ -193,7 +241,7 @@ def derive_fig9(output_dir: Path) -> None:
     )
 
 
-def derive_fig7_fig10_fig11(output_dir: Path) -> None:
+def derive_fig7_radar_fig10(output_dir: Path) -> None:
     with (ROOT / "results/figure_data/tableS1_robustness_details.csv").open(
         encoding="utf-8-sig", newline=""
     ) as handle:
@@ -238,7 +286,7 @@ def derive_fig7_fig10_fig11(output_dir: Path) -> None:
                 "estimated_operation_count": row["FLOPs"],
             }
         )
-    _write(output_dir / "fig10_deployment_tradeoff_data.csv", fig10)
+    _write(output_dir / "deployment_tradeoff_radar_data.csv", fig10)
 
     with (ROOT / "results/robustness/architecture_coverage.csv").open(
         encoding="utf-8-sig", newline=""
@@ -255,11 +303,11 @@ def derive_fig7_fig10_fig11(output_dir: Path) -> None:
     )
     assets = list(bank["assets"].values())
     arch_meta = (
-        (6, "MLP3-32", "alternative"),
-        (13, "MLP4-32", "alternative"),
-        (55, "Alt GRU16", "alternative"),
-        (56, "Alt GRU32", "alternative"),
-        (57, "Ref GRU32", "reference"),
+        (6, "3-layer MLP-32", "alternative"),
+        (13, "4-layer MLP-32", "alternative"),
+        (55, "Alt. GRU-16", "alternative"),
+        (56, "Alt. GRU-32", "alternative"),
+        (57, "Ref. GRU-32", "reference"),
     )
     fig11 = []
     for arch_idx, label, role in arch_meta:
@@ -294,7 +342,7 @@ def derive_fig7_fig10_fig11(output_dir: Path) -> None:
                 ),
             }
         )
-    _write(output_dir / "fig11_architecture_complexity_data.csv", fig11)
+    _write(output_dir / "fig10_architecture_complexity_data.csv", fig11)
 
     with (ROOT / "results/robustness/source_bank_seed.csv").open(
         encoding="utf-8-sig", newline=""
@@ -415,8 +463,9 @@ def main() -> int:
         parser.error("--source-seed-json and --alibaba-json must be supplied together")
     if args.ours_json:
         derive_fig6_fig8(args.ours_json, args.pt_ft_json, args.output_dir)
-    derive_fig9(args.output_dir)
-    derive_fig7_fig10_fig11(args.output_dir)
+    derive_fig9_selection_outcomes(args.output_dir)
+    derive_fig11_configuration_analysis(args.output_dir)
+    derive_fig7_radar_fig10(args.output_dir)
     if args.source_seed_json:
         derive_fig12(args.source_seed_json, args.alibaba_json, args.output_dir)
     print(f"Wrote reproducible figure data to {args.output_dir.resolve()}")

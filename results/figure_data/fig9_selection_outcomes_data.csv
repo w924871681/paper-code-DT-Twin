@@ -1,0 +1,3 @@
+selection_rule,beneficial_alternative,harmful_alternative,reference_retained,harmful_rate_percent,harmful_ci_low_percent,harmful_ci_high_percent
+MSA-DTI margin,49,12,19,15.0,6.25,25.00
+Lowest validation loss,55,14,11,17.5,7.50,28.75

@@ -1,0 +1,17 @@
+PASS required_files
+PASS imports
+PASS json
+PASS checksums
+PASS asset_manifest
+PASS frozen_protocol
+PASS numerical_consistency
+PASS test_leakage
+PASS unique_figure_implementation
+PASS supplement_figure_semantics
+PASS paper_alignment
+PASS public_terminology
+PASS privacy
+PASS release_hygiene
+PASS version_metadata
+PASS generated_outputs
+PASS_PUBLIC_REPOSITORY_VERIFICATION

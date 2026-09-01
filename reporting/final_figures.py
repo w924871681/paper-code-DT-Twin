@@ -27,10 +27,9 @@ FIGURE_SIZES: Mapping[str, tuple[float, float]] = {
     "fig6": (5.914, 2.883),
     "fig7": (6.747, 2.531),
     "fig8": (6.503, 1.887),
-    "fig9": (7.554, 2.284),
-    # Final cropped size produced by the journal-layout Fig. 10 canvas.
-    "fig10": (3.526, 3.420),
-    "fig11": (6.142, 3.497),
+    "fig9": (6.438, 1.999),
+    "fig10": (6.142, 3.497),
+    "fig11": (7.554, 2.659),
     "fig12": (7.279, 2.590),
 }
 
@@ -38,9 +37,10 @@ CANVAS_SIZES: Mapping[str, tuple[float, float]] = {
     "fig6": (7.48, 3.0),
     "fig7": (6.75, 2.7),
     "fig8": (7.05, 1.95),
-    "fig9": (7.85, 2.4),
-    "fig10": (3.35, 3.55),
-    "fig11": (6.7, 3.75),
+    "fig9": (8.08, 2.32),
+    "fig10": (6.7, 3.75),
+    "fig11": (7.85, 2.80),
+    "deployment_tradeoff_radar": (3.35, 3.55),
     "fig12": (7.4, 2.85),
 }
 
@@ -111,11 +111,14 @@ def _save(
     stem: str,
     *,
     tight: bool = False,
+    semantic: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     qa_dir = output_dir / "qa"
     qa_dir.mkdir(parents=True, exist_ok=True)
     audit = {"figure": stem, **_layout_audit(fig)}
+    if semantic is not None:
+        audit["semantic"] = dict(semantic)
     if tight and audit["out_of_bounds_text"]:
         # These labels are intentionally included by bbox_inches="tight";
         # preserve the audit trace while distinguishing it from clipping.
@@ -285,17 +288,102 @@ def plot_fig8(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     return _save(fig, output_dir, "fig8", tight=True)
 
 
-def plot_fig9(
-    data_dir: Path,
-    output_dir: Path,
-    *,
-    output_stem: str = "fig9",
-) -> dict[str, Any]:
-    bank = _read(data_dir / "fig9_bank_size_data.csv")
-    steps = _read(data_dir / "fig9_adaptation_steps_data.csv")
-    margin = _read(data_dir / "fig9_margin_data.csv")
+def plot_fig9(data_dir: Path, output_dir: Path) -> dict[str, Any]:
+    """Render Supplement Fig. 9: diagnostic selection outcomes."""
+    rows = _read(data_dir / "fig9_selection_outcomes_data.csv")
+    expected_rules = ("MSA-DTI margin", "Lowest validation loss")
+    if tuple(row["selection_rule"] for row in rows) != expected_rules:
+        raise ValueError("Fig. 9 selection-rule rows or order changed")
+    totals = {
+        int(row["beneficial_alternative"])
+        + int(row["harmful_alternative"])
+        + int(row["reference_retained"])
+        for row in rows
+    }
+    if totals != {80}:
+        raise ValueError(f"Fig. 9 rows must each sum to 80 cases, got {sorted(totals)}")
+
     _style()
-    fig = plt.figure(figsize=CANVAS_SIZES["fig9"])
+    fig, ax = plt.subplots(figsize=CANVAS_SIZES["fig9"])
+    fig.subplots_adjust(left=0.22, right=0.83, top=0.78, bottom=0.24)
+    y = np.arange(len(rows))[::-1]
+    left = np.zeros(len(rows), dtype=float)
+    segments = (
+        ("beneficial_alternative", "Beneficial alternative", "#0072B2"),
+        ("harmful_alternative", "Harmful alternative", "#D55E00"),
+        ("reference_retained", "Reference retained", "#BDBDBD"),
+    )
+    for key, label, color in segments:
+        values = np.asarray([int(row[key]) for row in rows], dtype=float)
+        bars = ax.barh(
+            y,
+            values,
+            left=left,
+            height=0.48,
+            color=color,
+            edgecolor="#555555" if key == "reference_retained" else "none",
+            linewidth=0.6,
+            label=label,
+        )
+        text_color = "white" if key != "reference_retained" else "#222222"
+        for bar, value in zip(bars, values):
+            ax.text(
+                bar.get_x() + bar.get_width() / 2,
+                bar.get_y() + bar.get_height() / 2,
+                f"{int(value)}",
+                ha="center",
+                va="center",
+                color=text_color,
+                fontsize=7.2,
+            )
+        left += values
+    for yi, row in zip(y, rows):
+        ax.text(
+            82,
+            yi,
+            "Harmful: "
+            f"{float(row['harmful_rate_percent']):.1f}%\n"
+            "95% CI "
+            f"[{float(row['harmful_ci_low_percent']):.2f}, "
+            f"{float(row['harmful_ci_high_percent']):.2f}]",
+            va="center",
+            fontsize=6.8,
+        )
+    ax.set_yticks(y, [row["selection_rule"] for row in rows])
+    ax.set_xlim(0, 116)
+    ax.set_xticks((0, 20, 40, 60, 80))
+    ax.set_xlabel("Diagnostic cases (n=80)")
+    ax.grid(axis="x", color="#D9D9D9", lw=0.45, ls=(0, (2, 2)))
+    ax.spines[["top", "right"]].set_visible(False)
+    legend = ax.legend(
+        loc="upper center",
+        bbox_to_anchor=(0.48, 1.28),
+        ncol=3,
+        frameon=False,
+    )
+    if len(legend.get_texts()) != len(segments):
+        raise AssertionError("Fig. 9 legend/category count mismatch")
+    return _save(
+        fig,
+        output_dir,
+        "fig9",
+        tight=True,
+        semantic={
+            "role": "selection_outcomes",
+            "data_rows": len(rows),
+            "plotted_rule_groups": len(rows),
+            "legend_categories": len(legend.get_texts()),
+        },
+    )
+
+
+def plot_fig11(data_dir: Path, output_dir: Path) -> dict[str, Any]:
+    """Render Supplement Fig. 11: configuration-analysis diagnostics."""
+    bank = _read(data_dir / "fig11_bank_size_data.csv")
+    steps = _read(data_dir / "fig11_adaptation_steps_data.csv")
+    margin = _read(data_dir / "fig11_margin_data.csv")
+    _style()
+    fig = plt.figure(figsize=CANVAS_SIZES["fig11"])
     outer = fig.add_gridspec(1, 3, width_ratios=(1.0, 1.10, 1.0), left=0.070, right=0.965, top=0.83, bottom=0.26, wspace=0.64)
     ax_a = fig.add_subplot(outer[0, 0])
     ax_b1 = fig.add_subplot(outer[0, 1])
@@ -348,7 +436,19 @@ def plot_fig9(
     fig.text(0.190, 0.035, "(a) Retained configuration count", ha="center")
     fig.text(0.515, 0.035, "(b) Target update budget", ha="center")
     fig.text(0.835, 0.035, "(c) Threshold calibration", ha="center")
-    return _save(fig, output_dir, output_stem, tight=True)
+    return _save(
+        fig,
+        output_dir,
+        "fig11",
+        tight=True,
+        semantic={
+            "role": "configuration_analysis",
+            "panels": 3,
+            "bank_rows": len(bank),
+            "adaptation_rows": len(steps),
+            "margin_rows": len(margin),
+        },
+    )
 
 
 def plot_fig7(data_dir: Path, output_dir: Path) -> dict[str, Any]:
@@ -391,8 +491,11 @@ def plot_fig7(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     return _save(fig, output_dir, "fig7", tight=True)
 
 
-def plot_fig10(data_dir: Path, output_dir: Path) -> dict[str, Any]:
-    rows = _read(data_dir / "fig10_deployment_tradeoff_data.csv")
+def plot_deployment_tradeoff_radar(
+    data_dir: Path, output_dir: Path
+) -> dict[str, Any]:
+    """Render the unnumbered deployment trade-off radar release artifact."""
+    rows = _read(data_dir / "deployment_tradeoff_radar_data.csv")
     axes_meta = (
         ("mse", "MSE"),
         ("worst10", "Worst-10%"),
@@ -416,7 +519,13 @@ def plot_fig10(data_dir: Path, output_dir: Path) -> dict[str, Any]:
         ("#FF7F0E", "^"),
         ("#2CA02C", "D"),
         ("#D62728", "o"),
+        ("#9467BD", "P"),
     )
+    if len(rows) != len(styles):
+        raise ValueError(
+            "Deployment radar requires one explicit style per method: "
+            f"rows={len(rows)}, styles={len(styles)}"
+        )
     display_names = {
         "Zero-shot NAS+FT": "Zero-shot NAS + FT",
     }
@@ -431,7 +540,10 @@ def plot_fig10(data_dir: Path, output_dir: Path) -> dict[str, Any]:
             "legend.fontsize": 7.7,
         }
     )
-    fig, ax = plt.subplots(figsize=CANVAS_SIZES["fig10"], subplot_kw={"projection": "polar"})
+    fig, ax = plt.subplots(
+        figsize=CANVAS_SIZES["deployment_tradeoff_radar"],
+        subplot_kw={"projection": "polar"},
+    )
     fig.subplots_adjust(left=0.04, right=0.96, top=0.96, bottom=0.24)
     ax.set_theta_offset(0)
     ax.set_theta_direction(1)
@@ -444,7 +556,8 @@ def plot_fig10(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     ax.tick_params(axis="x", pad=8)
     ax.grid(color="#BDBDBD", lw=0.6, ls=":")
     ax.spines["polar"].set_linewidth(0.9)
-    for index, (row, (color, marker)) in enumerate(zip(rows, styles)):
+    for index, row in enumerate(rows):
+        color, marker = styles[index]
         values = np.asarray([scores[key][index] for key, _ in axes_meta])
         values = np.r_[values, values[0]]
         ax.plot(
@@ -457,7 +570,7 @@ def plot_fig10(data_dir: Path, output_dir: Path) -> dict[str, Any]:
             label=display_names.get(row["method"], row["method"]),
         )
         ax.fill(closed, values, color=color, alpha=0.035)
-    ax.legend(
+    legend = ax.legend(
         loc="upper center",
         bbox_to_anchor=(0.5, -0.12),
         ncol=2,
@@ -465,13 +578,35 @@ def plot_fig10(data_dir: Path, output_dir: Path) -> dict[str, Any]:
         handlelength=1.7,
         columnspacing=1.2,
     )
-    return _save(fig, output_dir, "fig10", tight=True)
+    legend_labels = [text.get_text() for text in legend.get_texts()]
+    expected_labels = [
+        display_names.get(row["method"], row["method"]) for row in rows
+    ]
+    if len(ax.lines) != len(rows) or legend_labels != expected_labels:
+        raise AssertionError(
+            "Deployment radar method/line/legend mismatch: "
+            f"rows={len(rows)}, lines={len(ax.lines)}, legend={legend_labels}"
+        )
+    return _save(
+        fig,
+        output_dir,
+        "deployment_tradeoff_radar",
+        tight=True,
+        semantic={
+            "role": "deployment_tradeoff_radar",
+            "data_rows": len(rows),
+            "plotted_methods": len(ax.lines),
+            "legend_methods": len(legend_labels),
+            "methods": expected_labels,
+        },
+    )
 
 
-def plot_fig11(data_dir: Path, output_dir: Path) -> dict[str, Any]:
-    rows = _read(data_dir / "fig11_architecture_complexity_data.csv")
+def plot_fig10(data_dir: Path, output_dir: Path) -> dict[str, Any]:
+    """Render Supplement Fig. 10: selected-configuration complexity map."""
+    rows = _read(data_dir / "fig10_architecture_complexity_data.csv")
     _style()
-    fig, ax = plt.subplots(figsize=CANVAS_SIZES["fig11"])
+    fig, ax = plt.subplots(figsize=CANVAS_SIZES["fig10"])
     fig.subplots_adjust(left=0.105, right=0.75, top=0.95, bottom=0.14)
     x = np.asarray([float(row["estimated_operation_count"]) / 1e6 for row in rows])
     y = np.asarray([float(row["mean_paired_mse_reduction_percent"]) for row in rows])
@@ -544,7 +679,18 @@ def plot_fig11(data_dir: Path, output_dir: Path) -> dict[str, Any]:
         loc="center left",
         bbox_to_anchor=(0.79, 0.14),
     )
-    return _save(fig, output_dir, "fig11", tight=True)
+    return _save(
+        fig,
+        output_dir,
+        "fig10",
+        tight=True,
+        semantic={
+            "role": "selected_configuration_complexity",
+            "data_rows": len(rows),
+            "plotted_configurations": len(rows),
+            "configuration_labels": [row["configuration"] for row in rows],
+        },
+    )
 
 
 def plot_fig12(data_dir: Path, output_dir: Path) -> dict[str, Any]:
@@ -674,6 +820,7 @@ def plot_all(data_dir: str | Path, output_dir: str | Path) -> dict[str, dict[str
         "fig9": plot_fig9(data, output),
         "fig10": plot_fig10(data, output),
         "fig11": plot_fig11(data, output),
+        "deployment_tradeoff_radar": plot_deployment_tradeoff_radar(data, output),
         "fig12": plot_fig12(data, output),
     }
 
@@ -688,5 +835,6 @@ __all__ = [
     "plot_fig9",
     "plot_fig10",
     "plot_fig11",
+    "plot_deployment_tradeoff_radar",
     "plot_fig12",
 ]

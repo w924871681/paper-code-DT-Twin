@@ -52,6 +52,14 @@ dates are recorded only after a version is actually published.
 
 ## [Unreleased]
 
+- Correct the Supplement Fig. 9--11 semantic mapping so Fig. 9 is selection
+  outcomes, Fig. 10 is selected-configuration complexity/performance, and
+  Fig. 11 is configuration analysis.
+- Retain the deployment trade-off radar as an unnumbered reproducibility
+  artifact, draw all five frozen methods including MSA-DTI, and add explicit
+  row/plot/legend-count validation.
+- Add caption/content semantic checks without retraining, target adaptation,
+  bootstrap resampling, or any change to frozen scientific values.
 - Prepare v1.2.0 with formal CPU/CUDA hosting-profile evidence and the
   Alibaba 20/20/40 external-domain protocol.
 - Update Fig. 12 to 400 released case-level gains, including 160 held-out

@@ -236,7 +236,7 @@ def _sync_runtime_tables(summary: dict[str, Any], cases: list[dict[str, str]]) -
             row["OnlineSeconds"] = str(h_row["mean_seconds"])
     _write_csv(overall_path, overall, list(overall[0]))
 
-    tradeoff_path = ROOT / "results/figure_data/fig10_deployment_tradeoff_data.csv"
+    tradeoff_path = ROOT / "results/figure_data/deployment_tradeoff_radar_data.csv"
     tradeoff = _read_csv(tradeoff_path)
     for row in tradeoff:
         if row["method"] == "H-Meta-NAS":

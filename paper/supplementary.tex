@@ -564,7 +564,7 @@ difference remains uncertain in this diagnostic.
 The relative-margin analysis shows that 10\% is the smallest value satisfying
 all preset calibration criteria.
 
-\section{Source Sensitivity and External Transfer}
+\section{Source and Screening Sensitivity and External Transfer}
 \label{supp:external}
 
 \subsection{Source-center scale and source-training seeds}
@@ -644,10 +644,96 @@ two, and three wins retains 10, 6, and 2 configurations, respectively. The
 frozen threshold-two list is S0, whereas threshold three retains only A55 and
 A57. On the existing step-50 diagnostic trajectory, threshold three increases
 selected check MSE by 3.79\% relative to threshold two, with a 95\% confidence
-interval of $[1.58\%,6.30\%]$. The threshold-one list additionally contains
-A4, A5, A12, and A59, for which source-trained initializations under the
-frozen bank-construction protocol are unavailable; downstream results are
-therefore reported only for thresholds two and three.
+interval of $[1.58\%,6.30\%]$. The threshold-one list additionally contains A4, A5, A12, and A59. A complete
+set of source-trained records for these four additional configurations is not
+available under the frozen main-study bank protocol; downstream threshold
+sensitivity is therefore reported only for thresholds two and three.
+
+\subsection{End-to-end propagation of screening outcomes}
+
+To characterize the downstream effect of candidate-discovery variability,
+the recorded S0--S2 screening outcomes are treated as fixed inputs and carried
+through the complete downstream procedure. Each outcome uses the same source
+centers and source-training recipe, followed by bank-specific application of
+the unchanged margin-calibration rule on the same disjoint 20-center
+calibration pool. The resulting pipelines are evaluated on a new 20-center
+held-out pool (centers 1180--1199; 80 cases). The architecture space, A57
+reference, deployment limits, target adaptation protocol, margin grid, and
+calibration criteria remain unchanged. Held-out test data are not used in
+source training, calibration, deployment filtering, adaptation, or selection.
+For S2, A59 is source-trained using the same source-training recipe; S1
+contains only the protected PT-A57 reference.
+
+\begin{suppTableBlock}
+{End-to-end propagation of the three screening outcomes on centers
+1180--1199.}
+{tab:supp-screening-e2e}
+\scriptsize
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{2.0pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lllrrrrrrr}
+\toprule
+Screen &
+Retained configurations &
+Bank size &
+$\tau$ &
+Gain (\%) &
+95\% CI (\%) &
+MSE win (\%) &
+Alt. selected &
+Harmful (\%) &
+Limit satisfaction (\%) \\
+\midrule
+S0 &
+A1, A6, A13, A55, A56, A57 &
+7 &
+0.075 &
+10.034 &
+$[4.602,16.019]$ &
+52.50 &
+48 &
+7.50 / 12.50 &
+100.00 \\
+S1 &
+Reference fallback only &
+1 &
+-- &
+0.000 &
+$[0.000,0.000]$ &
+0.00 &
+0 &
+0.00 / 0.00 &
+100.00 \\
+S2 &
+A55, A56, A57, A59 &
+5 &
+0.125 &
+8.784 &
+$[3.833,14.238]$ &
+41.25 &
+39 &
+7.50 / 15.38 &
+100.00 \\
+\bottomrule
+\end{tabular}}
+\vspace{0.15em}
+
+\footnotesize
+Gain is the mean paired test-MSE reduction relative to PT+FT. The 95\%
+intervals use 4000 center-cluster bootstrap repetitions with the four cases
+of each target center kept together. Harmful rates are reported as
+all-case / conditional-on-alternative-selection percentages. For S1, no
+alternative is retained and the protected reference is used in all cases.
+\end{suppTableBlock}
+
+The two nonempty banks yield positive mean paired MSE reductions with
+confidence intervals above zero despite their different retained
+configurations. The S1 outcome contains no alternative and therefore follows
+the protected-reference fallback without changing performance relative to
+PT+FT. These end-to-end results characterize the downstream consequence of
+the observed screening variability; the retained-bank composition itself
+remains sample-sensitive.
 
 \subsection{Alibaba external-domain transfer}
 

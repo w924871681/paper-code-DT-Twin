@@ -17,14 +17,16 @@ of device latency, memory use, or energy consumption.
 
 ## Invariants
 
-v1.1.9 changes the revised manuscript presentation and Fig. 10 labels/layout
-only. It does not change the data split, seeds, six-architecture bank,
+v1.1.9 changed the revised manuscript presentation and the then-numbered
+deployment-radar labels/layout only. The current Supplement retains that radar
+as an unnumbered reproducibility artifact. Neither change affects the data
+split, seeds, six-architecture bank,
 seven candidates, reference candidate, optimizer, loss, 50-update budget,
 10% threshold, complexity limits, or any core experimental value.
 
 The held-out test set is opened only after the candidate and adapted
 parameters are fixed. "Beneficial alternative" and "harmful alternative" are
-post-selection test-MSE labels used in Fig. 6 and Fig. 11; they never enter
+post-selection test-MSE labels used in Fig. 6, Fig. 9, and Fig. 10; they never enter
 filtering, adaptation, threshold calibration, or selection.
 
 Historical internal names are mapped in `INTERNAL_PROVENANCE_NAMES.md`.

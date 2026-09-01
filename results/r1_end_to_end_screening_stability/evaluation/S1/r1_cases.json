@@ -1,0 +1,6018 @@
+{
+  "study": "R1 held-out target evaluation",
+  "screen": "S1",
+  "pool": [
+    1180,
+    20,
+    320000
+  ],
+  "calibration_sha256": "e063cbba9d12e0a5def9af00a24aca586898badb3530cee19a20ee82655b9413",
+  "records": {
+    "c1180_h1_k10_btight": {
+      "complete": true,
+      "case_key": "c1180_h1_k10_btight",
+      "center_id": 1180,
+      "center_type": "B",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1194091,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1194091,
+          "validation": {
+            "weighted_mse": 0.004282871726900339,
+            "mae": 0.054283346980810165,
+            "worst10": 0.016317440196871758
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.004936964716762304,
+          "mae": 0.057474974542856216,
+          "worst10": 0.020068587735295296
+        },
+        "test": {
+          "weighted_mse": 0.004862194415181875,
+          "mae": 0.05683249607682228,
+          "worst10": 0.019874967634677887
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.004936964716762304,
+          "mae": 0.057474974542856216,
+          "worst10": 0.020068587735295296
+        },
+        "test": {
+          "weighted_mse": 0.004862194415181875,
+          "mae": 0.05683249607682228,
+          "worst10": 0.019874967634677887
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1180_h1_k20_btight": {
+      "complete": true,
+      "case_key": "c1180_h1_k20_btight",
+      "center_id": 1180,
+      "center_type": "B",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1194621,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1194621,
+          "validation": {
+            "weighted_mse": 0.0026119097601622343,
+            "mae": 0.04134371504187584,
+            "worst10": 0.010840127244591713
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0030199321918189526,
+          "mae": 0.04315689951181412,
+          "worst10": 0.014058639295399189
+        },
+        "test": {
+          "weighted_mse": 0.003042312106117606,
+          "mae": 0.04335622861981392,
+          "worst10": 0.01448074635118246
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0030199321918189526,
+          "mae": 0.04315689951181412,
+          "worst10": 0.014058639295399189
+        },
+        "test": {
+          "weighted_mse": 0.003042312106117606,
+          "mae": 0.04335622861981392,
+          "worst10": 0.01448074635118246
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1180_h4_k10_btight": {
+      "complete": true,
+      "case_key": "c1180_h4_k10_btight",
+      "center_id": 1180,
+      "center_type": "B",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1194202,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1194202,
+          "validation": {
+            "weighted_mse": 0.00400345865637064,
+            "mae": 0.05130758136510849,
+            "worst10": 0.014201445505023003
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.004623900167644024,
+          "mae": 0.05394851416349411,
+          "worst10": 0.020066432654857635
+        },
+        "test": {
+          "weighted_mse": 0.004338990431278944,
+          "mae": 0.05211884528398514,
+          "worst10": 0.018839947879314423
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.004623900167644024,
+          "mae": 0.05394851416349411,
+          "worst10": 0.020066432654857635
+        },
+        "test": {
+          "weighted_mse": 0.004338990431278944,
+          "mae": 0.05211884528398514,
+          "worst10": 0.018839947879314423
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1180_h4_k20_btight": {
+      "complete": true,
+      "case_key": "c1180_h4_k20_btight",
+      "center_id": 1180,
+      "center_type": "B",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1194732,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1194732,
+          "validation": {
+            "weighted_mse": 0.0028727927710860968,
+            "mae": 0.04345718026161194,
+            "worst10": 0.009993916377425194
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.003202146152034402,
+          "mae": 0.04463774338364601,
+          "worst10": 0.013882850296795368
+        },
+        "test": {
+          "weighted_mse": 0.0031034168787300587,
+          "mae": 0.043102581053972244,
+          "worst10": 0.013779432512819767
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.003202146152034402,
+          "mae": 0.04463774338364601,
+          "worst10": 0.013882850296795368
+        },
+        "test": {
+          "weighted_mse": 0.0031034168787300587,
+          "mae": 0.043102581053972244,
+          "worst10": 0.013779432512819767
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1181_h1_k10_bloose": {
+      "complete": true,
+      "case_key": "c1181_h1_k10_bloose",
+      "center_id": 1181,
+      "center_type": "B",
+      "budget_tier": "loose",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1195100,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1195100,
+          "validation": {
+            "weighted_mse": 0.004571231547743082,
+            "mae": 0.05479499325156212,
+            "worst10": 0.01866702362895012
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.005590645596385002,
+          "mae": 0.060803767293691635,
+          "worst10": 0.022297129034996033
+        },
+        "test": {
+          "weighted_mse": 0.005394569598138332,
+          "mae": 0.05910298973321915,
+          "worst10": 0.022587845101952553
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.005590645596385002,
+          "mae": 0.060803767293691635,
+          "worst10": 0.022297129034996033
+        },
+        "test": {
+          "weighted_mse": 0.005394569598138332,
+          "mae": 0.05910298973321915,
+          "worst10": 0.022587845101952553
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1181_h1_k20_bloose": {
+      "complete": true,
+      "case_key": "c1181_h1_k20_bloose",
+      "center_id": 1181,
+      "center_type": "B",
+      "budget_tier": "loose",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1195630,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1195630,
+          "validation": {
+            "weighted_mse": 0.004909932147711515,
+            "mae": 0.05702752619981766,
+            "worst10": 0.019622541964054108
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.005806300789117813,
+          "mae": 0.06213012710213661,
+          "worst10": 0.023034842684864998
+        },
+        "test": {
+          "weighted_mse": 0.005604343954473734,
+          "mae": 0.0605383925139904,
+          "worst10": 0.023083049803972244
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.005806300789117813,
+          "mae": 0.06213012710213661,
+          "worst10": 0.023034842684864998
+        },
+        "test": {
+          "weighted_mse": 0.005604343954473734,
+          "mae": 0.0605383925139904,
+          "worst10": 0.023083049803972244
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1181_h4_k10_bloose": {
+      "complete": true,
+      "case_key": "c1181_h4_k10_bloose",
+      "center_id": 1181,
+      "center_type": "B",
+      "budget_tier": "loose",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1195211,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1195211,
+          "validation": {
+            "weighted_mse": 0.004070731345564127,
+            "mae": 0.051599789410829544,
+            "worst10": 0.012854538857936859
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.004065656568855047,
+          "mae": 0.051733456552028656,
+          "worst10": 0.013208219781517982
+        },
+        "test": {
+          "weighted_mse": 0.004145016893744469,
+          "mae": 0.05181190371513367,
+          "worst10": 0.014907813630998135
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.004065656568855047,
+          "mae": 0.051733456552028656,
+          "worst10": 0.013208219781517982
+        },
+        "test": {
+          "weighted_mse": 0.004145016893744469,
+          "mae": 0.05181190371513367,
+          "worst10": 0.014907813630998135
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1181_h4_k20_bloose": {
+      "complete": true,
+      "case_key": "c1181_h4_k20_bloose",
+      "center_id": 1181,
+      "center_type": "B",
+      "budget_tier": "loose",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1195741,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1195741,
+          "validation": {
+            "weighted_mse": 0.004069029353559017,
+            "mae": 0.051640693098306656,
+            "worst10": 0.01301000826060772
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.00454917224124074,
+          "mae": 0.05488751828670502,
+          "worst10": 0.015077648684382439
+        },
+        "test": {
+          "weighted_mse": 0.004651239141821861,
+          "mae": 0.054958276450634,
+          "worst10": 0.01692076213657856
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.00454917224124074,
+          "mae": 0.05488751828670502,
+          "worst10": 0.015077648684382439
+        },
+        "test": {
+          "weighted_mse": 0.004651239141821861,
+          "mae": 0.054958276450634,
+          "worst10": 0.01692076213657856
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1182_h1_k10_btight": {
+      "complete": true,
+      "case_key": "c1182_h1_k10_btight",
+      "center_id": 1182,
+      "center_type": "B",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1196109,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1196109,
+          "validation": {
+            "weighted_mse": 0.0027455072849988937,
+            "mae": 0.042685557156801224,
+            "worst10": 0.011253410018980503
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0030549836810678244,
+          "mae": 0.043965183198451996,
+          "worst10": 0.014039775356650352
+        },
+        "test": {
+          "weighted_mse": 0.0030522302258759737,
+          "mae": 0.04395801201462746,
+          "worst10": 0.013856538571417332
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0030549836810678244,
+          "mae": 0.043965183198451996,
+          "worst10": 0.014039775356650352
+        },
+        "test": {
+          "weighted_mse": 0.0030522302258759737,
+          "mae": 0.04395801201462746,
+          "worst10": 0.013856538571417332
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1182_h1_k20_btight": {
+      "complete": true,
+      "case_key": "c1182_h1_k20_btight",
+      "center_id": 1182,
+      "center_type": "B",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1196639,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1196639,
+          "validation": {
+            "weighted_mse": 0.002798426430672407,
+            "mae": 0.04320051148533821,
+            "worst10": 0.011302495375275612
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.002953773131594062,
+          "mae": 0.04327455163002014,
+          "worst10": 0.013404465280473232
+        },
+        "test": {
+          "weighted_mse": 0.002895578509196639,
+          "mae": 0.042577262967824936,
+          "worst10": 0.013179386965930462
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.002953773131594062,
+          "mae": 0.04327455163002014,
+          "worst10": 0.013404465280473232
+        },
+        "test": {
+          "weighted_mse": 0.002895578509196639,
+          "mae": 0.042577262967824936,
+          "worst10": 0.013179386965930462
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1182_h4_k10_btight": {
+      "complete": true,
+      "case_key": "c1182_h4_k10_btight",
+      "center_id": 1182,
+      "center_type": "B",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1196220,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1196220,
+          "validation": {
+            "weighted_mse": 0.0031176151242107153,
+            "mae": 0.0446368083357811,
+            "worst10": 0.010952575132250786
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0045196255668997765,
+          "mae": 0.05174544081091881,
+          "worst10": 0.02016771025955677
+        },
+        "test": {
+          "weighted_mse": 0.004472997505217791,
+          "mae": 0.05427909642457962,
+          "worst10": 0.01647295616567135
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0045196255668997765,
+          "mae": 0.05174544081091881,
+          "worst10": 0.02016771025955677
+        },
+        "test": {
+          "weighted_mse": 0.004472997505217791,
+          "mae": 0.05427909642457962,
+          "worst10": 0.01647295616567135
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1182_h4_k20_btight": {
+      "complete": true,
+      "case_key": "c1182_h4_k20_btight",
+      "center_id": 1182,
+      "center_type": "B",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1196750,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1196750,
+          "validation": {
+            "weighted_mse": 0.002902987413108349,
+            "mae": 0.04316046088933945,
+            "worst10": 0.009957109577953815
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.003999100998044014,
+          "mae": 0.048228900879621506,
+          "worst10": 0.018108824267983437
+        },
+        "test": {
+          "weighted_mse": 0.0038913502357900143,
+          "mae": 0.05014268308877945,
+          "worst10": 0.014405650086700916
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.003999100998044014,
+          "mae": 0.048228900879621506,
+          "worst10": 0.018108824267983437
+        },
+        "test": {
+          "weighted_mse": 0.0038913502357900143,
+          "mae": 0.05014268308877945,
+          "worst10": 0.014405650086700916
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1183_h1_k10_btight": {
+      "complete": true,
+      "case_key": "c1183_h1_k10_btight",
+      "center_id": 1183,
+      "center_type": "C",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1197118,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1197118,
+          "validation": {
+            "weighted_mse": 0.014185299165546894,
+            "mae": 0.09603925794363022,
+            "worst10": 0.05704018101096153
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.013894211500883102,
+          "mae": 0.09838051348924637,
+          "worst10": 0.05051443725824356
+        },
+        "test": {
+          "weighted_mse": 0.014060085639357567,
+          "mae": 0.09522691369056702,
+          "worst10": 0.05994374305009842
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.013894211500883102,
+          "mae": 0.09838051348924637,
+          "worst10": 0.05051443725824356
+        },
+        "test": {
+          "weighted_mse": 0.014060085639357567,
+          "mae": 0.09522691369056702,
+          "worst10": 0.05994374305009842
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1183_h1_k20_btight": {
+      "complete": true,
+      "case_key": "c1183_h1_k20_btight",
+      "center_id": 1183,
+      "center_type": "C",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1197648,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1197648,
+          "validation": {
+            "weighted_mse": 0.009499660693109035,
+            "mae": 0.07789276540279388,
+            "worst10": 0.04060040041804314
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.009190081618726254,
+          "mae": 0.07889765501022339,
+          "worst10": 0.034720279276371
+        },
+        "test": {
+          "weighted_mse": 0.009185153059661388,
+          "mae": 0.07693935930728912,
+          "worst10": 0.04068351909518242
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.009190081618726254,
+          "mae": 0.07889765501022339,
+          "worst10": 0.034720279276371
+        },
+        "test": {
+          "weighted_mse": 0.009185153059661388,
+          "mae": 0.07693935930728912,
+          "worst10": 0.04068351909518242
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1183_h4_k10_btight": {
+      "complete": true,
+      "case_key": "c1183_h4_k10_btight",
+      "center_id": 1183,
+      "center_type": "C",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1197229,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1197229,
+          "validation": {
+            "weighted_mse": 0.01289112027734518,
+            "mae": 0.09044905751943588,
+            "worst10": 0.047696392983198166
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.012244438752532005,
+          "mae": 0.09120623022317886,
+          "worst10": 0.0397154800593853
+        },
+        "test": {
+          "weighted_mse": 0.013407600112259388,
+          "mae": 0.09300462156534195,
+          "worst10": 0.05067824572324753
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.012244438752532005,
+          "mae": 0.09120623022317886,
+          "worst10": 0.0397154800593853
+        },
+        "test": {
+          "weighted_mse": 0.013407600112259388,
+          "mae": 0.09300462156534195,
+          "worst10": 0.05067824572324753
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1183_h4_k20_btight": {
+      "complete": true,
+      "case_key": "c1183_h4_k20_btight",
+      "center_id": 1183,
+      "center_type": "C",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1197759,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1197759,
+          "validation": {
+            "weighted_mse": 0.00955819059163332,
+            "mae": 0.0773879885673523,
+            "worst10": 0.035473525524139404
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.009178992360830307,
+          "mae": 0.07802377641201019,
+          "worst10": 0.031612493097782135
+        },
+        "test": {
+          "weighted_mse": 0.009468786418437958,
+          "mae": 0.07768897712230682,
+          "worst10": 0.035826582461595535
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.009178992360830307,
+          "mae": 0.07802377641201019,
+          "worst10": 0.031612493097782135
+        },
+        "test": {
+          "weighted_mse": 0.009468786418437958,
+          "mae": 0.07768897712230682,
+          "worst10": 0.035826582461595535
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1184_h1_k10_bloose": {
+      "complete": true,
+      "case_key": "c1184_h1_k10_bloose",
+      "center_id": 1184,
+      "center_type": "B",
+      "budget_tier": "loose",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1198127,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1198127,
+          "validation": {
+            "weighted_mse": 0.003664380870759487,
+            "mae": 0.04931650310754776,
+            "worst10": 0.014756622724235058
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.003261164529249072,
+          "mae": 0.04534643143415451,
+          "worst10": 0.01410182099789381
+        },
+        "test": {
+          "weighted_mse": 0.0036663864739239216,
+          "mae": 0.04809008166193962,
+          "worst10": 0.016061166301369667
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.003261164529249072,
+          "mae": 0.04534643143415451,
+          "worst10": 0.01410182099789381
+        },
+        "test": {
+          "weighted_mse": 0.0036663864739239216,
+          "mae": 0.04809008166193962,
+          "worst10": 0.016061166301369667
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1184_h1_k20_bloose": {
+      "complete": true,
+      "case_key": "c1184_h1_k20_bloose",
+      "center_id": 1184,
+      "center_type": "B",
+      "budget_tier": "loose",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1198657,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1198657,
+          "validation": {
+            "weighted_mse": 0.0033518020063638687,
+            "mae": 0.04686224088072777,
+            "worst10": 0.013996796682476997
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0030646936502307653,
+          "mae": 0.044059235602617264,
+          "worst10": 0.012903820723295212
+        },
+        "test": {
+          "weighted_mse": 0.003393193008378148,
+          "mae": 0.04575460031628609,
+          "worst10": 0.016200177371501923
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0030646936502307653,
+          "mae": 0.044059235602617264,
+          "worst10": 0.012903820723295212
+        },
+        "test": {
+          "weighted_mse": 0.003393193008378148,
+          "mae": 0.04575460031628609,
+          "worst10": 0.016200177371501923
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1184_h4_k10_bloose": {
+      "complete": true,
+      "case_key": "c1184_h4_k10_bloose",
+      "center_id": 1184,
+      "center_type": "B",
+      "budget_tier": "loose",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1198238,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1198238,
+          "validation": {
+            "weighted_mse": 0.004315902944654226,
+            "mae": 0.05288838595151901,
+            "worst10": 0.015252243727445602
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0042923628352582455,
+          "mae": 0.05167779698967934,
+          "worst10": 0.015160990878939629
+        },
+        "test": {
+          "weighted_mse": 0.004486568737775087,
+          "mae": 0.052177783101797104,
+          "worst10": 0.017328061163425446
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0042923628352582455,
+          "mae": 0.05167779698967934,
+          "worst10": 0.015160990878939629
+        },
+        "test": {
+          "weighted_mse": 0.004486568737775087,
+          "mae": 0.052177783101797104,
+          "worst10": 0.017328061163425446
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1184_h4_k20_bloose": {
+      "complete": true,
+      "case_key": "c1184_h4_k20_bloose",
+      "center_id": 1184,
+      "center_type": "B",
+      "budget_tier": "loose",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1198768,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1198768,
+          "validation": {
+            "weighted_mse": 0.003974353428930044,
+            "mae": 0.05049759894609451,
+            "worst10": 0.014334113337099552
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.003946930170059204,
+          "mae": 0.049854375422000885,
+          "worst10": 0.013831990770995617
+        },
+        "test": {
+          "weighted_mse": 0.004062019754201174,
+          "mae": 0.04873742163181305,
+          "worst10": 0.017324497923254967
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.003946930170059204,
+          "mae": 0.049854375422000885,
+          "worst10": 0.013831990770995617
+        },
+        "test": {
+          "weighted_mse": 0.004062019754201174,
+          "mae": 0.04873742163181305,
+          "worst10": 0.017324497923254967
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1185_h1_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1185_h1_k10_bmedium",
+      "center_id": 1185,
+      "center_type": "A",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1199136,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1199136,
+          "validation": {
+            "weighted_mse": 0.000602097250521183,
+            "mae": 0.019501691684126854,
+            "worst10": 0.002714104950428009
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0007580143283121288,
+          "mae": 0.022090189158916473,
+          "worst10": 0.0031009886879473925
+        },
+        "test": {
+          "weighted_mse": 0.001028922270052135,
+          "mae": 0.025125524029135704,
+          "worst10": 0.00503539340570569
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0007580143283121288,
+          "mae": 0.022090189158916473,
+          "worst10": 0.0031009886879473925
+        },
+        "test": {
+          "weighted_mse": 0.001028922270052135,
+          "mae": 0.025125524029135704,
+          "worst10": 0.00503539340570569
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1185_h1_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1185_h1_k20_bmedium",
+      "center_id": 1185,
+      "center_type": "A",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1199666,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1199666,
+          "validation": {
+            "weighted_mse": 0.0005727167590521276,
+            "mae": 0.018900597468018532,
+            "worst10": 0.0026160376146435738
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0007066772668622434,
+          "mae": 0.02134920284152031,
+          "worst10": 0.0028878767043352127
+        },
+        "test": {
+          "weighted_mse": 0.0009851474314928055,
+          "mae": 0.02445690520107746,
+          "worst10": 0.0049052368849515915
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0007066772668622434,
+          "mae": 0.02134920284152031,
+          "worst10": 0.0028878767043352127
+        },
+        "test": {
+          "weighted_mse": 0.0009851474314928055,
+          "mae": 0.02445690520107746,
+          "worst10": 0.0049052368849515915
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1185_h4_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1185_h4_k10_bmedium",
+      "center_id": 1185,
+      "center_type": "A",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1199247,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1199247,
+          "validation": {
+            "weighted_mse": 0.000639992009382695,
+            "mae": 0.019919587299227715,
+            "worst10": 0.002557845786213875
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0006527011282742023,
+          "mae": 0.020286789163947105,
+          "worst10": 0.002587179886177182
+        },
+        "test": {
+          "weighted_mse": 0.0012488149804994464,
+          "mae": 0.02587006613612175,
+          "worst10": 0.0065085990354418755
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0006527011282742023,
+          "mae": 0.020286789163947105,
+          "worst10": 0.002587179886177182
+        },
+        "test": {
+          "weighted_mse": 0.0012488149804994464,
+          "mae": 0.02587006613612175,
+          "worst10": 0.0065085990354418755
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1185_h4_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1185_h4_k20_bmedium",
+      "center_id": 1185,
+      "center_type": "A",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1199777,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1199777,
+          "validation": {
+            "weighted_mse": 0.0006387801258824766,
+            "mae": 0.019892020151019096,
+            "worst10": 0.0025719027034938335
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0006411523791030049,
+          "mae": 0.02008637599647045,
+          "worst10": 0.0025532697327435017
+        },
+        "test": {
+          "weighted_mse": 0.0012464231112971902,
+          "mae": 0.025805745273828506,
+          "worst10": 0.006510696839541197
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0006411523791030049,
+          "mae": 0.02008637599647045,
+          "worst10": 0.0025532697327435017
+        },
+        "test": {
+          "weighted_mse": 0.0012464231112971902,
+          "mae": 0.025805745273828506,
+          "worst10": 0.006510696839541197
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1186_h1_k10_btight": {
+      "complete": true,
+      "case_key": "c1186_h1_k10_btight",
+      "center_id": 1186,
+      "center_type": "C",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1200145,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1200145,
+          "validation": {
+            "weighted_mse": 0.007101221475750208,
+            "mae": 0.06720162183046341,
+            "worst10": 0.031049184501171112
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.008937440812587738,
+          "mae": 0.07632521539926529,
+          "worst10": 0.03720242902636528
+        },
+        "test": {
+          "weighted_mse": 0.0106192072853446,
+          "mae": 0.08599988371133804,
+          "worst10": 0.03933926299214363
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.008937440812587738,
+          "mae": 0.07632521539926529,
+          "worst10": 0.03720242902636528
+        },
+        "test": {
+          "weighted_mse": 0.0106192072853446,
+          "mae": 0.08599988371133804,
+          "worst10": 0.03933926299214363
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1186_h1_k20_btight": {
+      "complete": true,
+      "case_key": "c1186_h1_k20_btight",
+      "center_id": 1186,
+      "center_type": "C",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1200675,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1200675,
+          "validation": {
+            "weighted_mse": 0.006597999483346939,
+            "mae": 0.06486918032169342,
+            "worst10": 0.028621047735214233
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.006806984543800354,
+          "mae": 0.0674593448638916,
+          "worst10": 0.02747625857591629
+        },
+        "test": {
+          "weighted_mse": 0.008025901392102242,
+          "mae": 0.07406368851661682,
+          "worst10": 0.03026403859257698
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.006806984543800354,
+          "mae": 0.0674593448638916,
+          "worst10": 0.02747625857591629
+        },
+        "test": {
+          "weighted_mse": 0.008025901392102242,
+          "mae": 0.07406368851661682,
+          "worst10": 0.03026403859257698
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1186_h4_k10_btight": {
+      "complete": true,
+      "case_key": "c1186_h4_k10_btight",
+      "center_id": 1186,
+      "center_type": "C",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1200256,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1200256,
+          "validation": {
+            "weighted_mse": 0.010622750967741013,
+            "mae": 0.08312568813562393,
+            "worst10": 0.03534090891480446
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.013915770687162876,
+          "mae": 0.09518937021493912,
+          "worst10": 0.045469969511032104
+        },
+        "test": {
+          "weighted_mse": 0.017782382667064667,
+          "mae": 0.11101234704256058,
+          "worst10": 0.055669769644737244
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.013915770687162876,
+          "mae": 0.09518937021493912,
+          "worst10": 0.045469969511032104
+        },
+        "test": {
+          "weighted_mse": 0.017782382667064667,
+          "mae": 0.11101234704256058,
+          "worst10": 0.055669769644737244
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1186_h4_k20_btight": {
+      "complete": true,
+      "case_key": "c1186_h4_k20_btight",
+      "center_id": 1186,
+      "center_type": "C",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1200786,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1200786,
+          "validation": {
+            "weighted_mse": 0.008682133629918098,
+            "mae": 0.0750628262758255,
+            "worst10": 0.028219640254974365
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.01032873336225748,
+          "mae": 0.08120504021644592,
+          "worst10": 0.035619352012872696
+        },
+        "test": {
+          "weighted_mse": 0.01306956447660923,
+          "mae": 0.09419725835323334,
+          "worst10": 0.04238545894622803
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.01032873336225748,
+          "mae": 0.08120504021644592,
+          "worst10": 0.035619352012872696
+        },
+        "test": {
+          "weighted_mse": 0.01306956447660923,
+          "mae": 0.09419725835323334,
+          "worst10": 0.04238545894622803
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1187_h1_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1187_h1_k10_bmedium",
+      "center_id": 1187,
+      "center_type": "C",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1201154,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1201154,
+          "validation": {
+            "weighted_mse": 0.01289989985525608,
+            "mae": 0.09197871387004852,
+            "worst10": 0.05211816728115082
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.016865510493516922,
+          "mae": 0.10567973554134369,
+          "worst10": 0.06175415962934494
+        },
+        "test": {
+          "weighted_mse": 0.014972333796322346,
+          "mae": 0.09940581768751144,
+          "worst10": 0.06143113598227501
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.016865510493516922,
+          "mae": 0.10567973554134369,
+          "worst10": 0.06175415962934494
+        },
+        "test": {
+          "weighted_mse": 0.014972333796322346,
+          "mae": 0.09940581768751144,
+          "worst10": 0.06143113598227501
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1187_h1_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1187_h1_k20_bmedium",
+      "center_id": 1187,
+      "center_type": "C",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1201684,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1201684,
+          "validation": {
+            "weighted_mse": 0.017236309126019478,
+            "mae": 0.1076638475060463,
+            "worst10": 0.06694237887859344
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.02317686565220356,
+          "mae": 0.12758862972259521,
+          "worst10": 0.07783069461584091
+        },
+        "test": {
+          "weighted_mse": 0.020752370357513428,
+          "mae": 0.12038664519786835,
+          "worst10": 0.07662849128246307
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.02317686565220356,
+          "mae": 0.12758862972259521,
+          "worst10": 0.07783069461584091
+        },
+        "test": {
+          "weighted_mse": 0.020752370357513428,
+          "mae": 0.12038664519786835,
+          "worst10": 0.07662849128246307
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1187_h4_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1187_h4_k10_bmedium",
+      "center_id": 1187,
+      "center_type": "C",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1201265,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1201265,
+          "validation": {
+            "weighted_mse": 0.012473269365727901,
+            "mae": 0.09071729332208633,
+            "worst10": 0.04509076476097107
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.014280281029641628,
+          "mae": 0.09683758020401001,
+          "worst10": 0.053167324513196945
+        },
+        "test": {
+          "weighted_mse": 0.013040480203926563,
+          "mae": 0.09269610792398453,
+          "worst10": 0.05013261362910271
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.014280281029641628,
+          "mae": 0.09683758020401001,
+          "worst10": 0.053167324513196945
+        },
+        "test": {
+          "weighted_mse": 0.013040480203926563,
+          "mae": 0.09269610792398453,
+          "worst10": 0.05013261362910271
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1187_h4_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1187_h4_k20_bmedium",
+      "center_id": 1187,
+      "center_type": "C",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1201795,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1201795,
+          "validation": {
+            "weighted_mse": 0.014928091317415237,
+            "mae": 0.09945592284202576,
+            "worst10": 0.05534490942955017
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.020696468651294708,
+          "mae": 0.11744898557662964,
+          "worst10": 0.07160942256450653
+        },
+        "test": {
+          "weighted_mse": 0.0181602593511343,
+          "mae": 0.10942940413951874,
+          "worst10": 0.06881394237279892
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.020696468651294708,
+          "mae": 0.11744898557662964,
+          "worst10": 0.07160942256450653
+        },
+        "test": {
+          "weighted_mse": 0.0181602593511343,
+          "mae": 0.10942940413951874,
+          "worst10": 0.06881394237279892
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1188_h1_k10_bloose": {
+      "complete": true,
+      "case_key": "c1188_h1_k10_bloose",
+      "center_id": 1188,
+      "center_type": "A",
+      "budget_tier": "loose",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1202163,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1202163,
+          "validation": {
+            "weighted_mse": 0.0004059247439727187,
+            "mae": 0.016190435737371445,
+            "worst10": 0.0017777435714378953
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.00031489066896028817,
+          "mae": 0.014183005318045616,
+          "worst10": 0.0012706019915640354
+        },
+        "test": {
+          "weighted_mse": 0.000386752188205719,
+          "mae": 0.015374358743429184,
+          "worst10": 0.0018203109502792358
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.00031489066896028817,
+          "mae": 0.014183005318045616,
+          "worst10": 0.0012706019915640354
+        },
+        "test": {
+          "weighted_mse": 0.000386752188205719,
+          "mae": 0.015374358743429184,
+          "worst10": 0.0018203109502792358
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1188_h1_k20_bloose": {
+      "complete": true,
+      "case_key": "c1188_h1_k20_bloose",
+      "center_id": 1188,
+      "center_type": "A",
+      "budget_tier": "loose",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1202693,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1202693,
+          "validation": {
+            "weighted_mse": 0.0005466655129566789,
+            "mae": 0.019067469984292984,
+            "worst10": 0.0022108883131295443
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.00045669206883758307,
+          "mae": 0.017349328845739365,
+          "worst10": 0.001802107086405158
+        },
+        "test": {
+          "weighted_mse": 0.0005077520618215203,
+          "mae": 0.017666488885879517,
+          "worst10": 0.002400515601038933
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.00045669206883758307,
+          "mae": 0.017349328845739365,
+          "worst10": 0.001802107086405158
+        },
+        "test": {
+          "weighted_mse": 0.0005077520618215203,
+          "mae": 0.017666488885879517,
+          "worst10": 0.002400515601038933
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1188_h4_k10_bloose": {
+      "complete": true,
+      "case_key": "c1188_h4_k10_bloose",
+      "center_id": 1188,
+      "center_type": "A",
+      "budget_tier": "loose",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1202274,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1202274,
+          "validation": {
+            "weighted_mse": 0.0006743245176039636,
+            "mae": 0.02105085738003254,
+            "worst10": 0.002352327574044466
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0005636007408611476,
+          "mae": 0.01955646649003029,
+          "worst10": 0.0017461638199165463
+        },
+        "test": {
+          "weighted_mse": 0.000677292759064585,
+          "mae": 0.02055937983095646,
+          "worst10": 0.003069463185966015
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0005636007408611476,
+          "mae": 0.01955646649003029,
+          "worst10": 0.0017461638199165463
+        },
+        "test": {
+          "weighted_mse": 0.000677292759064585,
+          "mae": 0.02055937983095646,
+          "worst10": 0.003069463185966015
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1188_h4_k20_bloose": {
+      "complete": true,
+      "case_key": "c1188_h4_k20_bloose",
+      "center_id": 1188,
+      "center_type": "A",
+      "budget_tier": "loose",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1202804,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1202804,
+          "validation": {
+            "weighted_mse": 0.0006395572563633323,
+            "mae": 0.02043299563229084,
+            "worst10": 0.0022614349145442247
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0005287388921715319,
+          "mae": 0.018911633640527725,
+          "worst10": 0.001634047832340002
+        },
+        "test": {
+          "weighted_mse": 0.0006391864153556526,
+          "mae": 0.01984999142587185,
+          "worst10": 0.0029513025656342506
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0005287388921715319,
+          "mae": 0.018911633640527725,
+          "worst10": 0.001634047832340002
+        },
+        "test": {
+          "weighted_mse": 0.0006391864153556526,
+          "mae": 0.01984999142587185,
+          "worst10": 0.0029513025656342506
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1189_h1_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1189_h1_k10_bmedium",
+      "center_id": 1189,
+      "center_type": "A",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1203172,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1203172,
+          "validation": {
+            "weighted_mse": 0.0010914532467722893,
+            "mae": 0.026759544387459755,
+            "worst10": 0.004607758484780788
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0011398198548704386,
+          "mae": 0.027154315263032913,
+          "worst10": 0.004852426238358021
+        },
+        "test": {
+          "weighted_mse": 0.001159335603006184,
+          "mae": 0.027626926079392433,
+          "worst10": 0.00460113026201725
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0011398198548704386,
+          "mae": 0.027154315263032913,
+          "worst10": 0.004852426238358021
+        },
+        "test": {
+          "weighted_mse": 0.001159335603006184,
+          "mae": 0.027626926079392433,
+          "worst10": 0.00460113026201725
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1189_h1_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1189_h1_k20_bmedium",
+      "center_id": 1189,
+      "center_type": "A",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1203702,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1203702,
+          "validation": {
+            "weighted_mse": 0.0009842965519055724,
+            "mae": 0.025943679735064507,
+            "worst10": 0.003827118081972003
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.001034757704474032,
+          "mae": 0.02610548958182335,
+          "worst10": 0.004119389224797487
+        },
+        "test": {
+          "weighted_mse": 0.001063992502167821,
+          "mae": 0.02703201211988926,
+          "worst10": 0.0039852992631495
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.001034757704474032,
+          "mae": 0.02610548958182335,
+          "worst10": 0.004119389224797487
+        },
+        "test": {
+          "weighted_mse": 0.001063992502167821,
+          "mae": 0.02703201211988926,
+          "worst10": 0.0039852992631495
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1189_h4_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1189_h4_k10_bmedium",
+      "center_id": 1189,
+      "center_type": "A",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1203283,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1203283,
+          "validation": {
+            "weighted_mse": 0.0009569272515363991,
+            "mae": 0.02495725080370903,
+            "worst10": 0.0034286449663341045
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.000995566020719707,
+          "mae": 0.025472262874245644,
+          "worst10": 0.0036694477312266827
+        },
+        "test": {
+          "weighted_mse": 0.001005942584015429,
+          "mae": 0.025456735864281654,
+          "worst10": 0.0035722735337913036
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.000995566020719707,
+          "mae": 0.025472262874245644,
+          "worst10": 0.0036694477312266827
+        },
+        "test": {
+          "weighted_mse": 0.001005942584015429,
+          "mae": 0.025456735864281654,
+          "worst10": 0.0035722735337913036
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1189_h4_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1189_h4_k20_bmedium",
+      "center_id": 1189,
+      "center_type": "A",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1203813,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1203813,
+          "validation": {
+            "weighted_mse": 0.0009305363637395203,
+            "mae": 0.024728046730160713,
+            "worst10": 0.0033114985562860966
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0009811713825911283,
+          "mae": 0.025355299934744835,
+          "worst10": 0.0034832528326660395
+        },
+        "test": {
+          "weighted_mse": 0.000964794191531837,
+          "mae": 0.025087181478738785,
+          "worst10": 0.003348827362060547
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0009811713825911283,
+          "mae": 0.025355299934744835,
+          "worst10": 0.0034832528326660395
+        },
+        "test": {
+          "weighted_mse": 0.000964794191531837,
+          "mae": 0.025087181478738785,
+          "worst10": 0.003348827362060547
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1190_h1_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1190_h1_k10_bmedium",
+      "center_id": 1190,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1204181,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1204181,
+          "validation": {
+            "weighted_mse": 0.00200297636911273,
+            "mae": 0.03567023575305939,
+            "worst10": 0.008752388879656792
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0024791888426989317,
+          "mae": 0.039925042539834976,
+          "worst10": 0.01084771379828453
+        },
+        "test": {
+          "weighted_mse": 0.002151883440092206,
+          "mae": 0.03723220154643059,
+          "worst10": 0.009555747732520103
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0024791888426989317,
+          "mae": 0.039925042539834976,
+          "worst10": 0.01084771379828453
+        },
+        "test": {
+          "weighted_mse": 0.002151883440092206,
+          "mae": 0.03723220154643059,
+          "worst10": 0.009555747732520103
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1190_h1_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1190_h1_k20_bmedium",
+      "center_id": 1190,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1204711,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1204711,
+          "validation": {
+            "weighted_mse": 0.0018441156717017293,
+            "mae": 0.03456983342766762,
+            "worst10": 0.007844650186598301
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.00231263879686594,
+          "mae": 0.038479629904031754,
+          "worst10": 0.01034046895802021
+        },
+        "test": {
+          "weighted_mse": 0.0020036145579069853,
+          "mae": 0.03595032915472984,
+          "worst10": 0.008541883900761604
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.00231263879686594,
+          "mae": 0.038479629904031754,
+          "worst10": 0.01034046895802021
+        },
+        "test": {
+          "weighted_mse": 0.0020036145579069853,
+          "mae": 0.03595032915472984,
+          "worst10": 0.008541883900761604
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1190_h4_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1190_h4_k10_bmedium",
+      "center_id": 1190,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1204292,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1204292,
+          "validation": {
+            "weighted_mse": 0.002156962873414159,
+            "mae": 0.03686739504337311,
+            "worst10": 0.00829570647329092
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0026367241516709328,
+          "mae": 0.04081578925251961,
+          "worst10": 0.009926406666636467
+        },
+        "test": {
+          "weighted_mse": 0.0025922532659024,
+          "mae": 0.03997372090816498,
+          "worst10": 0.01013613399118185
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0026367241516709328,
+          "mae": 0.04081578925251961,
+          "worst10": 0.009926406666636467
+        },
+        "test": {
+          "weighted_mse": 0.0025922532659024,
+          "mae": 0.03997372090816498,
+          "worst10": 0.01013613399118185
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1190_h4_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1190_h4_k20_bmedium",
+      "center_id": 1190,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1204822,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1204822,
+          "validation": {
+            "weighted_mse": 0.0020789504051208496,
+            "mae": 0.03647507727146149,
+            "worst10": 0.007463647518306971
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.002475376008078456,
+          "mae": 0.040373533964157104,
+          "worst10": 0.00862053595483303
+        },
+        "test": {
+          "weighted_mse": 0.0024797881487756968,
+          "mae": 0.03970341384410858,
+          "worst10": 0.009189656935632229
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.002475376008078456,
+          "mae": 0.040373533964157104,
+          "worst10": 0.00862053595483303
+        },
+        "test": {
+          "weighted_mse": 0.0024797881487756968,
+          "mae": 0.03970341384410858,
+          "worst10": 0.009189656935632229
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1191_h1_k10_btight": {
+      "complete": true,
+      "case_key": "c1191_h1_k10_btight",
+      "center_id": 1191,
+      "center_type": "A",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1205190,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1205190,
+          "validation": {
+            "weighted_mse": 0.0038073225878179073,
+            "mae": 0.050338491797447205,
+            "worst10": 0.015864579007029533
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.004492972511798143,
+          "mae": 0.05509655177593231,
+          "worst10": 0.016613144427537918
+        },
+        "test": {
+          "weighted_mse": 0.003666892182081938,
+          "mae": 0.04902321472764015,
+          "worst10": 0.014926625415682793
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.004492972511798143,
+          "mae": 0.05509655177593231,
+          "worst10": 0.016613144427537918
+        },
+        "test": {
+          "weighted_mse": 0.003666892182081938,
+          "mae": 0.04902321472764015,
+          "worst10": 0.014926625415682793
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1191_h1_k20_btight": {
+      "complete": true,
+      "case_key": "c1191_h1_k20_btight",
+      "center_id": 1191,
+      "center_type": "A",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1205720,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1205720,
+          "validation": {
+            "weighted_mse": 0.0031341237481683493,
+            "mae": 0.04490046948194504,
+            "worst10": 0.013518239371478558
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0035378891043365,
+          "mae": 0.04899906739592552,
+          "worst10": 0.012751162052154541
+        },
+        "test": {
+          "weighted_mse": 0.0027358438819646835,
+          "mae": 0.04160718992352486,
+          "worst10": 0.011410510167479515
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0035378891043365,
+          "mae": 0.04899906739592552,
+          "worst10": 0.012751162052154541
+        },
+        "test": {
+          "weighted_mse": 0.0027358438819646835,
+          "mae": 0.04160718992352486,
+          "worst10": 0.011410510167479515
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1191_h4_k10_btight": {
+      "complete": true,
+      "case_key": "c1191_h4_k10_btight",
+      "center_id": 1191,
+      "center_type": "A",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1205301,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1205301,
+          "validation": {
+            "weighted_mse": 0.003385677468031645,
+            "mae": 0.04685433208942413,
+            "worst10": 0.013945034705102444
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.004031648859381676,
+          "mae": 0.05296308547258377,
+          "worst10": 0.012837924994528294
+        },
+        "test": {
+          "weighted_mse": 0.0032224436290562153,
+          "mae": 0.04622328653931618,
+          "worst10": 0.012209475040435791
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.004031648859381676,
+          "mae": 0.05296308547258377,
+          "worst10": 0.012837924994528294
+        },
+        "test": {
+          "weighted_mse": 0.0032224436290562153,
+          "mae": 0.04622328653931618,
+          "worst10": 0.012209475040435791
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1191_h4_k20_btight": {
+      "complete": true,
+      "case_key": "c1191_h4_k20_btight",
+      "center_id": 1191,
+      "center_type": "A",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1205831,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1205831,
+          "validation": {
+            "weighted_mse": 0.002825280651450157,
+            "mae": 0.04154852777719498,
+            "worst10": 0.011990854516625404
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0031568999402225018,
+          "mae": 0.0459459088742733,
+          "worst10": 0.010710706003010273
+        },
+        "test": {
+          "weighted_mse": 0.002415337599813938,
+          "mae": 0.039152976125478745,
+          "worst10": 0.008989714086055756
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0031568999402225018,
+          "mae": 0.0459459088742733,
+          "worst10": 0.010710706003010273
+        },
+        "test": {
+          "weighted_mse": 0.002415337599813938,
+          "mae": 0.039152976125478745,
+          "worst10": 0.008989714086055756
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1192_h1_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1192_h1_k10_bmedium",
+      "center_id": 1192,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1206199,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1206199,
+          "validation": {
+            "weighted_mse": 0.003335534827783704,
+            "mae": 0.04703583940863609,
+            "worst10": 0.01319789793342352
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.00282999686896801,
+          "mae": 0.04350263625383377,
+          "worst10": 0.010699908249080181
+        },
+        "test": {
+          "weighted_mse": 0.0031794733367860317,
+          "mae": 0.04614366590976715,
+          "worst10": 0.012509268708527088
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.00282999686896801,
+          "mae": 0.04350263625383377,
+          "worst10": 0.010699908249080181
+        },
+        "test": {
+          "weighted_mse": 0.0031794733367860317,
+          "mae": 0.04614366590976715,
+          "worst10": 0.012509268708527088
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1192_h1_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1192_h1_k20_bmedium",
+      "center_id": 1192,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1206729,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1206729,
+          "validation": {
+            "weighted_mse": 0.0028751378413289785,
+            "mae": 0.043857306241989136,
+            "worst10": 0.011637474410235882
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0026977055240422487,
+          "mae": 0.04150320962071419,
+          "worst10": 0.012573689222335815
+        },
+        "test": {
+          "weighted_mse": 0.002975475275889039,
+          "mae": 0.045153141021728516,
+          "worst10": 0.011394577100872993
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0026977055240422487,
+          "mae": 0.04150320962071419,
+          "worst10": 0.012573689222335815
+        },
+        "test": {
+          "weighted_mse": 0.002975475275889039,
+          "mae": 0.045153141021728516,
+          "worst10": 0.011394577100872993
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1192_h4_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1192_h4_k10_bmedium",
+      "center_id": 1192,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1206310,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1206310,
+          "validation": {
+            "weighted_mse": 0.003650463419035077,
+            "mae": 0.04887930303812027,
+            "worst10": 0.013454585336148739
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.00307256355881691,
+          "mae": 0.04512180760502815,
+          "worst10": 0.010950394906103611
+        },
+        "test": {
+          "weighted_mse": 0.003635779721662402,
+          "mae": 0.04930471256375313,
+          "worst10": 0.012213625945150852
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.00307256355881691,
+          "mae": 0.04512180760502815,
+          "worst10": 0.010950394906103611
+        },
+        "test": {
+          "weighted_mse": 0.003635779721662402,
+          "mae": 0.04930471256375313,
+          "worst10": 0.012213625945150852
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1192_h4_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1192_h4_k20_bmedium",
+      "center_id": 1192,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1206840,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1206840,
+          "validation": {
+            "weighted_mse": 0.004137231968343258,
+            "mae": 0.05249681696295738,
+            "worst10": 0.014513875357806683
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0038271683733910322,
+          "mae": 0.04869680479168892,
+          "worst10": 0.015819469466805458
+        },
+        "test": {
+          "weighted_mse": 0.004253501072525978,
+          "mae": 0.05330042541027069,
+          "worst10": 0.015403719618916512
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0038271683733910322,
+          "mae": 0.04869680479168892,
+          "worst10": 0.015819469466805458
+        },
+        "test": {
+          "weighted_mse": 0.004253501072525978,
+          "mae": 0.05330042541027069,
+          "worst10": 0.015403719618916512
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1193_h1_k10_btight": {
+      "complete": true,
+      "case_key": "c1193_h1_k10_btight",
+      "center_id": 1193,
+      "center_type": "A",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1207208,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1207208,
+          "validation": {
+            "weighted_mse": 0.0009451365331187844,
+            "mae": 0.02365131303668022,
+            "worst10": 0.004699492361396551
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0009806676534935832,
+          "mae": 0.02466815523803234,
+          "worst10": 0.004632881842553616
+        },
+        "test": {
+          "weighted_mse": 0.0010456966701894999,
+          "mae": 0.02502736635506153,
+          "worst10": 0.005118611268699169
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0009806676534935832,
+          "mae": 0.02466815523803234,
+          "worst10": 0.004632881842553616
+        },
+        "test": {
+          "weighted_mse": 0.0010456966701894999,
+          "mae": 0.02502736635506153,
+          "worst10": 0.005118611268699169
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1193_h1_k20_btight": {
+      "complete": true,
+      "case_key": "c1193_h1_k20_btight",
+      "center_id": 1193,
+      "center_type": "A",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1207738,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1207738,
+          "validation": {
+            "weighted_mse": 0.0009414186351932585,
+            "mae": 0.02379133738577366,
+            "worst10": 0.0045369211584329605
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0010140581289306283,
+          "mae": 0.025083841755986214,
+          "worst10": 0.004876031540334225
+        },
+        "test": {
+          "weighted_mse": 0.0011117499088868499,
+          "mae": 0.025696322321891785,
+          "worst10": 0.0055533843114972115
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0010140581289306283,
+          "mae": 0.025083841755986214,
+          "worst10": 0.004876031540334225
+        },
+        "test": {
+          "weighted_mse": 0.0011117499088868499,
+          "mae": 0.025696322321891785,
+          "worst10": 0.0055533843114972115
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1193_h4_k10_btight": {
+      "complete": true,
+      "case_key": "c1193_h4_k10_btight",
+      "center_id": 1193,
+      "center_type": "A",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1207319,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1207319,
+          "validation": {
+            "weighted_mse": 0.00163712864741683,
+            "mae": 0.032964061945676804,
+            "worst10": 0.006072156596928835
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0017639436991885304,
+          "mae": 0.03457680344581604,
+          "worst10": 0.006308471783995628
+        },
+        "test": {
+          "weighted_mse": 0.0016270068008452654,
+          "mae": 0.03374079242348671,
+          "worst10": 0.005475079640746117
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0017639436991885304,
+          "mae": 0.03457680344581604,
+          "worst10": 0.006308471783995628
+        },
+        "test": {
+          "weighted_mse": 0.0016270068008452654,
+          "mae": 0.03374079242348671,
+          "worst10": 0.005475079640746117
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1193_h4_k20_btight": {
+      "complete": true,
+      "case_key": "c1193_h4_k20_btight",
+      "center_id": 1193,
+      "center_type": "A",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1207849,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1207849,
+          "validation": {
+            "weighted_mse": 0.000997808761894703,
+            "mae": 0.024578163400292397,
+            "worst10": 0.004264105577021837
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0011844155378639698,
+          "mae": 0.026618536561727524,
+          "worst10": 0.005513516254723072
+        },
+        "test": {
+          "weighted_mse": 0.0011821277439594269,
+          "mae": 0.026593659073114395,
+          "worst10": 0.005246586166322231
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0011844155378639698,
+          "mae": 0.026618536561727524,
+          "worst10": 0.005513516254723072
+        },
+        "test": {
+          "weighted_mse": 0.0011821277439594269,
+          "mae": 0.026593659073114395,
+          "worst10": 0.005246586166322231
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1194_h1_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1194_h1_k10_bmedium",
+      "center_id": 1194,
+      "center_type": "C",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1208217,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1208217,
+          "validation": {
+            "weighted_mse": 0.004319262690842152,
+            "mae": 0.05275481939315796,
+            "worst10": 0.018868183717131615
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0046937777660787106,
+          "mae": 0.05543341860175133,
+          "worst10": 0.019764170050621033
+        },
+        "test": {
+          "weighted_mse": 0.004771410953253508,
+          "mae": 0.05494197830557823,
+          "worst10": 0.02136852592229843
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0046937777660787106,
+          "mae": 0.05543341860175133,
+          "worst10": 0.019764170050621033
+        },
+        "test": {
+          "weighted_mse": 0.004771410953253508,
+          "mae": 0.05494197830557823,
+          "worst10": 0.02136852592229843
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1194_h1_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1194_h1_k20_bmedium",
+      "center_id": 1194,
+      "center_type": "C",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1208747,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1208747,
+          "validation": {
+            "weighted_mse": 0.006028871051967144,
+            "mae": 0.06286920607089996,
+            "worst10": 0.02558279223740101
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.006435524206608534,
+          "mae": 0.06570952385663986,
+          "worst10": 0.02566605806350708
+        },
+        "test": {
+          "weighted_mse": 0.0064542596228420734,
+          "mae": 0.06490921229124069,
+          "worst10": 0.027835428714752197
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.006435524206608534,
+          "mae": 0.06570952385663986,
+          "worst10": 0.02566605806350708
+        },
+        "test": {
+          "weighted_mse": 0.0064542596228420734,
+          "mae": 0.06490921229124069,
+          "worst10": 0.027835428714752197
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1194_h4_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1194_h4_k10_bmedium",
+      "center_id": 1194,
+      "center_type": "C",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1208328,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1208328,
+          "validation": {
+            "weighted_mse": 0.004642986226826906,
+            "mae": 0.05460650101304054,
+            "worst10": 0.013950329273939133
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0049379924312233925,
+          "mae": 0.055919867008924484,
+          "worst10": 0.014717228710651398
+        },
+        "test": {
+          "weighted_mse": 0.005102843511849642,
+          "mae": 0.056474797427654266,
+          "worst10": 0.016626762226223946
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0049379924312233925,
+          "mae": 0.055919867008924484,
+          "worst10": 0.014717228710651398
+        },
+        "test": {
+          "weighted_mse": 0.005102843511849642,
+          "mae": 0.056474797427654266,
+          "worst10": 0.016626762226223946
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1194_h4_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1194_h4_k20_bmedium",
+      "center_id": 1194,
+      "center_type": "C",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1208858,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1208858,
+          "validation": {
+            "weighted_mse": 0.004865893628448248,
+            "mae": 0.055982932448387146,
+            "worst10": 0.014801391400396824
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.00579593051224947,
+          "mae": 0.0609402135014534,
+          "worst10": 0.018378814682364464
+        },
+        "test": {
+          "weighted_mse": 0.005553385242819786,
+          "mae": 0.058939117938280106,
+          "worst10": 0.019891707226634026
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.00579593051224947,
+          "mae": 0.0609402135014534,
+          "worst10": 0.018378814682364464
+        },
+        "test": {
+          "weighted_mse": 0.005553385242819786,
+          "mae": 0.058939117938280106,
+          "worst10": 0.019891707226634026
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1195_h1_k10_btight": {
+      "complete": true,
+      "case_key": "c1195_h1_k10_btight",
+      "center_id": 1195,
+      "center_type": "C",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1209226,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1209226,
+          "validation": {
+            "weighted_mse": 0.01082527544349432,
+            "mae": 0.08567046374082565,
+            "worst10": 0.04101337864995003
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.018442586064338684,
+          "mae": 0.11965867131948471,
+          "worst10": 0.05248395353555679
+        },
+        "test": {
+          "weighted_mse": 0.01893836073577404,
+          "mae": 0.12148748338222504,
+          "worst10": 0.05597181245684624
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.018442586064338684,
+          "mae": 0.11965867131948471,
+          "worst10": 0.05248395353555679
+        },
+        "test": {
+          "weighted_mse": 0.01893836073577404,
+          "mae": 0.12148748338222504,
+          "worst10": 0.05597181245684624
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1195_h1_k20_btight": {
+      "complete": true,
+      "case_key": "c1195_h1_k20_btight",
+      "center_id": 1195,
+      "center_type": "C",
+      "budget_tier": "tight",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1209756,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1209756,
+          "validation": {
+            "weighted_mse": 0.005021129734814167,
+            "mae": 0.05748780444264412,
+            "worst10": 0.02129124291241169
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0072178831323981285,
+          "mae": 0.07021664083003998,
+          "worst10": 0.027469033375382423
+        },
+        "test": {
+          "weighted_mse": 0.007695848122239113,
+          "mae": 0.07190560549497604,
+          "worst10": 0.030433613806962967
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0072178831323981285,
+          "mae": 0.07021664083003998,
+          "worst10": 0.027469033375382423
+        },
+        "test": {
+          "weighted_mse": 0.007695848122239113,
+          "mae": 0.07190560549497604,
+          "worst10": 0.030433613806962967
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1195_h4_k10_btight": {
+      "complete": true,
+      "case_key": "c1195_h4_k10_btight",
+      "center_id": 1195,
+      "center_type": "C",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1209337,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1209337,
+          "validation": {
+            "weighted_mse": 0.01022219005972147,
+            "mae": 0.08240856230258942,
+            "worst10": 0.03513454273343086
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.017294511198997498,
+          "mae": 0.11544834077358246,
+          "worst10": 0.04307740554213524
+        },
+        "test": {
+          "weighted_mse": 0.017051855102181435,
+          "mae": 0.11459153890609741,
+          "worst10": 0.04609377682209015
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.017294511198997498,
+          "mae": 0.11544834077358246,
+          "worst10": 0.04307740554213524
+        },
+        "test": {
+          "weighted_mse": 0.017051855102181435,
+          "mae": 0.11459153890609741,
+          "worst10": 0.04609377682209015
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1195_h4_k20_btight": {
+      "complete": true,
+      "case_key": "c1195_h4_k20_btight",
+      "center_id": 1195,
+      "center_type": "C",
+      "budget_tier": "tight",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1209867,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1209867,
+          "validation": {
+            "weighted_mse": 0.005630663596093655,
+            "mae": 0.05945467948913574,
+            "worst10": 0.02014228329062462
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0076666586101055145,
+          "mae": 0.07220206409692764,
+          "worst10": 0.022701477631926537
+        },
+        "test": {
+          "weighted_mse": 0.0073465462774038315,
+          "mae": 0.0698612853884697,
+          "worst10": 0.0253519956022501
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0076666586101055145,
+          "mae": 0.07220206409692764,
+          "worst10": 0.022701477631926537
+        },
+        "test": {
+          "weighted_mse": 0.0073465462774038315,
+          "mae": 0.0698612853884697,
+          "worst10": 0.0253519956022501
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1196_h1_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1196_h1_k10_bmedium",
+      "center_id": 1196,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1210235,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1210235,
+          "validation": {
+            "weighted_mse": 0.0028796230908483267,
+            "mae": 0.04327520728111267,
+            "worst10": 0.012278007343411446
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.003732062876224518,
+          "mae": 0.04867667704820633,
+          "worst10": 0.015877768397331238
+        },
+        "test": {
+          "weighted_mse": 0.004013487603515387,
+          "mae": 0.05128730833530426,
+          "worst10": 0.015914443880319595
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.003732062876224518,
+          "mae": 0.04867667704820633,
+          "worst10": 0.015877768397331238
+        },
+        "test": {
+          "weighted_mse": 0.004013487603515387,
+          "mae": 0.05128730833530426,
+          "worst10": 0.015914443880319595
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1196_h1_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1196_h1_k20_bmedium",
+      "center_id": 1196,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1210765,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1210765,
+          "validation": {
+            "weighted_mse": 0.0023731125984340906,
+            "mae": 0.03909458592534065,
+            "worst10": 0.010248461738228798
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0032047079876065254,
+          "mae": 0.04470091313123703,
+          "worst10": 0.014147061854600906
+        },
+        "test": {
+          "weighted_mse": 0.003417705651372671,
+          "mae": 0.04703844338655472,
+          "worst10": 0.013955446891486645
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0032047079876065254,
+          "mae": 0.04470091313123703,
+          "worst10": 0.014147061854600906
+        },
+        "test": {
+          "weighted_mse": 0.003417705651372671,
+          "mae": 0.04703844338655472,
+          "worst10": 0.013955446891486645
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1196_h4_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1196_h4_k10_bmedium",
+      "center_id": 1196,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1210346,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1210346,
+          "validation": {
+            "weighted_mse": 0.0023160804994404316,
+            "mae": 0.03821597620844841,
+            "worst10": 0.00853274017572403
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0027420525439083576,
+          "mae": 0.0418359600007534,
+          "worst10": 0.009839547798037529
+        },
+        "test": {
+          "weighted_mse": 0.0028636183124035597,
+          "mae": 0.04132457450032234,
+          "worst10": 0.013187714852392673
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0027420525439083576,
+          "mae": 0.0418359600007534,
+          "worst10": 0.009839547798037529
+        },
+        "test": {
+          "weighted_mse": 0.0028636183124035597,
+          "mae": 0.04132457450032234,
+          "worst10": 0.013187714852392673
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1196_h4_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1196_h4_k20_bmedium",
+      "center_id": 1196,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1210876,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1210876,
+          "validation": {
+            "weighted_mse": 0.002158591290935874,
+            "mae": 0.036783792078495026,
+            "worst10": 0.008009007200598717
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.002565937815234065,
+          "mae": 0.04040253534913063,
+          "worst10": 0.009125832468271255
+        },
+        "test": {
+          "weighted_mse": 0.002698587952181697,
+          "mae": 0.03994237259030342,
+          "worst10": 0.012518019415438175
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.002565937815234065,
+          "mae": 0.04040253534913063,
+          "worst10": 0.009125832468271255
+        },
+        "test": {
+          "weighted_mse": 0.002698587952181697,
+          "mae": 0.03994237259030342,
+          "worst10": 0.012518019415438175
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1197_h1_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1197_h1_k10_bmedium",
+      "center_id": 1197,
+      "center_type": "A",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1211244,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1211244,
+          "validation": {
+            "weighted_mse": 0.0004949772846885026,
+            "mae": 0.017621325328946114,
+            "worst10": 0.0022159337531775236
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.00043504024506546557,
+          "mae": 0.016519902274012566,
+          "worst10": 0.0019331549992784858
+        },
+        "test": {
+          "weighted_mse": 0.0005988102057017386,
+          "mae": 0.018103379756212234,
+          "worst10": 0.0033686731476336718
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.00043504024506546557,
+          "mae": 0.016519902274012566,
+          "worst10": 0.0019331549992784858
+        },
+        "test": {
+          "weighted_mse": 0.0005988102057017386,
+          "mae": 0.018103379756212234,
+          "worst10": 0.0033686731476336718
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1197_h1_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1197_h1_k20_bmedium",
+      "center_id": 1197,
+      "center_type": "A",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1211774,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1211774,
+          "validation": {
+            "weighted_mse": 0.0005144988535903394,
+            "mae": 0.018002871423959732,
+            "worst10": 0.002292455406859517
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0004559314111247659,
+          "mae": 0.016874900087714195,
+          "worst10": 0.0020247208885848522
+        },
+        "test": {
+          "weighted_mse": 0.0006203338271006942,
+          "mae": 0.01856303960084915,
+          "worst10": 0.0034480993635952473
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0004559314111247659,
+          "mae": 0.016874900087714195,
+          "worst10": 0.0020247208885848522
+        },
+        "test": {
+          "weighted_mse": 0.0006203338271006942,
+          "mae": 0.01856303960084915,
+          "worst10": 0.0034480993635952473
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1197_h4_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1197_h4_k10_bmedium",
+      "center_id": 1197,
+      "center_type": "A",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1211355,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1211355,
+          "validation": {
+            "weighted_mse": 0.001355285756289959,
+            "mae": 0.030083246529102325,
+            "worst10": 0.004579976666718721
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.001363375224173069,
+          "mae": 0.030712345615029335,
+          "worst10": 0.004433887545019388
+        },
+        "test": {
+          "weighted_mse": 0.0017097422387450933,
+          "mae": 0.032773274928331375,
+          "worst10": 0.007274302188307047
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.001363375224173069,
+          "mae": 0.030712345615029335,
+          "worst10": 0.004433887545019388
+        },
+        "test": {
+          "weighted_mse": 0.0017097422387450933,
+          "mae": 0.032773274928331375,
+          "worst10": 0.007274302188307047
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1197_h4_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1197_h4_k20_bmedium",
+      "center_id": 1197,
+      "center_type": "A",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1211885,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1211885,
+          "validation": {
+            "weighted_mse": 0.0007860258920118213,
+            "mae": 0.022680675610899925,
+            "worst10": 0.002647165907546878
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0007428989047184587,
+          "mae": 0.02183370105922222,
+          "worst10": 0.002645626198500395
+        },
+        "test": {
+          "weighted_mse": 0.0010864506475627422,
+          "mae": 0.025076938793063164,
+          "worst10": 0.0052710329182446
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.0007428989047184587,
+          "mae": 0.02183370105922222,
+          "worst10": 0.002645626198500395
+        },
+        "test": {
+          "weighted_mse": 0.0010864506475627422,
+          "mae": 0.025076938793063164,
+          "worst10": 0.0052710329182446
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1198_h1_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1198_h1_k10_bmedium",
+      "center_id": 1198,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1212253,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1212253,
+          "validation": {
+            "weighted_mse": 0.003516977187246084,
+            "mae": 0.048185449093580246,
+            "worst10": 0.01419754046946764
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0039944578893482685,
+          "mae": 0.05094095692038536,
+          "worst10": 0.016636164858937263
+        },
+        "test": {
+          "weighted_mse": 0.006899879314005375,
+          "mae": 0.07172416895627975,
+          "worst10": 0.02307889424264431
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0039944578893482685,
+          "mae": 0.05094095692038536,
+          "worst10": 0.016636164858937263
+        },
+        "test": {
+          "weighted_mse": 0.006899879314005375,
+          "mae": 0.07172416895627975,
+          "worst10": 0.02307889424264431
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1198_h1_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1198_h1_k20_bmedium",
+      "center_id": 1198,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1212783,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1212783,
+          "validation": {
+            "weighted_mse": 0.002683752914890647,
+            "mae": 0.041696757078170776,
+            "worst10": 0.011146669276058674
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0029673355165868998,
+          "mae": 0.04333101585507393,
+          "worst10": 0.013057369738817215
+        },
+        "test": {
+          "weighted_mse": 0.0048702554777264595,
+          "mae": 0.05837905406951904,
+          "worst10": 0.01831585355103016
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0029673355165868998,
+          "mae": 0.04333101585507393,
+          "worst10": 0.013057369738817215
+        },
+        "test": {
+          "weighted_mse": 0.0048702554777264595,
+          "mae": 0.05837905406951904,
+          "worst10": 0.01831585355103016
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1198_h4_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1198_h4_k10_bmedium",
+      "center_id": 1198,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1212364,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1212364,
+          "validation": {
+            "weighted_mse": 0.004130436573177576,
+            "mae": 0.05286973714828491,
+            "worst10": 0.013159386813640594
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.004697715863585472,
+          "mae": 0.05614360794425011,
+          "worst10": 0.01699759252369404
+        },
+        "test": {
+          "weighted_mse": 0.007248464971780777,
+          "mae": 0.07264649868011475,
+          "worst10": 0.02239871956408024
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.004697715863585472,
+          "mae": 0.05614360794425011,
+          "worst10": 0.01699759252369404
+        },
+        "test": {
+          "weighted_mse": 0.007248464971780777,
+          "mae": 0.07264649868011475,
+          "worst10": 0.02239871956408024
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1198_h4_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1198_h4_k20_bmedium",
+      "center_id": 1198,
+      "center_type": "B",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1212894,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1212894,
+          "validation": {
+            "weighted_mse": 0.0033398796804249287,
+            "mae": 0.04682253673672676,
+            "worst10": 0.01104217953979969
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.003780158469453454,
+          "mae": 0.049348779022693634,
+          "worst10": 0.014331523329019547
+        },
+        "test": {
+          "weighted_mse": 0.005728953517973423,
+          "mae": 0.06276918947696686,
+          "worst10": 0.019142866134643555
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.003780158469453454,
+          "mae": 0.049348779022693634,
+          "worst10": 0.014331523329019547
+        },
+        "test": {
+          "weighted_mse": 0.005728953517973423,
+          "mae": 0.06276918947696686,
+          "worst10": 0.019142866134643555
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1199_h1_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1199_h1_k10_bmedium",
+      "center_id": 1199,
+      "center_type": "C",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 10,
+      "target_seed": 1213262,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1213262,
+          "validation": {
+            "weighted_mse": 0.007342062424868345,
+            "mae": 0.06720560789108276,
+            "worst10": 0.03434394299983978
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0067772469483315945,
+          "mae": 0.06538242101669312,
+          "worst10": 0.03005262091755867
+        },
+        "test": {
+          "weighted_mse": 0.008157574571669102,
+          "mae": 0.07032160460948944,
+          "worst10": 0.040063511580228806
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.0067772469483315945,
+          "mae": 0.06538242101669312,
+          "worst10": 0.03005262091755867
+        },
+        "test": {
+          "weighted_mse": 0.008157574571669102,
+          "mae": 0.07032160460948944,
+          "worst10": 0.040063511580228806
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1199_h1_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1199_h1_k20_bmedium",
+      "center_id": 1199,
+      "center_type": "C",
+      "budget_tier": "medium",
+      "H": 1,
+      "K": 20,
+      "target_seed": 1213792,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5697,
+          "flops": 1050688,
+          "target_seed": 1213792,
+          "validation": {
+            "weighted_mse": 0.009729436598718166,
+            "mae": 0.07874737679958344,
+            "worst10": 0.04316034913063049
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.009174056351184845,
+          "mae": 0.07725042849779129,
+          "worst10": 0.038772448897361755
+        },
+        "test": {
+          "weighted_mse": 0.010206499136984348,
+          "mae": 0.08024327456951141,
+          "worst10": 0.04757017269730568
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5697,
+        "flops": 1050688,
+        "check": {
+          "weighted_mse": 0.009174056351184845,
+          "mae": 0.07725042849779129,
+          "worst10": 0.038772448897361755
+        },
+        "test": {
+          "weighted_mse": 0.010206499136984348,
+          "mae": 0.08024327456951141,
+          "worst10": 0.04757017269730568
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1199_h4_k10_bmedium": {
+      "complete": true,
+      "case_key": "c1199_h4_k10_bmedium",
+      "center_id": 1199,
+      "center_type": "C",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 10,
+      "target_seed": 1213373,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1213373,
+          "validation": {
+            "weighted_mse": 0.010247371159493923,
+            "mae": 0.07978770136833191,
+            "worst10": 0.03922177106142044
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.009453775361180305,
+          "mae": 0.07654805481433868,
+          "worst10": 0.034662600606679916
+        },
+        "test": {
+          "weighted_mse": 0.010183218866586685,
+          "mae": 0.07779055088758469,
+          "worst10": 0.0424659438431263
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.009453775361180305,
+          "mae": 0.07654805481433868,
+          "worst10": 0.034662600606679916
+        },
+        "test": {
+          "weighted_mse": 0.010183218866586685,
+          "mae": 0.07779055088758469,
+          "worst10": 0.0424659438431263
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    },
+    "c1199_h4_k20_bmedium": {
+      "complete": true,
+      "case_key": "c1199_h4_k20_bmedium",
+      "center_id": 1199,
+      "center_type": "C",
+      "budget_tier": "medium",
+      "H": 4,
+      "K": 20,
+      "target_seed": 1213903,
+      "candidate_count": 1,
+      "candidate_validations": [
+        {
+          "token": "PT_A57_A57",
+          "arch_idx": 57,
+          "initialization": "protected_pt",
+          "arch_key": "GRU_L1_H32_D0.1",
+          "family": "GRU",
+          "params": 5796,
+          "flops": 1050880,
+          "target_seed": 1213903,
+          "validation": {
+            "weighted_mse": 0.010406420566141605,
+            "mae": 0.0806984230875969,
+            "worst10": 0.03897690400481224
+          }
+        }
+      ],
+      "selector": {
+        "selected_token": "PT_A57_A57",
+        "selected_arch_idx": 57,
+        "switched_from_pt_anchor": false,
+        "margin_rel": null,
+        "deployment_mode": "adapted_reference_fallback"
+      },
+      "selected": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.009438502602279186,
+          "mae": 0.07711029797792435,
+          "worst10": 0.03375020623207092
+        },
+        "test": {
+          "weighted_mse": 0.010086547583341599,
+          "mae": 0.07790367305278778,
+          "worst10": 0.040673211216926575
+        }
+      },
+      "pt_ft": {
+        "token": "PT_A57_A57",
+        "arch_idx": 57,
+        "arch_key": "GRU_L1_H32_D0.1",
+        "family": "GRU",
+        "params": 5796,
+        "flops": 1050880,
+        "check": {
+          "weighted_mse": 0.009438502602279186,
+          "mae": 0.07711029797792435,
+          "worst10": 0.03375020623207092
+        },
+        "test": {
+          "weighted_mse": 0.010086547583341599,
+          "mae": 0.07790367305278778,
+          "worst10": 0.040673211216926575
+        }
+      },
+      "deployment_limit_satisfied": true,
+      "selection_uses_check": false,
+      "selection_uses_test": false,
+      "test_opened_after_selection": true
+    }
+  },
+  "selection_uses_check": false,
+  "selection_uses_test": false,
+  "test_opened_only_after_final_model_fixed": true,
+  "complete": true,
+  "completed_records": 80,
+  "elapsed_seconds": 216.16430840000976
+}

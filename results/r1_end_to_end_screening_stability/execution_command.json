@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "scripts/run_r1_end_to_end_screening_stability.py",
+    "--root",
+    ".",
+    "--output-root",
+    "results/r1_end_to_end_screening_stability",
+    "--device",
+    "cpu",
+    "--safe-mode",
+    "default",
+    "--execute",
+    "--protocol-sha256",
+    "c960589cb8da9888b488668c6f3854c2465181865b0c45f6d6d4c3ae23fec89e"
+  ],
+  "working_directory": ".",
+  "started_at_unix_s": 1788246516.0613399,
+  "protocol_sha256": "c960589cb8da9888b488668c6f3854c2465181865b0c45f6d6d4c3ae23fec89e",
+  "resume": false,
+  "executed_protocol_sha256": "c960589cb8da9888b488668c6f3854c2465181865b0c45f6d6d4c3ae23fec89e",
+  "public_protocol_sha256": "27a3e786b7ef33b7ebdc7b4e6dd844a68f8e7204747791f4e1eeb3a181f2e7ed"
+}

@@ -1,0 +1,31 @@
+{
+  "decision": "PASS_R1_COMPLETE_AND_AUDITED",
+  "checks": {
+    "protocol_hash_bound": true,
+    "banks_complete": true,
+    "bank_identities_exact": true,
+    "S1_reference_only": true,
+    "S2_A59_source_trained": true,
+    "calibration_complete_test_unused": true,
+    "smallest_eligible_or_fallback": true,
+    "heldout_cases_exact": true,
+    "same_heldout_cases_all_screens": true,
+    "test_isolation": true,
+    "deployment_limits_satisfied": true,
+    "summary_counts_consistent": true,
+    "canonical_tracked_files_unchanged_during_R1": true,
+    "repository_verification_exit_zero": true,
+    "execution_protocol_original_hash_recorded": true
+  },
+  "tracked_file_changes_during_R1": {},
+  "repository_verification": {
+    "command": [
+      "python",
+      "scripts/verify_repository.py"
+    ],
+    "exit_code": 0,
+    "output_file": "repository_verification.txt"
+  },
+  "test_used_for_upstream_decision": false,
+  "canonical_results_modified_during_R1": false
+}
