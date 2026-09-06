@@ -98,7 +98,7 @@ evaluated in Supplementary Section~S5.
 \section{Candidate-Bank Records and Relative-Margin Calibration}
 \label{supp:bank-calibration}
 
-\subsection{Candidate-bank construction and frozen records}
+\subsection{Candidate-bank construction and source-trained records}
 
 The initial architecture space contains 66 indexed configurations: 18 MLPs,
 36 TCNs, and 12 GRUs. Configuration A57, a one-layer GRU with 32 hidden
@@ -112,19 +112,21 @@ positive check win is assigned when validation selects an alternative
 configuration whose check loss improves on A57.
 These cases belong to the architecture-screening pool and are disjoint from
 the margin-calibration and held-out target pools.
-The retained list contains three MLP and three GRU configurations.
-No TCN configuration satisfies this rule.
+The recorded S0 retained-indexed-configuration list contains three MLP and
+three GRU entries, including A57. No TCN configuration satisfies this rule.
+The PT-A57 reference candidate is constructed separately in the downstream
+candidate bank.
 
 Two retained one-layer GRU-32 configurations have different indexed
 settings, but recurrent dropout is inactive for a one-layer GRU. They
 therefore represent the same executable architecture. The six retained
 configurations correspond to five executable architectures.
 
-The final bank contains the frozen pooled-source PT+FT initialization for
+The final bank contains the pooled-source PT+FT initialization for
 the reference, one source-trained initialization for each of the five other
 retained indexed configurations, and a second A57 initialization used as a
 paired-initialization control. The six retained configurations therefore
-produce seven candidates. The bank and reference candidate are frozen
+produce seven candidates. The bank and reference candidate are fixed
 before relative-margin calibration and held-out evaluation.
 
 \subsection{Relative-margin calibration records}
@@ -135,11 +137,14 @@ records its complete experimental instantiation and reproducibility details.
 Let
 $\mathcal{T}=\{0.05,0.075,0.10,0.125,0.15,0.20\}$
 denote the preset margin grid. For a relative margin $\tau$, let
-$\widehat R_{\mathrm{harm}}(\tau)$ denote the observed harmful-selection
-rate. Let $\widehat G_{\mathrm{ref}}(\tau)$ and
-$\widehat G_{\mathrm{pair}}(\tau)$ denote the mean check-loss gains over the
-adapted reference and the paired-initialization control. Their lower 95\%
-confidence bounds are
+$\widehat R_{\mathrm{harm}}(\tau)$ denote the fraction of all calibration
+cases in which an alternative is selected and its check-set loss exceeds that
+of the adapted reference. Let $\widehat G_{\mathrm{ref}}(\tau)$ and
+$\widehat G_{\mathrm{pair}}(\tau)$ denote the mean relative check-loss gains
+with respect to the adapted reference and the paired-initialization control,
+respectively, where each gain is the relative reduction in check-set loss of
+the selected model with respect to the corresponding control. Their lower
+95\% confidence bounds are
 $\underline G_{\mathrm{ref}}(\tau)$ and
 $\underline G_{\mathrm{pair}}(\tau)$.
 
@@ -178,15 +183,14 @@ The smallest eligible value in the main margin-calibration setting is
 $\tau^{*}=0.10$.
 
 Architecture screening and candidate-bank construction are completed before
-margin calibration.
-The candidate bank and reference candidate are fixed when the margin grid is
-evaluated.
+margin calibration, and the resulting candidate bank and reference candidate
+remain fixed while the margin grid is evaluated.
 
 If no margin satisfies the calibration criteria in a new domain, the adapted
 reference is retained. A margin fixed in another domain may still be
 evaluated without recalibration to assess transfer. The released calibration
 CSV contains the complete six-margin grid,
-harmful-selection rates, mean gains, and confidence bounds.
+harmful-selection rates, mean relative gains, and confidence bounds.
 
 \section{Additional Analytical Details}
 \label{supp:analysis}
@@ -256,7 +260,14 @@ estimate an empirical bound on $\epsilon_c$.
 \section{Additional Experimental and Diagnostic Results}
 \label{supp:diagnostics}
 
+
+
 \subsection{Target-side baseline settings}
+
+For the synthetic main study, the support/validation/check/test window counts
+are 10/1351/628/627, 20/1346/625/625, 10/1346/624/624, and
+20/1342/621/621 for $(H,K)=(1,10)$, $(1,20)$, $(4,10)$, and $(4,20)$,
+respectively.
 
 Table~\ref{tab:supp-baselines} reports the target-side settings used in the
 main comparison.
@@ -286,9 +297,9 @@ Adam/Huber--50 & $\leq12$ & Before evaluation \\
 
 H-Meta-NAS-based adaptation & Target architecture search &
 Architecture-indexed meta-initializations & SGD/MSE--50 &
-Multiple candidates & Before search evaluation \\
+12.00 & Before search evaluation \\
 
-MSA-DTI & Candidate bank & Frozen source initializations & SGD/MSE--50 & 4--7 &
+MSA-DTI & Candidate bank & Source-trained initializations & SGD/MSE--50 & 4--7 &
 Before adaptation and output \\
 \bottomrule
 \end{tabular}}
@@ -300,7 +311,7 @@ procedure. H-Meta-NAS-based adaptation uses the 50-update budget-matched
 condition in the main comparison. It uses the same 66 architecture
 definitions, filters infeasible architectures before search, uses source-only
 first-order meta-initializations, and selects the final architecture using
-target validation data. Its settings are fixed without held-out test data.
+target validation data. Its settings are fixed before held-out evaluation.
 All methods use the same target cases, deployment limits, and architecture
 definitions.
 \end{suppTableBlock}
@@ -345,9 +356,8 @@ H-Meta-NAS-based adaptation
 MSE win rate is the percentage of paired cases in which MSA-DTI has lower
 test MSE. Positive reductions favor MSA-DTI. The 95\% intervals are the
 2.5th and 97.5th percentiles of 4000 center-cluster bootstrap replicates,
-with the four cases of each sampled target center kept together. The released
-evaluator derives the bootstrap seed deterministically from the frozen
-training seed, method name, and metric.
+with the four cases of each sampled target center kept together. The released evaluator derives the bootstrap seed
+deterministically from the training seed, method name, and metric.
 \end{suppTableBlock}
 
 \subsection{Optimizer-matched diagnostic comparison}
@@ -358,7 +368,7 @@ the same independent diagnostic target cases and the same deployment
 limits. The two common-shortlist controls use a shared 12-candidate set
 containing A57 and the 11 highest-ranked feasible alternatives under a fixed
 fused ranking (0.60 source-prior rank + 0.40 proxy rank). They differ only in
-the final selection rule: lowest validation loss versus the frozen 10\%
+the final selection rule: lowest validation loss versus the 10\%
 reference-based margin. All selections are fixed before test evaluation.
 
 \begin{suppTableBlock}{Full optimizer-matched comparison on the diagnostic target pool.}{tab:supp-matched}
@@ -422,7 +432,7 @@ Intel Core i7-12700H CPU and an NVIDIA RTX 3060 Laptop GPU for
 $H\in\{1,4\}$. Each setting uses 100 warm-up inferences followed by five
 repetitions of 1000 timed inferences. CUDA execution is synchronized before
 and after each timed region. Median latency is the primary latency measure,
-and the 95th percentile describes measurement variability. Serialized
+and the 95th percentile summarizes upper-tail latency. Serialized
 parameter-file size is used as the measured model size. Peak allocated GPU
 memory is also recorded for each architecture--horizon pair.
 
@@ -474,7 +484,7 @@ results characterize only the measured CPU/GPU host.
 
 \subsection{Single-limit feasible-space analysis}
 
-To identify the active constraint in the frozen candidate bank, we apply the
+To identify the active constraint in the main candidate bank, we apply the
 operation-count and parameter-count limits separately to the same seven
 candidates using their fixed complexity profiles.
 
@@ -493,7 +503,7 @@ satisfies both limits in all six horizon--tier combinations.
 \subsection{Expanded-bank dual-limit stress analysis}
 
 The preceding analysis shows that the operation-count limit is inactive for
-the frozen seven-candidate main bank under the main limit tiers.
+the seven-candidate main bank under the main limit tiers.
 To examine whether operation count and parameter count can independently
 restrict candidate feasibility, we additionally construct an eight-candidate
 stress bank by adding configuration 24 from the predefined architecture
@@ -531,9 +541,9 @@ number of selected cases, and $h$ denotes harmful selections.}
 
 The reference configuration is retained in 33 cases. Four alternative
 configurations cover the remaining 47 cases, and their mean paired MSE
-reductions range from 17.43\% to 30.50\%. All four alternatives have
-positive mean reductions. The three harmful selections occur on two
-alternative GRU configurations.
+reductions relative to PT+FT (the adapted reference) range from 17.43\% to
+30.50\%. All four alternatives have positive mean reductions. The three
+harmful selections occur on two alternative GRU configurations.
 
 \section{Configuration Analysis}
 \label{supp:configuration}
@@ -546,15 +556,16 @@ alternative GRU configurations.
 Diagnostic MSE decreases from 0.004917 with one retained configuration to
 0.004063 with four retained configurations and then remains unchanged. The
 main evaluation uses the six-configuration list fixed before evaluation.
-The observed saturation after four configurations supports a compact bank,
-while this diagnostic does not optimize the bank size itself.
+The observed saturation after four configurations suggests diminishing
+returns from adding retained configurations in this diagnostic; it does not
+identify an optimal bank size.
 
 Most of the observed reduction in diagnostic check MSE occurs within the
 first ten target updates. The main experiment nevertheless uses 50 updates
 for every feasible candidate to preserve a common fixed target budget.
 
-Using the same frozen candidate bank, source initializations, feasibility
-rule, and reference-based selection rule at both endpoints, selected check
+Using the same candidate bank, source initializations, feasibility rule, and
+reference-based selection rule at both endpoints, selected check
 MSE is 0.003973 with zero target updates and 0.003784 after 50 updates. The
 mean paired reduction is 4.75\%, with a 95\% confidence interval of
 $[-1.62\%,10.23\%]$, and the same candidate is selected at both endpoints in
@@ -609,7 +620,7 @@ below, and no test data are used during screening.
 Screen & Centers & Retained configurations & Size & Jaccard &
 Gain (\%) & 95\% CI (\%) & Harmful (\%) \\
 \midrule
-Frozen S0 & 900--919 & A1, A6, A13, A55, A56, A57 & 6 & 1.000 & 0.295 & $[-0.646,1.564]$ & 2.50 \\
+Main S0 & 900--919 & A1, A6, A13, A55, A56, A57 & 6 & 1.000 & 0.295 & $[-0.646,1.564]$ & 2.50 \\
 Independent S1 & 1120--1139 & reference fallback only & 0 & 0.000 & 0.000 & $[0.000,0.000]$ & 0.00 \\
 Independent S2 & 1140--1159 & A55, A56, A57, A59 & 4 & 0.429 & 0.125 & $[-0.894,1.427]$ & 3.75 \\
 \bottomrule
@@ -617,12 +628,14 @@ Independent S2 & 1140--1159 & A55, A56, A57, A59 & 4 & 0.429 & 0.125 & $[-0.894,
 \vspace{0.15em}
 
 \footnotesize
-Jaccard similarity is relative to the frozen S0 list. Size counts retained
-configurations before adding the protected PT-A57 fallback. Gain is the mean
-paired check-MSE reduction relative to PT-A57 on 80 robustness cases; intervals
-use a 4000-repetition center-cluster bootstrap. The diagnostic evaluates
-screening stability without retraining or retuning the main evaluation
-protocol.
+Jaccard similarity and Size are computed on the recorded screening-retained
+indexed-configuration lists, including A57 whenever it occurs in a list.
+The PT-A57 reference candidate is added separately to every downstream
+candidate bank; a retained A57 additionally supplies the paired C1-A57
+candidate. Gain is the mean paired check-MSE reduction relative to PT-A57 on
+80 robustness cases; intervals use a 4000-repetition center-cluster bootstrap.
+The diagnostic evaluates screening stability while keeping the downstream
+procedure unchanged.
 \end{suppTableBlock}
 
 Across S0--S2, retained-list sizes are 6, 0, and 4 (median 4, range 0--6).
@@ -633,36 +646,34 @@ initialization in two. S1 falls back to PT-A57 in all 80 cases. S2 selects
 PT-A57 in 71 cases, A55 in three, A56 in three, the paired-control A57
 initialization in two, and A59 in one.
 
-The two nonempty retained lists, S0 and S2, both have paired-gain intervals
-that include zero on the robustness pool, indicating substantial sample
-sensitivity. Accordingly, the main evaluation uses the frozen S0 bank, while
-the persistent A57 reference provides a fallback when a screening pool retains
-no alternative.
+The two nonempty retained lists, S0 and S2, both have 95\% confidence
+intervals for paired check-MSE gains relative to the adapted PT-A57 reference
+that include zero on the robustness pool, indicating sample sensitivity in
+candidate discovery. The main evaluation uses the S0 bank obtained from the
+main-study screening pool, while the A57 reference provides a fallback when a
+screening pool retains no alternative.
 
 Reapplying the recorded screening counts with retention thresholds of one,
-two, and three wins retains 10, 6, and 2 configurations, respectively. The
-frozen threshold-two list is S0, whereas threshold three retains only A55 and
+two, and three wins retains 10, 6, and 2 configurations, respectively. The threshold-two list used in the main study is S0, whereas threshold three retains only A55 and
 A57. On the existing step-50 diagnostic trajectory, threshold three increases
 selected check MSE by 3.79\% relative to threshold two, with a 95\% confidence
-interval of $[1.58\%,6.30\%]$. The threshold-one list additionally contains A4, A5, A12, and A59. A complete
-set of source-trained records for these four additional configurations is not
-available under the frozen main-study bank protocol; downstream threshold
-sensitivity is therefore reported only for thresholds two and three.
+interval of $[1.58\%,6.30\%]$. The threshold-one list additionally contains A4, A5, A12, and A59. The main study did not generate source-trained records for these four
+additional configurations; downstream threshold sensitivity is therefore
+reported only for thresholds two and three.
 
 \subsection{End-to-end propagation of screening outcomes}
 
 To characterize the downstream effect of candidate-discovery variability,
 the recorded S0--S2 screening outcomes are treated as fixed inputs and carried
 through the complete downstream procedure. Each outcome uses the same source
-centers and source-training recipe, followed by bank-specific application of
-the unchanged margin-calibration rule on the same disjoint 20-center
+centers and source-training recipe, followed by bank-specific application of the same margin-calibration rule on the same disjoint 20-center
 calibration pool. The resulting pipelines are evaluated on a new 20-center
 held-out pool (centers 1180--1199; 80 cases). The architecture space, A57
 reference, deployment limits, target adaptation protocol, margin grid, and
 calibration criteria remain unchanged. Held-out test data are not used in
 source training, calibration, deployment filtering, adaptation, or selection.
 For S2, A59 is source-trained using the same source-training recipe; S1
-contains only the protected PT-A57 reference.
+contains only the PT-A57 reference candidate.
 
 \begin{suppTableBlock}
 {End-to-end propagation of the three screening outcomes on centers
@@ -724,13 +735,13 @@ Gain is the mean paired test-MSE reduction relative to PT+FT. The 95\%
 intervals use 4000 center-cluster bootstrap repetitions with the four cases
 of each target center kept together. Harmful rates are reported as
 all-case / conditional-on-alternative-selection percentages. For S1, no
-alternative is retained and the protected reference is used in all cases.
+alternative is retained and the adapted PT-A57 reference is used in all cases.
 \end{suppTableBlock}
 
 The two nonempty banks yield positive mean paired MSE reductions with
 confidence intervals above zero despite their different retained
 configurations. The S1 outcome contains no alternative and therefore follows
-the protected-reference fallback without changing performance relative to
+the adapted-reference fallback without changing performance relative to
 PT+FT. These end-to-end results characterize the downstream consequence of
 the observed screening variability; the retained-bank composition itself
 remains sample-sensitive.
@@ -740,14 +751,15 @@ remains sample-sensitive.
 Alibaba Cluster Trace v2018 is split into 20 source machines, 20 calibration
 machines, and 40 held-out machines. The calibration and held-out pools contain
 80 and 160 cases, respectively. Models are retrained on the Alibaba source
-machines using their own architectures and source-only normalization. The
-architecture definitions, deployment filtering rule, target protocol, and
-margin grid remain unchanged.
+machines using their own architectures and source-only normalization. The architecture definitions, deployment filtering rule, support-size
+settings, target adaptation procedure, and margin grid remain unchanged.
+The Alibaba evaluation uses 80 validation, 60 check, and 200 test windows per
+case.
 
 The workload observations come from the production trace, while the
 deployment-limit tiers reuse the controlled model-complexity settings from the
-main study. This setting isolates external workload-domain transfer under the
-frozen deployment protocol.
+main study. This setting evaluates external workload-domain transfer while retaining the
+main-study deployment-limit settings.
 
 No margin in the fixed grid satisfies all Alibaba calibration criteria.
 Under the calibration rule, the adapted reference is therefore retained,

@@ -116,30 +116,32 @@ deployment-related complexity, whereas the parameters provide the
 initialization for target adaptation. However, a new or reconfigured center
 may differ from existing centers in resource configurations,
 monitored-variable availability, workload patterns, and data distributions
-while providing only limited target-specific data. These differences can make
+while only a small support set may be available for target adaptation. These differences can make
 the original architecture suboptimal for the target center. In addition,
 large-scale DT platforms impose per-model resource budgets, represented here
 by limits on estimated operation count per inference and parameter count.
 Target-center instantiation therefore requires selecting a suitable
-architecture and adapting its parameters from limited target data under both
-deployment limits. Figure~\ref{fig:scenario} illustrates this setting.
+architecture and adapting its parameters from this small support set while
+satisfying both deployment limits. Figure~\ref{fig:scenario} illustrates this setting.
 
-Existing few-shot adaptation methods reuse pre-trained models with limited
-target data \cite{ref9,ref10} and have also been applied to DT modeling
-\cite{ref11}. However, parameter-adaptation methods typically retain the
-original architecture. In contrast, deployment-aware architecture-selection
+Existing few-shot adaptation methods reuse pre-trained models
+\cite{ref9,ref10} and have also been applied to DT modeling \cite{ref11}.
+However, these methods typically retain the original architecture, leaving
+unresolved whether it remains suitable for a heterogeneous target center and
+satisfies the deployment limits. Deployment-aware architecture-selection
 methods consider model performance together with deployment cost
-\cite{ref12,ref13,ref26}. Other approaches jointly consider architecture
-decisions and few-shot adaptation \cite{ref30,ref31,ref32}, but typically rely
-on target-side architecture or adaptation-structure search. Therefore, the key
-challenge is to select and adapt a suitable pre-trained DT model already
-available on the platform using limited target data while satisfying per-model
-deployment limits.
+\cite{ref12,ref13,ref26}, but do not directly address few-shot adaptation of
+reusable pre-trained models. Methods that jointly consider architecture
+decisions and few-shot adaptation \cite{ref30,ref31,ref32} typically rely on
+target-side architecture or adaptation-structure search. The remaining
+challenge is therefore to select a suitable reusable pre-trained DT model under
+per-model deployment limits and adapt its parameters from a small target
+support set.
 
 \paperfig{0.78\linewidth}
 {fig1.pdf}
-{System setting for few-shot digital twin model instantiation with limited
-target data and deployment limits.}
+{System setting for digital twin model instantiation with few-shot target
+adaptation and deployment limits.}
 {fig:scenario}
 
 To address this challenge, we propose Model Selection and Adaptation for
@@ -147,7 +149,7 @@ Digital Twin Instantiation (MSA-DTI), an adaptation-aware model-selection
 algorithm for few-shot DT instantiation under deployment limits. MSA-DTI first
 constructs a reusable candidate bank of source-trained models with diverse
 architectures. For a target center, it filters candidates that violate the
-deployment limits and adapts the remaining feasible candidates under a common
+deployment limits and adapts the remaining feasible candidates under a common adaptation
 budget. It then compares the adapted candidates using validation performance
 and retains a predefined reference model unless the best-performing alternative
 achieves a sufficient reduction in validation loss. Thus, model selection is
@@ -159,20 +161,21 @@ The main contributions are summarized as follows:
 \begin{itemize}
 
 \item \textbf{Deployment-constrained few-shot DT instantiation formulation.}
-We formulate few-shot DT instantiation as jointly selecting a target
-architecture from reusable source-trained models and adapting its parameters
-to the target center, subject to hard per-model operation-count and
-parameter-count limits.
+We formulate DT instantiation as jointly selecting an architecture from
+reusable source-trained models and adapting the corresponding model
+parameters from a small target support set, subject to hard per-model
+operation-count and parameter-count limits.
 
 \item \textbf{Feasibility-first adaptation-aware model selection.}
 MSA-DTI filters out infeasible candidates before target adaptation and
 compares the remaining candidates only after adapting them using the same
-target data and update budget.
+target support set and update budget.
 
 \item \textbf{Empirically calibrated reference-model replacement rule.}
-We introduce a relative-improvement threshold selected on disjoint development
-data so that an adapted alternative replaces the predefined reference model
-only after achieving the required relative reduction in validation loss.
+We introduce a relative-improvement threshold calibrated on disjoint
+development data, requiring an adapted alternative to achieve the required
+relative reduction in validation loss before replacing the predefined
+reference model.
 
 \end{itemize}
 
@@ -193,9 +196,8 @@ and services while supporting model updates \cite{ref5,ref6,ref7,ref8}.
 At the deployment level, related work considers service orchestration and
 computation offloading under resource constraints \cite{ref27,ref28}.
 However, DT modeling studies typically assume a predefined model structure,
-whereas platform-level research focuses on resource decisions. Neither line of
-work directly addresses architecture selection and parameter adaptation for a
-target center with limited data under deployment limits.
+whereas platform-level research focuses on resource decisions. Neither line of work directly addresses architecture selection together with
+few-shot target adaptation under deployment limits.
 
 \subsection{Limited-Data Model Adaptation}
 
@@ -208,11 +210,10 @@ Most parameter-adaptation methods operate with a fixed architecture. For
 heterogeneous target centers, a fixed architecture may be unsuitable,
 motivating selection among reusable source-trained models.
 
-Model selection with limited data introduces a related challenge because
-performance estimates from small validation sets may provide uncertain
-candidate rankings \cite{ref33,ref34}. Existing studies have examined model
-selection in small-data regimes and uncertainty over finite candidate sets.
-This motivates a conservative target-side decision when adapted reusable models are compared using limited validation data.
+Model selection introduces a related challenge because validation-based
+performance estimates may yield uncertain candidate rankings
+\cite{ref33,ref34}. This motivates a conservative decision rule when adapted
+reusable models are compared on target validation data.
 
 \subsection{Deployment-Aware Architecture Selection}
 
@@ -250,7 +251,8 @@ follow a common metric schema, with unavailable variables represented by masks
 rather than omitted. Let $\mathcal{X}$ and $\mathcal{Y}$ denote the common
 input and output spaces, respectively. Let $\mathcal{A}$ denote the
 architecture space. For $a\in\mathcal{A}$, let $\Theta(a)$ denote its
-associated parameter space. A model is represented as
+parameter space and $\theta\in\Theta(a)$ a parameter vector. A model is
+represented as
 
 \begin{equation}
 f_{a,\theta}:\mathcal{X}\rightarrow\mathcal{Y},
@@ -276,21 +278,48 @@ a_c\in\mathcal{A},\;
 
 where \(a_c\) and \(\theta_c\) denote the target architecture and target-specific parameters, respectively.
 
-The target dataset for center $c$ is represented as
+During instantiation, the available target data are represented by a support
+set and a validation set:
 
 \begin{equation}
-\mathcal{D}_{c}^{\mathrm{tar}}
-=
+\begin{aligned}
+\mathcal{D}_{c}^{\mathrm{sup}}
+&=
 \left\{
-(x_{c,i},y_{c,i})
+(x_{c,i}^{\mathrm{sup}},y_{c,i}^{\mathrm{sup}})
 \right\}_{i=1}^{K_c},
+\\
+\mathcal{D}_{c}^{\mathrm{val}}
+&=
+\left\{
+(x_{c,j}^{\mathrm{val}},y_{c,j}^{\mathrm{val}})
+\right\}_{j=1}^{V_c},
+\\
+\mathcal{D}_{c}^{\mathrm{tar}}
+&=
+\mathcal{D}_{c}^{\mathrm{sup}}
+\cup
+\mathcal{D}_{c}^{\mathrm{val}},
+\qquad
+\mathcal{D}_{c}^{\mathrm{sup}}
+\cap
+\mathcal{D}_{c}^{\mathrm{val}}
+=
+\varnothing .
+\end{aligned}
 \label{eq:target-data}
 \end{equation}
 
-where $x_{c,i}\in\mathcal{X}$, $y_{c,i}\in\mathcal{Y}$, and $K_c$ denotes
-the number of samples available during instantiation. The present problem
-concerns determining $(a_c,\theta_c)$ from this limited target data; later
-model updates are outside the scope of this study.
+In these sets,
+$(x_{c,i}^{\mathrm{sup}},y_{c,i}^{\mathrm{sup}})$ and
+$(x_{c,j}^{\mathrm{val}},y_{c,j}^{\mathrm{val}})$ denote the $i$th support
+and $j$th validation input-output pairs, respectively. Their union
+$\mathcal{D}_{c}^{\mathrm{tar}}$ denotes the target data available during
+instantiation. $K_c$ denotes the number of target support samples used for
+parameter adaptation, whereas $V_c$ denotes the number of validation samples
+used for post-adaptation candidate comparison. The present problem concerns
+determining $(a_c,\theta_c)$ from these target data; later model updates are
+outside the scope of this study.
 
 \subsection{Reusable Models and Deployment Limits}
 
@@ -303,7 +332,8 @@ q_n=(a_n,\theta_n^0),
 \label{eq:reusable-models}
 \end{equation}
 
-where $a_n\in\mathcal{A}$ denotes the architecture and
+where $q_n$ denotes the $n$th reusable source-trained model,
+$a_n\in\mathcal{A}$ denotes its architecture, and
 $\theta_n^0\in\Theta(a_n)$ denotes its source-trained initialization. The
 architectures represented in $\mathcal{Q}$ form the set
 $\mathcal{A}_{\mathcal{Q}}=\{a_n\}_{n=1}^{N}\subseteq\mathcal{A}$.
@@ -351,28 +381,43 @@ R_c(a,\theta)
 \label{eq:target-risk}
 \end{equation}
 
-An ideal target model for center $c$ is defined as a solution to the
-constrained optimization problem
+Let $\mathcal{U}_c$ denote a prescribed target-adaptation operator. For each
+reusable model $q_n=(a_n,\theta_n^0)$,
+$\mathcal{U}_c(q_n,\mathcal{D}_c^{\mathrm{sup}})\in\Theta(a_n)$ denotes
+the target-specific parameters obtained by adapting $q_n$ using the target
+support set. An ideal reusable-model decision for center $c$ is defined as
 
 \begin{equation}
 \begin{aligned}
-(a_c^\dagger,\theta_c^\dagger)
+n_c^\dagger
 \in
-\operatorname*{arg\,min}_{a\in\mathcal{A}_{\mathcal{Q}},\,
-\theta\in\Theta(a)}
-&\quad R_c(a,\theta)
+\operatorname*{arg\,min}_{n\in\{1,\ldots,N\}}
+&\quad
+R_c\!\left(
+a_n,
+\mathcal{U}_c(q_n,\mathcal{D}_c^{\mathrm{sup}})
+\right)
 \\
 \mathrm{s.t.}\quad
-&F_c(a)\leq B_c^F,
+&F_c(a_n)\leq B_c^F,
 \\
-&P_c(a)\leq B_c^P.
+&P_c(a_n)\leq B_c^P.
 \end{aligned}
 \label{eq:instantiation-problem}
 \end{equation}
 
-During instantiation, however, $R_c(a,\theta)$ cannot be evaluated directly
-because only the limited target dataset $\mathcal{D}_c^{\mathrm{tar}}$ is
-available.
+Here, $n_c^\dagger$ denotes the index of an ideal reusable-model choice for
+target center $c$. The corresponding ideal DT model is
+$\left(a_c^\dagger,\theta_c^\dagger\right)
+=
+\left(
+a_{n_c^\dagger},
+\mathcal{U}_c(q_{n_c^\dagger},\mathcal{D}_c^{\mathrm{sup}})
+\right)$.
+During instantiation, however, $\mathbb{P}_c$, and hence the target risk
+$R_c$, is unavailable; only the support and validation sets in
+Eq.~\eqref{eq:target-data} are available for target adaptation and candidate
+comparison.
 
 \section{The Proposed MSA-DTI Algorithm}
 \label{sec:method}
@@ -407,20 +452,21 @@ reference architecture $a^{\mathrm{ref}}\in\mathcal{A}$ is fixed before
 screening and retained regardless of the screening outcome. Each screening
 case contains three subsets: support for adaptation, validation for selecting
 an alternative architecture, and check for screening evidence. For each
-screening case, the reference architecture and all compared alternatives must
-satisfy the assigned deployment limits. During screening, the reference and
+screening case, the reference architecture must satisfy the assigned
+deployment limits, and only feasible alternative architectures are included in
+the comparison. During screening, the reference and
 each feasible alternative are adapted from fixed source-trained screening
 initializations on the support subset before validation and check losses are
 evaluated.
 
 For each alternative architecture, two evidence counts are accumulated across
-the screening cases. The architecture is retained if at least one count reaches
-a preset threshold. A \emph{check-oracle win} is assigned to the feasible
+the screening cases. A \emph{check-oracle win} is assigned to the feasible
 alternative architecture with the lowest check-set loss if its loss is lower
 than that of the adapted reference. A
 \emph{validation-selected positive check win} is assigned to the feasible
 alternative architecture selected on the validation subset if its check-set
-loss is lower than that of the adapted reference.
+loss is lower than that of the adapted reference. The architecture is retained
+if at least one of the two counts reaches a preset threshold.
 
 Let $\mathcal{D}_{\mathrm{src}}$ denote the combined historical data from the
 existing centers. For each retained architecture $a_q$, source pretraining on
@@ -435,30 +481,38 @@ before margin calibration and final target evaluation.
 
 \paperfig[trim={150bp 1340bp 480bp 140bp},clip]{0.92\linewidth}
 {fig3.pdf}
-{Candidate bank construction and reference candidate selection.}
+{Candidate bank construction and reference candidate designation.}
 {fig:source-bank}
 
 \subsection{Dual-Limit Candidate Filtering}
 
 For target center $c$, MSA-DTI computes $\mathcal{Q}_c^{\mathrm{fea}}$ using
-Eq.~\eqref{eq:feasible-candidate-set} and restricts target adaptation to this
-set. If $q^{\mathrm{ref}}\notin\mathcal{Q}_c^{\mathrm{fea}}$, the procedure
-terminates without DT instantiation under the current deployment limits.
+Eq.~\eqref{eq:feasible-candidate-set} and restricts target adaptation to the
+candidates in this set. Because the subsequent reference-based selection
+requires a deployment-feasible reference for comparison and fallback, MSA-DTI
+proceeds only if $q^{\mathrm{ref}}\in\mathcal{Q}_c^{\mathrm{fea}}$;
+otherwise, it terminates without DT instantiation under the current deployment
+limits.
 
 \subsection{Common-Budget Adaptation and Reference-Based Selection}
 
-For the target-side procedure, $\mathcal{D}_c^{\mathrm{tar}}$ is partitioned
-into a support set and a validation set,
+For target-center instantiation, the support set
+$\mathcal{D}_c^{\mathrm{sup}}$ is used for parameter adaptation, whereas the
+validation set $\mathcal{D}_c^{\mathrm{val}}$ is used for post-adaptation
+candidate comparison. For a dataset $\mathcal{D}$, let
 \[
-\mathcal{D}_c^{\mathrm{tar}}
+\mathcal{L}(\mathcal{D};a,\theta)
 =
-\mathcal{D}_c^{\mathrm{sup}}\cup\mathcal{D}_c^{\mathrm{val}}.
+\frac{1}{|\mathcal{D}|}
+\sum_{(x,y)\in\mathcal{D}}
+\ell\!\left(f_{a,\theta}(x),y\right)
 \]
-Support data are used for adaptation, whereas validation data are used for
-post-adaptation candidate comparison. Let
-$\mathcal{L}(\mathcal{D};a,\theta)$ be the empirical task loss on dataset
-$\mathcal{D}$. Each feasible candidate starts from $\theta_q^0$ and is adapted
-with a constant learning rate $\eta$:
+denote the empirical task loss.
+
+For each feasible candidate $q=(a_q,\theta_q^0)$, let
+$\theta_{c,q}^{(t)}$ denote its parameters after $t$ target-side adaptation
+steps. With a common update budget of $T$ steps and a learning rate $\eta$
+shared by all feasible candidates, the adaptation is
 
 \begin{equation}
 \begin{aligned}
@@ -485,9 +539,10 @@ t=0,\ldots,T-1.
 \label{eq:target-update}
 \end{equation}
 
-Here, $t$ indexes the target-side adaptation steps, $T$ is the common update
-budget, and $\eta$ is the learning rate shared by all feasible candidates.
-Their post-adaptation validation score is
+Equation~\eqref{eq:target-update} gives the gradient-based realization of
+the target-adaptation operator $\mathcal{U}_c$ introduced in Section~3.3,
+with $\theta_{c,q}^{(T)}$ as its output. After $T$ adaptation steps, let
+$J_c(q)$ denote the post-adaptation validation score of candidate $q$:
 
 \begin{equation}
 J_c(q)
@@ -501,9 +556,9 @@ a_q,
 \label{eq:validation-loss}
 \end{equation}
 
-Because the validation set is small, MSA-DTI uses a relative margin so that a
-marginal post-adaptation loss reduction does not by itself trigger replacement
-of the fixed reference.
+Because validation-based candidate rankings may be uncertain, MSA-DTI uses a
+relative margin so that a marginal post-adaptation loss reduction does not by
+itself trigger replacement of the reference candidate.
 
 Let
 $\mathcal{Q}_{c}^{\mathrm{alt}}
@@ -511,15 +566,15 @@ $\mathcal{Q}_{c}^{\mathrm{alt}}
 \mathcal{Q}_{c}^{\mathrm{fea}}
 \setminus
 \{q^{\mathrm{ref}}\}$
-denote the feasible alternatives. If this set is empty, MSA-DTI sets
-$q_c^*=q^{\mathrm{ref}}$ and skips alternative selection. Otherwise, let
+denote the feasible alternatives, and let $q_c^*$ denote the candidate
+selected by MSA-DTI. If $\mathcal{Q}_{c}^{\mathrm{alt}}$ is empty, MSA-DTI
+sets $q_c^*=q^{\mathrm{ref}}$ and skips alternative selection. Otherwise, let
 $\widetilde q_c
 \in
 \operatorname*{arg\,min}_{q\in\mathcal{Q}_{c}^{\mathrm{alt}}}
 J_c(q)$
-denote an alternative with the lowest validation loss.
-
-Let $\tau\in[0,1)$ denote the relative margin. The final candidate is
+denote an alternative with the lowest validation loss. Let $\tau\in[0,1)$
+denote the relative margin. The selected candidate is then
 
 \begin{equation}
 q_c^{*}
@@ -542,9 +597,11 @@ A larger $\tau$ requires a larger validation-loss reduction for an
 alternative to be selected over the reference. The margin affects only model
 selection and does not change the adapted parameters.
 
-The selected candidate provides the architecture and parameters in
-Eq.~\eqref{eq:dt-instance}. Figure~\ref{fig:adaptation-selection} illustrates
-the adaptation and selection stages.
+The selected candidate $q_c^*$ provides the architecture
+$a_{q_c^*}$, and its adapted parameters $\theta_{c,q_c^*}^{(T)}$ define the
+target-specific DT model in Eq.~\eqref{eq:dt-instance}.
+Figure~\ref{fig:adaptation-selection} illustrates the adaptation and
+selection stages.
 
 \paperfig[trim={140bp 570bp 190bp 120bp},clip]{0.88\linewidth}
 {fig5.pdf}
@@ -614,19 +671,25 @@ a_{q_c^{*}},
 
 The margin $\tau$ is calibrated on a margin-calibration pool that is disjoint
 from the architecture-screening cases and final target evaluation. Each
-calibration case contains support, validation, and check sets. A selection is
-harmful when the selected alternative has a higher check-set loss than the
-adapted reference. The paired-initialization control uses a second
-source-trained initialization of the reference architecture.
+calibration case contains support, validation, and check sets. The support and
+validation sets retain the roles defined in Section~4.4, whereas the check set
+provides independent evidence for evaluating the resulting selection during
+calibration. For a given margin, the harmful-selection rate is the fraction of
+all calibration cases in which an alternative is selected and its check-set
+loss exceeds that of the adapted reference. The paired-initialization control
+uses a second source-trained initialization of the reference architecture and
+provides a same-architecture control for source-initialization effects.
 
 Let $\mathcal{T}$ be a preset margin set. For $\tau\in\mathcal{T}$, let
-$\widehat R_{\mathrm{harm}}(\tau)$ denote the observed harmful-selection rate,
-and let $\widehat G_{\mathrm{ref}}(\tau)$ and
-$\widehat G_{\mathrm{pair}}(\tau)$ denote the mean check-loss gains relative
-to the adapted reference and paired-initialization control, respectively.
-Their lower confidence bounds are $\underline G_{\mathrm{ref}}(\tau)$ and
-$\underline G_{\mathrm{pair}}(\tau)$. Given a harmful-selection-rate threshold
-$\rho$ and mean-gain thresholds $\gamma_{\mathrm{ref}}$ and
+$\widehat R_{\mathrm{harm}}(\tau)$ denote the observed harmful-selection rate.
+Let $\widehat G_{\mathrm{ref}}(\tau)$ and
+$\widehat G_{\mathrm{pair}}(\tau)$ denote the mean relative check-loss gains
+with respect to the adapted reference and paired-initialization control,
+respectively, where each gain is the relative reduction in check-set loss of
+the selected model with respect to the corresponding control. Their lower
+confidence bounds are $\underline G_{\mathrm{ref}}(\tau)$ and
+$\underline G_{\mathrm{pair}}(\tau)$. Given a harmful-selection-rate
+threshold $\rho$ and mean-gain thresholds $\gamma_{\mathrm{ref}}$ and
 $\gamma_{\mathrm{pair}}$, the eligible margins are
 
 \begin{equation}
@@ -652,12 +715,12 @@ $\gamma_{\mathrm{pair}}$, the eligible margins are
 \label{eq:margin-calibration}
 \end{equation}
 
-When $\mathcal{T}_{\mathrm{elig}}$ is nonempty, MSA-DTI sets
+When $\mathcal{T}_{\mathrm{elig}}$ is nonempty, the calibrated margin is the
+least restrictive eligible margin,
 \[
-\tau^*=\min\mathcal{T}_{\mathrm{elig}}.
+\tau^*=\min\mathcal{T}_{\mathrm{elig}},
 \]
-The calibrated margin is fixed before final
-target evaluation.
+and is fixed before final target evaluation.
 
 If $\mathcal{T}_{\mathrm{elig}}=\varnothing$, MSA-DTI retains the adapted
 reference. Because the statistics in Eq.~\eqref{eq:margin-calibration} are
@@ -666,31 +729,12 @@ calibration domain.
 
 \subsection{Analytical Properties}
 
-\textbf{Deployment feasibility.}
-Any DT model instantiated by MSA-DTI is selected from
-$\mathcal{Q}_{c}^{\mathrm{fea}}$:
-
-\[
-F_c(a_{q_c^{*}})\leq B_c^{F},
-\qquad
-P_c(a_{q_c^{*}})\leq B_c^{P}.
-\]
-
-\textbf{Required validation improvement.}
-When an alternative is selected and $J_c(q^{\mathrm{ref}})>0$,
-Eq.~\eqref{eq:reference-based-selection} implies
-
-\[
-\frac{
-J_c(q^{\mathrm{ref}})
--
-J_c(q_c^{*})
-}{
-J_c(q^{\mathrm{ref}})
-}
-\geq
-\tau.
-\]
+By construction, any DT model instantiated by MSA-DTI is selected from
+$\mathcal{Q}_{c}^{\mathrm{fea}}$ and therefore satisfies both deployment
+limits. Moreover, whenever an alternative is selected and
+$J_c(q^{\mathrm{ref}})>0$, Eq.~\eqref{eq:reference-based-selection}
+guarantees a relative validation-loss reduction of at least $\tau$ with
+respect to the reference.
 
 The target-stage computational complexity is
 \[
@@ -722,14 +766,18 @@ tiers are separate platform-side settings.
 
 The main study uses 20 source centers and 20 held-out target centers.
 Prediction horizons $H\in\{1,4\}$ and support sizes $K\in\{10,20\}$ give
-four cases per target center and 80 held-out cases in total.
+four cases per target center and 80 held-out cases in total. Here, $K$
+denotes the number of support windows used for target adaptation.
 
-Each case is split chronologically into support, validation, check, and test
-sets, with gaps between adjacent splits. Check sets are used for architecture
-screening, margin calibration, and the separate diagnostic analyses; held-out
-target test data are used only after model selection is fixed. The source,
-architecture-screening, margin-calibration, diagnostic, and held-out target
-pools use disjoint center identities.
+For each case, the raw timeline is partitioned chronologically into disjoint
+support, validation, check, and test segments before window generation, and
+windows are constructed separately within each segment. Depending on $H$ and
+$K$, the validation, check, and test sets contain 1342--1351, 621--628, and
+621--627 windows, respectively. Across the architecture-screening, margin-calibration, and diagnostic pools,
+check sets provide the corresponding development evidence, whereas held-out
+target test sets are reserved for final evaluation after model selection. The source, architecture-screening,
+margin-calibration, diagnostic, and held-out target pools use disjoint center
+identities.
 
 \subsubsection{Candidate Bank, Reference, and Calibration}
 \label{subsubsec:bank-calibration}
@@ -741,12 +789,13 @@ as the reference before screening.
 
 An alternative configuration is retained if either of the two screening
 evidence counts defined in Section~4.2 is at least two. The screening retains six configurations corresponding to five executable
-architectures, and the frozen source-trained records form a seven-candidate
-bank.
+architectures. Together with a second source-trained initialization of A57 used
+as the paired-initialization control, the resulting source-trained records form
+a seven-candidate bank.
 
 Applying Eq.~\eqref{eq:margin-calibration} to the preset margin grid on the
 main calibration pool yields the smallest eligible margin $\tau=0.10$, which
-is frozen before held-out evaluation. Table~\ref{tab:configuration}
+is fixed before held-out evaluation. Table~\ref{tab:configuration}
 summarizes the experimental configuration.
 
 \input{tables/table1_configuration.tex}
@@ -779,9 +828,9 @@ method-specific initialization or search procedures.
 
 As the closest evaluated architecture-adaptation baseline, H-Meta-NAS-based
 adaptation uses source-learned meta-initializations and validation-only target
-search after deployment filtering. Its meta-initializations and search settings
-are fixed without held-out test data, and the main comparison uses a
-budget-matched 50-update SGD/MSE setting. All methods use the same target
+search after deployment filtering. Its meta-initializations and search settings are fixed before held-out
+evaluation, and the main comparison uses a budget-matched 50-update SGD/MSE
+setting. All methods use the same target
 cases, chronological splits, deployment limits, and architecture definitions.
 
 \subsubsection{Runtime Protocol}
@@ -807,8 +856,8 @@ MSA-DTI gives the lowest values for all four error measures. Compared with
 PT+FT, the strongest baseline, MSA-DTI reduces MAE by 8.55\%, MSE by 14.60\%,
 and Worst-10\% error by 13.76\% on average across paired cases. The 95\%
 confidence interval for the paired MSE reduction is $[9.41\%,20.14\%]$.
-Paired MSE comparisons with the remaining baselines are summarized in
-Supplementary Section~S4.2; each 95\% confidence interval lies above zero.
+Paired MSE comparisons with the remaining baselines also favor MSA-DTI, with
+each 95\% confidence interval lying above zero.
 
 Figure~\ref{fig:paired-instantiation} compares MSA-DTI with PT+FT at the case
 level.
@@ -883,26 +932,30 @@ under three source-training seeds yield paired MSE reductions ranging from
 10.52\% to 13.21\%. All three 95\% confidence intervals remain above zero.
 
 We additionally apply the full 66-configuration screening procedure to two
-new 20-center pools, giving three screening pools in total when the original
-pool is included. The retained-list sizes are 6, 0, and 4, and the two new
-lists have Jaccard similarities of 0 and 0.429 to the frozen six-configuration
-list. A separate screening-stability diagnostic evaluates these retained lists
-on a fourth, untouched 20-center pool without retraining or retuning the
-downstream pipeline. The paired-gain intervals of both nonempty lists include
-zero.
+new 20-center pools. The screening procedure retains six configurations for
+the main-study pool and zero and four configurations for the two independent
+pools, respectively; the fixed A57 reference candidate remains available for
+downstream fallback regardless of the screening outcome. The two independent
+retained sets have Jaccard similarities of 0 and 0.429 to the main-study
+retained set. A separate screening-stability diagnostic evaluates the two
+nonempty retained sets on a fourth independent 20-center pool while keeping
+the downstream procedure unchanged. The 95\% confidence intervals for the
+paired check-MSE gains relative to the reference include zero for both
+nonempty sets.
 
-The retained-list variation confirms sample sensitivity in candidate
+The retained-set variation indicates sample sensitivity in candidate
 discovery. To examine how this variability propagates through the complete
 instantiation procedure, we then construct the corresponding source-trained
-banks, apply the unchanged margin-calibration rule to each bank, and evaluate
-the resulting pipelines on a new 20-center held-out pool. The S0- and
-S2-derived nonempty banks achieve mean paired MSE reductions of 10.03\%
+banks, apply the same margin-calibration rule to each bank, and evaluate
+the resulting pipelines on a new 20-center held-out pool. The banks derived
+from the main-study screening pool and the nonempty independent screening pool
+achieve mean paired MSE reductions of 10.03\%
 (95\% CI $[4.60\%,16.02\%]$) and 8.78\%
 (95\% CI $[3.83\%,14.24\%]$) relative to PT+FT, respectively; each produces
 six harmful alternative selections, corresponding to 7.50\% of the 80
-held-out cases. S1 retains no alternative and therefore reverts to the
-protected reference, yielding zero paired difference. All three pipelines
-satisfy both deployment limits in every case.
+held-out cases. The screening outcome with no retained alternative therefore
+reverts to the adapted reference, yielding zero paired difference. All three
+pipelines satisfy both deployment limits in every case.
 
 \subsection{Deployment Feasibility and Cost}
 \label{subsec:deployment}
@@ -919,23 +972,27 @@ final model selection.
 (b) the selected model configurations.}
 {fig:budget-architecture}
 
-Under the tight setting, four of the seven candidates in the frozen bank are
-deployment-feasible, whereas all seven are feasible under the medium and loose
+Under the tight setting, four of the seven candidates in the main candidate
+bank are deployment-feasible, whereas all seven are feasible under the medium and loose
 settings.
 
-For the frozen main bank under the tight setting, a single-limit analysis
+For the main candidate bank under the tight setting, a single-limit analysis
 shows that the reduction is caused by the parameter-count limit: all seven
 candidates satisfy the operation-count limit, while the parameter-count limit
 excludes three MLP candidates.
 
-An expanded-bank stress analysis shows that the two limits exclude different
-candidates for both $H=1$ and $H=4$: each single-limit feasible set retains
-seven of eight candidates, whereas their joint feasible set retains six.
+To test whether the two limits can independently restrict candidate
+feasibility, we form an eight-candidate stress bank by adding one configuration
+from the predefined architecture space and use diagnostic thresholds derived
+from the resulting model-complexity profiles. For both $H=1$ and $H=4$, each
+single-limit feasible set retains seven of eight candidates, whereas the joint
+feasible set retains six.
 
-In the target-side stress evaluation on the same 80 held-out cases, all
-selected models satisfy both deployment limits. Mean paired MSE reductions
-relative to PT+FT remain positive under tight, medium, and loose limits:
-11.35\%, 15.30\%, and 18.22\%, respectively.
+Under the joint stress limits, all models selected from the expanded bank on
+the same 80 held-out cases satisfy both limits. Separately, for the main
+candidate bank, mean paired MSE reductions relative to PT+FT remain positive
+under the tight, medium, and loose settings: 11.35\%, 15.30\%, and 18.22\%,
+respectively.
 
 Table~\ref{tab:target-cost} compares target-side cost and selected-model
 complexity for PT+FT, the target-adaptation architecture-search baselines, and
@@ -1017,10 +1074,13 @@ rather than a single-component ablation.
 \label{subsec:external}
 
 We also evaluate MSA-DTI on Alibaba Cluster Trace v2018 \cite{ref29}. The
-Alibaba data are divided into disjoint source, calibration, and held-out
-machine pools; source models are retrained on the Alibaba source pool while
-the method configuration remains fixed. The workload observations come from
-the production trace, while the deployment-limit tiers use the same controlled
+Alibaba data are divided into 20 source, 20 calibration, and 40 held-out
+machines, giving 80 calibration and 160 held-out cases. Source models are
+retrained on the Alibaba source pool, while the architecture definitions,
+deployment filtering rule, support-size settings, target-adaptation procedure,
+and margin grid remain unchanged. Each Alibaba case uses 80 validation, 60
+check, and 200 test windows. The workload observations come from the
+production trace, while the deployment-limit tiers use the same controlled
 model-complexity settings as in the main study.
 
 When the main-study margin $\tau=0.10$, fixed before the Alibaba evaluation,
@@ -1037,19 +1097,18 @@ the main-study margin.
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper presented MSA-DTI for few-shot DT model instantiation under
-per-model operation-count and parameter-count limits. MSA-DTI filters
+This paper presented MSA-DTI for DT model instantiation with few-shot target
+adaptation under per-model operation-count and parameter-count limits. MSA-DTI filters
 infeasible candidates from the source-trained bank, adapts the remaining
 candidates under a common update budget, and applies a calibrated
 reference-model replacement rule based on post-adaptation validation
 performance. In the main held-out evaluation, MSA-DTI reduces MSE by 14.60\%
 on average across paired cases relative to PT+FT while satisfying both
 deployment limits in all cases. The confidence interval for the held-out
-harmful-selection rate spans the 5\% calibration criterion, and the
-candidate-discovery rule is sample-sensitive. In a separate end-to-end
+harmful-selection rate spans the 5\% calibration criterion, and candidate discovery shows sensitivity to the screening sample. In a separate end-to-end
 screening analysis, the two nonempty screening-derived banks yield positive
 mean paired MSE reductions relative to PT+FT with confidence intervals above
-zero, while the no-alternative screening outcome reverts to the protected
+zero, while the no-alternative screening outcome reverts to the adapted
 reference. On
 Alibaba, direct transfer of the fixed main-study margin yields a positive mean
 paired MSE reduction, but no margin in the preset grid satisfies the
