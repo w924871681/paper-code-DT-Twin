@@ -30,7 +30,7 @@ values are derived before rounding. The public proposed runtime is
 `5.676 +/- 0.059 s`; the earlier one-pass diagnostic remains historical
 provenance only.
 
-The public H-Meta-NAS runtime is `20.349 +/- 5.722 s`, computed from five
+The public H-Meta-NAS runtime is `20.847 +/- 5.032 s`, computed from five
 complete 80-case repetitions. The legacy `43.061 s` value is not
 protocol-compatible and is retained only in its original recovery provenance.
 

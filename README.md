@@ -21,7 +21,7 @@ The following scientific choices remain unchanged in v1.2.7:
 - the optimizer, candidate bank, and complexity limits.
 
 The H-Meta-NAS target-side time is now supported by a complete frozen
-five-repeat audit: `20.349 ± 5.722 s` per target case across five 80-case
+five-repeat current-large-window audit: `20.847 ± 5.032 s` per target case across five 80-case
 repetitions. The earlier `43.061 s` value remains legacy provenance only
 because its timing boundary included held-out test evaluation and omitted
 initial candidate construction. The replacement changes no model setting,
