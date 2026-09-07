@@ -17,7 +17,7 @@
     "numpy": "2.4.6",
     "platform": "Windows-10-10.0.26200-SP0",
     "python": "3.11.15",
-    "python_executable": "C:\\Users\\92487\\anaconda3\\envs\\rcf-dti-py311\\python.exe",
+    "python_executable": "python.exe",
     "torch": "2.5.1+cu121"
   },
   "last_updated_at_utc": "2026-09-06T19:46:49.424046+00:00",
@@ -169,13 +169,13 @@
   },
   "provenance": {
     "command": "python.exe experiments/h_meta_nas_current_large_window_runtime_audit.py --device cuda",
-    "formal_performance_path": "D:\\dt-talk\\repository\\results\\h_meta_nas_recovery_v1\\h_meta_nas_formal.json",
+    "formal_performance_path": "results/h_meta_nas_recovery_v1/h_meta_nas_formal.json",
     "formal_performance_sha256": "24aea7e8dbad5ebedede381e4eedf667c44ad1d9bfa7d6b24849c5d199280a63",
     "git_commit": "d02bf51ce2bb24b21a1350f153eefb3d29822479",
     "git_worktree_dirty": true,
-    "runtime_code_path": "D:\\dt-talk\\repository\\experiments\\h_meta_nas_current_large_window_runtime_audit.py",
+    "runtime_code_path": "experiments/h_meta_nas_current_large_window_runtime_audit.py",
     "runtime_code_sha256": "2d94bf770f55f2d3d2de69a539632e81c34b4986aa30ef05062ea4d140dc477d",
-    "source_meta_bank_path": "D:\\dt-talk\\repository\\results\\h_meta_nas_recovery_v1\\source_meta_bank.pt",
+    "source_meta_bank_path": "results/h_meta_nas_recovery_v1/source_meta_bank.pt",
     "source_meta_bank_sha256": "ad0255c9d91fe891ab2bdb8290df83cdb7517fdd46dad777b3c02dfa49c0b93e"
   },
   "records": {
