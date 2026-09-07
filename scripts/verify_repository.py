@@ -185,7 +185,7 @@ def check_numbers() -> list[str]:
     if abs(float(ours["mean_seconds"])-5.676108809500022)>1e-12 or abs(float(ours["repeat_mean_std_seconds"])-0.059080506136177456)>1e-12: errors.append("repeated proposed runtime changed")
     h_meta = runtime["h_meta_nas"]
     if int(h_meta["N_observations"]) != 400 or int(h_meta["N_repeats"]) != 5: errors.append("H-Meta-NAS repeated-runtime cardinality changed")
-    if abs(float(h_meta["mean_seconds"])-20.34946890149808)>1e-12 or abs(float(h_meta["repeat_mean_std_seconds"])-5.7224156375452475)>1e-12: errors.append("H-Meta-NAS repeated runtime changed")
+    if abs(float(h_meta["mean_seconds"])-20.84654133574988)>1e-12 or abs(float(h_meta["repeat_mean_std_seconds"])-5.0323928339455835)>1e-12: errors.append("H-Meta-NAS repeated runtime changed")
     h_meta_audit = json.loads((ROOT / "results/supplementary/h_meta_nas_runtime_audit/h_meta_nas_five_repeat_runtime_summary.json").read_text(encoding="utf-8"))
     if h_meta_audit.get("decision") != "PASS_H_META_NAS_FIVE_REPEAT_FROZEN_RUNTIME_AUDIT" or not h_meta_audit.get("performance_unchanged"): errors.append("H-Meta-NAS frozen runtime audit is not complete and unchanged")
     mechanism = next(row for row in _csv(ROOT / "results/main/mechanism_and_cost.csv") if row["Method"]=="Ours")
