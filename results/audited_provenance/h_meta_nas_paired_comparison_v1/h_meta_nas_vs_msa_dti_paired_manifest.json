@@ -81,16 +81,16 @@
     "c999_h4_k10_btight",
     "c999_h4_k20_btight"
   ],
-  "created_at_utc": "2026-09-06T17:21:40.571035+00:00",
+  "created_at_utc": "2026-09-07T02:54:58.017318+00:00",
   "decision": "COMPLETE_REPORTING_ONLY",
   "epsilon": 1e-12,
   "inputs": {
     "h_meta_nas_case_json": {
-      "path": "D:\\dt-talk\\repository\\results\\h_meta_nas_recovery_v1\\h_meta_nas_formal.json",
+      "path": "results/h_meta_nas_recovery_v1/h_meta_nas_formal.json",
       "sha256": "24aea7e8dbad5ebedede381e4eedf667c44ad1d9bfa7d6b24849c5d199280a63"
     },
     "msa_dti_case_json": {
-      "path": "D:\\dt-talk\\new_exercise_revised\\outputs\\c33_locked_eval_d2904_t2904\\methods\\ours_c32_locked.json",
+      "path": "results/audited_provenance/inputs/msa_dti_c33_locked_80_case_frozen.json",
       "sha256": "274870c043c7019ff9297fd20593933d5f38f811b2456aa7448803801f86bad1"
     }
   },
@@ -99,17 +99,17 @@
     "B": "H-Meta-NAS"
   },
   "outputs": {
-    "per_case_csv": "D:\\dt-talk\\repository\\results\\audited_provenance\\h_meta_nas_paired_comparison_v1\\per_case_h_meta_nas_vs_msa_dti.csv"
+    "per_case_csv": "results/audited_provenance/h_meta_nas_paired_comparison_v1/per_case_h_meta_nas_vs_msa_dti.csv"
   },
   "paired_gain_formula": "(MSE_HMeta_i - MSE_MSA_i) / abs(MSE_HMeta_i)",
   "producer": {
-    "command": "python.exe scripts/report_h_meta_nas_paired_comparison.py --msa-json D:\\dt-talk\\new_exercise_revised\\outputs\\c33_locked_eval_d2904_t2904\\methods\\ours_c32_locked.json --hmeta-json D:\\dt-talk\\repository\\results\\h_meta_nas_recovery_v1\\h_meta_nas_formal.json --output-dir D:\\dt-talk\\repository\\results\\audited_provenance\\h_meta_nas_paired_comparison_v1 --seed 11905",
-    "git_commit": "d02bf51ce2bb24b21a1350f153eefb3d29822479",
+    "command": "python.exe scripts\\report_h_meta_nas_paired_comparison.py --msa-json results\\audited_provenance\\inputs\\msa_dti_c33_locked_80_case_frozen.json --hmeta-json results\\h_meta_nas_recovery_v1\\h_meta_nas_formal.json --output-dir results\\audited_provenance\\h_meta_nas_paired_comparison_v1 --seed 11905",
+    "git_commit": "c52e07c999f059e6e2d83f8370be67a630208823",
     "git_worktree_dirty": true,
     "numpy": "2.1.3",
     "python": "3.13.5",
-    "script": "D:\\dt-talk\\repository\\scripts\\report_h_meta_nas_paired_comparison.py",
-    "script_sha256": "77bd111da90d5b0c9a863c97238e0fc8b998564afddbe03c75badf30cd47c7ed"
+    "script": "scripts/report_h_meta_nas_paired_comparison.py",
+    "script_sha256": "46320f2d83f7ba6c32cb425b80975d1d5701d26d14530db30d801ce16a84abf0"
   },
   "results": {
     "ci_high": 0.7353264575402203,

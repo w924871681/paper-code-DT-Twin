@@ -69,6 +69,14 @@ def git_is_dirty() -> bool | None:
         return None
 
 
+def repository_relative(path: Path) -> str:
+    """Record checkout-portable provenance paths whenever possible."""
+    try:
+        return path.resolve().relative_to(ROOT.resolve()).as_posix()
+    except ValueError:
+        return str(path.resolve())
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--msa-json", type=Path, required=True, help="Completed MSA-DTI case-level JSON")
@@ -147,8 +155,8 @@ def main() -> int:
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "methods": {"A": "MSA-DTI", "B": "H-Meta-NAS"},
         "inputs": {
-            "msa_dti_case_json": {"path": str(msa_path), "sha256": sha256(msa_path)},
-            "h_meta_nas_case_json": {"path": str(hmeta_path), "sha256": sha256(hmeta_path)},
+            "msa_dti_case_json": {"path": repository_relative(msa_path), "sha256": sha256(msa_path)},
+            "h_meta_nas_case_json": {"path": repository_relative(hmeta_path), "sha256": sha256(hmeta_path)},
         },
         "case_keys": sorted(msa_keys),
         "paired_gain_formula": "(MSE_HMeta_i - MSE_MSA_i) / abs(MSE_HMeta_i)",
@@ -175,7 +183,7 @@ def main() -> int:
             "ci_high": float(np.quantile(bootstrap, 0.975)),
         },
         "producer": {
-            "script": str(Path(__file__).resolve()),
+            "script": repository_relative(Path(__file__)),
             "script_sha256": sha256(Path(__file__).resolve()),
             "git_commit": git_revision(),
             "git_worktree_dirty": git_is_dirty(),
@@ -183,7 +191,7 @@ def main() -> int:
             "numpy": np.__version__,
             "command": " ".join([Path(sys.executable).name, *sys.argv]),
         },
-        "outputs": {"per_case_csv": str(csv_path)},
+        "outputs": {"per_case_csv": repository_relative(csv_path)},
     }
     manifest_path = output_dir / "h_meta_nas_vs_msa_dti_paired_manifest.json"
     with manifest_path.open("w", encoding="utf-8", newline="\n") as stream:
