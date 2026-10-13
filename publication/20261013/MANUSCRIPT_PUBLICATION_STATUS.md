@@ -1,4 +1,49 @@
-# Current manuscript publication status — final Data Availability revision
+# Current manuscript publication status — Supplementary §S7.4 correction
+
+**Local build and package checks PASS; new Release publication, anonymous
+downloads and final historical-version protection checks pending.**
+The current entry is [`paper/current/`](../../paper/current/). This revision
+corrects only the outdated public-deposit statement in Supplementary §S7.4
+and recompiles its PDF. The main source/PDF retain the published Data
+Availability revision; no other scientific text, figure, table, formula,
+experiment result, threshold, seed or data split changes.
+
+| Current file | Bytes | SHA-256 | Scope |
+| --- | ---: | --- | --- |
+| `main.tex` | — | `55a5d395f1e640bfa970d7af12e3400e28b7884a8ac6fc339048256291bb8613` | KEEP |
+| `compiled/main.pdf` | 6,713,742 | `7a6f8459cd3cf57f8e7167a8d18846ed704b1cb92bd32e43da279bb54a8d652d` | KEEP; 16 pages |
+| `supplementary.tex` | — | `c5492e3bf77085c1802424b916d663cbd1953348ba8a1ade999c6a6d7c4958f6` | One public-availability sentence |
+| `compiled/supplementary.pdf` | 741,823 | `019c03ec74a02459168433161db4c1236e3999c448ec2b31d2bb498dd5265272` | Recompiled; 15 pages |
+| `MSA_DTI_Final_Publication_20261013_SuppFix.zip` | 7,076,672 | `551411789fab9334a03c29d9931294aa9a10a0597038a1e6e201f9e774a7356f` | 32 members |
+
+The final package's fresh extraction was rebuilt with three direct
+`pdflatex` runs; the Supplementary PDF was byte-identical to the delivered
+PDF. Relative to the previous manuscript-only version, the other 23
+scientific members remain byte-identical. Relative to the author-provided
+ZIP, the 16 figures, two external tables and three CAS files are unchanged.
+See [Supplementary build details](../../paper/current/SUPPLEMENTARY_BUILD_INFO.md),
+[build log](../../paper/current/SUPPLEMENTARY_BUILD_LOG.txt), and
+[single-sentence source diff](../../paper/current/SUPPLEMENTARY_SOURCE_MINIMAL_DIFF.patch).
+
+The planned [Supplementary correction Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-suppfix-20261013)
+is a manuscript-only revision. Its planned attachment links are:
+
+- [Complete LaTeX ZIP](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-suppfix-20261013/MSA_DTI_Final_Publication_20261013_SuppFix.zip)
+- [Unchanged main PDF](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-suppfix-20261013/main.pdf)
+- [Corrected Supplementary PDF](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-suppfix-20261013/supplementary.pdf)
+- [Release SHA-256 list](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-suppfix-20261013/SHA256SUMS.txt)
+
+These URLs are prepared for the new Release; publication, anonymous download
+verification and fresh after-publication historical-release comparisons have
+not yet completed. The previous `manuscript-final-20261013`, both evidence
+Releases and the `v1.2.7` frozen version are retained without replacement.
+PR #9 remains draft and unmerged.
+
+## Historical Data Availability revision — manuscript-final-20261013
+
+The following record describes the preceding main-paper revision and its
+then-current Supplementary. Its hashes and verification results are
+historical; the current Supplementary correction is described above.
 
 **PASS:** compilation, local package verification, public release, anonymous
 downloads and fresh historical-version protection checks completed.

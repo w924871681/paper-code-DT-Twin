@@ -4,10 +4,13 @@ This repository is the reproducibility archive for **Adaptation-Aware Model
 Selection for Few-Shot Digital Twin Instantiation under Deployment
 Limits**. The public method name is **MSA-DTI** (Model Selection and
 Adaptation for Digital Twin Instantiation). The **[current 2026-10-13 paper](paper/current/)**
-tracks the final Data Availability revision of the author-provided main
-paper and its unchanged Supplementary. Its separate
-[manuscript-only Release entry](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-final-20261013)
+retains the Data Availability revision of the author-provided main paper
+and corrects one outdated public-availability sentence in Supplementary
+§S7.4. Its separate
+[Supplementary correction Release entry](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-suppfix-20261013)
 is distinct from the
+[previous Data Availability manuscript Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-final-20261013),
+the
 [expanded evidence Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-full-20261013)
 and the earlier
 [light evidence Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-r5-bitbrains-20261013).

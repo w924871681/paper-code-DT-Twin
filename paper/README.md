@@ -1,10 +1,11 @@
 # MSA-DTI manuscript versions
 
-The **single current manuscript entry** is the [2026-10-13 paper and Supplementary](current/), based exclusively on the author-provided `MSA_DTI_PositiveEvidence_Mainline_20261013.zip`. The current revision updates only the main paper's Data Availability and its corresponding PDF. The Supplementary source/PDF, 16 figures, two external tables and three CAS files remain byte-identical to that package; see the [SHA-256 record](current/SHA256SUMS.txt) and [publication status](../publication/20261013/MANUSCRIPT_PUBLICATION_STATUS.md).
+The **single current manuscript entry** is the [2026-10-13 paper and Supplementary](current/), based exclusively on the author-provided `MSA_DTI_PositiveEvidence_Mainline_20261013.zip`. The main source/PDF retain the previously published Data Availability revision. The current correction changes only one public-availability sentence in Supplementary §S7.4 and its corresponding PDF. All other Supplementary text, the 16 figures, two external tables and three CAS files are unchanged; see the [SHA-256 record](current/SHA256SUMS.txt) and [publication status](../publication/20261013/MANUSCRIPT_PUBLICATION_STATUS.md).
 
 - [Current main paper PDF](current/compiled/main.pdf) and [current main LaTeX](current/main.tex)
 - [Current Supplementary PDF](current/compiled/supplementary.pdf) and [current Supplementary LaTeX](current/supplementary.tex)
-- [Final Data Availability revision — manuscript-only Release entry](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-final-20261013)
+- [Current Supplementary §S7.4 correction — manuscript-only Release entry](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-suppfix-20261013)
+- [Previous Data Availability manuscript revision](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-final-20261013), retained with its original attachments
 
 The manuscript ZIP and PDFs in [the expanded evidence Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-full-20261013) preserve the earlier, pre-Data-Availability-revision paper. Its experiment assets remain the current public R5/Bitbrains/corrected Alibaba evidence. The [light evidence Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-r5-bitbrains-20261013) also remains unchanged.
 

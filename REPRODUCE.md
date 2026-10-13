@@ -1,9 +1,11 @@
 # Reproduction routes for the 2026-10-13 current paper
 
 Start at [the current manuscript](paper/current/) and its separate
-[final Data Availability revision Release entry](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-final-20261013).
-The manuscript-only revision updates the public-asset statement; it introduces
-no new experiment or recalibration. Compilation and download acceptance are
+[Supplementary §S7.4 correction Release entry](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-suppfix-20261013).
+This manuscript-only correction updates one public-availability sentence in
+Supplementary §S7.4 and keeps the main source/PDF from the
+[previous Data Availability revision](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-final-20261013).
+It introduces no new experiment or recalibration. Compilation and download acceptance are
 recorded in [publication status](publication/20261013/MANUSCRIPT_PUBLICATION_STATUS.md).
 The manuscript attachments in the expanded evidence Release are retained as
 the earlier version. The original synthetic main
