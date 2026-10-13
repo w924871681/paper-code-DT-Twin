@@ -19,6 +19,9 @@ model_checkpoints/
 *.zip
 *.log
 *.aux
+*.fls
+*.fdb_latexmk
+*.blg
 *.abs
 *.out
 *.synctex.gz

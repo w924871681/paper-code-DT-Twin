@@ -1,2 +1,2 @@
 * text=auto eol=lf
-
+paper/current/compiled/*.pdf -text -diff

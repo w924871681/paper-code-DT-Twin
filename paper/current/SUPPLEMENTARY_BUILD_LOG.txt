@@ -1,0 +1,12 @@
+Supplementary S7.4 status-correction build and QA summary
+Baseline Supplementary: clean passes 1/2/3 exit 0; 15 pages.
+Revised Supplementary: clean passes 1/2/3 exit 0; 15 pages.
+Compiler: MiKTeX-pdfTeX 4.23, CAS 2.4 (2024/05/04).
+Environment: SOURCE_DATE_EPOCH=1791849600; FORCE_SOURCE_DATE=1.
+Third-pass baseline diagnostics: none.
+Third-pass revised diagnostics: none.
+New overfull/underfull boxes, unresolved references, or blank pages: none.
+Page 11: revised sentence visible and legible; no clipping or overlap.
+Main PDF: unchanged, 16 pages, SHA-256 7a6f8459cd3cf57f8e7167a8d18846ed704b1cb92bd32e43da279bb54a8d652d.
+Revised Supplementary PDF: 741823 bytes, SHA-256 019c03ec74a02459168433161db4c1236e3999c448ec2b31d2bb498dd5265272.
+Full individual-pass logs and rendered page review are retained in the local closure audit directory.

@@ -1,0 +1,7 @@
+--- manuscript-final/supplementary.tex
++++ suppfix/supplementary.tex
+@@ -881,3 +881 @@
+-claims. A separate corrected reproducibility archive retains protocol locks,
+-model checkpoints, case-level records, and plots; it has not yet been
+-publicly deposited. The third-party raw trace and large corrected input/label
++claims. The corrected reproducibility archive containing protocol locks, model checkpoints, case-level records, and plots is publicly available in the dated evidence-only Release cited in the main manuscript's Data Availability statement. The third-party raw trace and large corrected input/label

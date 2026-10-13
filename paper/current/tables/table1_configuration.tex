@@ -1,0 +1,79 @@
+\begin{center}
+\begin{minipage}{\linewidth}
+\captionof{table}{Main experimental configuration.}
+\label{tab:configuration}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.05}
+\setlength{\tabcolsep}{2.5pt}
+
+\begin{tabularx}{\linewidth}{Z{0.18\linewidth} Y Z{0.43\linewidth}}
+\toprule
+Category & Item & Setting \\
+\midrule
+
+Data
+& Centers, observations, and input length
+& Source/held-out $=20/20$, 3000 per center, $L=96$ \\
+
+& Target cases and split sizes
+& 80 cases, $H\in\{1,4\}$, support $K\in\{10,20\}$,
+validation/check/test windows
+$=1342$--$1351$ / $621$--$628$ / $621$--$627$ \\
+
+\midrule
+
+Bank
+& Initial / retained / executable / candidates
+& $66/6/5/7$ \\
+
+& Reference and architecture preselection
+& A57, one-layer GRU-32, fixed before preselection. An alternative is retained if
+either preselection evidence count in Section~4.2 is $\geq 2$ \\
+
+& Source-model records
+& Reference pooled-source initialization, five alternative source-trained
+initializations, and one additional A57 paired-initialization control \\
+
+\midrule
+
+Training
+& Strong-bank alternative source training
+& Adam / MSE / 50 epochs, learning rate $10^{-3}$, batch size 64 \\
+
+& MSA-DTI and fixed-reference baseline adaptation
+& SGD / MSE / 50 updates per adapted model, learning rate 0.01,
+gradient-norm limit 1.0, full support set \\
+
+\midrule
+
+Selection
+& Grid and eligibility
+& $\{0.05, 0.075, 0.10, 0.125, 0.15, 0.20\}$,
+harmful-selection rate $\leq 5\%$, both mean relative gains $\geq 3\%$,
+both 95\% lower confidence bounds $>0$ \\
+
+& Calibrated margin
+& $\tau=0.10$ \\
+
+\midrule
+
+Limits
+& Operation-count limits
+& Tight / medium / loose
+$=1.5{\times}10^6/5{\times}10^6/2{\times}10^7$ \\
+
+& Parameter-count limits
+& Tight / medium / loose
+$=3{\times}10^4/10^5/5{\times}10^5$ \\
+
+\midrule
+
+Statistics
+& Confidence intervals
+& Center-cluster bootstrap, 4000 repetitions \\
+
+\bottomrule
+\end{tabularx}
+\end{minipage}
+\end{center}

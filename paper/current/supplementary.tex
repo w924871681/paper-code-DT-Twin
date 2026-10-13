@@ -1,0 +1,1144 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{capt-of}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue]{hyperref}
+
+\graphicspath{{figures/}{./figures/}{./}{paper/figures/}}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{Z}[1]{>{\centering\arraybackslash}p{#1}}
+
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thesubsection}{S\arabic{section}.\arabic{subsection}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+
+\newcommand{\paperfig}[5][]{%
+  \begin{center}
+  \begin{minipage}{\linewidth}
+  \centering
+  \includegraphics[
+    width=#2,
+    max height=0.72\textheight,
+    keepaspectratio,
+    #1
+  ]{#3}%
+  \vspace{-0.35em}
+  \captionof{figure}{#4}
+  \label{#5}
+  \end{minipage}
+  \vspace{-0.45em}
+  \end{center}
+}
+
+\newenvironment{suppTableBlock}[2]{%
+  \begin{center}
+  \begin{minipage}{\linewidth}
+  \captionof{table}{#1}
+  \label{#2}
+  \centering
+}{%
+  \end{minipage}
+  \vspace{0.35em}
+  \end{center}
+}
+
+\title{Adaptation-Aware Model Selection for Few-Shot Digital Twin
+Instantiation}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+This supplementary material provides additional implementation, analytical,
+reproducibility, and diagnostic details for the main manuscript, including
+counting conventions, candidate-bank and calibration records, analytical
+derivations, baseline configurations, hardware profiling, real-workload
+evaluations, and synthetic-benchmark generation settings.
+
+The source, architecture-preselection, margin-calibration, diagnostic, and
+held-out target pools use disjoint center identities.
+
+\section{Detailed Operation-Count and Parameter-Count Rules}
+\label{supp:counting}
+
+The estimated operation count is computed for one forward pass with batch
+size one. Additions and multiplications in the main linear, convolutional,
+recurrent-matrix, residual-projection, and output-layer operations are
+counted. Bias additions, nonlinear activations, dropout operations, and GRU
+elementwise operations are excluded. The same deterministic rule is applied
+to every candidate.
+
+For an instantiated architecture $a_q$, the parameter count is the exact
+number of elements in all trainable parameter tensors after the target input
+dimension and prediction horizon are fixed. Both counts depend on the target
+case only through its instantiated input and output dimensions. Because
+parameter adaptation does not change the architecture, both quantities remain
+unchanged.
+
+The two indicators are constrained by hard deployment limits. They are not
+added to the prediction loss and are not changed after target adaptation.
+They are deterministic model-level indicators rather than direct guarantees
+of hardware-specific latency or memory use.
+Their relation to measured inference latency and serialized model size is
+evaluated in Supplementary Section~S5.
+
+\section{Candidate-Bank Records and Relative-Margin Calibration}
+\label{supp:bank-calibration}
+
+\subsection{Candidate-bank construction and source-trained records}
+
+The initial architecture space contains 66 indexed configurations: 18 MLPs,
+36 TCNs, and 12 GRUs. Configuration A57, a one-layer GRU with 32 hidden
+units, is fixed as the reference architecture before preselection.
+
+An alternative configuration is retained when it records at least two
+check-oracle wins over A57, or at least two validation-selected positive check
+wins over A57. A check-oracle win is assigned to the feasible configuration
+with the lowest check loss when it improves on A57; a validation-selected
+positive check win is assigned when validation selects an alternative
+configuration whose check loss improves on A57.
+These cases belong to the architecture-preselection pool and are disjoint from
+the margin-calibration and held-out target pools.
+The recorded S0 retained-indexed-configuration list contains three MLP and
+three GRU entries, including A57. No TCN configuration satisfies this rule.
+The PT-A57 reference candidate is constructed separately in the downstream
+candidate bank.
+
+Two retained one-layer GRU-32 configurations have different indexed
+settings, but recurrent dropout is inactive for a one-layer GRU. They
+therefore represent the same executable architecture. The six retained
+configurations correspond to five executable architectures.
+
+The final bank contains the pooled-source PT+FT initialization for
+the reference, one source-trained initialization for each of the five other
+retained indexed configurations, and a second A57 initialization used as a
+paired-initialization control. The six retained configurations therefore
+produce seven candidates. The bank and reference candidate are fixed
+before relative-margin calibration and held-out evaluation.
+
+Source preparation is not identical across the candidate records. Strong-bank
+alternatives use 50 epochs of Adam/MSE training with learning rate $10^{-3}$
+and batch size 64. The pooled-source PT-A57 reference is loaded from a
+separately frozen asset whose manifest records a nominal 50-epoch source
+recipe. The C1-A57 control has a distinct source-training lineage; its
+released source builder specifies 10 Adam/MSE epochs followed by 180
+Adam/Huber refinement updates. The historical per-step C1 execution trace is
+not fully recoverable. Thus, the two A57 initializations differ in source
+preparation as well as initialization, and the controls do not isolate a
+random-seed-only or architecture-only effect.
+
+\subsection{Relative-margin calibration records}
+
+Section~4.4 of the main manuscript defines the calibration rule. This section
+records its complete experimental instantiation and reproducibility details.
+
+Let
+$\mathcal{T}=\{0.05,0.075,0.10,0.125,0.15,0.20\}$
+denote the preset margin grid. For a relative margin $\tau$, let
+$\widehat R_{\mathrm{harm}}(\tau)$ denote the fraction of all calibration
+cases in which an alternative is selected and its check-set loss exceeds that
+of the adapted reference. Let $\widehat G_{\mathrm{ref}}(\tau)$ and
+$\widehat G_{\mathrm{pair}}(\tau)$ denote the mean relative check-loss gains
+with respect to the adapted reference and the paired-initialization control,
+respectively, where each gain is the relative reduction in check-set loss of
+the selected model with respect to the corresponding control. Their lower
+95\% confidence bounds are
+$\underline G_{\mathrm{ref}}(\tau)$ and
+$\underline G_{\mathrm{pair}}(\tau)$.
+
+The eligible margins form
+\begin{equation}
+\begin{aligned}
+\mathcal{T}_{\mathrm{elig}}
+=
+\bigl\{
+\tau\in\mathcal{T}
+\;\bigm|\;&
+\widehat R_{\mathrm{harm}}(\tau)\leq\rho,
+\\
+&
+\widehat G_{\mathrm{ref}}(\tau)\geq\gamma_{\mathrm{ref}},
+\quad
+\underline G_{\mathrm{ref}}(\tau)>0,
+\\
+&
+\widehat G_{\mathrm{pair}}(\tau)\geq\gamma_{\mathrm{pair}},
+\quad
+\underline G_{\mathrm{pair}}(\tau)>0
+\bigr\}.
+\end{aligned}
+\label{eq:supp-margin-calibration}
+\end{equation}
+
+The calibration uses
+$\rho=0.05$ and
+$\gamma_{\mathrm{ref}}=\gamma_{\mathrm{pair}}=0.03$.
+When $\mathcal{T}_{\mathrm{elig}}$ is nonempty, the calibrated margin is
+\begin{equation}
+\tau^{*}=\min \mathcal{T}_{\mathrm{elig}}.
+\end{equation}
+The smallest eligible value in the main margin-calibration setting is
+$\tau^{*}=0.10$.
+The paired-initialization control is a two-candidate selector, not the
+unconditionally deployed second A57 model: both A57 source initializations
+are adapted on the same support set, then the reference-relative validation
+rule at the specified $\tau$ selects one for check evaluation.
+The $\widehat G_{\mathrm{pair}}$ denominator is the check loss of this
+paired-selector output in each corresponding calibration case.
+
+Architecture preselection and candidate-bank construction are completed before
+margin calibration, and the resulting candidate bank and reference candidate
+remain fixed while the margin grid is evaluated.
+
+If no margin satisfies the calibration criteria in a new domain, the adapted
+reference is retained. A margin fixed in another domain may still be
+evaluated without recalibration to assess transfer. The six-margin calibration results are given in
+Table~\ref{tab:supp-synthetic-calibration}. The figures are from the frozen
+20-center, 80-case check-set calibration records; each center contributes
+four $H/K$ cases. Cluster-resampled 95\% confidence intervals use 4,000
+repetitions. This is an empirical eligibility check, not a distribution-free
+risk guarantee.
+
+\begin{suppTableBlock}{Five-criterion margin calibration on the main synthetic development pool (20 centers, 80 cases).}{tab:supp-synthetic-calibration}
+\footnotesize
+\setlength{\tabcolsep}{4.2pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{lrrrrrl}
+\toprule
+$\tau$ & Harm (\%) & Ref. gain (\%) & Ref. LCB (\%) & Pair gain (\%) & Pair LCB (\%) & Eligible\\
+\midrule
+0.050 & 6.25 & 13.93 & 7.75 & 13.33 & 7.73 & No\\
+0.075 & 6.25 & 13.79 & 7.77 & 13.18 & 7.39 & No\\
+0.100 & 5.00 & 13.85 & 8.06 & 13.32 & 7.68 & Yes\\
+0.125 & 5.00 & 13.13 & 7.01 & 12.60 & 6.85 & Yes\\
+0.150 & 5.00 & 12.70 & 6.48 & 12.17 & 6.30 & Yes\\
+0.200 & 2.50 & 10.98 & 5.56 & 10.45 & 5.70 & Yes\\
+\bottomrule
+\end{tabular}
+\vspace{0.25em}
+\par\footnotesize\raggedright
+Harm is the fraction of all calibration cases with a harmful alternative
+selected on the independent check set. Ref. and pair gains are mean
+case-wise relative check-MSE reductions against the adapted PT reference
+and the two-A57 paired-initialization selector, respectively; LCB denotes
+the lower bound of the corresponding 95\% center-cluster bootstrap CI.
+Eligibility requires Harm $\le5\%$, both mean gains $\ge3\%$, and both
+lower bounds $>0$. The two smaller margins fail only the Harm criterion;
+$\tau=0.10$ is the smallest eligible value. The exact frozen statistics
+are provided in the repository's C3.2 selector calibration manifest.
+\end{suppTableBlock}
+
+\section{Additional Analytical Details}
+\label{supp:analysis}
+
+\subsection{Ideal Candidate Decision within the Adapted Feasible Set}
+
+Let the expected future loss of adapted feasible candidate $q$ on target
+center $c$ be
+\begin{equation}
+R_c^{\mathrm{cand}}(q)
+=
+R_c\left(a_q,\theta_{c,q}^{(T)}\right).
+\label{eq:supp-candidate-risk}
+\end{equation}
+If this quantity were available, the ideal candidate-level decision would
+satisfy
+\begin{equation}
+q_c^{\dagger}
+\in
+\underset{q\in\mathcal{Q}_{c}^{\mathrm{fea}}}
+{\arg\min}\;
+R_c^{\mathrm{cand}}(q).
+\label{eq:supp-ideal-target}
+\end{equation}
+
+This candidate-level quantity is unavailable during instantiation. MSA-DTI
+therefore uses post-adaptation validation loss $J_c(q)$ together with the
+relative-margin rule in the main manuscript.
+
+\subsection{Conditional expected-loss result}
+
+Assume that validation loss differs from expected future loss by at most
+$\epsilon_c\geq0$ for every feasible candidate:
+\begin{equation}
+\left|
+R_c^{\mathrm{cand}}(q)-J_c(q)
+\right|
+\leq
+\epsilon_c,
+\qquad
+\forall q\in\mathcal{Q}_{c}^{\mathrm{fea}}.
+\label{eq:supp-validation-error}
+\end{equation}
+
+When MSA-DTI selects an alternative, the relative-margin rule gives
+\begin{equation}
+R_c^{\mathrm{cand}}(q_c^{*})
+-
+R_c^{\mathrm{cand}}(q^{\mathrm{ref}})
+\leq
+-\tau J_c(q^{\mathrm{ref}})
++
+2\epsilon_c.
+\label{eq:supp-expected-loss}
+\end{equation}
+
+Hence, the selected alternative has lower expected future loss than the
+reference when
+\begin{equation}
+\tau J_c(q^{\mathrm{ref}})>2\epsilon_c.
+\label{eq:supp-sufficient-condition}
+\end{equation}
+Equation~\eqref{eq:supp-sufficient-condition} is a sufficient condition under
+assumption~\eqref{eq:supp-validation-error}. The present experiments do not
+estimate an empirical bound on $\epsilon_c$.
+
+\section{Additional Experimental and Diagnostic Results}
+\label{supp:diagnostics}
+
+
+
+\subsection{Target-side baseline settings}
+
+For the synthetic main study, the window counts in support, validation,
+check, and test order are $(10,1351,628,627)$, $(20,1346,625,625)$,
+$(10,1346,624,624)$, and $(20,1342,621,621)$ for $(H,K)=(1,10)$,
+$(1,20)$, $(4,10)$, and $(4,20)$, respectively.
+
+Table~\ref{tab:supp-baselines} reports the target-side settings used in the
+main comparison.
+
+\begin{suppTableBlock}{Target-side settings of MSA-DTI and the baselines in the main comparison.}{tab:supp-baselines}
+\footnotesize
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{2.0pt}
+\begin{tabularx}{\linewidth}{
+>{\raggedright\arraybackslash}p{0.18\linewidth}
+>{\raggedright\arraybackslash}p{0.16\linewidth}
+Y
+>{\raggedright\arraybackslash}p{0.13\linewidth}
+Z{0.08\linewidth}
+>{\raggedright\arraybackslash}p{0.14\linewidth}}
+\toprule
+Method & Structure & Source initialization & Target update &
+Adapted models & Deployment-limit check \\
+\midrule
+PT+FT & Fixed reference & Pooled-source model & SGD/MSE--50 & 1 &
+Before output \\
+MeDeT-based adaptation & Fixed reference & Meta-learned initialization &
+SGD/MSE--50 & 1 & Before output \\
+Random initialization & Fixed reference & Random & SGD/MSE--50 & 1 &
+Before output \\
+Few-shot NAS & Top-12 shortlist & Method-specific models & Adam/Huber--50 &
+$\leq12$ & Before evaluation \\
+Zero-shot NAS & Top-ranked model & Method-specific model & None & 0 &
+Before evaluation \\
+Zero-shot NAS + fine-tuning & Top-12 shortlist & Method-specific models &
+Adam/Huber--50 & $\leq12$ & Before evaluation \\
+
+H-Meta-NAS-based adaptation & Target architecture search &
+Architecture-indexed meta-initializations & SGD/MSE--50 &
+12.00 & Before search evaluation \\
+
+MSA-DTI & Candidate bank & Source-trained initializations & SGD/MSE--50 & 4--7 &
+Before adaptation and output \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15em}
+
+\footnotesize
+PT+FT and MSA-DTI use the same source-trained reference and target adaptation
+procedure. Few-shot NAS and zero-shot NAS with fine-tuning use Adam/Huber
+($\delta=0.2$), learning rate $3\times10^{-4}$, weight decay 0, and a
+gradient-norm limit of 5.0. H-Meta-NAS-based adaptation uses 50 SGD/MSE
+updates per adapted model in the main comparison. It uses the same 66 architecture
+definitions, filters infeasible architectures before search, uses source-only
+first-order meta-initializations, and selects the final architecture using
+target validation data. Its settings are fixed before held-out evaluation.
+All methods use the same target cases, deployment limits, and architecture
+definitions.
+\end{suppTableBlock}
+
+The NAS labels in the figures and tables are abbreviated names of task-matched
+controls, not exact reproductions of published NAS algorithms. The
+\emph{few-shot NAS} control combines source-prior ranking with a
+support-gradient entropy proxy, adapts up to 12 feasible models, and selects
+by validation MSE. \emph{Zero-shot NAS} chooses one model with the
+support-gradient proxy but performs no target parameter updates; here
+``zero-shot'' means no adaptation updates, not no access to labeled support.
+The fine-tuning variant adapts up to 12 proxy-ranked candidates before
+validation selection. The H-Meta-NAS-based control instead uses separate
+source meta-initializations.
+
+\subsection{Paired held-out baseline comparisons}
+
+Table~\ref{tab:supp-paired-baselines} summarizes the paired MSE comparisons
+between MSA-DTI and the main baselines on the 80 held-out cases.
+
+\begin{suppTableBlock}
+{Paired MSE comparisons between MSA-DTI and the main baselines on the held-out cases.}
+{tab:supp-paired-baselines}
+\scriptsize
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{3.0pt}
+\begin{tabular}{lrrr}
+\toprule
+Baseline
+& MSE win rate (\%)
+& Mean paired MSE reduction (\%)
+& 95\% CI (\%) \\
+\midrule
+PT+FT
+& 71.25 & 14.60 & $[9.41,20.14]$ \\
+MeDeT-based adaptation
+& 87.50 & 35.37 & $[25.39,44.26]$ \\
+Random initialization
+& 100.00 & 80.71 & $[78.07,83.22]$ \\
+Few-shot NAS
+& 95.00 & 40.40 & $[32.65,47.58]$ \\
+Zero-shot NAS
+& 100.00 & 76.29 & $[68.95,82.65]$ \\
+Zero-shot NAS + fine-tuning
+& 98.75 & 45.03 & $[36.53,52.55]$ \\
+H-Meta-NAS-based adaptation
+& 100.00 & 68.94 & $[64.06,73.53]$ \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.15em}
+\footnotesize
+MSE win rate compares saved test MSE with the separately evaluated baseline
+using a strict inequality; ties are non-wins. For PT+FT, 13 of the 33
+reference-retained cases count as strict wins because of numerical differences
+of at most $7.7\times10^{-9}$ in test MSE, not additional beneficial
+selections. The Figure~6 alternative labels use the released $10^{-6}$
+relative-gain cutoff, which agrees with strict test-MSE ordering for all 47
+selected alternatives. Positive reductions favor MSA-DTI. The 95\% intervals
+are the 2.5th and 97.5th percentiles of 4000 center-cluster bootstrap
+replicates, keeping each sampled target center's four cases together.
+\end{suppTableBlock}
+
+\subsection{Optimizer-matched diagnostic comparison}
+
+This comparison examines whether the performance ordering changes when
+target adaptation uses SGD/MSE and 50 parameter updates per adapted model.
+All methods use the same independent diagnostic target cases and deployment
+limits. The two common-shortlist controls use a shared 12-candidate set
+containing A57 and the 11 highest-ranked feasible alternatives under a fixed
+fused ranking (0.60 source-prior rank + 0.40 proxy rank). They differ only in
+the final selection rule: lowest validation loss versus the 10\%
+reference-based margin. All selections are fixed before test evaluation.
+
+\begin{suppTableBlock}{Full optimizer-matched comparison on the diagnostic target pool.}{tab:supp-matched}
+\small
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{lrrrr}
+\toprule
+Method & MSE$\downarrow$ & Worst-10\%$\downarrow$ &
+CVaR90$\downarrow$ & Adapted models \\
+\midrule
+MSA-DTI & \textbf{0.003809} & \textbf{0.015094} &
+\textbf{0.008696} & 6.10 \\
+PT+FT & 0.004497 & 0.017144 & 0.011878 & 1.00 \\
+Few-shot NAS & 0.006715 & 0.025246 & 0.019653 & 12.00 \\
+Zero-shot NAS + fine-tuning & 0.007402 & 0.028099 & 0.020402 & 12.00 \\
+Common shortlist, lowest validation loss &
+0.006707 & 0.025240 & 0.019653 & 12.00 \\
+Common shortlist, reference-based selection &
+0.006819 & 0.025562 & 0.020547 & 12.00 \\
+\bottomrule
+\end{tabular}
+\end{suppTableBlock}
+
+MSA-DTI gives the lowest MSE, Worst-10\% error, and CVaR90 in this
+comparison. Source initializations, selection rules, and numbers of adapted
+models remain method-specific, so the common per-model budget does not imply
+equal total target-side work.
+
+\subsection{Selection-outcome details}
+
+On the 80 independent diagnostic cases, the relative-margin rule selects
+alternatives in 61 cases, including 49 beneficial and 12 harmful selections.
+Direct lowest-validation-loss selection chooses alternatives in 69 cases,
+including 55 beneficial and 14 harmful selections. The corresponding
+all-case harmful-selection rates are 15.00\% and 17.50\%, respectively.
+
+
+\paperfig{0.88\linewidth}{fig9.pdf}
+{Selection outcomes on the 80-case diagnostic pool.}
+{fig:supp-selection-diagnostic}
+
+The relative-margin rule retains the reference more often. The individual
+harmful-selection-rate intervals overlap, but their overlap does not test the
+paired difference. The observed rate difference is reported descriptively.
+
+\section{Timing, Hardware Profiling, and Deployment Analysis}
+\label{supp:hardware}
+
+\subsection{Target-side timing protocol}
+
+All methods are implemented in Python and PyTorch and run on an NVIDIA RTX
+3060 Laptop GPU. Target-side time includes model creation, initialization
+loading, target-side search when applicable, target adaptation, validation
+evaluation, and final selection. It excludes offline preparation and test
+evaluation. Each reported time is the mean over five runs, with the
+corresponding standard deviation reported in the main manuscript.
+
+\subsection{Architecture-profiling protocol}
+
+The five executable architectures are profiled with batch size one on an
+Intel Core i7-12700H CPU and an NVIDIA RTX 3060 Laptop GPU for
+$H\in\{1,4\}$. Each setting uses 100 warm-up inferences followed by five
+repetitions of 1000 timed inferences. CUDA execution is synchronized before
+and after each timed region. Median latency is the primary latency measure,
+and the 95th percentile summarizes upper-tail latency. Serialized
+parameter-file size is used as the measured model size. The increment in
+peak allocated CUDA tensor memory is recorded for each architecture--horizon
+pair.
+
+\begin{suppTableBlock}{Per-architecture batch-one hardware profile.}{tab:supp-hardware-profile}
+\scriptsize
+\renewcommand{\arraystretch}{1.05}
+\setlength{\tabcolsep}{2.0pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+Configuration & $H$ & Operations & Parameters & CPU (ms) & GPU (ms) &
+State (KiB) & GPU $\Delta$peak (KiB) \\
+\midrule
+A1  & 1 & 155{,}712   & 77{,}921 & 0.097 & 0.148 & 306.5 & 1024 \\
+A1  & 4 & 155{,}904   & 78{,}020 & 0.094 & 0.133 & 306.9 & 1024 \\
+A6  & 1 & 157{,}760   & 78{,}977 & 0.093 & 0.168 & 311.0 & 1024 \\
+A6  & 4 & 157{,}952   & 79{,}076 & 0.099 & 0.151 & 311.4 & 1024 \\
+A13 & 1 & 159{,}808   & 80{,}033 & 0.128 & 0.237 & 315.5 & 1024 \\
+A13 & 4 & 160{,}000   & 80{,}132 & 0.128 & 0.218 & 315.9 & 1024 \\
+A55 & 1 & 377{,}888   & 2{,}081  & 1.793 & 3.999 & 10.3  & 54 \\
+A55 & 4 & 377{,}984   & 2{,}132  & 1.793 & 4.004 & 10.4  & 1030 \\
+A56/A57 & 1 & 1{,}050{,}688 & 5{,}697 & 1.980 & 4.019 & 24.4 & 60 \\
+A56/A57 & 4 & 1{,}050{,}880 & 5{,}796 & 1.975 & 4.170 & 24.8 & 1037 \\
+\bottomrule
+\end{tabular}}
+\vspace{0.15em}
+
+\footnotesize\raggedright
+CPU and GPU values are median inference latency. A56 and A57 are the same
+executable one-layer GRU-32 architecture. GPU $\Delta$peak is the
+nonnegative difference between the PyTorch CUDA maximum allocated tensor
+memory during the timed repetitions and the allocated-memory baseline
+recorded after warm-up and a cache clear, with peak statistics reset before
+timing. It excludes resident model/input allocations and is neither total
+device usage nor a configured deployment memory limit.
+\end{suppTableBlock}
+
+\subsection{Profiling results}
+
+For each device and $H\in\{1,4\}$, the architecture-level correlation
+uses the five profiles displayed in Table~\ref{tab:supp-hardware-profile},
+with one representative entry for the executable A56/A57 architecture.
+Across these four device--horizon groups ($n=5$ distinct architectures per
+group), the Spearman correlation between estimated operation count and
+median inference latency ranges from 0.900 to 1.000. The correlation between
+parameter count and serialized parameter-file size is 1.000 in every measured setting, supporting
+parameter count as a model-size indicator. Peak GPU allocation is not
+monotonic in parameter count across the two horizons, so parameter count is
+not a direct proxy for runtime GPU memory. The MLP architectures use fewer
+estimated operations but more parameters than the GRU architectures. The two
+deployment indicators therefore capture different model properties, while
+their activity depends on the candidate set and limit tier. The profiling
+results characterize only the measured CPU/GPU host.
+
+\subsection{Single-limit feasible-space analysis}
+
+To identify the active constraint in the main candidate bank, we apply the
+operation-count and parameter-count limits separately to the same seven
+candidates using their fixed complexity profiles.
+
+For both $H=1$ and $H=4$, all seven candidates satisfy the operation-count
+limit under the tight, medium, and loose settings. Under the tight
+parameter-count limit, the three MLP candidates are excluded and the
+feasible bank is reduced from seven candidates to four, whereas the medium
+and loose parameter-count limits retain all seven candidates. Consequently,
+the joint feasible set contains four candidates under the tight setting and
+seven under the medium and loose settings. The fixed reference candidate
+satisfies both limits in all six horizon--tier combinations.
+
+\subsection{Expanded-bank dual-limit stress analysis}
+
+The preceding analysis shows that the operation-count limit is inactive for
+the seven-candidate main bank under the main limit tiers.
+To examine whether operation count and parameter count can independently
+restrict candidate feasibility, we additionally construct an eight-candidate
+stress bank by adding configuration 24 from the predefined architecture
+space.
+
+The stress thresholds are derived solely from deterministic model-complexity
+profiles. Across $H\in\{1,4\}$, the largest operation count in the
+original seven-candidate bank is $1{,}050{,}880$, whereas the smallest
+operation count of configuration 24 is $1{,}198{,}112$. Their midpoint gives
+the stress operation-count limit $B^{F}=1{,}124{,}496$. Similarly, the
+largest parameter count among the stress-bank candidates other than A13 is
+$79{,}076$, whereas the smallest parameter count of A13 is $80{,}033$.
+Their midpoint gives the stress parameter-count limit
+$B^{P}=79{,}554.5$.
+
+For both $H=1$ and $H=4$, configuration 24 violates only the
+operation-count limit, A13 violates only the parameter-count limit, and the
+fixed reference A57 satisfies both limits. Each single-limit feasible set
+therefore retains seven of the eight candidates, whereas their joint
+feasible set retains six. Thus, the joint feasible set is a strict subset
+of each single-limit feasible set.
+
+The target-side stress evaluation uses the same 80 held-out cases, and all
+models selected under the joint limits satisfy both limits. The expanded bank
+is used only for this limit-complementarity diagnostic, whereas the main
+evaluation uses the original seven-candidate bank.
+
+
+\subsection{Selected-architecture analysis}
+
+\paperfig{0.88\linewidth}{fig10.pdf}
+{Selected-configuration complexity and performance. Marker area shows the
+number of selected cases, and $h$ denotes harmful selections.}
+{fig:supp-architecture-tradeoff}
+
+The reference configuration is retained in 33 cases. Four alternative
+configurations cover the remaining 47 cases, and their mean paired MSE
+reductions relative to the independently evaluated PT+FT baseline range
+from 17.43\% to 30.50\%. All four alternatives have positive mean
+reductions. The three harmful selections occur on two alternative GRU configurations.
+
+\section{Configuration Analysis}
+\label{supp:configuration}
+
+\paperfig{0.92\linewidth}{fig11.pdf}
+{Configuration analysis of (a) the retained configuration count,
+(b) the target update budget, and (c) the relative margin.}
+{fig:supp-configuration}
+
+Diagnostic MSE decreases from 0.004917 with one retained configuration to
+0.004063 with four retained configurations and then remains unchanged. The
+main evaluation uses the six-configuration list fixed before evaluation.
+The observed saturation after four configurations suggests diminishing
+returns from adding retained configurations in this diagnostic; it does not
+identify an optimal bank size.
+
+Most of the observed reduction in diagnostic check MSE occurs within the
+first ten target updates. The main experiment nevertheless uses 50 updates
+for every feasible candidate to preserve a common fixed target budget.
+
+Using the same candidate bank, source initializations, feasibility rule, and
+reference-based selection rule at both endpoints, selected check
+MSE is 0.003973 with zero target updates and 0.003784 after 50 updates. The relative reduction computed from the two aggregate mean
+check-MSE values is 4.75\%. This is a ratio of means, not the mean of
+paired case-wise relative reductions. The same candidate is selected at
+both endpoints in 51.25\% of cases. An earlier interval for a different
+paired estimand cannot be assigned to this aggregate ratio without its
+original calculation record; accordingly, no interval-based benefit claim
+is made for this diagnostic.
+
+The relative-margin analysis shows that 10\% is the smallest value satisfying
+all preset calibration criteria.
+
+\section{Source and Preselection Sensitivity and Real Workloads}
+\label{supp:external}
+
+\subsection{Source-center scale and source-training seeds}
+
+\paperfig{0.92\linewidth}{fig12.pdf}
+{Synthetic sensitivity to (a) source-center scale and (b) source-training
+seeds.}
+{fig:supp-source-sensitivity}
+
+The mean paired MSE reductions relative to the matched reference at
+source-center scales 10, 20, 30, 40, and 50 are 6.46\%, 4.92\%, 3.78\%,
+3.41\%, and 4.14\%, respectively. The mean gain remains positive at every
+tested source scale.
+
+Across source-training seeds 2904, 2905, and 2906, the mean paired MSE
+reductions are 10.52\%, 13.21\%, and 11.25\%. All three confidence
+intervals remain above zero, although some individual cases have zero or
+negative gains.
+The retained architecture list is held fixed in this seed study. The result
+therefore measures sensitivity to source-model training and initialization.
+
+\subsection{Independent architecture-preselection stability}
+
+We separately repeat the complete 66-configuration diagnostic preselection
+on two new 20-center pools. Together with the original 20-center preselection
+pool, this gives three independently sampled preselection sets. The A57
+reference, architecture space, initialization recipe, SGD/MSE--50 target
+recipe, and the preselection and retention rules defined in Supplementary
+Section~S2.1 are kept unchanged. None of these pools overlaps the 20-center
+robustness pool used below, and no test data are used during preselection.
+
+\begin{suppTableBlock}{Independent architecture-preselection stability and evaluation on centers 1160--1179.}{tab:supp-screening-stability}
+\scriptsize
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{2.2pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llllrrrr}
+\toprule
+Preselection pool & Centers & Retained configurations & Size & Jaccard &
+Gain (\%) & 95\% CI (\%) & Harmful (\%) \\
+\midrule
+Main S0 & 900--919 & A1, A6, A13, A55, A56, A57 & 6 & 1.000 & 0.295 & $[-0.646,1.564]$ & 2.50 \\
+Independent S1 & 1120--1139 & reference fallback only & 0 & 0.000 & 0.000 & $[0.000,0.000]$ & 0.00 \\
+Independent S2 & 1140--1159 & A55, A56, A57, A59 & 4 & 0.429 & 0.125 & $[-0.894,1.427]$ & 3.75 \\
+\bottomrule
+\end{tabular}}
+\vspace{0.15em}
+
+\footnotesize
+Jaccard similarity and Size are computed on the indexed-configuration lists retained by preselection, including A57 whenever it occurs in a list.
+The PT-A57 reference candidate is added separately to every downstream
+candidate bank; a retained A57 additionally supplies the paired C1-A57
+candidate. Gain is the mean paired check-MSE reduction relative to PT-A57 on
+80 robustness cases; intervals use a 4000-repetition center-cluster bootstrap.
+The diagnostic evaluates preselection stability while keeping the downstream
+procedure unchanged.
+\end{suppTableBlock}
+
+Across S0--S2, retained-list sizes are 6, 0, and 4 (median 4, range 0--6).
+A55, A56, and A57 are retained in two of three pools; A1, A6, A13, and A59
+are each retained once. On the robustness pool, the S0 list selects PT-A57
+in 72 cases, A55 in three, A56 in three, and the paired-control A57
+initialization in two. S1 falls back to PT-A57 in all 80 cases. S2 selects
+PT-A57 in 71 cases, A55 in three, A56 in three, the paired-control A57
+initialization in two, and A59 in one.
+
+The two nonempty retained lists, S0 and S2, both have 95\% confidence
+intervals for paired check-MSE gains relative to the adapted PT-A57 reference
+that include zero on the robustness pool, indicating sample sensitivity in
+candidate discovery. The main evaluation uses the S0 bank obtained from the
+main-study preselection pool, while the A57 reference provides a fallback when a
+preselection pool retains no alternative.
+
+Reapplying the recorded preselection counts with retention thresholds of one,
+two, and three wins retains 10, 6, and 2 configurations, respectively. The threshold-two list used in the main study is S0, whereas threshold three retains only A55 and
+A57. On the existing step-50 diagnostic trajectory, threshold three increases
+selected check MSE by 3.79\% relative to threshold two, with a 95\% confidence
+interval of $[1.58\%,6.30\%]$. The threshold-one list additionally contains A4, A5, A12, and A59. The main study did not generate source-trained records for these four
+additional configurations; downstream threshold sensitivity is therefore
+reported only for thresholds two and three.
+
+\subsection{End-to-end propagation of preselection outcomes}
+
+To characterize the downstream effect of candidate-discovery variability,
+the recorded S0--S2 preselection outcomes are treated as fixed inputs and carried
+through the complete downstream procedure. Each outcome uses the same source
+centers and source-training recipe, followed by bank-specific application of the same margin-calibration rule on the same disjoint 20-center
+calibration pool. The resulting pipelines are evaluated on a new 20-center
+held-out pool (centers 1180--1199; 80 cases). The architecture space, A57
+reference, deployment limits, target adaptation protocol, margin grid, and
+calibration criteria remain unchanged. Held-out test data are not used in
+source training, calibration, deployment filtering, adaptation, or selection.
+For S2, A59 is source-trained using the same source-training recipe; S1
+contains only the PT-A57 reference candidate.
+
+\begin{suppTableBlock}
+{End-to-end propagation of the three preselection outcomes on centers
+1180--1199.}
+{tab:supp-screening-e2e}
+\footnotesize
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{2.0pt}
+\textit{(a) Candidate banks and calibrated margins}\par\smallskip
+\begin{tabularx}{\linewidth}{Y Y Z{0.11\linewidth} Z{0.11\linewidth}}
+\toprule
+Preselection outcome & Retained configurations & Bank size & $\tau$ \\
+\midrule
+S0 & A1, A6, A13, A55, A56, A57 & 7 & 0.075 \\
+S1 & Reference fallback only & 1 & -- \\
+S2 & A55, A56, A57, A59 & 5 & 0.125 \\
+\bottomrule
+\end{tabularx}
+\medskip
+\textit{(b) Held-out performance and selection outcomes}\par\smallskip
+\begin{tabularx}{\linewidth}{Y
+Z{0.085\linewidth} Z{0.215\linewidth} Z{0.10\linewidth}
+Z{0.09\linewidth} Z{0.16\linewidth} Z{0.14\linewidth}}
+\toprule
+Preselection outcome & Gain (\%) & 95\% CI (\%) & MSE win (\%) &
+Alt. selected & Harmful (\%) & Limit satisfaction (\%) \\
+\midrule
+S0 & 10.034 & $[4.602,16.019]$ & 52.50 & 48 & 7.50 / 12.50 & 100.00 \\
+S1 & 0.000 & $[0.000,0.000]$ & 0.00 & 0 & 0.00 / -- & 100.00 \\
+S2 & 8.784 & $[3.833,14.238]$ & 41.25 & 39 & 7.50 / 15.38 & 100.00 \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15em}
+
+\footnotesize
+Gain is the mean paired test-MSE reduction relative to PT+FT. The 95\%
+intervals use 4000 center-cluster bootstrap repetitions with the four cases
+of each target center kept together. Harmful rates are reported as
+all-case / conditional-on-alternative-selection percentages. For S1, no
+alternative is selected, so the conditional rate is undefined and shown as
+``--''. The adapted PT-A57 reference is used in all S1 cases.
+\end{suppTableBlock}
+
+The two nonempty banks yield positive mean paired MSE reductions with
+confidence intervals above zero despite their different retained
+configurations. The S1 outcome contains no alternative and therefore follows
+the adapted-reference fallback without changing performance relative to
+PT+FT. These end-to-end results characterize the downstream consequence of
+the observed preselection variability; the retained-bank composition itself
+remains sample-sensitive.
+
+\subsection{Causally corrected Alibaba workload evaluation}
+
+We use Alibaba Cluster Trace v2018 in a reconstructed causal-correction
+evaluation. The 20 source machines are deterministically reconstructed, and
+the 20 calibration and 40 held-out machine identities match the retained
+historical cohorts; their roles remain disjoint. The corrected source models
+are retrained on an independent source pool. A source-derived 10-second event-
+time grid supplies the fixed prediction opportunities, with event time assumed
+to be the observation-availability time. The input length is $L=96$ and the
+horizon is $H\in\{1,4\}$. The response is the next $H$ genuinely observed
+CPU values scaled from 0--100 to fractions in $[0,1]$, so MSE has units of
+CPU-fraction squared. The 25-channel input uses historical values,
+forward-only missing-value handling, trailing-six CPU statistics, and causal
+observation masks. Source MKPI values were unavailable in the registered
+source interval; its value and mask channels are identically zero for all
+methods. This correction therefore does not establish performance with MKPI.
+
+For each target case, adaptation uses $K\in\{10,20\}$ valid labeled support
+windows, followed by 80 distinct validation windows; the calibration cases
+add 60 check windows. Held-out testing evaluates every label-valid origin
+within 320 fixed candidate opportunities (290--319 windows per case).
+Missing labels are not interpolated, and every method uses the same eligible
+evaluation origins. Deployment-limit tiers remain controlled settings rather
+than machine-measured resource limits. The main and paired selectors are
+based on separately source-trained initializations, with the paired control
+selecting between the two A57 candidates. Their source-training procedures
+are not identical, so this is not a seed-only control.
+
+The full five-criterion rule of main Eq.~(12) is applied to all six fixed
+margins on the 80 calibration cases, with a 20-machine, 4,000-repetition
+paired cluster bootstrap (seed 2904). The reference and paired gains are
+case-wise relative reductions in check-set MSE. Table~\ref{tab:supp-alibaba-calibration}
+reports the corresponding mean gains and 95\% lower confidence bounds.
+
+\begin{suppTableBlock}{Full five-criterion calibration for the causally corrected Alibaba cases (20 machines, 80 cases).}{tab:supp-alibaba-calibration}
+\footnotesize
+\setlength{\tabcolsep}{4.0pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{lrrrrrl}
+\toprule
+$\tau$ & Harm (\%) & Ref. gain (\%) & Ref. LCB (\%) & Pair gain (\%) & Pair LCB (\%) & Eligible\\
+\midrule
+0.050 & 15.00 & -6.76 & -15.06 & -2.05 & -8.51 & No\\
+0.075 & 15.00 & -6.96 & -15.29 & -2.25 & -8.63 & No\\
+0.100 & 8.75 & -5.68 & -13.70 & -3.33 & -10.18 & No\\
+0.125 & 8.75 & -5.68 & -13.70 & -3.33 & -10.18 & No\\
+0.150 & 6.25 & -4.11 & -11.04 & -2.28 & -8.41 & No\\
+0.200 & 2.50 & -1.43 & -6.98 & -1.43 & -6.98 & No\\
+\bottomrule
+\end{tabular}
+\vspace{0.3em}
+\par\footnotesize\raggedright
+Harm is the fraction of all calibration cases with a selected alternative
+whose check loss exceeds the reference. Eligibility requires harm $\le5\%$,
+both mean gains $\ge3\%$, and both respective 95\% lower bounds $>0$.
+All six margins fail the complete rule.
+\end{suppTableBlock}
+
+Consequently, the calibrated MSA-DTI policy retains the adapted PT-A57
+reference for all 160 held-out cases. It has the same mean MSE (0.00338831)
+as PT+FT and an identical-case paired improvement of 0 by construction;
+this is not evidence of a population-level harmful-selection guarantee.
+The separately pre-registered fixed-$\tau=0.10$ diagnostic selects nine
+alternatives, including three harmful replacements (3/160, or 1.875\% of
+all held-out cases). The mean of case-wise relative MSE gains against PT+FT
+is $-0.2592\%$ (machine-cluster 95\% CI $[-1.4711\%,0.6205\%]$).
+Although its mean MSE (0.00337210) is slightly below the PT+FT mean,
+that ratio of mean MSEs is not the reported mean paired relative gain.
+The diagnostic does not establish positive external-domain transfer.
+\paperfig{0.95\linewidth}{fig_alibaba_corrected_heldout.pdf}
+{Causally corrected Alibaba held-out comparisons against PT+FT: (a) case-level
+relative-gain distributions and (b) machine-cluster 95\% confidence
+intervals for mean case-wise relative gains. Fixed-margin results are
+separate diagnostics; the calibrated policy retains the reference.}
+{fig:supp-alibaba-causal-heldout}
+
+The corrected evaluation uses a previously observed machine population;
+it is a post-observation correction, not an independent blind study. Arrival times were not recorded and event timestamps are assumed to
+be availability times. The earlier noncausal Alibaba result is preserved as
+historical evidence but is not used to support the present external-domain
+claims. The corrected reproducibility archive containing protocol locks, model checkpoints, case-level records, and plots is publicly available in the dated evidence-only Release cited in the main manuscript's Data Availability statement. The third-party raw trace and large corrected input/label
+arrays are not redistributed.
+
+
+\subsection{Bitbrains in-domain VM workload evaluation}
+\label{supp:bitbrains}
+
+The publicly released GWA-T-12 Bitbrains fastStorage trace\footnote{Dataset: \url{https://atlarge-research.com/gwa-t-12/}.
+The trace was provided by Bitbrains IT Services Inc.} contains native
+VM-level CPU, memory, storage, and network observations. A registered quality
+filter was applied to the full set of 1,250 VMs, after which 100 eligible VMs
+were selected deterministically by their stable identifiers. Disjoint sets of
+20 source, 20 development, 20 calibration, and 40 held-out VMs were fixed
+before model evaluation. This is an in-domain model-instantiation experiment:
+source initializations are trained anew on Bitbrains source VMs rather than
+transferred as frozen synthetic or Alibaba weights. The prediction target is
+recorded CPU usage in percent divided by 100; values above 100\% are retained
+as recorded, not clipped. The input uses source-only normalization, causal
+historical features, and role-disjoint chronological windows; $H=1,4$ means
+next one or four native records. Typical elapsed horizons are about 300 and
+1200 seconds, although irregular record gaps cause variation.
+
+Within each held-out case, MSA-DTI and each comparator use the same observed
+Test targets. Support adaptation uses $K=10$ or $20$ windows per model with
+50 SGD/MSE updates. The pretrained seven-token bank, per-model feasibility
+checks, and the five relative-margin criteria remain as in the synthetic
+method; calibration is performed on distinct VMs. For the development-fixed
+control, one feasible candidate is selected in advance for each budget tier
+and horizon using average development check MSE. It alone is adapted at the
+target; it does not inspect target validation for architecture selection.
+The full MSA-DTI selector instead adapts the 4 or 7 feasible candidates
+before comparing their post-adaptation validation scores. Thus, the method
+and fixed control share the candidate bank and target protocol but not the
+total number of candidate adaptations.
+
+\begin{suppTableBlock}{Full five-criterion relative-margin calibration on Bitbrains development-disjoint calibration VMs (20 VMs, 80 cases).}{tab:supp-bitbrains-calibration}
+\footnotesize
+\renewcommand{\arraystretch}{1.09}
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\linewidth}{
+Z{0.10\linewidth}
+Z{0.12\linewidth}
+Y
+Y
+Z{0.13\linewidth}}
+\toprule
+$\tau$ & Harm/all cases & Gain vs. reference (95\% CI) & Gain vs. paired selector (95\% CI) & Eligible \\
+\midrule
+0.050 & 0.00\% & 38.56\% [25.64\%,51.83\%] & 19.36\% [10.30\%,29.46\%] & Yes \\
+0.075 & 0.00\% & 38.39\% [25.37\%,51.65\%] & 19.39\% [10.26\%,29.47\%] & Yes \\
+0.100 & 0.00\% & 38.01\% [24.87\%,51.40\%] & 19.01\% [9.96\%,29.03\%] & Yes \\
+0.125 & 0.00\% & 38.01\% [24.87\%,51.40\%] & 18.98\% [9.95\%,29.01\%] & Yes \\
+0.150 & 0.00\% & 37.81\% [24.59\%,51.31\%] & 18.97\% [9.95\%,28.98\%] & Yes \\
+0.200 & 0.00\% & 37.81\% [24.59\%,51.31\%] & 18.97\% [9.95\%,28.98\%] & Yes \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15em}
+\footnotesize All rows pass all five criteria, including the preset 5\% all-case harmful rate,
+both minimum 3\% gains, and both strictly positive 95\% lower bounds.
+The least restrictive qualifying margin, $\tau=0.05$, is frozen before held-out evaluation.
+Intervals use 4,000 VM-cluster bootstrap repetitions. These empirical
+calibration conditions are not a held-out or population guarantee.
+\end{suppTableBlock}
+
+For the 160 held-out cases, MSA-DTI achieves a 32.7045\% mean of case-wise
+relative test-MSE improvements over PT+FT (95\% VM-cluster CI
+[7.6721\%,51.2506\%]); 123 cases improve, 11 worsen, and 26 are equal.
+The mean case MSE is 0.00742182 for MSA-DTI versus 0.00807491 for PT+FT.
+Their ratio of aggregate mean losses corresponds to an 8.0879\% reduction;
+this secondary estimand is not interchangeable with the mean of case ratios.
+The comparison against the development-fixed control yields a descriptive
+38.3851\% mean case-relative gain (95\% VM-cluster CI
+[25.5620\%,50.8000\%]). The held-out harmful-selection frequency is
+11/160 (6.8750\%), exceeding the 5\% empirical calibration criterion.
+The primary evidence supports improvement in this VM cohort but not universal
+risk control or benefit on all real traces, as the corrected Alibaba result
+demonstrates.
+
+\paperfig{0.94\linewidth}{fig_bitbrains_gain.pdf}
+{Bitbrains fastStorage case-relative held-out MSE gains for calibrated
+MSA-DTI versus PT+FT. Intervals use 4,000 paired VM-cluster bootstrap
+draws; subgroup comparisons are descriptive without multiplicity correction.
+All registered cases, including large adverse relative values, are retained.}
+{fig:supp-bitbrains-gain}
+
+The mean target-side ready-tensor processing time is 19.4735 seconds per
+MSA-DTI case versus 4.7403 seconds for PT+FT, with mean numbers of
+adapted models 6.10 versus 1.00. Shared execution components limit strict
+interpretation as independent end-to-end timing runs. Hidden VM host/tenant
+structure, a single source-training realization, and assumed event-time
+data availability also limit broader generalization. The primary fastStorage
+cohort was selected before model outcomes; the optional Rnd trace was not
+run in this study and is not an unreported negative or positive result.
+
+\subsection{Strong development-fixed candidate comparison on synthetic centers}
+\label{supp:r5-fixed}
+
+A targeted supplementary contrast evaluates whether target-specific
+post-adaptation selection improves on committing in advance to a strong
+candidate from the same seven-token source-trained bank. For each budget
+and horizon, an independent development-center pool selects the lowest
+mean-check-MSE feasible token after averaging the two support sizes per
+center; the chosen token is frozen before the 80 evaluation cases. During
+evaluation, the fixed comparator adapts only that token for 50 updates,
+whereas MSA-DTI adapts all feasible tokens under the same per-model update
+rule and uses the fixed synthetic margin $\tau=0.10$ for validation
+selection. The fixed comparator therefore has lower total target effort.
+
+The MSA-DTI mean case-relative test-MSE improvement over this
+\emph{Dev-Fixed-Best} comparator is 13.4803\% (95\% center-cluster CI
+[6.3856\%,21.0963\%]); 43 cases improve, 12 worsen, and 25 are equal.
+MSA-DTI requires 5.95 adapted models and 297.5 updates per case on average,
+versus 1 model and 50 updates for Dev-Fixed-Best. Mean ready-tensor
+target-side time is 15.5813 versus 1.8262 seconds, respectively.
+\emph{Evidence-status limitation:} the new development and evaluation pools
+do not overlap any reconstructable historical center/seed domains, but the
+original RNG identities of two historical R2 screening pools are not
+recoverable. This comparison is retained as post-audit supplementary
+support, not as strictly confirmed independent evidence closing every
+historical development-pool separation requirement.
+
+\paperfig{0.94\linewidth}{fig_r5_devfixed_gain.pdf}
+{Additional synthetic same-bank strong-fixed control: case-relative test-MSE
+gains of MSA-DTI over Dev-Fixed-Best. Paired intervals resample 20 centers;
+historical development-pool RNG provenance is not fully closed.}
+{fig:supp-r5-fixed-gain}
+
+\section{Synthetic Benchmark Generation and Center Heterogeneity}
+\label{supp:synthetic-benchmark}
+
+The controlled benchmark represents heterogeneous computing centers in a
+common metric coordinate space.
+Each center may observe only a subset of the metric positions.
+The model input uses 12 value channels, 12 corresponding observation-mask
+channels, and one time-gap channel, giving a fixed input dimension of 25.
+Unavailable metric values are zero-filled and identified by the
+corresponding mask channels.
+
+Center types A--C are evaluation strata rather than model classes.
+They differ in workload dynamics, sampling, and monitoring conditions.
+Deployment-limit tiers are separate platform-side settings and are assigned
+using the type-dependent probabilities reported in
+Table~\ref{tab:supp-center-types}.
+The table also gives the complete type-specific parameter ranges.
+The default A:B:C ratio is 3:4:3, giving 6 Type-A, 8 Type-B, and 6 Type-C
+centers in each 20-center source or held-out target pool.
+
+\begin{suppTableBlock}
+{Type-specific parameter ranges of the controlled synthetic benchmark.}
+{tab:supp-center-types}
+\scriptsize
+\renewcommand{\arraystretch}{1.06}
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabularx}{0.98\linewidth}{
+    Y
+    Z{0.21\linewidth}
+    Z{0.21\linewidth}
+    Z{0.21\linewidth}}
+\toprule
+Parameter & Type A & Type B & Type C \\
+\midrule
+
+Sampling interval $d_t$
+& $\{1\}$
+& $\{1,2\}$
+& $\{2,3,4\}$ \\
+
+Point-missing rate
+& $[0.02,0.08]$
+& $[0.10,0.25]$
+& $[0.25,0.45]$ \\
+
+Missing-block length
+& $[5,15]$
+& $[20,60]$
+& $[60,120]$ \\
+
+Observation-noise std.
+& $[0.01,0.03]$
+& $[0.03,0.06]$
+& $[0.06,0.10]$ \\
+
+Permanently unavailable metrics
+& $0$--$2$
+& $2$--$4$
+& $4$--$6$ \\
+
+Base workload logit
+& $[-0.70,0.10]$
+& $[-0.45,0.35]$
+& $[-0.20,0.55]$ \\
+
+Seasonal amplitude
+& $[0.20,0.45]$
+& $[0.30,0.60]$
+& $[0.40,0.75]$ \\
+
+AR coefficient
+& $[0.55,0.80]$
+& $[0.60,0.88]$
+& $[0.65,0.92]$ \\
+
+Process-noise std.
+& $[0.04,0.08]$
+& $[0.06,0.11]$
+& $[0.08,0.14]$ \\
+
+Burst rate per 1000 base steps
+& $[1.0,2.5]$
+& $[1.5,3.5]$
+& $[2.0,4.5]$ \\
+
+Burst amplitude
+& $[0.25,0.55]$
+& $[0.35,0.75]$
+& $[0.45,0.95]$ \\
+
+Drift probability
+& $0.20$
+& $0.40$
+& $0.60$ \\
+
+Drift strength
+& $[0.10,0.25]$
+& $[0.15,0.35]$
+& $[0.20,0.45]$ \\
+
+Limit-tier probabilities
+(tight / medium / loose)
+& $0.25/0.45/0.30$
+& $0.35/0.45/0.20$
+& $0.45/0.40/0.15$ \\
+
+\bottomrule
+\end{tabularx}
+\end{suppTableBlock}
+
+The three types share the same missingness mechanisms.
+For every center, the generator may create 2--6 single-metric outage
+blocks and 1--3 grouped outage blocks containing 2--4 metrics.
+A short global monitoring outage occurs with probability 0.20.
+The shared periodic base scales are 24, 96, and 672 base steps.
+
+Together, these settings vary five aspects of the benchmark: workload
+dynamics, sampling, monitored-variable availability, observation conditions,
+and deployment-limit settings.
+
+For each center, the generator first creates a latent workload process.
+The workload contains periodic variation, autoregressive variation, and
+random workload bursts.
+When drift occurs, it is generated as either an abrupt change or a gradual
+transition.
+
+The latent workload is then mapped to multivariate monitoring signals.
+Individual metrics may have different delays, gains, offsets, nonlinear
+terms, and observation noise.
+Center-specific sampling is applied before monitoring-schema and missingness
+effects are introduced.
+
+The benchmark generator and all data-role assignments are fixed before
+architecture preselection, margin calibration, diagnostics, and held-out
+evaluation.
+
+\end{document}
