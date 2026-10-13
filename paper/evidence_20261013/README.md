@@ -12,7 +12,7 @@ This directory separates manuscript/evidence updates from the **original frozen 
 ## R5 synthetic contribution diagnostic — evidence summary
 
 - Mean case-relative MSE improvement over a development-fixed model: **13.4803%** (95% center-cluster CI **[6.3856%, 21.0963%]**); 20 centers, 80 cases.
-- **Limitation:** original R2 screening development-pool seeds/raw arrays were not recoverable. Status: `R5_UNRESOLVED_PROVENANCE`. Treat as provenance-qualified supplementary/exploratory evidence, not an independently verified historical confirmatory test.
+- **Limitation:** original R2 screening development-pool seeds/raw arrays were not recoverable. Status: `UNRESOLVED_HISTORICAL_RNG_PROVENANCE`. Treat as provenance-qualified supplementary/exploratory evidence, not an independently verified historical confirmatory test.
 
 ## Bitbrains real workload — evidence summary
 
@@ -21,17 +21,17 @@ This directory separates manuscript/evidence updates from the **original frozen 
 - Aggregate mean-MSE reduction **8.0879%** is a different estimand from the case-relative mean 32.7045%.
 - This is a fresh **in-domain** source-trained Bitbrains evaluation; it is **not** zero-shot transfer of frozen synthetic/Alibaba weights.
 
-## Complete light audit archive — publication status
+## Published light audit archive — verified public download
 
-As of creation of this index, the **8.6 MB** source-provided `MSA_DTI_R5_Bitbrains_LightAudit_20261013.zip` archive has **not yet been uploaded to this GitHub repository/Release**. Do not cite this index as a working download for the full R5/Bitbrains saved predictions and reproducibility scripts until the archive is uploaded and anonymous download/hash verification succeeds.
+- [Evidence-only Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-r5-bitbrains-20261013); tag target commit [`1adfa6231f990f8c572709fde885fac3787bd6ed`](https://github.com/w924871681/paper-code-DT-Twin/commit/1adfa6231f990f8c572709fde885fac3787bd6ed). This is separate from `v1.2.7`.
+- [Download the public R5/Bitbrains light audit ZIP](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-r5-bitbrains-20261013/MSA_DTI_R5_Bitbrains_LightAudit_PUBLIC_REDACTED_20261013.zip) (6,063,106 bytes; SHA-256 `d3ff00a408ef65422dd23d0a28811b31e3faa179510f7781f9824394f9865789`; 620 ZIP members, CRC pass). This exact URL was obtained from the GitHub Release asset record and successfully downloaded without GitHub credentials; the downloaded bytes matched the local publication copy.
+- The public ZIP is a separately named derivative of the privately supplied ZIP (original SHA-256 `f4ee388f67e2f7adf9d5791edea169e86ed9316246fe08912e9e2ea0aa597e14`; 9,000,095 bytes). The Windows local account segment was redacted in three historical JSON audit records. See `PUBLICATION_REDACTIONS.md` and the regenerated public `MANIFEST_SHA256.json` inside the ZIP. Scientific arrays, CSVs, protocol locks and verification code are unchanged. `REVIEW_DELIVERY_MANIFEST.json` is a historical manifest of the original private records and retains their pre-redaction hashes; use the public manifest for the derivative's member hashes.
+- Run `python verify_core_results.py` with NumPy from the extracted archive root. It recomputes saved prediction/target metrics, development mappings, calibration, selector choices and cluster-bootstrap statistics without training. The public package passed this audit for 80 R5 cases (240 prediction/truth pairs) and 160 Bitbrains cases (960 pairs).
 
-Expected SHA-256 of the locally verified source-provided archive:
-`f4ee388f67e2f7adf9d5791edea169e86ed9316246fe08912e9e2ea0aa597e14`
-
-The audit archive provides saved per-case predictions/targets, verification scripts, development candidate maps, selector locks and bootstrap samples, but **not** the original Bitbrains raw trace or checkpoint weights. Full from-raw-data training reproduction is beyond the light archive.
+The ZIP excludes raw Bitbrains VM traces, original heavy synthetic/Bitbrains inputs, checkpoint weights, training caches and lengthy logs. It supports independent recalculation of **saved** core results, but cannot independently reproduce source-model training, regenerate all raw-trace windows or settle R5's historical development-pool RNG provenance. Excluded original input hashes are recorded as provenance references, not as proof that those inputs are inside the ZIP.
 
 ## Dataset attribution
 
-Bitbrains GWA-T-12: https://atlarge-research.com/gwa-t-12/ . The official source asks users to acknowledge Bitbrains IT Services Inc. and cite Shen, van Beek and Iosup, *Statistical Characterization of Business-Critical Workloads Hosted in Cloud Datacenters* (CCGrid 2015). Original third-party raw VM traces are not redistributed here.
+[Bitbrains GWA-T-12](https://atlarge-research.com/gwa-t-12/) is the original raw workload source. Acknowledge Bitbrains IT Services Inc. and cite Shen, van Beek and Iosup, *Statistical Characterization of Business-Critical Workloads Hosted in Cloud Datacenters* (CCGrid 2015), as requested by the source. The original third-party fastStorage VM trace archive and full derived training windows are not redistributed here; obtain raw traces from the official source if a from-raw-data audit is required. The light ZIP contains only audit metadata and the saved prediction/truth arrays needed to recalculate reported held-out metrics.
 
 The latest manuscript revision (including Bitbrains and R5 diagnostics) has a separate local LaTeX artifact and is **not** equivalent to the automatically generated source archive of the original v1.2.7 tag.
