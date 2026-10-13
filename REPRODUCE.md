@@ -4,7 +4,7 @@ Start at [the current manuscript](paper/current/). The original synthetic main
 study remains anchored to the unchanged [v1.2.7 frozen release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.7)
 and its commit `b679181b3133ab9c3058afcde421d36380001f14`.
 
-The 2026-10-13 research-assets archive has separate `r5/`, `bitbrains/`,
+The [2026-10-13 research-assets archive](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/MSA_DTI_R5_Bitbrains_ResearchAssets_PUBLIC_PATHSAFE_20261013.zip) has separate `r5/`, `bitbrains/`,
 `code/`, and `audit/` paths. From an extracted copy, run
 `python verify_core_results.py` with NumPy to recompute the saved development,
 calibration and held-out prediction metrics and bootstrap statistics. This
@@ -12,7 +12,7 @@ verification does **not** train models. See [R5](reproducibility/r5/README.md)
 and [Bitbrains](reproducibility/bitbrains/README.md) for the scope of available
 inputs and the additional steps needed for from-source reproduction.
 
-The separately published corrected Alibaba archive includes
+The separately published [corrected Alibaba archive](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/MSA_DTI_Alibaba_CausalCorrected_PUBLIC_PATHSAFE_20261013.zip) includes
 `README_REPRODUCE.md`, the fixture-tested `audit/rebuild_raw_prefix.py`,
 protocols, source checkpoints, corrected calibration, held-out results and
 figures. See [corrected Alibaba](reproducibility/alibaba_corrected/README.md).

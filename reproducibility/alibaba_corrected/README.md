@@ -10,8 +10,9 @@ prefix/corrected full arrays. Obtain the source data from the
 under its own terms. Its reproduction README gives the exact expected source
 hashes and fresh-root reconstruction commands.
 
-The public archive has a new SHA-256 manifest and a precise redaction record
-for ten historical text files with local Windows account paths. Some embedded
+The public path-safe archive has a new SHA-256 manifest and a precise redaction record
+for 44 historical text files with local absolute paths (including ten records
+with a Windows account segment). Some embedded
 historical file-hash references continue to describe the private original;
 the new public manifest governs the bytes of this derivative.
 

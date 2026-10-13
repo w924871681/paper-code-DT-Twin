@@ -15,7 +15,13 @@ Pending owner approval: the four exact root-level historical manuscript paths
 in [CLEANUP_PLAN.md](CLEANUP_PLAN.md). The 52-path inventory records the
 reference/dependency basis. No approval-dependent deletion has occurred.
 
-Validation required after publication: review the final Git diff, verify that
-only new manuscript/publication documentation and `.gitignore` changed, check
-fixed current-paper links and previous historical links, and compare both
-`v1.2.7` and the prior light-evidence Release against saved before snapshots.
+Final validation: `git diff --check` passed; the branch diff from the recorded
+`main` baseline has no deleted paths. `scripts/verify_repository.py` passed all
+public-repository, numerical-consistency, privacy, checksum and release-hygiene
+checks. The current manuscript files match their source ZIP byte-for-byte.
+The `v1.2.7` tag still points to
+`b679181b3133ab9c3058afcde421d36380001f14`; its Release ID,
+description and 30 asset IDs, names, sizes, digests and timestamps matched the
+saved before snapshot. The prior light-evidence Release likewise matched its
+saved description and single attachment. No historical Tag or Release was
+edited.
