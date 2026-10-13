@@ -1,0 +1,37 @@
+# MSA-DTI full publication receipt — 2026-10-13
+
+**Published:** [MSA-DTI current manuscript and evidence-only research assets](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-full-20261013), GitHub Release ID `411350775`. Its dated tag points to commit [`613815b738cbb955ce80e6e4b404e44ff442506c`](https://github.com/w924871681/paper-code-DT-Twin/commit/613815b738cbb955ce80e6e4b404e44ff442506c). The completed evidence index and inventory are at fixed commit [`b5cd08fa2eade9e4a97328c96068689d506d58f5`](https://github.com/w924871681/paper-code-DT-Twin/commit/b5cd08fa2eade9e4a97328c96068689d506d58f5), reviewed in [draft PR #9](https://github.com/w924871681/paper-code-DT-Twin/pull/9). The public `main` branch remained at `d9c37592b8293dc9a2726392915b6ed365e89aa5`; this work is on `publish/current-evidence-20261013`.
+
+## Public attachments and anonymous download acceptance
+
+Each URL below came from the actual GitHub Release asset record. A Python `requests` session with no Authorization header or `.netrc` credential downloaded **all nine** URLs successfully with HTTP 200; downloaded bytes matched the asset-record size and SHA-256. All three downloaded ZIPs passed full-member CRC checks.
+
+| Asset (actual download URL) | Bytes | SHA-256 | ZIP members / CRC |
+| --- | ---: | --- | --- |
+| [Current manuscript project ZIP](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/MSA_DTI_Current_Manuscript_PUBLIC_20261013.zip) | 7,049,373 | `e50f18b2dfd0787ead977d16675c45294f79328424d4615d2cbc0fa575df99e2` | 27 / PASS |
+| [R5 and Bitbrains path-safe research assets ZIP](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/MSA_DTI_R5_Bitbrains_ResearchAssets_PUBLIC_PATHSAFE_20261013.zip) | 75,516,267 | `7fe5c029027320866d3f2b12655d024c38b0954fcaede859bed137fc504eea4c` | 1,176 / PASS |
+| [Causal-corrected Alibaba path-safe research assets ZIP](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/MSA_DTI_Alibaba_CausalCorrected_PUBLIC_PATHSAFE_20261013.zip) | 8,834,929 | `7599c56323c90dfb3eeb2952de43f98a76635b661043b405bfe9d9e54cf2d9c6` | 485 / PASS |
+| [main.pdf](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/main.pdf) | 3,464,167 | `107fc8a277303ac6eed4307ebeb194a08f16f0e682a17f9695ba5e0a5a56721f` | — |
+| [supplementary.pdf](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/supplementary.pdf) | 688,053 | `6540643096e81f567dc5b4128494443cffdb92dea8864e048635953fb9e135b0` | — |
+| [main.tex](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/main.tex) | 63,433 | `356a4fe7fa4df3ea3c8713d3e5d461b1dc7556f744f3b36700938f418476fed1` | — |
+| [supplementary.tex](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/supplementary.tex) | 51,304 | `7f13409419410c255c92da562cb20535eee796fa823bb90a2c1e2eb2ff1d4063` | — |
+| [ASSET_MANIFEST.json](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/ASSET_MANIFEST.json) | 2,507 | `9c3436efcd7dc00a50745a2281b89ae3890bf5c00f0168a50bab533d578a3dfe` | — |
+| [SHA256SUMS.txt](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/SHA256SUMS.txt) | 775 | `333bc57260cb31254b344a3e94649d7f219fe571f679bca8e772d5af9bf7bfb7` | — |
+
+The [asset-level inventory](PUBLICATION_ASSET_INVENTORY.csv) records 1,704 rows, including 1,697 public attachment/member rows and seven explicit exclusions. The [manuscript publication status](MANUSCRIPT_PUBLICATION_STATUS.md), [reproduction guide](../../REPRODUCE.md) and [evidence index](../../paper/evidence_20261013/README.md) describe scope. Historical account/absolute machine paths were redacted in separately named experimental derivatives; both public archives passed local privacy/path scans and regenerated member-hash checks. The manuscript's 25 scientific files matched the author-supplied source ZIP byte-for-byte.
+
+From newly downloaded ZIPs, `verify_core_results.py` passed saved-result and package-hash audit: R5 80 cases / 240 prediction-truth pairs, mean case-relative improvement over Dev-Fixed-Best **13.4803%** (center-cluster 95% CI **[6.3856%, 21.0963%]**); Bitbrains 160 cases / 960 pairs, gain over PT+FT **32.7045%** (VM-cluster 95% CI **[7.6721%, 51.2506%]**). Bitbrains had **11/160 harmful replacements = 6.875%**, above the empirical 5% calibration criterion. The downloaded corrected Alibaba archive's `audit/rebuild_raw_prefix.py --self-test` passed its artificial 12-row parser fixture; this fixture did **not** open raw Alibaba data. Corrected six-margin calibration retained `tau=None` and the adapted-reference fallback. `scripts/verify_repository.py` and `git diff --check` passed for the branch. No new training or calibration was performed.
+
+## Protected history and cleanup
+
+Before/after GitHub API snapshots matched exactly for `v1.2.7`: tag SHA `b679181b3133ab9c3058afcde421d36380001f14`, Release ID `379563925`, release name/body and all **30** asset IDs, names, sizes, digests and timestamps. The earlier light-evidence Release ID `411251612`, body and single asset likewise matched before/after. Neither historical Tag nor Release was edited. There was no force push and no tracked-file deletion; the [cleanup report](CLEANUP_REPORT.md) documents the executed navigation/ignore edits. Four exact root-level historical manuscript paths remain in [CLEANUP_PLAN.md](CLEANUP_PLAN.md) for owner approval before any future deletion.
+
+## Remaining limits and pending decisions
+
+- R5's historical R2 development-pool raw arrays/seeds remain unavailable: `UNRESOLVED_HISTORICAL_RNG_PROVENANCE`. The result remains provenance-qualified supplementary evidence.
+- Bitbrains is an in-domain, source-trained evaluation, **not** zero-shot cross-dataset transfer. Its third-party raw GWA-T-12 fastStorage trace and full trace-derived input-window/target-series arrays are excluded pending rights; obtain the raw trace from the [official source](https://atlarge-research.com/gwa-t-12/) and follow its attribution/citation terms. The saved outputs and released checkpoints support independent saved-result recalculation, but a from-raw training replay was not performed.
+- Alibaba raw machine-usage traces and full event-prefix arrays are excluded; obtain source data from [Alibaba ClusterData](https://github.com/alibaba/clusterdata/tree/master/cluster-trace-v2018). The corrected result is a causal reconstruction on a previously observed evaluation population, not a new blind held-out test. Earlier leaked-input positive evidence is invalid and was not republished as current evidence.
+- The synthetic main-study six-threshold calibration remains anchored to the unchanged [`v1.2.7` selector manifest](https://github.com/w924871681/paper-code-DT-Twin/blob/b679181b3133ab9c3058afcde421d36380001f14/results/audited_provenance/anchor_safe_selector_manifest.json). It was not recomputed or edited for this publication.
+- A fresh local LaTeX build could not be certified because MiKTeX lacked Perl and `stfloats.sty`; both supplied PDFs were published unchanged. An independent build on a complete TeX environment remains open.
+
+This Release and PR are submitted for final academic review. The PR remains draft; no merge or approval-dependent historical deletion was executed.
