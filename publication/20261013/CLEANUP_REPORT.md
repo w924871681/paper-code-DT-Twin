@@ -11,17 +11,34 @@ cache files eligible for automatic deletion. **Zero tracked files were
 deleted or moved.** All original frozen code, results, older manuscripts,
 figures, tables and prior public links remain available.
 
-Pending owner approval: the four exact root-level historical manuscript paths
-in [CLEANUP_PLAN.md](CLEANUP_PLAN.md). The 52-path inventory records the
-reference/dependency basis. No approval-dependent deletion has occurred.
+Final closure decision: the four exact root-level historical manuscript paths
+in [CLEANUP_PLAN.md](CLEANUP_PLAN.md) are **KEEP**; deletion is not approved
+for this round. The 52-path inventory records the reference/dependency basis.
+No approval-dependent deletion has occurred. The closure adds only necessary
+Data Availability revision navigation and publication-state documentation;
+there is no directory restructuring or deletion of research evidence.
 
-Final validation: `git diff --check` passed; the branch diff from the recorded
+Earlier full-evidence publication validation: `git diff --check` passed; the branch diff from the recorded
 `main` baseline has no deleted paths. `scripts/verify_repository.py` passed all
 public-repository, numerical-consistency, privacy, checksum and release-hygiene
-checks. The current manuscript files match their source ZIP byte-for-byte.
+checks. Before the Data Availability closure revision, the current manuscript
+files matched their source ZIP byte-for-byte. The closure permits changes only
+to `main.tex`'s Data Availability and its newly compiled main PDF; the other
+23 scientific members remain byte-identical to that baseline.
 The `v1.2.7` tag still points to
 `b679181b3133ab9c3058afcde421d36380001f14`; its Release ID,
 description and 30 asset IDs, names, sizes, digests and timestamps matched the
 saved before snapshot. The prior light-evidence Release likewise matched its
 saved description and single attachment. No historical Tag or Release was
 edited.
+
+The new manuscript-only Release and final closure checks are recorded
+separately in `FINAL_PUBLICATION_CLOSURE_REPORT.md`. The revised 16-page main
+PDF passed three-run compilation, page comparison and clean-ZIP rebuild
+checks with an identical PDF hash. The Supplementary remains unchanged at
+15 pages; the package passed CRC and all 29 internal member hashes. See
+[build details](../../paper/current/BUILD_INFO.md) and
+[exact source diff](../../paper/current/SOURCE_MINIMAL_DIFF.patch).
+New-release anonymous downloads and fresh historical-release protection
+checks remain pending during publication preparation; the earlier checks
+above do not substitute for them.

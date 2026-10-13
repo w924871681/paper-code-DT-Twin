@@ -1,6 +1,12 @@
 # Reproduction routes for the 2026-10-13 current paper
 
-Start at [the current manuscript](paper/current/). The original synthetic main
+Start at [the current manuscript](paper/current/) and its separate
+[final Data Availability revision Release entry](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-final-20261013).
+The manuscript-only revision updates the public-asset statement; it introduces
+no new experiment or recalibration. Compilation and download acceptance are
+recorded in [publication status](publication/20261013/MANUSCRIPT_PUBLICATION_STATUS.md).
+The manuscript attachments in the expanded evidence Release are retained as
+the earlier version. The original synthetic main
 study remains anchored to the unchanged [v1.2.7 frozen release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.7)
 and its commit `b679181b3133ab9c3058afcde421d36380001f14`.
 

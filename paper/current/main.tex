@@ -1212,18 +1212,21 @@ The frozen synthetic-study code, configurations, processed results,
 plot-ready data, and reproduction scripts are available in GitHub Release
 v1.2.7 at
 \url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.7}.
-Saved predictions and targets, selection records, and statistical verification
-scripts for the supplementary R5 fixed-candidate comparison and the Bitbrains
-in-domain evaluation are available in a separate evidence-only Release at
+The expanded R5 and Bitbrains assets include code, configurations, model
+checkpoints, saved predictions and targets, development-set fixed-candidate
+mappings, calibration and held-out records, statistical verification scripts,
+and reproduction instructions. Corrected Alibaba assets include preprocessing
+and evaluation code, checkpoints, six-threshold calibration records,
+held-out results, and reproduction instructions. These assets are available at
+\url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-full-20261013};
+the earlier light-audit archive remains available at
 \url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-r5-bitbrains-20261013}.
-This evidence archive permits recalculation of the saved results but does not
-include the original Bitbrains traces or source-model checkpoints. The
-causally corrected Alibaba study is documented in a separate reproducibility
-archive,
-\texttt{Alibaba\_Causal\_Correction\_v1\_1\_G5\_COMPLETE\_20261011.zip},
-containing the corrected code, model checkpoints, derived results, and
-provenance records; this archive is not included in either public Release and
-has not yet been publicly deposited. The original Alibaba Cluster Trace
+The archives exclude third-party raw traces and their full derived input
+windows. R5's historical R2 development-pool RNG/raw-array provenance remains
+\texttt{UNRESOLVED\_HISTORICAL\_RNG\_PROVENANCE}. Corrected Alibaba is a causal
+reconstruction on a previously observed evaluation population, not a new blind
+evaluation. Independent statistical recalculation of saved results does not
+establish independent end-to-end training reproduction from raw data. The original Alibaba Cluster Trace
 v2018 and Bitbrains GWA-T-12 traces are not redistributed; their
 official access links are provided in the corresponding dataset footnotes.
 

@@ -17,6 +17,11 @@ No tracked `.aux`, `.fls`, `.fdb_latexmk`, `.pyc` or `.DS_Store` files were foun
 
 ## Exact tracked paths requiring user approval before any HEAD deletion
 
+**Final closure decision:** deletion of all four paths below is not approved
+for this round. Their current status is **KEEP**. This closure performs only
+necessary documentation/navigation consistency changes, with no directory
+restructuring or historical-evidence deletion.
+
 | Path | Bytes | SHA-256 | Text reference count | Recovery anchor |
 | --- | ---: | --- | ---: | --- |
 | `paper/manuscript.pdf` | 3,226,919 | `e07bc8023379470051279aea30e803498d79580591fe5cda197290bf5a2954b0` | 4 | `v1.2.7` / `b679181b3133ab9c3058afcde421d36380001f14` |

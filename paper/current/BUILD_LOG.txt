@@ -1,0 +1,90 @@
+{
+  "compiler": "MiKTeX-pdfTeX 4.23 (MiKTeX 25.12)",
+  "command": [
+    "pdflatex",
+    "--disable-installer",
+    "-interaction=nonstopmode",
+    "-halt-on-error",
+    "-file-line-error",
+    "-recorder",
+    "main.tex"
+  ],
+  "template": "CAS single-column 2.4 (2024/05/04)",
+  "builds": {
+    "baseline": {
+      "passes": [
+        {
+          "pass": 1,
+          "exit_code": 0
+        },
+        {
+          "pass": 2,
+          "exit_code": 0
+        },
+        {
+          "pass": 3,
+          "exit_code": 0
+        }
+      ],
+      "pdf_bytes": 6711568,
+      "pdf_sha256": "3cb03d7a11333143a87b70e1f6909c435b751690c80b054a69b72e414ab6ea74",
+      "overfull_hbox": [
+        "117.0831pt too wide"
+      ],
+      "warning_lines": [
+        "Overfull \\hbox (117.0831pt too wide) detected at line 103"
+      ],
+      "unresolved_or_rerun_warnings": []
+    },
+    "final": {
+      "passes": [
+        {
+          "pass": 1,
+          "exit_code": 0
+        },
+        {
+          "pass": 2,
+          "exit_code": 0
+        },
+        {
+          "pass": 3,
+          "exit_code": 0
+        }
+      ],
+      "pdf_bytes": 6713742,
+      "pdf_sha256": "7a6f8459cd3cf57f8e7167a8d18846ed704b1cb92bd32e43da279bb54a8d652d",
+      "overfull_hbox": [
+        "117.0831pt too wide"
+      ],
+      "warning_lines": [
+        "Overfull \\hbox (117.0831pt too wide) detected at line 103"
+      ],
+      "unresolved_or_rerun_warnings": []
+    }
+  },
+  "PDF_QA": {
+    "main_pages": 16,
+    "Data_Availability_page": 15,
+    "pages_1_to_14_raster_identical_to_clean_baseline_build": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "page_15_before_Data_Availability_raster_identical": true,
+    "no_blank_pages": true,
+    "visual_review": "PASS",
+    "main_pdf_sha256": "7a6f8459cd3cf57f8e7167a8d18846ed704b1cb92bd32e43da279bb54a8d652d",
+    "visual_findings": "All-page contact sheets and full pages 1, 15 and 16 inspected: no new clipping, overlap, blank page or URL overflow. Existing baseline CAS maketitle overfull warning remains with no visible clipping."
+  }
+}

@@ -4,7 +4,16 @@ This repository is the reproducibility archive for **Adaptation-Aware Model
 Selection for Few-Shot Digital Twin Instantiation under Deployment
 Limits**. The public method name is **MSA-DTI** (Model Selection and
 Adaptation for Digital Twin Instantiation). The **[current 2026-10-13 paper](paper/current/)**
-contains the latest author-provided main and Supplementary sources/PDFs. The
+tracks the final Data Availability revision of the author-provided main
+paper and its unchanged Supplementary. Its separate
+[manuscript-only Release entry](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-final-20261013)
+is distinct from the
+[expanded evidence Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-full-20261013)
+and the earlier
+[light evidence Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-r5-bitbrains-20261013).
+Compilation and publication acceptance are recorded in the
+[current publication status](publication/20261013/MANUSCRIPT_PUBLICATION_STATUS.md).
+The
 earlier [`paper/manuscript_20261011/`](paper/manuscript_20261011/) and the
 `paper/manuscript.*` files are historical. Release `v1.2.7` remains the frozen
 scientific code/results baseline, with its tag and original assets unchanged.
@@ -151,11 +160,22 @@ Synthetic centers can be regenerated from `core/data/sim.py`, the frozen
 configuration, and fixed seeds. Plot-ready table and figure data are tracked
 in `results/figure_data/`, including all 400 case-level gains for Fig. 12(b): 240 source-seed cases and 160 held-out Alibaba cases.
 
+The Alibaba positive results in the historical `v1.2.7` figure/data records
+were superseded by the causal correction after future-information leakage
+was identified. They no longer constitute valid positive external evidence
+for the current manuscript. The
+[corrected Alibaba archive](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/MSA_DTI_Alibaba_CausalCorrected_PUBLIC_PATHSAFE_V2_20261013.zip)
+and [reproduction scope](reproducibility/alibaba_corrected/README.md) report
+the causal reconstruction on a previously observed evaluation population,
+its failed six-threshold calibration and adapted-reference fallback.
+
 The original Alibaba Cluster Trace v2018 is not redistributed. Its official
-source, expected checksum and layout, source-only preprocessing, disjoint
+source and the historical preprocessing, split and evaluation records are
+documented in `data/alibaba2018/README.md` and
+`results/pre_submission_enhancements/`. The historical records include
+the expected checksum and layout, source-only preprocessing, disjoint
 20/20/40 machine split, real source-bank construction, independent threshold
-calibration, and held-out evaluation instructions are documented in
-`data/alibaba2018/README.md` and `results/pre_submission_enhancements/`.
+calibration, and held-out evaluation instructions.
 Released Alibaba-derived records contain hashed machine identifiers and
 processed evaluation values only.
 
