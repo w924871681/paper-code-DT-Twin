@@ -12,7 +12,7 @@ verification does **not** train models. See [R5](reproducibility/r5/README.md)
 and [Bitbrains](reproducibility/bitbrains/README.md) for the scope of available
 inputs and the additional steps needed for from-source reproduction.
 
-The separately published [corrected Alibaba archive](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/MSA_DTI_Alibaba_CausalCorrected_PUBLIC_PATHSAFE_20261013.zip) includes
+The separately published [corrected Alibaba archive](https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/MSA_DTI_Alibaba_CausalCorrected_PUBLIC_PATHSAFE_V2_20261013.zip) includes
 `README_REPRODUCE.md`, the fixture-tested `audit/rebuild_raw_prefix.py`,
 protocols, source checkpoints, corrected calibration, held-out results and
 figures. See [corrected Alibaba](reproducibility/alibaba_corrected/README.md).

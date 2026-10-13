@@ -25,9 +25,9 @@
       "role": "R5_Bitbrains_research_assets"
     },
     {
-      "name": "MSA_DTI_Alibaba_CausalCorrected_PUBLIC_PATHSAFE_20261013.zip",
-      "bytes": 8834929,
-      "sha256": "7599c56323c90dfb3eeb2952de43f98a76635b661043b405bfe9d9e54cf2d9c6",
+      "name": "MSA_DTI_Alibaba_CausalCorrected_PUBLIC_PATHSAFE_V2_20261013.zip",
+      "bytes": 8936109,
+      "sha256": "41ada3a05a4896045317134177a73c23007396529f68e6515405b6f8e82c5b60",
       "source_ref": "local verified research archive; private path withheld",
       "role": "Alibaba_causal_corrected"
     },
