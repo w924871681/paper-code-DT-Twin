@@ -17,10 +17,11 @@ current 25 scientific files.
 - [Current main paper PDF](compiled/main.pdf) (16 pages) and [source](main.tex)
 - [Current Supplementary PDF](compiled/supplementary.pdf) (15 pages) and [source](supplementary.tex)
 - [Figures](figures/), [tables](tables/), and [SHA-256 checksums](SHA256SUMS.txt)
-- [Current Supplementary correction Release entry](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-suppfix-20261013)
-- Planned current release downloads (publication and anonymous verification pending): [complete LaTeX ZIP](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-suppfix-20261013/MSA_DTI_Final_Publication_20261013_SuppFix.zip), [main PDF](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-suppfix-20261013/main.pdf), [corrected Supplementary PDF](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-suppfix-20261013/supplementary.pdf), and [SHA-256 list](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-suppfix-20261013/SHA256SUMS.txt)
+- [Current Supplementary correction Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-suppfix-20261013)
+- Verified current release downloads: [complete LaTeX ZIP](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-suppfix-20261013/MSA_DTI_Final_Publication_20261013_SuppFix.zip), [main PDF](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-suppfix-20261013/main.pdf), [corrected Supplementary PDF](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-suppfix-20261013/supplementary.pdf), and [SHA-256 list](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-suppfix-20261013/SHA256SUMS.txt)
 - [Previous Data Availability manuscript Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-final-20261013): [previous complete LaTeX ZIP](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-final-20261013/MSA_DTI_Final_Publication_20261013.zip), [main PDF retained in the current version](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-final-20261013/main.pdf), [previous Supplementary PDF](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-final-20261013/supplementary.pdf), and [previous release SHA-256 list](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-final-20261013/SHA256SUMS.txt)
 - [Compilation and publication acceptance status](../../publication/20261013/MANUSCRIPT_PUBLICATION_STATUS.md)
+- [Supplementary correction closure report](../../publication/20261013/FINAL_SUPPLEMENTARY_CLOSURE_REPORT.md)
 - [Previous Data Availability closure report](../../publication/20261013/FINAL_PUBLICATION_CLOSURE_REPORT.md)
 - [Main build details](BUILD_INFO.md), [main build log](BUILD_LOG.txt), and [main Data Availability diff](SOURCE_MINIMAL_DIFF.patch)
 - [Supplementary build details](SUPPLEMENTARY_BUILD_INFO.md), [Supplementary build log](SUPPLEMENTARY_BUILD_LOG.txt), and [Supplementary single-sentence diff](SUPPLEMENTARY_SOURCE_MINIMAL_DIFF.patch)
@@ -48,6 +49,15 @@ publication commit is
 [`4e8bf03558340506c47b6187f2a4e7642ecb2708`](https://github.com/w924871681/paper-code-DT-Twin/commit/4e8bf03558340506c47b6187f2a4e7642ecb2708).
 That acceptance belongs to the previous Data Availability version; consult
 the current publication status for this Supplementary correction's acceptance.
+
+The new Supplementary correction Release's four actual attachment URLs were
+downloaded without GitHub authentication headers. Every download returned
+HTTP 200 and matched its local size and SHA-256; the 32-member ZIP passed CRC.
+Its source/PDF publication commit is
+[`288da8f8214c33f30b6556795c31ea86c91c4d96`](https://github.com/w924871681/paper-code-DT-Twin/commit/288da8f8214c33f30b6556795c31ea86c91c4d96).
+Fresh after-publication comparisons confirmed the `v1.2.7` Tag and all
+30/1/9/4 protected attachments of the four prior Releases unchanged; see
+the current publication status.
 
 The [expanded evidence Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-full-20261013)
 retains the pre-Data-Availability-revision manuscript attachments and the
