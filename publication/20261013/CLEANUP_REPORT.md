@@ -33,12 +33,16 @@ saved description and single attachment. No historical Tag or Release was
 edited.
 
 The new manuscript-only Release and final closure checks are recorded
-separately in `FINAL_PUBLICATION_CLOSURE_REPORT.md`. The revised 16-page main
+separately in [FINAL_PUBLICATION_CLOSURE_REPORT.md](FINAL_PUBLICATION_CLOSURE_REPORT.md). The revised 16-page main
 PDF passed three-run compilation, page comparison and clean-ZIP rebuild
 checks with an identical PDF hash. The Supplementary remains unchanged at
 15 pages; the package passed CRC and all 29 internal member hashes. See
 [build details](../../paper/current/BUILD_INFO.md) and
 [exact source diff](../../paper/current/SOURCE_MINIMAL_DIFF.patch).
-New-release anonymous downloads and fresh historical-release protection
-checks remain pending during publication preparation; the earlier checks
-above do not substitute for them.
+The four new manuscript-only Release attachments passed anonymous HTTP 200,
+byte-count and SHA-256 checks; the 30-member ZIP passed CRC. Fresh before/after
+GitHub comparisons confirmed the `v1.2.7` tag, its Release ID and 30 assets,
+the light evidence Release's single asset, and the expanded evidence
+Release's nine assets unchanged, including bodies, IDs, names, sizes, digests
+and timestamps. The main branch remains at
+`d9c37592b8293dc9a2726392915b6ed365e89aa5`; PR #9 remains a draft and unmerged.

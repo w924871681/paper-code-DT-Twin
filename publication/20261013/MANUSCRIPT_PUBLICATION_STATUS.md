@@ -1,7 +1,7 @@
 # Current manuscript publication status — final Data Availability revision
 
-**Compilation and local package verification PASS; new public-release and
-anonymous-download acceptance pending.**
+**PASS:** compilation, local package verification, public release, anonymous
+downloads and fresh historical-version protection checks completed.
 The single current JNCA manuscript entry is [`paper/current/`](../../paper/current/).
 Its sole source baseline is `MSA_DTI_PositiveEvidence_Mainline_20261013.zip`
 (7,056,735 bytes; SHA-256
@@ -37,12 +37,23 @@ defect. See [build details](../../paper/current/BUILD_INFO.md),
 [build log](../../paper/current/BUILD_LOG.txt) and
 [exact source diff](../../paper/current/SOURCE_MINIMAL_DIFF.patch).
 
-The separate [manuscript-only Release entry](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-final-20261013)
-is for this public-data-statement revision, not a new experiment version.
-Its final ZIP, PDF hashes, actual download URLs, compiler details, page checks
-and anonymous-download results will be recorded in
-`FINAL_PUBLICATION_CLOSURE_REPORT.md` after acceptance. Public-release and
-anonymous-download PASS are not asserted before those checks complete.
+The separate [manuscript-only Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/manuscript-final-20261013)
+(ID `411461046`) is for this public-data-statement revision, not a new
+experiment version. Its tag targets source/PDF publication commit
+[`4e8bf03558340506c47b6187f2a4e7642ecb2708`](https://github.com/w924871681/paper-code-DT-Twin/commit/4e8bf03558340506c47b6187f2a4e7642ecb2708).
+The actual GitHub asset records supply these downloads:
+
+- [Complete final LaTeX ZIP](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-final-20261013/MSA_DTI_Final_Publication_20261013.zip)
+- [Recompiled main PDF](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-final-20261013/main.pdf)
+- [Unchanged Supplementary PDF](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-final-20261013/supplementary.pdf)
+- [Release SHA-256 list](https://github.com/w924871681/paper-code-DT-Twin/releases/download/manuscript-final-20261013/SHA256SUMS.txt)
+
+All four attachments returned HTTP 200 in anonymous downloads and matched
+their local byte counts and SHA-256 values. The ZIP has 30 members and passed
+CRC. Anonymous downloads of GitHub's current `main.tex`, main PDF,
+`supplementary.tex` and Supplementary PDF also matched the final local files.
+The [final closure acceptance report](FINAL_PUBLICATION_CLOSURE_REPORT.md)
+records the complete release, build, source-scope and version-protection audit.
 
 The [expanded evidence Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-full-20261013)
 retains its nine original attachments. Its
@@ -57,5 +68,10 @@ current revised main PDF.
 The [light evidence Release](https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-r5-bitbrains-20261013),
 `v1.2.7`, the 2026-10-11 manuscript tree and the four root-level historical
 paper files are retained. PR #9 remains a draft and is not automatically
-merged or marked ready for review. Final protection checks for all three
-existing releases are part of the new closure acceptance.
+merged or marked ready for review. Fresh before/after comparisons confirmed
+all three existing releases unchanged, including body text and attachment
+IDs, names, sizes, digests and timestamps. `v1.2.7` still points to
+`b679181b3133ab9c3058afcde421d36380001f14`; Release ID `379563925` and all
+30 assets are unchanged. The light evidence Release retains its one asset
+and the expanded evidence Release retains all nine assets. The main branch
+remains at `d9c37592b8293dc9a2726392915b6ed365e89aa5`.

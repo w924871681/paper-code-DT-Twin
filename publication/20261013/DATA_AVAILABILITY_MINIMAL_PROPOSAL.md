@@ -5,7 +5,7 @@ Data Availability correction. The original proposal below is retained as a
 historical record, not the exact final replacement: the closure task also
 requires explicit RNG/raw-array, previously observed population and from-raw
 training limitations. The final wording and exact `SOURCE_MINIMAL_DIFF.patch`
-are documented in `FINAL_PUBLICATION_CLOSURE_REPORT.md`. Only that section of
+are documented in [FINAL_PUBLICATION_CLOSURE_REPORT.md](FINAL_PUBLICATION_CLOSURE_REPORT.md). Only that section of
 `main.tex` and its corresponding compiled main PDF may change.
 
 The byte-identical pre-revision 2026-10-13 author manuscript remains preserved
