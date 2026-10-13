@@ -12,8 +12,8 @@
   "assets": [
     {
       "name": "MSA_DTI_Current_Manuscript_PUBLIC_20261013.zip",
-      "bytes": 7049395,
-      "sha256": "e3361afe44a914ea98256200c9200e150eca2f2cea7456b6d10ec2447a93457f",
+      "bytes": 7049373,
+      "sha256": "e50f18b2dfd0787ead977d16675c45294f79328424d4615d2cbc0fa575df99e2",
       "source_ref": "local verified research archive; private path withheld",
       "role": "current_manuscript"
     },
