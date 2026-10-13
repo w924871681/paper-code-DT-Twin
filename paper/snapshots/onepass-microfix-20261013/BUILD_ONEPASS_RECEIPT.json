@@ -1,0 +1,71 @@
+{
+  "compiler": "MiKTeX-pdfTeX 4.23 (MiKTeX25.12)",
+  "command": [
+    "pdflatex",
+    "--disable-installer",
+    "-no-shell-escape",
+    "-interaction=nonstopmode",
+    "-halt-on-error",
+    "-file-line-error",
+    "-recorder"
+  ],
+  "SOURCE_DATE_EPOCH": "1791849600",
+  "FORCE_SOURCE_DATE": "1",
+  "baseline_byte_identity": {
+    "main": true,
+    "supplementary": true
+  },
+  "final": {
+    "main": {
+      "passes": [
+        {
+          "pass": 1,
+          "exit_code": 0
+        },
+        {
+          "pass": 2,
+          "exit_code": 0
+        },
+        {
+          "pass": 3,
+          "exit_code": 0
+        }
+      ],
+      "pdf_bytes": 6714049,
+      "pdf_sha256": "60206ea71d4ee7531b2058d00f3903a96a77aea25e6fad03bcd1b80b99458853",
+      "warning_lines": [
+        "Package epstopdf Warning: Shell escape feature is not enabled.",
+        "Overfull \\hbox (117.0831pt too wide) detected at line 103"
+      ],
+      "source_sha256": "6dda115609d48d7e925cda8ee7258690d5f32c2df9e2d76645fcb29fda7d654b",
+      "pages": 16
+    },
+    "supplementary": {
+      "passes": [
+        {
+          "pass": 1,
+          "exit_code": 0
+        },
+        {
+          "pass": 2,
+          "exit_code": 0
+        },
+        {
+          "pass": 3,
+          "exit_code": 0
+        }
+      ],
+      "source_sha256": "ac78343570372305625e09b635b5f8998bb453bada444628caa05b63f3d58ca8",
+      "pdf_bytes": 759225,
+      "pdf_sha256": "528a4ae7f3762f3e2cb104f34e2161842b362b312ddf5db5877e0d70dfd5edd8",
+      "warning_lines": [
+        "Package epstopdf Warning: Shell escape feature is not enabled."
+      ],
+      "pages": 15
+    }
+  },
+  "layout_repair": "Only the newly added S2 table; preliminary clipped PDF discarded and not packaged.",
+  "no_new_final_overfull_box": true,
+  "no_unresolved_references": true,
+  "preexisting_main_warning": "CAS maketitle117.0831pt overfull warning atline103; unchanged baseline and final title-page raster."
+}

@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "scope": "Only the declared S2 local layout repair compared with the preceding accepted source.",
+  "declared_delta": "Insert \\par\\smallskip immediately after the new table title and \\noindent immediately before \\begin{tabularx}.",
+  "main_source_unchanged": true,
+  "S2_content_other_than_exact_layout_insertion_unchanged": true,
+  "previous_supplementary_sha256": "4b00733e048d83119036bd809261274c78670a32b334210b5f4e8ef65aca0349",
+  "final_supplementary_sha256": "ac78343570372305625e09b635b5f8998bb453bada444628caa05b63f3d58ca8",
+  "final_S2_insertion_sha256": "f21ccf155c6b20a1d42f7e3f7b3f00c0ef5b86c187ac4d8bb8879fe0a7da7197"
+}

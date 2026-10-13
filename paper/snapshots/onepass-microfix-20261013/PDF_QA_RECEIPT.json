@@ -1,0 +1,415 @@
+{
+  "status": "PASS",
+  "scope": "Final PDF layout, extraction, embedded links, and fixed-asset acceptance only; no academic re-review.",
+  "created_utc": "2026-10-13T13:15:06.310894+00:00",
+  "pdfs": {
+    "main": {
+      "path": "D:\\审稿\\MSA_DTI_ONEPASS_MICROFIX_20261013\\build\\revised\\main.pdf",
+      "bytes": 6714049,
+      "sha256": "60206ea71d4ee7531b2058d00f3903a96a77aea25e6fad03bcd1b80b99458853",
+      "pages": 16,
+      "nonempty_text_lengths": [
+        4316,
+        2642,
+        3979,
+        3561,
+        3117,
+        2820,
+        1927,
+        4036,
+        4956,
+        2282,
+        2489,
+        4311,
+        4482,
+        4560,
+        5452,
+        4545
+      ],
+      "all_pages_nonempty": true,
+      "uri_annotations": [
+        {
+          "page": 13,
+          "uri": "https://atlarge-research.com/gwa-t-12/"
+        },
+        {
+          "page": 14,
+          "uri": "https://github.com/alibaba/clusterdata/tree/master/cluster-trace-v2018"
+        },
+        {
+          "page": 15,
+          "uri": "https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.7"
+        },
+        {
+          "page": 15,
+          "uri": "https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.2.7"
+        },
+        {
+          "page": 15,
+          "uri": "https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-full-20261013"
+        },
+        {
+          "page": 15,
+          "uri": "https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-full-20261013"
+        },
+        {
+          "page": 15,
+          "uri": "https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-r5-bitbrains-20261013"
+        },
+        {
+          "page": 15,
+          "uri": "https://github.com/w924871681/paper-code-DT-Twin/releases/tag/evidence-r5-bitbrains-20261013"
+        }
+      ],
+      "existing_uri_annotations_retained": true
+    },
+    "supplementary": {
+      "path": "D:\\审稿\\MSA_DTI_ONEPASS_MICROFIX_20261013\\build\\supplementary_final\\supplementary.pdf",
+      "bytes": 759225,
+      "sha256": "528a4ae7f3762f3e2cb104f34e2161842b362b312ddf5db5877e0d70dfd5edd8",
+      "pages": 15,
+      "nonempty_text_lengths": [
+        3355,
+        3197,
+        2534,
+        3549,
+        2631,
+        3466,
+        2664,
+        2585,
+        4178,
+        3984,
+        2823,
+        3908,
+        2743,
+        2689,
+        3018
+      ],
+      "all_pages_nonempty": true,
+      "uri_annotations": [
+        {
+          "page": 12,
+          "uri": "https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/MSA_DTI_R5_Bitbrains_ResearchAssets_PUBLIC_PATHSAFE_20261013.zip"
+        },
+        {
+          "page": 12,
+          "uri": "https://atlarge-research.com/gwa-t-12/"
+        }
+      ],
+      "existing_uri_annotations_retained": true
+    }
+  },
+  "checks": {
+    "S2_protocol_table": {
+      "status": "PASS",
+      "body_rows": 8,
+      "unnumbered": true,
+      "page": 12,
+      "rendered_tokens": {
+        "1,082": true,
+        "86,400": true,
+        "86,107": true,
+        "899,799": true,
+        "903,397": true,
+        "(10,1,351,628,627)": true,
+        "(20,1,346,625,625)": true,
+        "(10,1,346,624,624)": true,
+        "(20,1,342,621,621)": true,
+        "80/60/200": true,
+        "0.2:0.1:0.1": true,
+        "seconds/1,200": true,
+        "code/experiments/r4_r5/bitbrains_data.py": true,
+        "bitbrains/data/bitbrains_dataset_manifest.json": true
+      },
+      "title_separated_from_tabular": true
+    },
+    "S3": {
+      "status": "PASS",
+      "page": 4,
+      "header": "Strict MSE wins (%)",
+      "all_table_and_footnote_numeric_tokens_match_baseline": true,
+      "numeric_tokens": [
+        "95",
+        "71.25",
+        "14.60",
+        "9.41",
+        "20.14",
+        "87.50",
+        "35.37",
+        "25.39",
+        "44.26",
+        "100.00",
+        "80.71",
+        "78.07",
+        "83.22",
+        "95.00",
+        "40.40",
+        "32.65",
+        "47.58",
+        "100.00",
+        "76.29",
+        "68.95",
+        "82.65",
+        "98.75",
+        "45.03",
+        "36.53",
+        "52.55",
+        "100.00",
+        "68.94",
+        "64.06",
+        "73.53",
+        "13",
+        "33",
+        "7.7",
+        "10",
+        "9",
+        "6",
+        "10",
+        "6",
+        "47",
+        "95",
+        "2.5",
+        "97.5",
+        "4000",
+        "4"
+      ]
+    },
+    "existing_supplementary_table_numbers": {
+      "status": "PASS",
+      "captions": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ]
+    },
+    "authorized_main_text_rendered": {
+      "status": "PASS",
+      "phrases": {
+        "adapts both source-trained A57 candidates": true,
+        "The selected model’s check-set loss is the paired-control denominator": true,
+        "NAS-related labels denote task-matched control implementations, not exact reproductions of published algorithms.": true,
+        "the gain of the complete heterogeneous-bank pipeline": true,
+        "The heterogeneous-bank pipeline gain remains sensitive to source training.": true
+      }
+    },
+    "frozen_assets": {
+      "status": "PASS",
+      "asset_count": 21,
+      "figure_count": 16,
+      "external_table_count": 2,
+      "files": [
+        {
+          "path": "cas-common.sty",
+          "sha256_baseline": "e95a01f4b33531d01ade231669fcc1e42f52193dddcb22ead5b63240eb952f8f",
+          "sha256_final": "e95a01f4b33531d01ade231669fcc1e42f52193dddcb22ead5b63240eb952f8f",
+          "identical": true
+        },
+        {
+          "path": "cas-model2-names.bst",
+          "sha256_baseline": "6f6204eb7670d762042ab363c2d05cf87196052bfbdf6dbee51a1327a8ce479a",
+          "sha256_final": "6f6204eb7670d762042ab363c2d05cf87196052bfbdf6dbee51a1327a8ce479a",
+          "identical": true
+        },
+        {
+          "path": "cas-sc.cls",
+          "sha256_baseline": "5030545ed09c770afa31004817bf8626ca7f311cf795e6c2825ecae113bb42e9",
+          "sha256_final": "5030545ed09c770afa31004817bf8626ca7f311cf795e6c2825ecae113bb42e9",
+          "identical": true
+        },
+        {
+          "path": "figures/fig1.pdf",
+          "sha256_baseline": "422b4e57c1c310e539844af139d24bd31dd6b815034df9323ace87ccc0d06062",
+          "sha256_final": "422b4e57c1c310e539844af139d24bd31dd6b815034df9323ace87ccc0d06062",
+          "identical": true
+        },
+        {
+          "path": "figures/fig10.pdf",
+          "sha256_baseline": "eafa68535fdc3357d91d6e3f7ca3bc9b71c5cab46109d92295e12c11918bd88e",
+          "sha256_final": "eafa68535fdc3357d91d6e3f7ca3bc9b71c5cab46109d92295e12c11918bd88e",
+          "identical": true
+        },
+        {
+          "path": "figures/fig11.pdf",
+          "sha256_baseline": "1ec9b0f5f78bdf600eb779e4985ddbfd8a1e9db78cd98b57231b9a08b09d005f",
+          "sha256_final": "1ec9b0f5f78bdf600eb779e4985ddbfd8a1e9db78cd98b57231b9a08b09d005f",
+          "identical": true
+        },
+        {
+          "path": "figures/fig12.pdf",
+          "sha256_baseline": "4588c761660b3d74bb00758b688c7dece8fb13c4ac8a326c14d5d32d41ac0d33",
+          "sha256_final": "4588c761660b3d74bb00758b688c7dece8fb13c4ac8a326c14d5d32d41ac0d33",
+          "identical": true
+        },
+        {
+          "path": "figures/fig2.pdf",
+          "sha256_baseline": "fd1aaeb94288e8c125ae65924997752b7be4ae29d6d11cab304add4992441ba8",
+          "sha256_final": "fd1aaeb94288e8c125ae65924997752b7be4ae29d6d11cab304add4992441ba8",
+          "identical": true
+        },
+        {
+          "path": "figures/fig3.pdf",
+          "sha256_baseline": "651624d984f5ef6b6a0ceec033d6a2648f6214b470da01a26c2ba30837c83bf3",
+          "sha256_final": "651624d984f5ef6b6a0ceec033d6a2648f6214b470da01a26c2ba30837c83bf3",
+          "identical": true
+        },
+        {
+          "path": "figures/fig5.pdf",
+          "sha256_baseline": "7c4297342930093b3b5a0ddf736464a4f31cdbca560723253f07902089d2dfed",
+          "sha256_final": "7c4297342930093b3b5a0ddf736464a4f31cdbca560723253f07902089d2dfed",
+          "identical": true
+        },
+        {
+          "path": "figures/fig6.pdf",
+          "sha256_baseline": "40bfbf673a6ae68d87a1feed5727c9ad690090cdbeb86625c76ae0268cd63bf3",
+          "sha256_final": "40bfbf673a6ae68d87a1feed5727c9ad690090cdbeb86625c76ae0268cd63bf3",
+          "identical": true
+        },
+        {
+          "path": "figures/fig7.pdf",
+          "sha256_baseline": "0e83ecd59a7f21c228af6cbd4d699275b80530749ba1a7d67128b5e3becdb835",
+          "sha256_final": "0e83ecd59a7f21c228af6cbd4d699275b80530749ba1a7d67128b5e3becdb835",
+          "identical": true
+        },
+        {
+          "path": "figures/fig8.pdf",
+          "sha256_baseline": "75232e2b067797a00adff61a3f953108de428e4ff5a695f794c2392546fbdb6e",
+          "sha256_final": "75232e2b067797a00adff61a3f953108de428e4ff5a695f794c2392546fbdb6e",
+          "identical": true
+        },
+        {
+          "path": "figures/fig9.pdf",
+          "sha256_baseline": "5d8938af626e7cdccf01608c87496c914accac612cd0a07d5f41e15e34b47ba8",
+          "sha256_final": "5d8938af626e7cdccf01608c87496c914accac612cd0a07d5f41e15e34b47ba8",
+          "identical": true
+        },
+        {
+          "path": "figures/fig_alibaba_corrected_calibration.pdf",
+          "sha256_baseline": "d0acc06f3929ff2e690eb6dc8d844e42c330be3c50e783eb53913290f3521c9a",
+          "sha256_final": "d0acc06f3929ff2e690eb6dc8d844e42c330be3c50e783eb53913290f3521c9a",
+          "identical": true
+        },
+        {
+          "path": "figures/fig_alibaba_corrected_heldout.pdf",
+          "sha256_baseline": "dd349e3d36b0ff837af4b66377a6cf4f5ad112479ec310427fd2ff916ee78eb4",
+          "sha256_final": "dd349e3d36b0ff837af4b66377a6cf4f5ad112479ec310427fd2ff916ee78eb4",
+          "identical": true
+        },
+        {
+          "path": "figures/fig_bitbrains_gain.pdf",
+          "sha256_baseline": "853a287ebda3692adb07919c101ef72277179e55fb47a38d815b4ca4b19e251b",
+          "sha256_final": "853a287ebda3692adb07919c101ef72277179e55fb47a38d815b4ca4b19e251b",
+          "identical": true
+        },
+        {
+          "path": "figures/fig_overall_performance_ours.pdf",
+          "sha256_baseline": "55572e4452460c0202e1a04a6492ed1fc9beaf4e48fc71ae3f012bcae84bee4b",
+          "sha256_final": "55572e4452460c0202e1a04a6492ed1fc9beaf4e48fc71ae3f012bcae84bee4b",
+          "identical": true
+        },
+        {
+          "path": "figures/fig_r5_devfixed_gain.pdf",
+          "sha256_baseline": "d2c952abf9eab11327655c93d2b47858e8394f4c00e0d43954ba8f9aa82f29ab",
+          "sha256_final": "d2c952abf9eab11327655c93d2b47858e8394f4c00e0d43954ba8f9aa82f29ab",
+          "identical": true
+        },
+        {
+          "path": "tables/table1_configuration.tex",
+          "sha256_baseline": "4d0aa2c3dd26ca04969949ebe27ab50c48df8deb5542cab47ba385dbffbf79a7",
+          "sha256_final": "4d0aa2c3dd26ca04969949ebe27ab50c48df8deb5542cab47ba385dbffbf79a7",
+          "identical": true
+        },
+        {
+          "path": "tables/table3_target_cost.tex",
+          "sha256_baseline": "d932f1add1d34e9d606de9b482e82442e2f81525482ad1051bd8afc1270fba00",
+          "sha256_final": "d932f1add1d34e9d606de9b482e82442e2f81525482ad1051bd8afc1270fba00",
+          "identical": true
+        }
+      ]
+    },
+    "source_scope_receipt": {
+      "status": "PASS",
+      "path": "FINAL_SCOPE_RECEIPT.json",
+      "sha256": "b0191f4c6a96fbcfc3c214601c8c90a63d7a469d4c0cb0657b9a28604aa7ec75",
+      "current_source_hashes_match_receipt": true
+    },
+    "compilation_warning_boundary": {
+      "status": "PASS",
+      "main_preexisting_warning": "Overfull \\hbox (117.0831pt too wide) detected at line 103",
+      "same_warning_in_baseline": true,
+      "main_page_1_raster_identical": true,
+      "final_supplementary_overfull_warning_count": 0
+    },
+    "embedded_links": {
+      "status": "PASS",
+      "main_uri_annotation_count": 8,
+      "supplementary_uri_annotation_count": 2,
+      "new_protocol_uri_present_on_page_12": true
+    }
+  },
+  "visual_review": {
+    "all_page_contact_sheets": [
+      "render_final/main_contact.png",
+      "render_final/supplementary_contact.png"
+    ],
+    "all_pages_reviewed": {
+      "main": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "supplementary": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ]
+    },
+    "full_size_affected_pages": {
+      "main": [
+        7,
+        8,
+        10,
+        13
+      ],
+      "supplementary": [
+        4,
+        12,
+        13
+      ]
+    },
+    "clipped_text_found": false,
+    "overlapping_text_found": false,
+    "new_layout_defects": []
+  }
+}

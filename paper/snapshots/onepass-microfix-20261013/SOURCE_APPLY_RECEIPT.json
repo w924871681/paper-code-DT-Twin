@@ -1,0 +1,79 @@
+{
+  "sole_baseline_zip_sha256": "551411789fab9334a03c29d9931294aa9a10a0597038a1e6e201f9e774a7356f",
+  "evidence_before_apply_sha256": "bbd7df48d6b3f883f2d3497493a8238ca21f8ef6f1b65c3f6959618ff7f6cdcd",
+  "S2_insertion_sha256": "4366e7a22aa8fbae2d3d6a321555ed118bae486a8d9669a75a1afd25335e2227",
+  "ops": [
+    {
+      "id": "S4",
+      "file": "main.tex",
+      "original_start": 27447,
+      "original_end_exclusive": 27630,
+      "original_sha256": "afba2acf8d51eed2f54c129d7a450b8d5f6785d64a202a1a03f6b5e6981d631d",
+      "old_text": "The paired-initialization control\nuses a second source-trained initialization of the reference architecture and\nprovides a same-architecture control for source-initialization effects.",
+      "new_text": "The paired-initialization control adapts both source-trained A57 candidates on\nthe same support set and applies the same relative-margin rule at each $\\tau$ to\nselect one using validation loss. The selected model's check-set loss is the\npaired-control denominator; because the two source-training recipes differ, this\nis a same-architecture selection control rather than a random-seed-only\ncomparison.",
+      "replacement_sha256": "f614f490cf1daa07bc1b700fb3710d2faa7d47370cc56b15cad1b3bef51f46ab"
+    },
+    {
+      "id": "S6",
+      "file": "main.tex",
+      "original_start": 36766,
+      "original_end_exclusive": 36766,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "old_text": "",
+      "new_text": " NAS-related labels denote task-matched control implementations, not exact reproductions of published algorithms.",
+      "replacement_sha256": "6c153ca237230449cab06bca731555363a5023601ed04030c2382c1bdf5591d7"
+    },
+    {
+      "id": "S7.1",
+      "file": "main.tex",
+      "original_start": 45356,
+      "original_end_exclusive": 45462,
+      "original_sha256": "00ed3bc1ac3de5d676b5aeb017ae1a66ff554d010d76bd7c7413c3a6b0da53bd",
+      "old_text": "The reference-only and two-reference-initialization variants\ndo not reproduce the cross-architecture gain.",
+      "new_text": "The reference-only and two-reference-initialization variants do not reproduce\nthe gain of the complete heterogeneous-bank pipeline.",
+      "replacement_sha256": "877b12549c5ee7e5fcd11604cdceac0ca33fb47ffcd03c2a83df2dcfc4f2a457"
+    },
+    {
+      "id": "S7.2",
+      "file": "main.tex",
+      "original_start": 45986,
+      "original_end_exclusive": 46051,
+      "original_sha256": "5d1165f951ea8f8dc9a35c36db16920f2ed173279b3c841a1c240a9b4104207e",
+      "old_text": "The cross-architecture gain remains sensitive to source training.",
+      "new_text": "The heterogeneous-bank pipeline gain remains sensitive to source training.",
+      "replacement_sha256": "59ec20e45d8ca5fd562b377fe2efd9432e6814f9e20d8ecb007bcd19529898b3"
+    },
+    {
+      "id": "S3",
+      "file": "supplementary.tex",
+      "original_start": 15716,
+      "original_end_exclusive": 15733,
+      "original_sha256": "c29baa4cab285a5eef27a2f8fe704d78ed06045af3c249b3bd28937c78472edb",
+      "old_text": "MSE win rate (\\%)",
+      "new_text": "Strict MSE wins (\\%)",
+      "replacement_sha256": "365af6246e82fd7cf84fb46eab87ab3e6ca5171a76c35dc2aa7f4801d51b6619"
+    },
+    {
+      "id": "S2",
+      "file": "supplementary.tex",
+      "original_start": 41729,
+      "original_end_exclusive": 41729,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "old_text": "",
+      "new_text": "\n\n\\par\\smallskip\n\\begingroup\n\\footnotesize\n\\renewcommand{\\arraystretch}{1.08}\n\\setlength{\\tabcolsep}{3pt}\n\\noindent\\textbf{Frozen Bitbrains data protocol.}\\par\\smallskip\n\\noindent\\begin{tabularx}{\\linewidth}{@{}p{0.18\\linewidth}Y@{}}\n\\toprule\nItem & Definition or actual per-VM window counts \\\\\n\\midrule\nQualification & Fixed 11-column schema; finite integer Unix-second timestamps in $[10^9,2\\times10^9)$, strictly increasing; finite nonnegative CPU labels; at least 3,000 post-first-day records and 50 complete source windows for each horizon. Every $H/K$ case requires exactly $K$ support windows and at least 80/60/200 validation/check/test windows. These predicates yield 1,082 eligible VMs before identity selection. \\\\\nTimeline & Source uses records in $[t_0,t_0+86{,}400\\,\\mathrm{s})$, where $t_0$ is each VM's first timestamp (observed first-to-last span 86,107 s); target uses the first 3,000 native records at/after that cutoff (observed spans 899,799--903,397 s). Support contains $96+H+K-1$ raw records; remaining records follow normalized $0.2{:}0.1{:}0.1$ validation/check/test allocation, with floors then largest remainders and earlier-segment tie priority. \\\\\nChannels & Ten raw fields: CPU cores, capacity, MHz usage and percent usage; memory capacity/usage; disk read/write and network received/transmitted throughput. Add trailing-five CPU mean and first difference, their 12 corresponding validity masks, and preceding elapsed seconds/1,200. Invalid inputs use causal forward fill from initial zero; masks retain invalidity. Fill, mean, difference and gap state restart at every raw role boundary. \\\\\n$H=1,K=10$ & $(10,\\;1{,}351,\\;628,\\;627)$ \\\\\n$H=1,K=20$ & $(20,\\;1{,}346,\\;625,\\;625)$ \\\\\n$H=4,K=10$ & $(10,\\;1{,}346,\\;624,\\;624)$ \\\\\n$H=4,K=20$ & $(20,\\;1{,}342,\\;621,\\;621)$ \\\\\nFrozen entry & \\href{https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/MSA_DTI_R5_Bitbrains_ResearchAssets_PUBLIC_PATHSAFE_20261013.zip}{Public protocol asset}: \\path{code/experiments/r4_r5/bitbrains_data.py} and \\path{bitbrains/data/bitbrains_dataset_manifest.json}. \\\\\n\\bottomrule\n\\end{tabularx}\n\\par\\smallskip\n\\noindent Count order is support, validation, calibration check, and held-out test; counts are constant within the corresponding VM groups. Validation applies to calibration and held-out cases; development-fixed uses support/check only. These are windows, which may share label endpoints.\n\\endgroup\n\\par\\smallskip",
+      "replacement_sha256": "f21ccf155c6b20a1d42f7e3f7b3f00c0ef5b86c187ac4d8bb8879fe0a7da7197"
+    }
+  ],
+  "final_sources": {
+    "main.tex": "6dda115609d48d7e925cda8ee7258690d5f32c2df9e2d76645fcb29fda7d654b",
+    "supplementary.tex": "ac78343570372305625e09b635b5f8998bb453bada444628caa05b63f3d58ca8"
+  },
+  "mode": "exact byte-span patch, no full-source re-emission",
+  "format_adjustments": [
+    {
+      "id": "S2_layout_1",
+      "reason": "Separate unnumberedtable title and full-width tabular paragraph to remove new146.9425pt overfullbox",
+      "scope": "Only the newly inserted S2table; scientifictext and numbers unchanged"
+    }
+  ]
+}

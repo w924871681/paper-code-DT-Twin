@@ -1,0 +1,484 @@
+{
+  "status": "PASS",
+  "scope": "Deterministic authorized-span and freeze audit only; not a scientific re-review or evidence/compile check.",
+  "audit_tool_sha256": "1833edea37ca260b53fed90bdd3968fc0ca38ceb999f30ca651cf08c7c10e9fe",
+  "implementation_taskbook_sha256": "195ccfcdf1bf17fc4e1ec2b17281ec7fbd1ca6f193f4b9f048251b9b62c65c56",
+  "baseline_directory": "D:\\审稿\\MSA_DTI_ONEPASS_MICROFIX_20261013\\baseline\\MSA_DTI_Final_Publication_20261013_SuppFix",
+  "project_directory": "D:\\审稿\\MSA_DTI_ONEPASS_MICROFIX_20261013\\project\\MSA_DTI_OnePass_Microfix_20261013",
+  "baseline_source_hashes": {
+    "main.tex": "55a5d395f1e640bfa970d7af12e3400e28b7884a8ac6fc339048256291bb8613",
+    "supplementary.tex": "c5492e3bf77085c1802424b916d663cbd1953348ba8a1ade999c6a6d7c4958f6"
+  },
+  "final_source_hashes": {
+    "main.tex": "6dda115609d48d7e925cda8ee7258690d5f32c2df9e2d76645fcb29fda7d654b",
+    "supplementary.tex": "ac78343570372305625e09b635b5f8998bb453bada444628caa05b63f3d58ca8"
+  },
+  "main_scope": {
+    "status": "PASS",
+    "edits": [
+      {
+        "id": "S4",
+        "new_span": {
+          "id": "S4",
+          "byte_start": 27447,
+          "byte_end_exclusive": 27848,
+          "line_start": 701,
+          "line_end": 706,
+          "bytes": 401,
+          "sha256": "f614f490cf1daa07bc1b700fb3710d2faa7d47370cc56b15cad1b3bef51f46ab",
+          "text": "The paired-initialization control adapts both source-trained A57 candidates on\nthe same support set and applies the same relative-margin rule at each $\\tau$ to\nselect one using validation loss. The selected model's check-set loss is the\npaired-control denominator; because the two source-training recipes differ, this\nis a same-architecture selection control rather than a random-seed-only\ncomparison."
+        }
+      },
+      {
+        "id": "S6",
+        "new_span": {
+          "id": "S6",
+          "byte_start": 36984,
+          "byte_end_exclusive": 37097,
+          "line_start": 891,
+          "line_end": 891,
+          "bytes": 113,
+          "sha256": "6c153ca237230449cab06bca731555363a5023601ed04030c2382c1bdf5591d7",
+          "text": " NAS-related labels denote task-matched control implementations, not exact reproductions of published algorithms."
+        }
+      },
+      {
+        "id": "S7.1",
+        "new_span": {
+          "id": "S7.1",
+          "byte_start": 45687,
+          "byte_end_exclusive": 45818,
+          "line_start": 1069,
+          "line_end": 1070,
+          "bytes": 131,
+          "sha256": "877b12549c5ee7e5fcd11604cdceac0ca33fb47ffcd03c2a83df2dcfc4f2a457",
+          "text": "The reference-only and two-reference-initialization variants do not reproduce\nthe gain of the complete heterogeneous-bank pipeline."
+        }
+      },
+      {
+        "id": "S7.2",
+        "new_span": {
+          "id": "S7.2",
+          "byte_start": 46342,
+          "byte_end_exclusive": 46416,
+          "line_start": 1079,
+          "line_end": 1079,
+          "bytes": 74,
+          "sha256": "59ec20e45d8ca5fd562b377fe2efd9432e6814f9e20d8ecb007bcd19529898b3",
+          "text": "The heterogeneous-bank pipeline gain remains sensitive to source training."
+        }
+      }
+    ],
+    "unchanged_segments": [
+      {
+        "before": "S4",
+        "bytes": 27447,
+        "sha256": "22f21a34eb0b214d9ddb215f9d666fb7f89e6cd5a58f7f492fb76cfe7acd9fd9",
+        "identical": true
+      },
+      {
+        "before": "S6",
+        "bytes": 9136,
+        "sha256": "c5d309908f8e05c1f84c75dd29161f9e39de18c0f3c6b17c844060db3a8c71d5",
+        "identical": true
+      },
+      {
+        "before": "S7.1",
+        "bytes": 8590,
+        "sha256": "f7c4e6e80385594d803d42052b1e5bc33bf468a40016370b30cf7039964d28de",
+        "identical": true
+      },
+      {
+        "before": "S7.2",
+        "bytes": 524,
+        "sha256": "9ac4b73a50845f5568684d1925399d8261ae741c2f148cb1de2e35ea77cc8fca",
+        "identical": true
+      },
+      {
+        "before": "EOF",
+        "bytes": 17711,
+        "sha256": "f93367b3e8e14aa3da1d0f5af34d08467c2aafd069bd79c3a8b9d7ff5c0c332b",
+        "identical": true
+      }
+    ],
+    "unchanged_bytes_total": 63408,
+    "unchanged_bytes_sha256_baseline": "bdb0401d07970d7e5f47ce1c9b5a8e0a98f101a775d4143ae61008729cf97bf3",
+    "unchanged_bytes_sha256_final": "bdb0401d07970d7e5f47ce1c9b5a8e0a98f101a775d4143ae61008729cf97bf3",
+    "all_other_bytes_identical": true
+  },
+  "supplementary_scope": {
+    "status": "PASS",
+    "S3_heading": "Strict MSE wins (\\%)",
+    "S3_new_span": {
+      "id": "S3",
+      "byte_start": 15716,
+      "byte_end_exclusive": 15736,
+      "line_start": 400,
+      "line_end": 400,
+      "bytes": 20,
+      "sha256": "365af6246e82fd7cf84fb46eab87ab3e6ca5171a76c35dc2aa7f4801d51b6619",
+      "text": "Strict MSE wins (\\%)"
+    },
+    "S2_new_span": {
+      "id": "S2",
+      "byte_start": 41732,
+      "byte_end_exclusive": 44201,
+      "line_start": 901,
+      "line_end": 926,
+      "bytes": 2469,
+      "sha256": "f21ccf155c6b20a1d42f7e3f7b3f00c0ef5b86c187ac4d8bb8879fe0a7da7197",
+      "text": "\n\n\\par\\smallskip\n\\begingroup\n\\footnotesize\n\\renewcommand{\\arraystretch}{1.08}\n\\setlength{\\tabcolsep}{3pt}\n\\noindent\\textbf{Frozen Bitbrains data protocol.}\\par\\smallskip\n\\noindent\\begin{tabularx}{\\linewidth}{@{}p{0.18\\linewidth}Y@{}}\n\\toprule\nItem & Definition or actual per-VM window counts \\\\\n\\midrule\nQualification & Fixed 11-column schema; finite integer Unix-second timestamps in $[10^9,2\\times10^9)$, strictly increasing; finite nonnegative CPU labels; at least 3,000 post-first-day records and 50 complete source windows for each horizon. Every $H/K$ case requires exactly $K$ support windows and at least 80/60/200 validation/check/test windows. These predicates yield 1,082 eligible VMs before identity selection. \\\\\nTimeline & Source uses records in $[t_0,t_0+86{,}400\\,\\mathrm{s})$, where $t_0$ is each VM's first timestamp (observed first-to-last span 86,107 s); target uses the first 3,000 native records at/after that cutoff (observed spans 899,799--903,397 s). Support contains $96+H+K-1$ raw records; remaining records follow normalized $0.2{:}0.1{:}0.1$ validation/check/test allocation, with floors then largest remainders and earlier-segment tie priority. \\\\\nChannels & Ten raw fields: CPU cores, capacity, MHz usage and percent usage; memory capacity/usage; disk read/write and network received/transmitted throughput. Add trailing-five CPU mean and first difference, their 12 corresponding validity masks, and preceding elapsed seconds/1,200. Invalid inputs use causal forward fill from initial zero; masks retain invalidity. Fill, mean, difference and gap state restart at every raw role boundary. \\\\\n$H=1,K=10$ & $(10,\\;1{,}351,\\;628,\\;627)$ \\\\\n$H=1,K=20$ & $(20,\\;1{,}346,\\;625,\\;625)$ \\\\\n$H=4,K=10$ & $(10,\\;1{,}346,\\;624,\\;624)$ \\\\\n$H=4,K=20$ & $(20,\\;1{,}342,\\;621,\\;621)$ \\\\\nFrozen entry & \\href{https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/MSA_DTI_R5_Bitbrains_ResearchAssets_PUBLIC_PATHSAFE_20261013.zip}{Public protocol asset}: \\path{code/experiments/r4_r5/bitbrains_data.py} and \\path{bitbrains/data/bitbrains_dataset_manifest.json}. \\\\\n\\bottomrule\n\\end{tabularx}\n\\par\\smallskip\n\\noindent Count order is support, validation, calibration check, and held-out test; counts are constant within the corresponding VM groups. Validation applies to calibration and held-out cases; development-fixed uses support/check only. These are windows, which may share label endpoints.\n\\endgroup\n\\par\\smallskip"
+    },
+    "unchanged_bytes_total": 51359,
+    "unchanged_bytes_sha256_baseline": "9e7cbfcb2d6cc846fe379ae14e245726c3f749ad39922618623b2b3b71af8f6f",
+    "unchanged_bytes_sha256_final": "9e7cbfcb2d6cc846fe379ae14e245726c3f749ad39922618623b2b3b71af8f6f",
+    "all_other_bytes_identical": true
+  },
+  "frozen_regions": {
+    "main.tex": [
+      {
+        "id": "equation:eq:model-family",
+        "bytes": 149,
+        "sha256_baseline": "8967236d974040175512c891e7d35ee7ce256af84e51e6484b48216edc532684",
+        "sha256_final": "8967236d974040175512c891e7d35ee7ce256af84e51e6484b48216edc532684",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:dt-instance",
+        "bytes": 153,
+        "sha256_baseline": "c4b64e0acd0d4c1e46adb38551d6efa02457071904017d71a238cfe8d9002bdc",
+        "sha256_final": "c4b64e0acd0d4c1e46adb38551d6efa02457071904017d71a238cfe8d9002bdc",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:target-data",
+        "bytes": 506,
+        "sha256_baseline": "c7f76d33944252730107e56ee633b47bb29149b6161ed2bb8472e2d80ee81314",
+        "sha256_final": "c7f76d33944252730107e56ee633b47bb29149b6161ed2bb8472e2d80ee81314",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:reusable-models",
+        "bytes": 118,
+        "sha256_baseline": "341ad129da48b44b50d58146f189a67259ed899c69ae6d77b7639ef7d11e5b77",
+        "sha256_final": "341ad129da48b44b50d58146f189a67259ed899c69ae6d77b7639ef7d11e5b77",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:feasible-candidate-set",
+        "bytes": 193,
+        "sha256_baseline": "792b5dd74787ee1f23e297ff790dcdb02e528919864ddeba92eff6bef021b66b",
+        "sha256_final": "792b5dd74787ee1f23e297ff790dcdb02e528919864ddeba92eff6bef021b66b",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:target-risk",
+        "bytes": 145,
+        "sha256_baseline": "1cec6b34c4069e5b11d28d2abafef8970e413db2b2171cc9432a8be6ccec8c2f",
+        "sha256_final": "1cec6b34c4069e5b11d28d2abafef8970e413db2b2171cc9432a8be6ccec8c2f",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:instantiation-problem",
+        "bytes": 303,
+        "sha256_baseline": "554f10c4814e3193b98d17cfd1894b162456a80949de2f0c01ca48adb2ca0d65",
+        "sha256_final": "554f10c4814e3193b98d17cfd1894b162456a80949de2f0c01ca48adb2ca0d65",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:empirical-loss",
+        "bytes": 181,
+        "sha256_baseline": "34151b0e4e1026ea86b6f0b3541bef87a52e462a44a5599837290cb6c33e975d",
+        "sha256_final": "34151b0e4e1026ea86b6f0b3541bef87a52e462a44a5599837290cb6c33e975d",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:target-update",
+        "bytes": 315,
+        "sha256_baseline": "ef4f47fda88625e39b7db310209cc6e29c6b492263b1e7ba270d15c23072c2df",
+        "sha256_final": "ef4f47fda88625e39b7db310209cc6e29c6b492263b1e7ba270d15c23072c2df",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:validation-loss",
+        "bytes": 151,
+        "sha256_baseline": "29e015873f1f87fb804cbf745b3507c50eb5896b899382db52445d8fb9f7cd34",
+        "sha256_final": "29e015873f1f87fb804cbf745b3507c50eb5896b899382db52445d8fb9f7cd34",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:reference-based-selection",
+        "bytes": 219,
+        "sha256_baseline": "1fbc9749c2847f852e813a07f29df47bd6af824595ecf0fe82c20f097250ea97",
+        "sha256_final": "1fbc9749c2847f852e813a07f29df47bd6af824595ecf0fe82c20f097250ea97",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:margin-calibration",
+        "bytes": 425,
+        "sha256_baseline": "8d55d6cf8e99a9c3a49af2f5f80d4281cd52cb4879e0f0276f7ab0dd23c571e5",
+        "sha256_final": "8d55d6cf8e99a9c3a49af2f5f80d4281cd52cb4879e0f0276f7ab0dd23c571e5",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:target-complexity",
+        "bytes": 187,
+        "sha256_baseline": "9f19d37cf74913582b1df80e6ff7a71d17186e1de05c3375626e50dd65c6edd2",
+        "sha256_final": "9f19d37cf74913582b1df80e6ff7a71d17186e1de05c3375626e50dd65c6edd2",
+        "identical": true
+      },
+      {
+        "id": "algorithm:alg:msa-dti",
+        "bytes": 1445,
+        "sha256_baseline": "e47a09e1df570c1caf675765a4e79cf6378325d88eda8e42e360429bde716426",
+        "sha256_final": "e47a09e1df570c1caf675765a4e79cf6378325d88eda8e42e360429bde716426",
+        "identical": true
+      },
+      {
+        "id": "abstract:1",
+        "bytes": 1866,
+        "sha256_baseline": "b608f6b623026d9ef741deaa83e7bba62e64d957f88e4e59bdf85adc8f5bb011",
+        "sha256_final": "b608f6b623026d9ef741deaa83e7bba62e64d957f88e4e59bdf85adc8f5bb011",
+        "identical": true
+      },
+      {
+        "id": "thebibliography:1",
+        "bytes": 8697,
+        "sha256_baseline": "9feb65970ea51db8e04298c8012aaa7e845f1bc025ec2f4aba95da43ffcd88fc",
+        "sha256_final": "9feb65970ea51db8e04298c8012aaa7e845f1bc025ec2f4aba95da43ffcd88fc",
+        "identical": true
+      },
+      {
+        "id": "section:Introduction",
+        "bytes": 4462,
+        "sha256_baseline": "eb324e42a6368d4fb8b376831bb42b73fc3329fd40d763a62452631493913fb3",
+        "sha256_final": "eb324e42a6368d4fb8b376831bb42b73fc3329fd40d763a62452631493913fb3",
+        "identical": true
+      },
+      {
+        "id": "section:Conclusion",
+        "bytes": 1902,
+        "sha256_baseline": "904e0f24e1f8fc74a5ec0fc99152fa0b3a8a6608d14d10da2d562e1f242283ed",
+        "sha256_final": "904e0f24e1f8fc74a5ec0fc99152fa0b3a8a6608d14d10da2d562e1f242283ed",
+        "identical": true
+      },
+      {
+        "id": "section:Data Availability",
+        "bytes": 1588,
+        "sha256_baseline": "073d87fffbf29adb30194208f2e5afbabc73bb3103715d2998cc98cd44866633",
+        "sha256_final": "073d87fffbf29adb30194208f2e5afbabc73bb3103715d2998cc98cd44866633",
+        "identical": true
+      }
+    ],
+    "supplementary.tex": [
+      {
+        "id": "equation:eq:supp-margin-calibration",
+        "bytes": 430,
+        "sha256_baseline": "805f08765bd53cc79863d79dd697737cabb470f3f958dfb2d3dbef0ced00e0f0",
+        "sha256_final": "805f08765bd53cc79863d79dd697737cabb470f3f958dfb2d3dbef0ced00e0f0",
+        "identical": true
+      },
+      {
+        "id": "equation:2",
+        "bytes": 74,
+        "sha256_baseline": "9f006d26a06a2c448c81718959386cd33c6b2be159efbf56373d04ed47d684ab",
+        "sha256_final": "9f006d26a06a2c448c81718959386cd33c6b2be159efbf56373d04ed47d684ab",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:supp-candidate-risk",
+        "bytes": 127,
+        "sha256_baseline": "1a5344176d61f6d3b3a8ad1acfcd025e32765a4e7e2b95b8b52bdd29c7152cd8",
+        "sha256_final": "1a5344176d61f6d3b3a8ad1acfcd025e32765a4e7e2b95b8b52bdd29c7152cd8",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:supp-ideal-target",
+        "bytes": 161,
+        "sha256_baseline": "f37b4cc30f97e74fdca1a20b62ecc804523a307f95f65d8f2fe90189fac15269",
+        "sha256_final": "f37b4cc30f97e74fdca1a20b62ecc804523a307f95f65d8f2fe90189fac15269",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:supp-validation-error",
+        "bytes": 177,
+        "sha256_baseline": "fbb1610d89187614b08b16274b56a867786164b0cb772613ebbf0b9136058dc6",
+        "sha256_final": "fbb1610d89187614b08b16274b56a867786164b0cb772613ebbf0b9136058dc6",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:supp-expected-loss",
+        "bytes": 178,
+        "sha256_baseline": "36a43eabf98e9ecdd1d15805c6e7a1803f585b401c24a212e498590ca2e04270",
+        "sha256_final": "36a43eabf98e9ecdd1d15805c6e7a1803f585b401c24a212e498590ca2e04270",
+        "identical": true
+      },
+      {
+        "id": "equation:eq:supp-sufficient-condition",
+        "bytes": 108,
+        "sha256_baseline": "4f491849c657b9bc91ada774254c88cc1449a221d88584848b5691cd71ad0351",
+        "sha256_final": "4f491849c657b9bc91ada774254c88cc1449a221d88584848b5691cd71ad0351",
+        "identical": true
+      }
+    ]
+  },
+  "frozen_resource_files": [
+    {
+      "path": "cas-common.sty",
+      "bytes": 76688,
+      "sha256": "e95a01f4b33531d01ade231669fcc1e42f52193dddcb22ead5b63240eb952f8f",
+      "sha256_final": "e95a01f4b33531d01ade231669fcc1e42f52193dddcb22ead5b63240eb952f8f",
+      "identical": true
+    },
+    {
+      "path": "cas-model2-names.bst",
+      "bytes": 31802,
+      "sha256": "6f6204eb7670d762042ab363c2d05cf87196052bfbdf6dbee51a1327a8ce479a",
+      "sha256_final": "6f6204eb7670d762042ab363c2d05cf87196052bfbdf6dbee51a1327a8ce479a",
+      "identical": true
+    },
+    {
+      "path": "cas-sc.cls",
+      "bytes": 4410,
+      "sha256": "5030545ed09c770afa31004817bf8626ca7f311cf795e6c2825ecae113bb42e9",
+      "sha256_final": "5030545ed09c770afa31004817bf8626ca7f311cf795e6c2825ecae113bb42e9",
+      "identical": true
+    },
+    {
+      "path": "figures/fig1.pdf",
+      "bytes": 1757346,
+      "sha256": "422b4e57c1c310e539844af139d24bd31dd6b815034df9323ace87ccc0d06062",
+      "sha256_final": "422b4e57c1c310e539844af139d24bd31dd6b815034df9323ace87ccc0d06062",
+      "identical": true
+    },
+    {
+      "path": "figures/fig10.pdf",
+      "bytes": 18065,
+      "sha256": "eafa68535fdc3357d91d6e3f7ca3bc9b71c5cab46109d92295e12c11918bd88e",
+      "sha256_final": "eafa68535fdc3357d91d6e3f7ca3bc9b71c5cab46109d92295e12c11918bd88e",
+      "identical": true
+    },
+    {
+      "path": "figures/fig11.pdf",
+      "bytes": 24105,
+      "sha256": "1ec9b0f5f78bdf600eb779e4985ddbfd8a1e9db78cd98b57231b9a08b09d005f",
+      "sha256_final": "1ec9b0f5f78bdf600eb779e4985ddbfd8a1e9db78cd98b57231b9a08b09d005f",
+      "identical": true
+    },
+    {
+      "path": "figures/fig12.pdf",
+      "bytes": 281696,
+      "sha256": "4588c761660b3d74bb00758b688c7dece8fb13c4ac8a326c14d5d32d41ac0d33",
+      "sha256_final": "4588c761660b3d74bb00758b688c7dece8fb13c4ac8a326c14d5d32d41ac0d33",
+      "identical": true
+    },
+    {
+      "path": "figures/fig2.pdf",
+      "bytes": 770069,
+      "sha256": "fd1aaeb94288e8c125ae65924997752b7be4ae29d6d11cab304add4992441ba8",
+      "sha256_final": "fd1aaeb94288e8c125ae65924997752b7be4ae29d6d11cab304add4992441ba8",
+      "identical": true
+    },
+    {
+      "path": "figures/fig3.pdf",
+      "bytes": 472876,
+      "sha256": "651624d984f5ef6b6a0ceec033d6a2648f6214b470da01a26c2ba30837c83bf3",
+      "sha256_final": "651624d984f5ef6b6a0ceec033d6a2648f6214b470da01a26c2ba30837c83bf3",
+      "identical": true
+    },
+    {
+      "path": "figures/fig5.pdf",
+      "bytes": 72874,
+      "sha256": "7c4297342930093b3b5a0ddf736464a4f31cdbca560723253f07902089d2dfed",
+      "sha256_final": "7c4297342930093b3b5a0ddf736464a4f31cdbca560723253f07902089d2dfed",
+      "identical": true
+    },
+    {
+      "path": "figures/fig6.pdf",
+      "bytes": 22145,
+      "sha256": "40bfbf673a6ae68d87a1feed5727c9ad690090cdbeb86625c76ae0268cd63bf3",
+      "sha256_final": "40bfbf673a6ae68d87a1feed5727c9ad690090cdbeb86625c76ae0268cd63bf3",
+      "identical": true
+    },
+    {
+      "path": "figures/fig7.pdf",
+      "bytes": 18528,
+      "sha256": "0e83ecd59a7f21c228af6cbd4d699275b80530749ba1a7d67128b5e3becdb835",
+      "sha256_final": "0e83ecd59a7f21c228af6cbd4d699275b80530749ba1a7d67128b5e3becdb835",
+      "identical": true
+    },
+    {
+      "path": "figures/fig8.pdf",
+      "bytes": 14686,
+      "sha256": "75232e2b067797a00adff61a3f953108de428e4ff5a695f794c2392546fbdb6e",
+      "sha256_final": "75232e2b067797a00adff61a3f953108de428e4ff5a695f794c2392546fbdb6e",
+      "identical": true
+    },
+    {
+      "path": "figures/fig9.pdf",
+      "bytes": 15261,
+      "sha256": "5d8938af626e7cdccf01608c87496c914accac612cd0a07d5f41e15e34b47ba8",
+      "sha256_final": "5d8938af626e7cdccf01608c87496c914accac612cd0a07d5f41e15e34b47ba8",
+      "identical": true
+    },
+    {
+      "path": "figures/fig_alibaba_corrected_calibration.pdf",
+      "bytes": 38877,
+      "sha256": "d0acc06f3929ff2e690eb6dc8d844e42c330be3c50e783eb53913290f3521c9a",
+      "sha256_final": "d0acc06f3929ff2e690eb6dc8d844e42c330be3c50e783eb53913290f3521c9a",
+      "identical": true
+    },
+    {
+      "path": "figures/fig_alibaba_corrected_heldout.pdf",
+      "bytes": 38407,
+      "sha256": "dd349e3d36b0ff837af4b66377a6cf4f5ad112479ec310427fd2ff916ee78eb4",
+      "sha256_final": "dd349e3d36b0ff837af4b66377a6cf4f5ad112479ec310427fd2ff916ee78eb4",
+      "identical": true
+    },
+    {
+      "path": "figures/fig_bitbrains_gain.pdf",
+      "bytes": 19237,
+      "sha256": "853a287ebda3692adb07919c101ef72277179e55fb47a38d815b4ca4b19e251b",
+      "sha256_final": "853a287ebda3692adb07919c101ef72277179e55fb47a38d815b4ca4b19e251b",
+      "identical": true
+    },
+    {
+      "path": "figures/fig_overall_performance_ours.pdf",
+      "bytes": 25789,
+      "sha256": "55572e4452460c0202e1a04a6492ed1fc9beaf4e48fc71ae3f012bcae84bee4b",
+      "sha256_final": "55572e4452460c0202e1a04a6492ed1fc9beaf4e48fc71ae3f012bcae84bee4b",
+      "identical": true
+    },
+    {
+      "path": "figures/fig_r5_devfixed_gain.pdf",
+      "bytes": 18989,
+      "sha256": "d2c952abf9eab11327655c93d2b47858e8394f4c00e0d43954ba8f9aa82f29ab",
+      "sha256_final": "d2c952abf9eab11327655c93d2b47858e8394f4c00e0d43954ba8f9aa82f29ab",
+      "identical": true
+    },
+    {
+      "path": "tables/table1_configuration.tex",
+      "bytes": 1920,
+      "sha256": "4d0aa2c3dd26ca04969949ebe27ab50c48df8deb5542cab47ba385dbffbf79a7",
+      "sha256_final": "4d0aa2c3dd26ca04969949ebe27ab50c48df8deb5542cab47ba385dbffbf79a7",
+      "identical": true
+    },
+    {
+      "path": "tables/table3_target_cost.tex",
+      "bytes": 1054,
+      "sha256": "d932f1add1d34e9d606de9b482e82442e2f81525482ad1051bd8afc1270fba00",
+      "sha256_final": "d932f1add1d34e9d606de9b482e82442e2f81525482ad1051bd8afc1270fba00",
+      "identical": true
+    }
+  ],
+  "figure_count": 16,
+  "external_table_count": 2,
+  "main_numbered_equation_count": 13,
+  "algorithm_count": 1,
+  "changed_existing_files": [
+    "main.tex",
+    "supplementary.tex"
+  ],
+  "new_files": [],
+  "deleted_files": []
+}

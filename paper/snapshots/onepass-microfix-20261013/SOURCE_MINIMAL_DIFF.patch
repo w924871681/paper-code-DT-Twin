@@ -1,0 +1,94 @@
+diff --git a/baseline/main.tex b/onepass/main.tex
+index f04c0c2..bab2e2c 100644
+--- a/baseline/main.tex
++++ b/onepass/main.tex
+@@ -698,9 +698,12 @@ support and validation sets retain the roles defined in Section~4.3, whereas the
+ provides independent evidence for evaluating the resulting selection during
+ calibration. For a given margin, the harmful-selection rate is the fraction of
+ all calibration cases in which an alternative is selected and its check-set
+-loss exceeds that of the adapted reference. The paired-initialization control
+-uses a second source-trained initialization of the reference architecture and
+-provides a same-architecture control for source-initialization effects.
++loss exceeds that of the adapted reference. The paired-initialization control adapts both source-trained A57 candidates on
++the same support set and applies the same relative-margin rule at each $\tau$ to
++select one using validation loss. The selected model's check-set loss is the
++paired-control denominator; because the two source-training recipes differ, this
++is a same-architecture selection control rather than a random-seed-only
++comparison.
+ 
+ Let $\mathcal{T}$ be a preset margin set. For $\tau\in\mathcal{T}$, let
+ $\widehat R_{\mathrm{harm}}(\tau)$ denote the observed harmful-selection rate.
+@@ -885,7 +888,7 @@ held-out target cases. All selected models satisfy both deployment limits.
+ 
+ \paperfig[trim={0bp 10bp 0bp 0bp},clip]{0.98\linewidth}
+ {fig_overall_performance_ours.pdf}
+-{Predictive performance on the held-out target cases. Panels (a)--(d) show MAE, MSE, Worst-10\% error, and CVaR90, respectively. Lower values are better.}
++{Predictive performance on the held-out target cases. Panels (a)--(d) show MAE, MSE, Worst-10\% error, and CVaR90, respectively. Lower values are better. NAS-related labels denote task-matched control implementations, not exact reproductions of published algorithms.}
+ {fig:overall-performance}
+ 
+ MSA-DTI gives the lowest values for all four error measures. Compared with
+@@ -1063,8 +1066,8 @@ implications remain host-dependent.
+ \label{subsec:component}
+ 
+ Table~\ref{tab:component} reports component variants on an independent
+-diagnostic pool. The reference-only and two-reference-initialization variants
+-do not reproduce the cross-architecture gain. Without the relative margin,
++diagnostic pool. The reference-only and two-reference-initialization variants do not reproduce
++the gain of the complete heterogeneous-bank pipeline. Without the relative margin,
+ diagnostic MSE is nearly unchanged, while the harmful-selection rate increases
+ from 15.00\% to 17.50\%. The individual rate intervals overlap, but this is
+ not a paired test of the difference. The increase is reported descriptively. Removing deployment
+@@ -1073,7 +1076,7 @@ filtering slightly lowers MSE but reduces limit satisfaction from 100\% to
+ 
+ Overall, the main held-out result evaluates the complete MSA-DTI pipeline,
+ while the diagnostic controls distinguish the roles of individual design
+-choices. The cross-architecture gain remains sensitive to source training. The
++choices. The heterogeneous-bank pipeline gain remains sensitive to source training. The
+ relative margin mainly affects replacement conservativeness, whereas
+ deployment filtering enforces limit satisfaction.
+ 
+diff --git a/baseline/supplementary.tex b/onepass/supplementary.tex
+index a07b41b..2277a6a 100644
+--- a/baseline/supplementary.tex
++++ b/onepass/supplementary.tex
+@@ -397,7 +397,7 @@ between MSA-DTI and the main baselines on the 80 held-out cases.
+ \begin{tabular}{lrrr}
+ \toprule
+ Baseline
+-& MSE win rate (\%)
++& Strict MSE wins (\%)
+ & Mean paired MSE reduction (\%)
+ & 95\% CI (\%) \\
+ \midrule
+@@ -900,6 +900,31 @@ historical features, and role-disjoint chronological windows; $H=1,4$ means
+ next one or four native records. Typical elapsed horizons are about 300 and
+ 1200 seconds, although irregular record gaps cause variation.
+ 
++\par\smallskip
++\begingroup
++\footnotesize
++\renewcommand{\arraystretch}{1.08}
++\setlength{\tabcolsep}{3pt}
++\noindent\textbf{Frozen Bitbrains data protocol.}\par\smallskip
++\noindent\begin{tabularx}{\linewidth}{@{}p{0.18\linewidth}Y@{}}
++\toprule
++Item & Definition or actual per-VM window counts \\
++\midrule
++Qualification & Fixed 11-column schema; finite integer Unix-second timestamps in $[10^9,2\times10^9)$, strictly increasing; finite nonnegative CPU labels; at least 3,000 post-first-day records and 50 complete source windows for each horizon. Every $H/K$ case requires exactly $K$ support windows and at least 80/60/200 validation/check/test windows. These predicates yield 1,082 eligible VMs before identity selection. \\
++Timeline & Source uses records in $[t_0,t_0+86{,}400\,\mathrm{s})$, where $t_0$ is each VM's first timestamp (observed first-to-last span 86,107 s); target uses the first 3,000 native records at/after that cutoff (observed spans 899,799--903,397 s). Support contains $96+H+K-1$ raw records; remaining records follow normalized $0.2{:}0.1{:}0.1$ validation/check/test allocation, with floors then largest remainders and earlier-segment tie priority. \\
++Channels & Ten raw fields: CPU cores, capacity, MHz usage and percent usage; memory capacity/usage; disk read/write and network received/transmitted throughput. Add trailing-five CPU mean and first difference, their 12 corresponding validity masks, and preceding elapsed seconds/1,200. Invalid inputs use causal forward fill from initial zero; masks retain invalidity. Fill, mean, difference and gap state restart at every raw role boundary. \\
++$H=1,K=10$ & $(10,\;1{,}351,\;628,\;627)$ \\
++$H=1,K=20$ & $(20,\;1{,}346,\;625,\;625)$ \\
++$H=4,K=10$ & $(10,\;1{,}346,\;624,\;624)$ \\
++$H=4,K=20$ & $(20,\;1{,}342,\;621,\;621)$ \\
++Frozen entry & \href{https://github.com/w924871681/paper-code-DT-Twin/releases/download/evidence-full-20261013/MSA_DTI_R5_Bitbrains_ResearchAssets_PUBLIC_PATHSAFE_20261013.zip}{Public protocol asset}: \path{code/experiments/r4_r5/bitbrains_data.py} and \path{bitbrains/data/bitbrains_dataset_manifest.json}. \\
++\bottomrule
++\end{tabularx}
++\par\smallskip
++\noindent Count order is support, validation, calibration check, and held-out test; counts are constant within the corresponding VM groups. Validation applies to calibration and held-out cases; development-fixed uses support/check only. These are windows, which may share label endpoints.
++\endgroup
++\par\smallskip
++
+ Within each held-out case, MSA-DTI and each comparator use the same observed
+ Test targets. Support adaptation uses $K=10$ or $20$ windows per model with
+ 50 SGD/MSE updates. The pretrained seven-token bank, per-model feasibility
