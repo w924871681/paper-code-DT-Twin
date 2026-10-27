@@ -20,6 +20,10 @@ of source-trained digital-twin models under operation and parameter limits.
   used by the evaluation pipeline; `selection/replay_selection.py` checks the
   published 360 evaluation decisions using saved post-adaptation validation
   scores and resource counts.
+- `reproduction/`: verified paper-model checkpoints and a provenance-labelled
+  snapshot of the experiment, preselection, source-training and baseline code.
+  Additional source weights are provided as separate release assets; see
+  `reproduction/README.md` for their identities and limitations.
 - `verify_results.py`: recomputes selected summary statistics and checks the
   provided task-level records; `build.ps1` compiles both LaTeX documents twice.
 
@@ -52,9 +56,12 @@ interval over VMs does not turn it into independent blind confirmation.
 
 The release allows verification of the reported aggregate data, replay of the
 saved-score selection decisions, figure regeneration and LaTeX compilation.
-It does **not** include a complete, portable training and inference pipeline
-or all source checkpoints. It therefore does not by itself reproduce every
-experiment from raw Bitbrains measurements. The trace is available from
+The release now also provides the 14 paper-model source checkpoints, the
+baseline source weights and the frozen preliminary synthetic initialization
+bank. The archived execution scripts retain their original environment and
+path assumptions; a clean raw-data-to-results rerun has not been verified.
+The original per-case C3-0 preselection evidence has not yet been located in
+the checked archives. See `reproduction/README.md` for the exact scope. The trace is available from
 the [Grid Workloads Archive](https://atlarge-research.com/gwa-t-12/); follow
 its attribution conditions when using it.
 

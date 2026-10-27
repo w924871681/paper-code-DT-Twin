@@ -8,7 +8,7 @@ display scaled units; this changes labels, not the stored values.
 |---|---|
 | individual_results.csv | 2,880 task records: eight methods × three budgets × 120 tasks |
 | baseline_summary.csv | Exact method/budget aggregates and paired uncertainty summaries |
-| overall.csv | Four medium-budget metrics for Figure 5 and Table 3 |
+| overall.csv | Four medium-budget metrics for Figure 5 |
 | paired.csv | 120 paired MSA-DTI/PT+FT tasks; selection categories are relative to adapted A55 |
 | subgroups.csv | Task-relative gains and paired-VM intervals for Figure 7 |
 | source_sensitivity.csv | Six source-pool/seed conditions for Figure 8 and Table S8 |
