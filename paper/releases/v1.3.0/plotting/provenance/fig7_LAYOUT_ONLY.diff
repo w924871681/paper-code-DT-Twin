@@ -1,0 +1,28 @@
+--- original15_style_restoration:forest
++++ original15_style_compact:forest
+@@ -1,20 +1,20 @@
+ def forest(data, folder, fixture=False):
+-    rr=rows(data);style();w,h=474.54999,183.5294;fig=canvas(w,h)
+-    axes=[pdfaxis(fig,w,h,77.160,2.160,256.008,134.136),pdfaxis(fig,w,h,327.867,2.160,468.390,134.136)]
++    rr=rows(data);style();w,h=467.69099,177.5294;fig=canvas(w,h)
++    axes=[pdfaxis(fig,w,h,77.160,2.160,256.008,134.136),pdfaxis(fig,w,h,321.008,2.160,461.531,134.136)]
+     xmax=30 if fixture else 70
+     for i,(ax,panel,color,marker) in enumerate(zip(axes,['H/K','Center type' if fixture else 'Deployment budget'],['#1f77b4','#43a581'],['o','s'])):
+         r=[x for x in rr if x['panel']==panel];means=np.array([float(x['gain_percent']) for x in r]);lo=np.array([float(x['ci_low_percent']) for x in r]);hi=np.array([float(x['ci_high_percent']) for x in r]);y=np.arange(len(r))[::-1]
+         assert np.all(lo>=0) and np.all(hi<=xmax),'Axis must include every CI'
+         ax.errorbar(means,y,xerr=np.vstack([means-lo,hi-means]),fmt=marker,color=color,mfc=color,mec=color,markersize=5,markeredgewidth=1,capsize=3,lw=1.25)
+-        for yi,m in zip(y,means):ax.text(m+xmax*.015,yi,str(Decimal(str(m)).quantize(Decimal('.1'),rounding=ROUND_HALF_UP)),color=color,va='center',fontsize=7.2)
++        for yi,m in zip(y,means):ax.annotate(str(Decimal(str(m)).quantize(Decimal('.1'),rounding=ROUND_HALF_UP)),(m,yi),xytext=(3,3),textcoords='offset points',color=color,va='bottom',fontsize=7.2)
+         labels=[]
+         for x in r:
+             if i==0:
+                 hh,kk=x['group'].split(', ');labels.append('$'+hh+r',\ '+kk+'$'+f" (n={x.get('cases','30')})")
+             else:labels.append(('Type '+x['group'] if fixture else x['group'])+f" (n={x.get('cases','120')})")
+-        ax.set_yticks(y,labels);ax.set_ylim(-.05*(len(r)-1),1.05*(len(r)-1));ax.set_xlim(0,xmax);ax.xaxis.set_major_locator(MultipleLocator(5 if fixture else 10))
++        ax.set_yticks(y,labels);ax.set_ylim(-.08*(len(r)-1),1.15*(len(r)-1));ax.set_xlim(0,xmax);ax.xaxis.set_major_locator(MultipleLocator(5 if fixture else 10))
+         ax.set_xlabel('MSE reduction relative to PT+FT (%)',labelpad=4)
+         ax.grid(axis='x',color='#d9d9d9',lw=.6,ls=':');ax.set_axisbelow(True);ax.spines[['top','right']].set_visible(False)
+         ax.tick_params(axis='both',width=.8,length=3.5,pad=4)
+-    for x,caption in [(166.584,'(a) Horizon and support size'),(398.1285,'(b) Target center type' if fixture else '(b) Deployment budget')]:fig.text(x/w,5.0/h,caption,ha='center',va='bottom',fontsize=8.4)
++    for x,caption in [(166.584,'(a) Horizon and support size'),(391.2695,'(b) Target center type' if fixture else '(b) Deployment budget')]:fig.text(x/w,5.0/h,caption,ha='center',va='bottom',fontsize=8.4)
+     save(fig,folder,'fig7',dict(source_mode='original PDF style restored; matching historical script not recovered',data_sha256=sha(data),all_ci_visible=True,x_limits=[0,xmax],uncertainty='existing ancestor-VM bootstrap intervals, no resampling'))

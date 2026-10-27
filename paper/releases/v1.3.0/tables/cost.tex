@@ -1,0 +1,18 @@
+\begin{table}[pos=!htbp]
+\centering\footnotesize
+\caption{Model complexity and measured target-pipeline cost.}\label{tab:cost}
+\begin{tabular}{lrrrrr}
+\toprule
+Method & Params. ($10^3$) & Ops. ($10^6$) & Adapt. & Mean (s) & Range (s)\\\midrule
+PT+FT & 5.75 & 1.051 & 1 & 1.971 & 1.546--3.548\\
+MeDeT-style & 5.75 & 1.051 & 1 & 2.040 & 1.566--4.594\\
+Scratch50 & 5.75 & 1.051 & 1 & 2.016 & 1.569--5.096\\
+Meta+NAS-lite & 50.09 & 1.225 & 12 & 14.816 & 6.525--37.954\\
+Zero-shot NAS & 78.81 & 0.157 & 0 & 2.667 & 0.977--4.480\\
+Zero-shot NAS + FT & 57.57 & 1.633 & 12 & 15.042 & 5.896--25.108\\
+H-Meta-NAS-based & 23.14 & 1.797 & 12 & 11.208 & 4.485--19.314\\
+MSA-DTI & 34.73 & 0.512 & 7 & 8.124 & 6.605--9.617\\
+\bottomrule
+\end{tabular}
+\par\vspace{3pt}\begin{minipage}{\linewidth}\footnotesize Resource counts are means over 120 medium-budget tasks. Adapt. counts candidate adaptation runs, each with 50 updates. Timing uses five repetitions for each of 12 horizon/support/budget settings on Cal VM 1204. Ranges span setting means.\end{minipage}
+\end{table}

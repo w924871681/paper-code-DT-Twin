@@ -1,0 +1,16 @@
+\begin{table}[pos=!htbp]
+\centering\footnotesize
+\caption{Source-training sensitivity (errors in $10^{-2}$ units).}\label{tab:s-source}
+\begin{tabular}{llrrrrrr}
+\toprule
+VMs / seed & Ref. & $\tau$ & MSE & MAE & Worst-10\% & CVaR90 & Harm\\\midrule
+5 / 2904 & A57-PT & 0.125 & 0.9253 & 3.1955 & 3.5559 & 7.8912 & 2.50\%\\
+10 / 2904 & A57-PT & 0.075 & 0.5778 & 2.5996 & 3.2157 & 4.6889 & 3.33\%\\
+15 / 2904 & A56 & 0 & 0.4658 & 2.2216 & 2.8728 & 3.7903 & 2.50\%\\
+20 / 2904 & A55 & 0.05 & 0.4488 & 2.0543 & 2.8011 & 3.6825 & 4.17\%\\
+20 / 2905 & A56 & 0 & 0.4728 & 2.1490 & 2.9780 & 3.8825 & 11.67\%\\
+20 / 2906 & A57-PT & 0 & 0.4518 & 2.0789 & 2.8611 & 3.6657 & 5.83\%\\
+\bottomrule
+\end{tabular}
+\par\vspace{3pt}\begin{minipage}{\linewidth}\footnotesize All rows use the same evaluation VMs and 20-VM source-fitted normalization. References and margins are selected separately for each bank; harm is relative to that bank\textquotesingle s reference.\end{minipage}
+\end{table}

@@ -1,4 +1,23 @@
-# Adaptation-Aware Model Selection for Few-Shot Digital Twin Instantiation under Deployment Limits
+# Adaptation-Aware Model Selection for Few-Shot Digital Twin Instantiation
+
+## Current manuscript and reproducibility materials — v1.3.0
+
+The current Bitbrains-based MSA-DTI manuscript, supplement, experimental-figure
+scripts, source data and selection-rule replay are in
+[`paper/releases/v1.3.0/`](paper/releases/v1.3.0/). See that directory's README
+for scope, commands and the limits of the released artifacts. The current
+manuscript uses a development-selected A55 reference and a separately calibrated
+relative margin. This is a retrospective, non-blind same-source evaluation.
+
+The material below describes the earlier, frozen **v1.2.7** manuscript and
+evidence releases. Those results use a different reference and evaluation
+setting; they are retained for historical provenance and must not be mixed
+with v1.3.0 results. `paper/current/` in that older description is the 2026-10-13
+manuscript, not the current v1.3.0 manuscript.
+
+---
+
+## Earlier v1.2.7 archive
 
 This repository is the reproducibility archive for **Adaptation-Aware Model
 Selection for Few-Shot Digital Twin Instantiation under Deployment

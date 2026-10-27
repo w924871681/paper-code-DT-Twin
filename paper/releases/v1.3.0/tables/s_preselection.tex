@@ -1,0 +1,13 @@
+\begin{table}[!htbp]
+\centering\footnotesize
+\caption{Development-pool preselection sensitivity at the medium budget.}\label{tab:s-preselection}
+\begin{tabular}{lrrrrrlrrr}
+\toprule
+Pool & VMs & Tasks & $t=1$ & $t=2$ & $t=3$ & Ref. & $\tau$ & MSE ($10^{-2}$) & Harm\\\midrule
+Full Dev & 20 & 80 & 28 & 22 & 8 & A61 & 0 & 0.4464 & 10.00\%\\
+Subset 1 & 7 & 28 & 19 & 13 & 3 & A61 & 0.05 & 0.4516 & 11.67\%\\
+Subset 2 & 7 & 28 & 11 & 8 & 2 & A55 & 0.05 & 0.4444 & 10.00\%\\
+Subset 3 & 6 & 24 & 11 & 9 & 5 & A57-PT & 0 & 0.4575 & 5.00\%\\
+\bottomrule\end{tabular}
+\par\vspace{3pt}\begin{minipage}{\linewidth}\footnotesize Threshold columns count retained architecture configurations. Downstream banks use $t=2$ and include A57-PT as an additional reusable record. The three subsets partition the 20-VM development pool; the full-pool analysis overlaps all three.\end{minipage}
+\end{table}

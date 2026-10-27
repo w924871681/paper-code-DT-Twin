@@ -1,0 +1,17 @@
+\begin{table}[pos=!htbp]
+\centering\small
+\caption{Relative-margin calibration on 20 VMs (80 tasks).}\label{tab:s-cal}
+\begin{tabular}{rrrrc}
+\toprule
+$\tau$ & MSE ($10^{-3}$) & Harm/80 & Switch/80 & Selected\\\midrule
+0 & 2.852792300 & 4 & 64 & \\
+0.05 & 2.842945390 & 2 & 62 & Yes\\
+0.075 & 2.842991255 & 2 & 59 & \\
+0.1 & 2.842991255 & 2 & 59 & \\
+0.125 & 2.842991255 & 2 & 59 & \\
+0.15 & 2.863254059 & 2 & 57 & \\
+0.2 & 2.901653996 & 2 & 53 & \\
+\bottomrule
+\end{tabular}
+\par\vspace{3pt}\begin{minipage}{\linewidth}\footnotesize The reference-only calibration MSE is 0.003037474. All seven margins satisfy the empirical 5\% harm criterion; $\tau=0.05$ minimizes selected-model MSE. Values use equal weighting across VMs.\end{minipage}
+\end{table}

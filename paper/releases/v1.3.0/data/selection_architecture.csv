@@ -1,0 +1,16 @@
+﻿budget,architecture,count,percent
+tight,Ref. GRU-16,38,31.666666666666664
+medium,Ref. GRU-16,31,25.833333333333336
+loose,Ref. GRU-16,31,25.833333333333336
+tight,Alt. GRU-32,82,68.33333333333333
+medium,Alt. GRU-32,40,33.33333333333333
+loose,Alt. GRU-32,40,33.33333333333333
+tight,2-layer MLP-32,0,0.0
+medium,2-layer MLP-32,2,1.6666666666666667
+loose,2-layer MLP-32,2,1.6666666666666667
+tight,3-layer MLP-32,0,0.0
+medium,3-layer MLP-32,45,37.5
+loose,3-layer MLP-32,45,37.5
+tight,4-layer MLP-32,0,0.0
+medium,4-layer MLP-32,2,1.6666666666666667
+loose,4-layer MLP-32,2,1.6666666666666667

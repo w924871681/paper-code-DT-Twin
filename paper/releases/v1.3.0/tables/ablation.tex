@@ -1,0 +1,17 @@
+\begin{table}[pos=!htbp]
+\centering\footnotesize
+\caption{Component controls at the medium budget (errors in $10^{-2}$ units).}\label{tab:ablation}
+\begin{tabular}{lrrrrrr}
+\toprule
+Variant & $\tau$ & MSE & MAE & Worst-10\% & CVaR90 & Harm\\\midrule
+MSA-DTI & 0.05 & 0.4488 & 2.0543 & 2.8011 & 3.6825 & 4.17\%\\
+Reference only (A55) & --- & 0.4669 & 2.3874 & 2.8904 & 3.6736 & 0.00\%\\
+Without relative margin & 0 & 0.4537 & 2.0376 & 2.8531 & 3.7230 & 12.50\%\\
+Fixed A57-PT reference & 0 & 0.4537 & 2.0376 & 2.8531 & 3.7230 & 12.50\%\\
+Reference only (A57-PT) & --- & 0.4820 & 2.3692 & 2.9974 & 3.8389 & 0.00\%\\
+Two A57 initializations & 0.1 & 0.4749 & 2.2552 & 2.9509 & 3.8389 & 0.83\%\\
+Alternative source recipe & 0.2 & 0.4556 & 2.0905 & 2.8203 & 3.6736 & 0.00\%\\
+\bottomrule
+\end{tabular}
+\par\vspace{3pt}\begin{minipage}{\linewidth}\footnotesize Harm is relative to each row\textquotesingle s own adapted reference over all 120 tasks. Each applicable margin is calibrated on Cal20. The fixed-A57 control changes reference designation and recalibrates its margin.\end{minipage}
+\end{table}
