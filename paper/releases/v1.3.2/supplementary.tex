@@ -1,0 +1,324 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=23mm,top=21mm,bottom=23mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{stix}
+\usepackage{graphicx,booktabs,array,tabularx,microtype}
+\usepackage{caption,xparse,placeins}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\graphicspath{{figures/}}
+\captionsetup{font=small,labelfont=bf,labelsep=period,skip=5pt}
+\captionsetup[table]{position=above}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\theequation}{S\arabic{equation}}
+% Share CAS table content while using standard article floats.
+\let\originaltable\table
+\let\endoriginaltable\endtable
+\RenewDocumentEnvironment{table}{O{}}{\originaltable[!htbp]\centering}{\endoriginaltable}
+\setlength{\parskip}{1pt}
+\setlength{\parindent}{1em}
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\intextsep}{9pt plus 2pt minus 2pt}
+\setlength{\floatsep}{9pt plus 2pt minus 2pt}
+\renewcommand{\topfraction}{.94}
+\renewcommand{\bottomfraction}{.8}
+\renewcommand{\textfraction}{.06}
+\renewcommand{\floatpagefraction}{.8}
+\setcounter{totalnumber}{5}
+\setcounter{topnumber}{3}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small MSA-DTI: Supplementary Material}
+\fancyfoot[C]{\small\thepage}
+\setlength{\headheight}{14pt}
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{0pt}{-2ex plus -.5ex minus -.2ex}{.8ex plus .2ex}{\normalfont\large\bfseries}}
+\makeatother
+
+\begin{document}
+\begin{center}
+{\Large\bfseries Supplementary Material}\par\vspace{5pt}
+{\large Adaptation-Aware Model Selection for Few-Shot Digital Twin Instantiation}
+\end{center}
+This supplement provides feature definitions, model-bank specifications,
+calibration records, component sensitivities, and execution measurements
+supporting the main article. The primary method uses mean validation loss,
+a development-selected reference, and a separately calibrated relative margin.
+The evaluation is a retrospective, non-blind comparison; independence of the
+evaluation set is not established.
+
+\section{Chronology and Feature Construction}
+The Bitbrains benchmark uses disjoint groups of 20 source, 20 development,
+20 calibration, and 30 evaluation VMs. VM identities are listed in
+\texttt{data/data\_roles.json}. Within every target task, records retain their
+native chronological order. An input at origin $t$ contains records
+$t-95,\ldots,t$; its target contains CPU values at $t+1,\ldots,t+H$.
+Support windows precede the validation history. Table~\ref{tab:s-windows}
+gives the exact geometry for the four horizon/support conditions. Validation
+labels are fully observed at decision time $t_0$. The selected model predicts
+from origins $t_0,\ldots,t_0+B-1$ with fixed weights as observations arrive.
+Forecast inputs may overlap the validation history, while forecast targets
+occur strictly after the decision time.
+
+\input{tables/windows.tex}
+
+The support counts $K=10$ and $20$ specify labels used for parameter updates.
+The validation history supplies 1342--1351 complete candidate-comparison
+windows before target-validity masking. Few-shot parameter adaptation is
+therefore accompanied by a longer observed history for model selection.
+The common evaluation mask requires all $H$ target CPU values to be finite
+and nonnegative.
+
+The ten raw metrics are CPU cores, provisioned CPU capacity, CPU usage in MHz,
+CPU usage in percent, provisioned memory, used memory, disk-read throughput,
+disk-write throughput, received-network throughput, and transmitted-network
+throughput. For each raw metric, a binary validity indicator denotes a finite,
+nonnegative observation. Invalid values carry forward the latest valid value
+within the same span, with initial value zero.
+
+The nine non-CPU-percent channels are transformed as
+\begin{equation}
+z_{t,j}=\frac{\log(1+\widetilde x_{t,j})}
+{\max\{Q^{\rm src}_{0.99,j},10^{-6}\}},
+\end{equation}
+where $Q^{\rm src}_{0.99,j}$ is the pooled 99th percentile of valid
+log-transformed observations from the first 86400 seconds of the 20 source
+VMs. CPU percentage and labels are divided by 100. Two additional channels
+are the trailing mean of up to five filled CPU values and the signed CPU
+difference from the preceding record. Their masks require validity of all
+raw CPU observations entering the corresponding computation; the first
+difference and its mask are zero. The final channel is the timestamp gap in
+seconds divided by 1200, initialized at zero. Together these form 12 value
+channels, 12 validity channels, and one gap channel. Recorded CPU values above
+100\% remain valid; transforms do not clip values. All operations use current
+or past records only. Exact fitted scales and per-task indices accompany the
+paper in \texttt{source\_normalization.json} and \texttt{target\_windows.csv}.
+
+\section{Candidate Bank and Source Training}
+Architecture preselection uses 80 controlled synthetic cases (20 centers
+with four horizon/support settings) over 66 architecture configurations:
+18 MLP, 36 TCN, and 12 GRU configurations.
+The check-best and validation-selected-positive counts for the retained
+configurations A1, A6, A13, A55, A56, and A57 are, respectively,
+$(1,2)$, $(2,1)$, $(2,1)$, $(3,2)$, $(2,0)$, and $(6,7)$.
+A configuration is retained when either count reaches two. These counts
+determine the architecture set; the reusable source checkpoints are trained
+on Bitbrains observations. The additional A57-PT initialization produces
+seven candidate records from the six declared configurations.
+The original per-case preselection results and complete execution receipt were
+not found in the checked archives. Consequently, the reported preselection
+counts cannot currently be independently reconstructed from the released
+preliminary weights and code snapshots alone.
+
+\input{tables/s_bank.tex}
+
+A1, A6, A13, A55, A56, and A57-PT use Adam with MSE, learning rate
+$10^{-3}$, batch size 64, and 50 source epochs. Each source VM contributes
+100 training windows per horizon, evenly indexed among valid windows in its
+first 86400 seconds. The optimizer uses
+$\beta_1=0.9$, $\beta_2=0.999$, $\epsilon=10^{-8}$, and zero weight decay.
+A57-C1 pools the first ten valid windows per source VM and horizon. It uses
+ten source epochs of Adam/MSE followed by 180 source updates
+with a fresh Adam optimizer, Huber threshold 0.2, and sampled batches
+of 10 or 20 windows. Both stages use learning rate $10^{-3}$ and
+gradient-norm clipping at five. All seven records subsequently receive the
+same target adaptation: full-support SGD/MSE, 50 updates, learning rate
+0.01, and gradient-norm clipping at one. Source-training differences enter
+through the initializations rather than the target update budget.
+
+The one-layer GRU implementation does not apply inter-layer dropout.
+Consequently, A56 and both A57 records have the same executable GRU-32
+structure; their distinct trained parameters remain separate bank entries.
+The parameter and operation estimates in Table~\ref{tab:s-bank} use input
+shape $96\times25$ and the horizon-specific output head. The analytic
+operation estimate counts a multiplication and addition as two operations:
+a dense transform contributes $2d_{\rm in}d_{\rm out}$, each GRU layer
+contributes $6L(dh+h^2)$, and a temporal convolution contributes
+$2Lk c_{\rm in}c_{\rm out}$. Output heads and residual projections are included;
+bias additions and elementwise activations are outside this counting convention.
+
+\section{Reference Designation and Margin Calibration}
+Reference designation averages the assessment loss over four tasks within
+each development VM, then equally across the 20 development VMs. Candidates
+must satisfy every specified task/budget combination. Table~\ref{tab:s-reference}
+shows that A55 has the smallest eligible development loss. Exact development
+ties use maximum parameter count, maximum operation count, and record ID.
+
+\input{tables/reference.tex}
+
+Calibration uses the separate 20-VM pool and the same four horizon/support
+conditions. For a candidate margin, harm is a selected alternative's future
+MSE exceeding that of the adapted reference; retained-reference tasks
+contribute zero to the harm count. The denominator is all 80 calibration
+tasks. A margin is eligible when this empirical rate is at most 5\%.
+Eligible margins are compared by mean selected-model MSE, with the larger
+margin resolving exact ties. The policy retains the reference if no margin
+qualifies or the smallest eligible loss does not improve on reference-only
+loss. Table~\ref{tab:s-cal} gives the primary calibration curve.
+
+\input{tables/calibration.tex}
+
+At target selection, the primary policy uses the mean post-adaptation
+validation MSE and $\tau=0.05$. Exact candidate-score ties use parameter
+count, operation count, architecture index, and candidate record ID, in that
+order. The medium-budget policy is used at all three main deployment budgets.
+Calibration limits are empirical selection criteria; the observed evaluation
+harm rates for different source seeds are reported in Section~S6.
+
+\section{Error Metrics and Paired Uncertainty}
+For task $i$, let $\mathcal W_i$ contain rolling forecast origins with valid
+complete targets. For each origin, squared and absolute error are averaged
+over the $H$ forecast components. Task MSE and MAE average these quantities
+over $\mathcal W_i$. Worst-10\% averages the largest
+$\max\{1,\operatorname{round}(0.1|\mathcal W_i|)\}$ window-level squared errors within the task.
+The reported mean metrics average the corresponding task metrics over 120 tasks. Task-level
+CVaR90 instead averages the 12 largest task MSEs. It measures a different
+tail from Worst-10\%.
+
+The two reported relative improvements are
+\begin{align}
+G_{\rm aggregate}&=100\left(1-
+ \frac{\sum_i E_i^{\rm MSA}}{\sum_i E_i^{\rm PT}}\right),\\
+G_{\rm task}&=\frac{100}{120}\sum_i
+ \left(1-\frac{E_i^{\rm MSA}}{E_i^{\rm PT}}\right).
+\end{align}
+They are 6.88\% and 41.26\%, respectively. Their difference reflects the
+weight assigned to tasks with different baseline error magnitudes. The
+abstract reports $G_{\rm aggregate}$. The paired bootstrap resamples 30 VMs
+with replacement, keeps each sampled VM's four tasks together, and recomputes
+the statistic over 10000 draws (seed 20261026). Its percentile interval for
+$G_{\rm aggregate}$ is [4.26\%, 15.95\%]. Subgroup intervals use the same VM
+resampling unit and the subgroup's task-relative statistic. These intervals
+describe variation across the sampled VMs in this workload trace.
+
+All four main metrics use the same selected predictions. Relative to adapted
+A55, the 120 decisions comprise 84 beneficial alternatives, five harmful
+alternatives, and 31 reference retentions. A55 alone has CVaR90 0.036736
+versus 0.036825 for the complete method, although its aggregate MSE is higher.
+
+\section{Candidate Subsets, Update Counts, and Matched Optimizers}
+Figure~\ref{fig:configuration} examines three components of model selection.
+The candidate subsets are nested in the order A55, A1, A6, A13, A56, A57-C1,
+and A57-PT. A55 remains the reference. Each subset and each update-count
+condition receives its own margin calibration. Tables~\ref{tab:s-bankcurve}
+and~\ref{tab:s-updates} provide the exact values.
+
+\begin{figure}[!htbp]
+\centering\includegraphics[width=\linewidth]{figS1.pdf}
+\caption{Component sensitivities: (a) nested candidate subsets, (b) adaptation
+updates with seven candidates, and (c) the primary calibration-margin curve.
+Panels (a)--(b) report evaluation MSE; panel (c) reports calibration MSE.}
+\label{fig:configuration}
+\end{figure}
+
+The subset curve improves from 0.004669 with A55 alone to 0.004488 with seven
+records. The update curve is nonmonotonic: 20 updates yield 0.004481,
+slightly below 0.004488 at 50 updates, and agree with the 50-update candidate
+selection in 82.5\% of tasks. Thus, the results do not imply that additional
+adaptation steps always improve selection.
+
+\input{tables/s_configuration_curves.tex}
+
+The matched-optimizer comparisons in Table~\ref{tab:s-matched} use SGD/MSE,
+50 updates, learning rate 0.01, and clipping at one for every adapted candidate.
+The A55 shortlist combines A55 with the first 11 non-A55 configurations in
+the fused-ranking shortlist, using their source-trained initializations.
+The A57-PT shortlist is formed analogously. Within each shortlist, calibrated
+reference-based selection and direct validation minimization share identical
+candidates, adaptation, and scores. The last two controls apply the matched
+optimizer to the fused-ranking and support-proxy NAS shortlists.
+
+\input{tables/s_matched.tex}
+
+Direct validation minimization improves MSE from 0.004472 to 0.004429 in the
+A55 shortlist, with zero harmful selections for both policies. In the A57-PT
+shortlist it improves MSE from 0.004634 to 0.004614, while harmful selections
+increase from zero to one of 120 tasks. The relative-margin effect varies
+with the shortlist and reference.
+
+\section{Source and Architecture-Preselection Sensitivity}
+Table~\ref{tab:s-source} reports all source-pool and source-seed conditions.
+The source pools are nested; feature normalization remains fitted to the
+20-VM source pool. Each trained bank receives a development-selected reference
+and a calibrated margin. The seed-2905 and seed-2906 banks have evaluation
+harm rates of 11.67\% and 5.83\%, exceeding the 5\% empirical calibration
+criterion. Source training affects both prediction error and selection harm.
+
+\input{tables/source.tex}
+
+Table~\ref{tab:s-preselection} examines an additional bank-construction
+condition using Bitbrains development cases for architecture preselection.
+Three disjoint subsets contain seven, seven, and six VMs; their union is the
+full 20-VM development pool. Architecture evidence counts use these subsets
+or their union, after which retained configurations receive source training.
+Reference designation uses Dev20 and margin calibration uses Cal20. This
+diagnostic condition shares development data between architecture
+preselection and reference designation. The primary bank in Section~S2 uses
+the separate synthetic preselection cases.
+
+\input{tables/s_preselection.tex}
+
+The threshold-two architecture counts range from eight to 22 across pools.
+At the medium budget, MSE ranges from 0.004444 to 0.004575 and harm from
+5.00\% to 11.67\%. Bank construction changes the feasible alternatives,
+the selected reference, and the calibrated policy. The full-pool condition
+overlaps its three subsets, so these four results are dependent sensitivity
+conditions. The accompanying CSV includes tight and loose budgets as well.
+
+\section{Resource Constraints and Measured Computation}
+The primary bank has seven records at the medium and loose budgets and four
+at the tight budget. Under the tight budget, all seven records satisfy the
+operation limit, while the three MLP records exceed the parameter limit.
+The eight-record stress bank adds the source-trained temporal convolutional
+configuration A24. Its joint parameter and operation limits are 79554.5 and
+1124496, respectively. Table~\ref{tab:s-constraints} compares jointly enforced
+and single-active-limit conditions, each with its own calibrated margin.
+
+\input{tables/constraints.tex}
+
+With the eight-record bank, operation-only selection violates the joint
+parameter limit in two tasks; parameter-only selection violates the joint
+operation limit in 16 tasks. Both bounds have observable effects
+when they constrain different candidate records.
+
+The hardware measurements use Windows 11, Python 3.13.5, PyTorch 2.13.0 with
+CUDA 12.6, and an NVIDIA GeForce RTX 3060 Laptop GPU. Table~\ref{tab:s-latency}
+reports the five executable structures at both horizons on CPU and GPU.
+Each setting uses an input tensor of shape $1\times96\times25$, 100 warmup
+calls, and five batches of 1000 timed calls. The CPU runs with one thread;
+GPU measurements synchronize around the timed forward pass. A deterministic
+zero-valued input standardizes this computation benchmark. Parameter
+and operation counts describe model complexity; latency also includes
+framework, device, and sequence-execution overhead.
+
+\input{tables/s_latency.tex}
+
+Target-pipeline timing uses calibration VM 1204, four horizon/support
+conditions, and three deployment budgets. Each method/condition has one
+warmup and five measured repetitions. The timed region includes checkpoint
+loading, model construction, search proxies where applicable, adaptation,
+validation, feasibility masking, and selection. Offline source training,
+prefix construction, and subsequent forecast evaluation are separate stages.
+The MSA-DTI implementation executes all seven candidate adaptations before
+budget masking, giving mean runtime 8.124~s versus 1.971~s for PT+FT.
+These measurements describe seven-candidate execution. The feasibility-first
+algorithm in the main article instead scales its adaptation work with the
+feasible subset. The file \texttt{pipeline\_timing.csv} supplies the 96
+method/condition summaries for the eight methods, including repetition
+counts, means, standard deviations, and ranges.
+
+\section{Accompanying Data and Figure Reproduction}
+The LaTeX project includes plot-ready data and the manuscript figures.
+The data directory contains per-task errors, candidate identities, resource
+counts, and control results. The Python scripts reproduce experimental Figures
+5--9 from the accompanying plot-ready data. The selection-rule code and
+manuscript sources are available in Release v1.3.2 at
+\url{https://github.com/w924871681/paper-code-DT-Twin/releases/tag/v1.3.2}.
+The accompanying numerical records reproduce the reported summary statistics.
+Raw workload traces are obtained from the Grid Workloads Archive at
+\url{https://atlarge-research.com/gwa-t-12/}.
+
+\end{document}
+

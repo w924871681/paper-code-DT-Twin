@@ -1,0 +1,19 @@
+\begin{table}[!htbp]
+\centering\footnotesize
+\caption{Single-window inference latency on the measured host (milliseconds).}\label{tab:s-latency}
+\begin{tabular}{lrrrrrrr}
+\toprule
+Structure & $H$ & Params. & Ops. & CPU median & CPU p95 & GPU median & GPU p95\\\midrule
+A1 & 1 & 77921 & 155712 & 0.0451 & 0.0533 & 0.1469 & 0.2065\\
+A1 & 4 & 78020 & 155904 & 0.0452 & 0.0558 & 0.1322 & 0.2621\\
+A6 & 1 & 78977 & 157760 & 0.0463 & 0.0551 & 0.1627 & 0.3414\\
+A6 & 4 & 79076 & 157952 & 0.0462 & 0.0768 & 0.1485 & 0.2365\\
+A13 & 1 & 80033 & 159808 & 0.0732 & 0.1105 & 0.2207 & 0.4686\\
+A13 & 4 & 80132 & 160000 & 0.0731 & 0.0857 & 0.2025 & 0.2779\\
+A55 & 1 & 2081 & 377888 & 1.9381 & 2.3867 & 5.9565 & 8.0760\\
+A55 & 4 & 2132 & 377984 & 1.9492 & 2.4966 & 5.8619 & 7.2274\\
+A56/A57 & 1 & 5697 & 1050688 & 1.9588 & 2.3125 & 5.9442 & 10.0755\\
+A56/A57 & 4 & 5796 & 1050880 & 1.9688 & 2.4392 & 5.8404 & 7.2944\\
+\bottomrule\end{tabular}
+\par\vspace{3pt}\begin{minipage}{\linewidth}\footnotesize Each device/structure/horizon setting includes 100 warmup calls and 5000 timed calls. CPU inference uses one thread; GPU calls are synchronized. Latencies include framework and device overhead.\end{minipage}
+\end{table}

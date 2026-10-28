@@ -1,0 +1,42 @@
+[
+  {
+    "file": "historical/baselines/native_hmeta.py",
+    "sha256": "875ceea6f5b80b184300e40a175c479b3c50a5b02d07d8c24ebbbb604fe5346d",
+    "match": "baseline execution lock"
+  },
+  {
+    "file": "historical/baselines/native_main.py",
+    "sha256": "aa7de94f970818c6637741aff82ca8e4e1b88e36eb46d4315fb283a44035506d",
+    "match": "baseline execution lock"
+  },
+  {
+    "file": "historical/baselines/prefix_worker.py",
+    "sha256": "a89cb8919924db5a9922f2da81a704cbd5f57d5d3db5c54ee9c4d56339602d70",
+    "match": "baseline execution lock"
+  },
+  {
+    "file": "historical/source_training/bb_assets.py",
+    "sha256": "427f1f994e66f220fc97fbb421f65843a3ad9f79142c63b034b0f8f9ec12c7e1",
+    "match": "source training lock or recorded revision 2"
+  },
+  {
+    "file": "historical/source_training/bb_runtime.py",
+    "sha256": "a8936a36d8cf82d9ff3e57e58c065392823ac51cfa1179666f415538287d6d6b",
+    "match": "source training lock or recorded revision 2"
+  },
+  {
+    "file": "historical/source_training/bb_source_tasks.py",
+    "sha256": "c1fc7561234308828cee19c546bcae7d1177ebda2f3defebcf652e672ade2396",
+    "match": "source training lock or recorded revision 2"
+  },
+  {
+    "file": "historical/source_training/bb_teacher_native.py",
+    "sha256": "668f3ce5c0480b24c0937ac8439563c2f79f19fd6880fe13bb5d81ab084eec89",
+    "match": "source training lock or recorded revision 2"
+  },
+  {
+    "file": "historical/source_training/common.py",
+    "sha256": "366698b39682a32c4d01592276e17ef21ccc54b7ce133773df8433cf59da1ad7",
+    "match": "source training lock or recorded revision 2"
+  }
+]

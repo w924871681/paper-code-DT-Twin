@@ -1,0 +1,13 @@
+--- original_final_figures.py
++++ final_figures_120_cases.py
+@@ -177,8 +177,8 @@
+ 
+ def plot_fig6(data_dir: Path, output_dir: Path) -> dict[str, Any]:
+     rows = _read(data_dir / "fig6_paired_instantiation_data.csv")
+-    if len(rows) != 80:
+-        raise ValueError("Fig. 6 requires exactly 80 paired cases")
++    if len(rows) != 120:
++        raise ValueError("Fig. 6 requires exactly 120 paired cases")
+     categories = (
+         ("beneficial alternative", "Beneficial alternative", "#0072B2", "o"),
+         ("reference retained", "Reference retained", "#666666", "s"),

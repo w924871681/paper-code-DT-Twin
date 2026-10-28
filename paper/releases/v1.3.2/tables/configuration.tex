@@ -1,0 +1,16 @@
+\begin{table}[pos=!htbp]
+\centering\small
+\caption{Experimental configuration.}\label{tab:configuration}
+\begin{tabular}{p{0.25\linewidth}p{0.67\linewidth}}
+\toprule
+Item & Setting\\\midrule
+VM groups & Source / development / calibration / evaluation: 20 / 20 / 20 / 30\\
+Target input and output & 96 records, 25 channels; CPU utilization over $H\in\{1,4\}$ records\\
+Adaptation support & $K\in\{10,20\}$ windows; 50 SGD updates, learning rate 0.01\\
+Candidate bank & Seven source-trained records; five executable structures\\
+Reference and margin & Development-selected A55; calibration-selected $\tau=0.05$\\
+Budgets & Tight / medium / loose: operations $1.5/5/20\times10^6$; parameters $3/10/50\times10^4$\\
+Primary evaluation & Medium budget; 120 tasks clustered within 30 VMs\\
+\bottomrule
+\end{tabular}
+\end{table}

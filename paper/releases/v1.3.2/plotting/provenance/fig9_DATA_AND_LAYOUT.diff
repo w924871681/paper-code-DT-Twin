@@ -1,0 +1,39 @@
+--- original15_style_restoration:resource
++++ current_fig9:resource
+@@ -5,14 +5,12 @@
+     if fixture:
+         names=list(dict.fromkeys(r['model_configuration'] for r in select));matrix=np.array([[float(next(r['selection_rate'] for r in select if r['model_configuration']==name and r['budget_tier']==b)) for b in budgets] for name in names])*100
+     else:
+-        assert {r['model_configuration'] for r in select}=={x for _,g in ARCH_GROUPS for x in g}
+-        names=[x[0] for x in ARCH_GROUPS];matrix=np.array([[sum(float(r['selection_rate']) for r in select if r['model_configuration'] in ids and r['budget_tier']==b) for b in budgets] for _,ids in ARCH_GROUPS])*100
+-        for b in budgets:
+-            assert math.isclose(sum(float(r['selection_rate']) for r in select if r['budget_tier']==b),1,abs_tol=1e-12)
+-        csvwrite(folder.parent.parent/'data'/folder.name/'selection_architecture.csv',[dict(budget=b,architecture=name,count=round(matrix[i,j]*int(filt[j]['case_count'])/100),percent=float(matrix[i,j])) for i,name in enumerate(names) for j,b in enumerate(budgets)])
++        model_ids=['A55','A56','A57 (C1)','A57 (PT)','A1','A6','A13']
++        names=['A55 (reference)','A56','A57-C1','A57-PT','A1','A6','A13']
++        matrix=np.array([[float(next(r['selection_rate'] for r in select if r['model_configuration']==q and r['budget_tier']==b)) for b in budgets] for q in model_ids])*100
+     assert np.allclose(matrix.sum(axis=0),100)
+-    style();w,h=465.660675,132.463760;fig=canvas(w,h)
+-    a=pdfaxis(fig,w,h,25.3319,16.3545,150.9931,91.6953);b=pdfaxis(fig,w,h,241.0015,16.3545,424.4961,91.6953);c=pdfaxis(fig,w,h,432.5618,16.3545,436.3288,91.6953)
++    style();w,h=454.0,156.5;fig=canvas(w,h)
++    a=pdfaxis(fig,w,h,26,18,152,116);b=pdfaxis(fig,w,h,223,18,403,116);c=pdfaxis(fig,w,h,411,18,415,116)
+     xx=np.arange(3);width=.34
+     for delta,values,fill,edge,label in [(-width/2,[float(r['initialized_candidates_per_case']) for r in filt],'#bdbdbd','#666666','Candidates before filtering'),(width/2,[float(r['feasible_candidates_per_case_mean']) for r in filt],'#4c78a8','#3a5f85','Feasible candidates')]:
+         bars=a.bar(xx+delta,values,width,color=fill,edgecolor=edge,linewidth=.7,label=label);a.bar_label(bars,fmt='%.0f',padding=2,fontsize=7.2)
+@@ -20,13 +18,13 @@
+     a.set_xticks(xx,ticks);a.set_ylim(0,8.4);a.set_yticks(range(9));a.set_ylabel('Candidates per case',labelpad=4)
+     a.set_axisbelow(True);a.grid(axis='y',color='#d9d9d9',lw=.6,ls=':');a.spines[['top','right']].set_visible(False)
+     a.legend(frameon=False,ncol=2,loc='lower left',bbox_to_anchor=(-.04,1.04),borderaxespad=0,handlelength=1,handletextpad=.5,columnspacing=1.2,fontsize=7.6)
+-    vmax=50 if fixture else 70
++    vmax=50
+     assert matrix.max()<=vmax,'Do not silently saturate new values'
+     im=b.imshow(matrix,cmap='GnBu',vmin=0,vmax=vmax,aspect='auto',interpolation='nearest')
+     b.set_xticks(xx,ticks);b.set_yticks(range(len(names)),names)
+     for i in range(len(names)):
+-        for j in range(3):b.text(j,i,f'{matrix[i,j]:.0f}%',ha='center',va='center',fontsize=7.2,color='white' if matrix[i,j]>=vmax*.55 else '#333333')
++        for j in range(3):b.text(j,i,f'{matrix[i,j]:.1f}%',ha='center',va='center',fontsize=7.2,color='white' if matrix[i,j]>=vmax*.55 else '#333333')
+     cb=fig.colorbar(im,cax=c,ticks=range(0,vmax+1,10));cb.set_label('Selection rate (%)',labelpad=4)
+     for ax in [a,b,c]:ax.tick_params(axis='both',width=.8,length=3.5,pad=4)
+-    for x,caption in [(88.1625,'(a) Candidate filtering'),(332.7488,'(b) Final model selection')]:fig.text(x/w,4.3/h,caption,ha='center',va='bottom',fontsize=8.4)
+-    save(fig,folder,'fig8',dict(source_mode='original PDF style restored; matching historical script not recovered',data_sha256={p.name:sha(p) for p in [data/('fig8_candidate_filtering_data.csv' if fixture else 'filtering.csv'),data/('fig8_architecture_selection_data.csv' if fixture else 'selection.csv')]},architecture_mapping=None if fixture else ARCH_GROUPS,colormap='GnBu',color_limits=[0,vmax],all_candidates_counted=True))+    for ax,caption in [(a,'(a) Candidate filtering'),(b,'(b) Final model selection')]:fig.text(ax.get_position().x0+ax.get_position().width/2,4.3/h,caption,ha='center',va='bottom',fontsize=8.4)
++    save(fig,folder,'fig9',dict(source_mode='original PDF style restored; matching historical script not recovered',data_sha256={p.name:sha(p) for p in [data/('fig8_candidate_filtering_data.csv' if fixture else 'filtering.csv'),data/('fig8_architecture_selection_data.csv' if fixture else 'selection.csv')]},model_records=names,colormap='GnBu',color_limits=[0,vmax],all_candidates_counted=True))

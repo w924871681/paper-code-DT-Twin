@@ -1,0 +1,33 @@
+--- final_figures_120_cases.py
++++ final_figures_120_cases_compact.py
+@@ -34,7 +34,7 @@
+ }
+ 
+ CANVAS_SIZES: Mapping[str, tuple[float, float]] = {
+-    "fig6": (7.48, 3.0),
++    "fig6": (6.0, 3.0),
+     "fig7": (6.75, 2.7),
+     "fig8": (7.05, 1.95),
+     "fig9": (8.08, 2.32),
+@@ -187,7 +187,7 @@
+     counts = Counter(row["selection_category"] for row in rows)
+     _style()
+     fig, axes = plt.subplots(1, 2, figsize=CANVAS_SIZES["fig6"])
+-    fig.subplots_adjust(left=0.085, right=0.985, top=0.78, bottom=0.25, wspace=0.28)
++    fig.subplots_adjust(left=0.085, right=0.985, top=0.78, bottom=0.25, wspace=0.14)
+     for ax, reference_key, proposed_key in (
+         (axes[0], "pt_ft_mse", "proposed_mse"),
+         (axes[1], "pt_ft_worst10", "proposed_worst10"),
+@@ -217,8 +217,10 @@
+         ax.spines[["top", "right"]].set_visible(False)
+     handles, labels = axes[0].get_legend_handles_labels()
+     fig.legend(handles, labels, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 0.985))
+-    fig.text(0.277, 0.035, "(a) Test MSE", ha="center")
+-    fig.text(0.760, 0.035, "(b) Test Worst-10% error", ha="center")
++    fig.canvas.draw()
++    for ax, title in zip(axes, ("(a) Test MSE", "(b) Test Worst-10% error")):
++        position = ax.get_position()
++        fig.text(position.x0 + position.width / 2, 0.035, title, ha="center")
+     return _save(fig, output_dir, "fig6", tight=True)
+ 
+ 
