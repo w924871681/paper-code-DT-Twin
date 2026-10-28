@@ -1,0 +1,4 @@
+﻿budget_tier,case_count,initialized_candidates_per_case,feasible_candidates_per_case_mean
+tight,120,7,4.0
+medium,120,7,7.0
+loose,120,7,7.0

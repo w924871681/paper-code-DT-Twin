@@ -1,0 +1,16 @@
+\begin{table}[!htbp]
+\centering\footnotesize
+\caption{Candidate specifications and estimated inference complexity.}\label{tab:s-bank}
+\begin{tabular}{llrrrll}
+\toprule
+Record & Family & Layers & Width & Dropout & Params. ($H=1/4$) & Ops. ($H=1/4$)\\\midrule
+A1 & MLP & 2 & 32 & 0.1 & 77921 / 78020 & 155712 / 155904\\
+A6 & MLP & 3 & 32 & 0 & 78977 / 79076 & 157760 / 157952\\
+A13 & MLP & 4 & 32 & 0.1 & 80033 / 80132 & 159808 / 160000\\
+A55 & GRU & 1 & 16 & 0.1 & 2081 / 2132 & 377888 / 377984\\
+A56 & GRU & 1 & 32 & 0 & 5697 / 5796 & 1050688 / 1050880\\
+A57-C1 & GRU & 1 & 32 & 0.1 & 5697 / 5796 & 1050688 / 1050880\\
+A57-PT & GRU & 1 & 32 & 0.1 & 5697 / 5796 & 1050688 / 1050880\\
+\bottomrule\end{tabular}
+\par\vspace{3pt}\begin{minipage}{\linewidth}\footnotesize The declared dropout setting is inactive inside a one-layer GRU. A56, A57-C1, and A57-PT therefore share an executable structure but have different source-trained weights. Each record has separate checkpoints for the two horizons.\end{minipage}
+\end{table}
