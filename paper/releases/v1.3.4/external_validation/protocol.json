@@ -1,0 +1,2143 @@
+{
+  "version": "external-v133-2-parser-repair",
+  "frozen_at_utc": "2026-10-28T09:53:04.414798+00:00",
+  "runner_sha256": "030b3dec789e6a9c104403a72504f85f99b9d015ac2d960da60c39734dcb409a",
+  "method": "v1.3.3 Q7, A55, tau .05, mean validation loss, 50 SGD steps, source-fitted normalization, frozen budgets",
+  "selection": "support labels must all be valid; validation labels require finite nonnegative CPU at all H steps; at least B valid validation windows, else recorded failure; models selected before test",
+  "evaluation": "future targets finite and nonnegative at all H steps; retain invalid-count denominators, stop if none valid; same windows for each model; evaluate MSE MAE Worst10",
+  "gaps": "retain irregular timestamp gaps, encode elapsed seconds/1200 as frozen features; forecast horizon counts observations not clock-time",
+  "forecast_geometry": "same original T=validation end minus 1 and B=test segment length minus 96 minus H plus 1, forecast starts at T; not claim calendar-regular horizons",
+  "independence": "Materna history per user knowledge; some trace summaries exposed, 01-20 excluded; no claim absolute independence; Bitbrains later history not established",
+  "metrics_comparison": "MSA-DTI vs PT_A57_ref and A55 within same VM,H,K,budget; paired VM aggregation; all failures retained",
+  "scenarios": "only original measured traces in this run; separate predeclared synthetic scenarios later if specified",
+  "backend": "GPU CUDA, deterministic torch, native GRU, seed SHA256 external-v133|VM|H|K",
+  "cases": [
+    {
+      "id": "materna_484_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:484",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/484.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_484_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:484",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/484.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_484_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:484",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/484.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_484_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:484",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/484.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_157_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:157",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/157.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_157_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:157",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/157.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_157_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:157",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/157.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_157_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:157",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/157.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_80_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:80",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/80.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_80_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:80",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/80.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_80_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:80",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/80.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_80_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:80",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/80.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_83_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:83",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/83.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_83_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:83",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/83.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_83_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:83",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/83.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_83_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:83",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/83.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_175_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:175",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/175.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_175_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:175",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/175.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_175_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:175",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/175.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_175_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:175",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/175.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_428_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:428",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/428.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_428_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:428",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/428.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_428_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:428",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/428.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_428_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:428",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/428.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_503_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:503",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/503.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_503_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:503",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/503.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_503_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:503",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/503.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_503_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:503",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/503.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_166_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:166",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/166.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_166_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:166",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/166.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_166_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:166",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/166.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_166_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:166",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/166.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_232_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:232",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/232.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_232_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:232",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/232.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_232_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:232",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/232.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_232_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:232",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/232.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_404_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:404",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/404.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_404_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:404",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/404.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_404_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:404",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/404.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_404_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:404",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/404.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_357_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:357",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/357.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_357_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:357",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/357.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_357_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:357",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/357.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_357_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:357",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/357.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_153_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:153",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/153.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_153_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:153",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/153.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_153_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:153",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/153.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_153_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:153",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/153.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_305_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:305",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/305.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_305_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:305",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/305.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_305_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:305",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/305.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_305_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:305",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/305.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_165_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:165",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/165.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_165_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:165",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/165.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_165_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:165",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/165.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_165_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:165",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/165.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_496_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:496",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/496.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_496_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:496",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/496.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_496_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:496",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/496.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_496_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:496",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/496.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_392_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:392",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/392.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_392_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:392",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/392.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_392_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:392",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/392.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_392_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:392",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/392.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_352_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:352",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/352.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_352_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:352",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/352.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_352_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:352",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/352.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_352_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:352",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/352.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_329_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:329",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/329.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_329_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:329",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/329.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_329_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:329",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/329.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_329_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:329",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/329.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_425_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:425",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/425.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_425_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:425",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/425.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_425_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:425",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/425.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_425_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:425",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/425.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_47_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:47",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/47.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_47_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:47",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/47.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_47_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:47",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/47.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_47_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:47",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/47.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_279_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:279",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/279.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_279_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:279",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/279.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_279_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:279",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/279.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_279_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:279",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/279.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_188_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:188",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/188.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_188_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:188",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/188.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_188_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:188",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/188.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_188_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:188",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/188.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_464_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:464",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/464.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_464_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:464",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/464.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_464_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:464",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/464.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_464_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:464",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/464.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_472_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:472",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/472.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_472_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:472",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/472.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_472_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:472",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/472.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_472_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:472",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/472.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_248_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:248",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/248.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_248_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:248",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/248.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_248_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:248",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/248.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_248_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:248",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/248.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_277_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:277",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/277.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_277_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:277",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/277.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_277_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:277",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/277.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_277_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:277",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/277.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_333_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:333",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/333.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_333_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:333",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/333.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_333_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:333",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/333.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_333_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:333",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/333.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_272_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:272",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/272.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_272_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:272",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/272.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_272_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:272",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/272.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_272_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:272",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/272.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_134_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:134",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/134.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_134_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:134",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/134.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_134_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:134",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/134.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_134_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:134",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/134.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "materna_273_H1_K10",
+      "source": "materna",
+      "vm": "Materna1:273",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/273.csv",
+      "start": 0,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "materna_273_H1_K20",
+      "source": "materna",
+      "vm": "Materna1:273",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/273.csv",
+      "start": 0,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "materna_273_H4_K10",
+      "source": "materna",
+      "vm": "Materna1:273",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/273.csv",
+      "start": 0,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "materna_273_H4_K20",
+      "source": "materna",
+      "vm": "Materna1:273",
+      "member": "GWA-T-13_Materna-Workload-Traces/Materna-Trace-1/273.csv",
+      "start": 0,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1066_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1066",
+      "member": "fastStorage/2013-8/1066.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1066_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1066",
+      "member": "fastStorage/2013-8/1066.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1066_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1066",
+      "member": "fastStorage/2013-8/1066.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1066_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1066",
+      "member": "fastStorage/2013-8/1066.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_281_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:281",
+      "member": "fastStorage/2013-8/281.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_281_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:281",
+      "member": "fastStorage/2013-8/281.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_281_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:281",
+      "member": "fastStorage/2013-8/281.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_281_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:281",
+      "member": "fastStorage/2013-8/281.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_344_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:344",
+      "member": "fastStorage/2013-8/344.csv",
+      "start": 3287,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_344_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:344",
+      "member": "fastStorage/2013-8/344.csv",
+      "start": 3287,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_344_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:344",
+      "member": "fastStorage/2013-8/344.csv",
+      "start": 3287,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_344_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:344",
+      "member": "fastStorage/2013-8/344.csv",
+      "start": 3287,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_943_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:943",
+      "member": "fastStorage/2013-8/943.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_943_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:943",
+      "member": "fastStorage/2013-8/943.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_943_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:943",
+      "member": "fastStorage/2013-8/943.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_943_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:943",
+      "member": "fastStorage/2013-8/943.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_514_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:514",
+      "member": "fastStorage/2013-8/514.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_514_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:514",
+      "member": "fastStorage/2013-8/514.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_514_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:514",
+      "member": "fastStorage/2013-8/514.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_514_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:514",
+      "member": "fastStorage/2013-8/514.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_80_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:80",
+      "member": "fastStorage/2013-8/80.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_80_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:80",
+      "member": "fastStorage/2013-8/80.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_80_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:80",
+      "member": "fastStorage/2013-8/80.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_80_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:80",
+      "member": "fastStorage/2013-8/80.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1009_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1009",
+      "member": "fastStorage/2013-8/1009.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1009_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1009",
+      "member": "fastStorage/2013-8/1009.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1009_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1009",
+      "member": "fastStorage/2013-8/1009.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1009_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1009",
+      "member": "fastStorage/2013-8/1009.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1222_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1222",
+      "member": "fastStorage/2013-8/1222.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1222_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1222",
+      "member": "fastStorage/2013-8/1222.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1222_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1222",
+      "member": "fastStorage/2013-8/1222.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1222_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1222",
+      "member": "fastStorage/2013-8/1222.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_250_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:250",
+      "member": "fastStorage/2013-8/250.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_250_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:250",
+      "member": "fastStorage/2013-8/250.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_250_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:250",
+      "member": "fastStorage/2013-8/250.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_250_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:250",
+      "member": "fastStorage/2013-8/250.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_559_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:559",
+      "member": "fastStorage/2013-8/559.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_559_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:559",
+      "member": "fastStorage/2013-8/559.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_559_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:559",
+      "member": "fastStorage/2013-8/559.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_559_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:559",
+      "member": "fastStorage/2013-8/559.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1250_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1250",
+      "member": "fastStorage/2013-8/1250.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1250_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1250",
+      "member": "fastStorage/2013-8/1250.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1250_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1250",
+      "member": "fastStorage/2013-8/1250.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1250_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1250",
+      "member": "fastStorage/2013-8/1250.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_848_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:848",
+      "member": "fastStorage/2013-8/848.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_848_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:848",
+      "member": "fastStorage/2013-8/848.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_848_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:848",
+      "member": "fastStorage/2013-8/848.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_848_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:848",
+      "member": "fastStorage/2013-8/848.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1146_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1146",
+      "member": "fastStorage/2013-8/1146.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1146_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1146",
+      "member": "fastStorage/2013-8/1146.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1146_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1146",
+      "member": "fastStorage/2013-8/1146.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1146_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1146",
+      "member": "fastStorage/2013-8/1146.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1140_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1140",
+      "member": "fastStorage/2013-8/1140.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1140_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1140",
+      "member": "fastStorage/2013-8/1140.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1140_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1140",
+      "member": "fastStorage/2013-8/1140.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1140_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1140",
+      "member": "fastStorage/2013-8/1140.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_164_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:164",
+      "member": "fastStorage/2013-8/164.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_164_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:164",
+      "member": "fastStorage/2013-8/164.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_164_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:164",
+      "member": "fastStorage/2013-8/164.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_164_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:164",
+      "member": "fastStorage/2013-8/164.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1153_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1153",
+      "member": "fastStorage/2013-8/1153.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1153_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1153",
+      "member": "fastStorage/2013-8/1153.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1153_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1153",
+      "member": "fastStorage/2013-8/1153.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1153_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1153",
+      "member": "fastStorage/2013-8/1153.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_917_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:917",
+      "member": "fastStorage/2013-8/917.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_917_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:917",
+      "member": "fastStorage/2013-8/917.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_917_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:917",
+      "member": "fastStorage/2013-8/917.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_917_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:917",
+      "member": "fastStorage/2013-8/917.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_680_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:680",
+      "member": "fastStorage/2013-8/680.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_680_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:680",
+      "member": "fastStorage/2013-8/680.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_680_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:680",
+      "member": "fastStorage/2013-8/680.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_680_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:680",
+      "member": "fastStorage/2013-8/680.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_587_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:587",
+      "member": "fastStorage/2013-8/587.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_587_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:587",
+      "member": "fastStorage/2013-8/587.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_587_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:587",
+      "member": "fastStorage/2013-8/587.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_587_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:587",
+      "member": "fastStorage/2013-8/587.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_657_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:657",
+      "member": "fastStorage/2013-8/657.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_657_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:657",
+      "member": "fastStorage/2013-8/657.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_657_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:657",
+      "member": "fastStorage/2013-8/657.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_657_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:657",
+      "member": "fastStorage/2013-8/657.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1142_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1142",
+      "member": "fastStorage/2013-8/1142.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1142_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1142",
+      "member": "fastStorage/2013-8/1142.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1142_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1142",
+      "member": "fastStorage/2013-8/1142.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1142_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1142",
+      "member": "fastStorage/2013-8/1142.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_171_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:171",
+      "member": "fastStorage/2013-8/171.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_171_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:171",
+      "member": "fastStorage/2013-8/171.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_171_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:171",
+      "member": "fastStorage/2013-8/171.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_171_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:171",
+      "member": "fastStorage/2013-8/171.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_741_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:741",
+      "member": "fastStorage/2013-8/741.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_741_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:741",
+      "member": "fastStorage/2013-8/741.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_741_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:741",
+      "member": "fastStorage/2013-8/741.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_741_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:741",
+      "member": "fastStorage/2013-8/741.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_660_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:660",
+      "member": "fastStorage/2013-8/660.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_660_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:660",
+      "member": "fastStorage/2013-8/660.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_660_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:660",
+      "member": "fastStorage/2013-8/660.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_660_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:660",
+      "member": "fastStorage/2013-8/660.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_466_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:466",
+      "member": "fastStorage/2013-8/466.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_466_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:466",
+      "member": "fastStorage/2013-8/466.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_466_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:466",
+      "member": "fastStorage/2013-8/466.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_466_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:466",
+      "member": "fastStorage/2013-8/466.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1036_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1036",
+      "member": "fastStorage/2013-8/1036.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1036_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1036",
+      "member": "fastStorage/2013-8/1036.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_1036_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:1036",
+      "member": "fastStorage/2013-8/1036.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_1036_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:1036",
+      "member": "fastStorage/2013-8/1036.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_778_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:778",
+      "member": "fastStorage/2013-8/778.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_778_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:778",
+      "member": "fastStorage/2013-8/778.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_778_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:778",
+      "member": "fastStorage/2013-8/778.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_778_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:778",
+      "member": "fastStorage/2013-8/778.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_604_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:604",
+      "member": "fastStorage/2013-8/604.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_604_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:604",
+      "member": "fastStorage/2013-8/604.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_604_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:604",
+      "member": "fastStorage/2013-8/604.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_604_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:604",
+      "member": "fastStorage/2013-8/604.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_709_H1_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:709",
+      "member": "fastStorage/2013-8/709.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_709_H1_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:709",
+      "member": "fastStorage/2013-8/709.csv",
+      "start": 3288,
+      "H": 1,
+      "K": 20
+    },
+    {
+      "id": "bitbrains_709_H4_K10",
+      "source": "bitbrains",
+      "vm": "fastStorage:709",
+      "member": "fastStorage/2013-8/709.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 10
+    },
+    {
+      "id": "bitbrains_709_H4_K20",
+      "source": "bitbrains",
+      "vm": "fastStorage:709",
+      "member": "fastStorage/2013-8/709.csv",
+      "start": 3288,
+      "H": 4,
+      "K": 20
+    }
+  ],
+  "materna_archive_sha256": "1380879f0de17cb57619e55c312b41f26ef95743a382f41692db72168fd9afb4",
+  "bitbrains_archive_sha256": "11313f528a0cbcbe57e63162f8ae5a41a9c7e7c1a79872e294ff3c5bbaa2e671",
+  "retry_provenance": "225 original cases were tested before retry of 11 GPU-failed Bitbrains selections; each retry selection sealed before its own evaluation."
+}

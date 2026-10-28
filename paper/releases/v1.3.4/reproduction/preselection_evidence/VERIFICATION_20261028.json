@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "cases": 80,
+  "candidate_records": 3528,
+  "retained_architectures": [
+    1,
+    6,
+    13,
+    55,
+    56,
+    57
+  ],
+  "paper_counts": {
+    "1": {
+      "check_oracle_wins": 1,
+      "validation_selected_positive_wins": 2
+    },
+    "6": {
+      "check_oracle_wins": 2,
+      "validation_selected_positive_wins": 1
+    },
+    "13": {
+      "check_oracle_wins": 2,
+      "validation_selected_positive_wins": 1
+    },
+    "55": {
+      "check_oracle_wins": 3,
+      "validation_selected_positive_wins": 2
+    },
+    "56": {
+      "check_oracle_wins": 2,
+      "validation_selected_positive_wins": 0
+    },
+    "57": {
+      "check_oracle_wins": 6,
+      "validation_selected_positive_wins": 7
+    }
+  },
+  "original_archive_hashes": {
+    "c30_preflight.json": "95e73706748463e7ca37c9b1c3084f6b253b19ab5ac1395f0b4cb03104db2d77",
+    "c30_fixed_anchor.json": "150cdb91d5c222c0208c29f48ab703397d4a60e5d7bf2351f02c5ccbe815a9f5",
+    "c30_c1_oracle.json": "e113d7500029e5aeed99def3e2cbf87f1bd4863aa30c95828339dd75a06afb9e",
+    "c30_analysis.json": "aa8857bdf97ef501f52053c45dea8090661ffef76cae0cd6378a35cabfc14413",
+    "c30_audit.json": "3650240c877a70bee5a8b63b47361cc9cceda27c0f58dc7b6aec7b8275e23104",
+    "source_assets_manifest.json": "30042bd54eb70c8bd7722d712690ec659e9e5094ab8e14a7c436bae0a43b87a2"
+  },
+  "published_weight_bundle_verified": true,
+  "scope": "independent recalculation of historical saved scores, not model retraining or independent blind evaluation"
+}

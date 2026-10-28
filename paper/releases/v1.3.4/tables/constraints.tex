@@ -1,0 +1,16 @@
+\begin{table}[pos=!htbp]
+\centering\footnotesize
+\caption{Resource-constraint diagnostics (MSE in $10^{-2}$ units).}\label{tab:s-constraints}
+\begin{tabular}{llrrrr}
+\toprule
+Bank & Active limits & Feasible & $\tau$ & MSE & Harm\\\midrule
+Q7 (tight) & Both & 4 & 0.05 & 0.4532 & 2.50\%\\
+Q7 (tight) & Operations only & 7 & 0.05 & 0.4488 & 4.17\%\\
+Q7 (tight) & Parameters only & 4 & 0.05 & 0.4532 & 2.50\%\\
+Q8 (stress) & Both & 6 & 0.05 & 0.4489 & 4.17\%\\
+Q8 (stress) & Operations only & 7 & 0.05 & 0.4488 & 4.17\%\\
+Q8 (stress) & Parameters only & 7 & 0.05 & 0.4428 & 4.17\%\\
+\bottomrule
+\end{tabular}
+\par\vspace{3pt}\begin{minipage}{\linewidth}\footnotesize Each constraint condition has its own calibration. For the eight-record stress bank, parameter-only selection violates the operation limit in 16 tasks, and operation-only selection violates the parameter limit in two tasks.\end{minipage}
+\end{table}

@@ -1,0 +1,179 @@
+{
+  "generated_utc": "2026-10-28T10:36:10.467140+00:00",
+  "cases_expected": 236,
+  "cases_included": 236,
+  "original_failed_retry_count": 11,
+  "remaining_failures": [],
+  "bootstrap": "paired ancestor-VM resampling, 10000 replicates, seed 20261028; descriptive",
+  "selection_open_boundary": "original 225-case evaluation opened before 11-case retry; each retry chosen before its own evaluation; avoid global blind claim",
+  "results": [
+    {
+      "source": "materna",
+      "budget": "tight",
+      "vm_count": 30,
+      "case_count": 120,
+      "partial_vm_cases": {},
+      "mse_vm_mean": {
+        "MSA-DTI": 0.002065006999923864,
+        "PT+FT": 0.0023064112907051956,
+        "A55": 0.0026455112343783064
+      },
+      "comparisons": {
+        "PT+FT": {
+          "relative_mse_reduction": 0.10466662722047335,
+          "paired_vm_bootstrap_95pct": [
+            0.044197242228147984,
+            0.1958087107786475
+          ]
+        },
+        "A55": {
+          "relative_mse_reduction": 0.21942988822380127,
+          "paired_vm_bootstrap_95pct": [
+            0.15401099691110742,
+            0.3446577347304615
+          ]
+        }
+      }
+    },
+    {
+      "source": "materna",
+      "budget": "medium",
+      "vm_count": 30,
+      "case_count": 120,
+      "partial_vm_cases": {},
+      "mse_vm_mean": {
+        "MSA-DTI": 0.00200210777575758,
+        "PT+FT": 0.0023064112907051956,
+        "A55": 0.0026455112343783064
+      },
+      "comparisons": {
+        "PT+FT": {
+          "relative_mse_reduction": 0.1319380962857554,
+          "paired_vm_bootstrap_95pct": [
+            0.07155738714173099,
+            0.2779225778369466
+          ]
+        },
+        "A55": {
+          "relative_mse_reduction": 0.24320571776816732,
+          "paired_vm_bootstrap_95pct": [
+            0.17499538620932267,
+            0.41276536522229823
+          ]
+        }
+      }
+    },
+    {
+      "source": "materna",
+      "budget": "loose",
+      "vm_count": 30,
+      "case_count": 120,
+      "partial_vm_cases": {},
+      "mse_vm_mean": {
+        "MSA-DTI": 0.00200210777575758,
+        "PT+FT": 0.0023064112907051956,
+        "A55": 0.0026455112343783064
+      },
+      "comparisons": {
+        "PT+FT": {
+          "relative_mse_reduction": 0.1319380962857554,
+          "paired_vm_bootstrap_95pct": [
+            0.07155738714173099,
+            0.2779225778369466
+          ]
+        },
+        "A55": {
+          "relative_mse_reduction": 0.24320571776816732,
+          "paired_vm_bootstrap_95pct": [
+            0.17499538620932267,
+            0.41276536522229823
+          ]
+        }
+      }
+    },
+    {
+      "source": "bitbrains",
+      "budget": "tight",
+      "vm_count": 29,
+      "case_count": 116,
+      "partial_vm_cases": {},
+      "mse_vm_mean": {
+        "MSA-DTI": 0.006089323746034582,
+        "PT+FT": 0.006668419289823468,
+        "A55": 0.006246714936608689
+      },
+      "comparisons": {
+        "PT+FT": {
+          "relative_mse_reduction": 0.08684150150435675,
+          "paired_vm_bootstrap_95pct": [
+            0.02125885549417997,
+            0.11632795862428187
+          ]
+        },
+        "A55": {
+          "relative_mse_reduction": 0.02519583367758951,
+          "paired_vm_bootstrap_95pct": [
+            0.005751694707901322,
+            0.08966985342860805
+          ]
+        }
+      }
+    },
+    {
+      "source": "bitbrains",
+      "budget": "medium",
+      "vm_count": 29,
+      "case_count": 116,
+      "partial_vm_cases": {},
+      "mse_vm_mean": {
+        "MSA-DTI": 0.006062718224357049,
+        "PT+FT": 0.006668419289823468,
+        "A55": 0.006246714936608689
+      },
+      "comparisons": {
+        "PT+FT": {
+          "relative_mse_reduction": 0.09083128086903089,
+          "paired_vm_bootstrap_95pct": [
+            0.03030097555419405,
+            0.12168984045585306
+          ]
+        },
+        "A55": {
+          "relative_mse_reduction": 0.029454955783772354,
+          "paired_vm_bootstrap_95pct": [
+            0.007547896316345727,
+            0.10331381645668528
+          ]
+        }
+      }
+    },
+    {
+      "source": "bitbrains",
+      "budget": "loose",
+      "vm_count": 29,
+      "case_count": 116,
+      "partial_vm_cases": {},
+      "mse_vm_mean": {
+        "MSA-DTI": 0.006062718224357049,
+        "PT+FT": 0.006668419289823468,
+        "A55": 0.006246714936608689
+      },
+      "comparisons": {
+        "PT+FT": {
+          "relative_mse_reduction": 0.09083128086903089,
+          "paired_vm_bootstrap_95pct": [
+            0.03030097555419405,
+            0.12168984045585306
+          ]
+        },
+        "A55": {
+          "relative_mse_reduction": 0.029454955783772354,
+          "paired_vm_bootstrap_95pct": [
+            0.007547896316345727,
+            0.10331381645668528
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "materna": {
+    "case_count": 120,
+    "comparisons": {
+      "PT+FT": {
+        "better_cases": 92,
+        "equal_cases": 20,
+        "worse_cases": 8
+      },
+      "A55": {
+        "better_cases": 100,
+        "equal_cases": 18,
+        "worse_cases": 2
+      }
+    },
+    "metrics_case_mean": {
+      "MSA-DTI": {
+        "MSE": 0.0020021077757575796,
+        "MAE": 0.016558213885606278,
+        "Worst10": 0.012955086537008971
+      },
+      "PT+FT": {
+        "MSE": 0.0023064112907051956,
+        "MAE": 0.01967810628592329,
+        "Worst10": 0.0147552688624753
+      },
+      "A55": {
+        "MSE": 0.0026455112343783064,
+        "MAE": 0.02270003142677893,
+        "Worst10": 0.016068018511981343
+      }
+    },
+    "invalid_target_windows_sum": 0,
+    "forecast_windows_total": 74910
+  },
+  "bitbrains": {
+    "case_count": 116,
+    "comparisons": {
+      "PT+FT": {
+        "better_cases": 92,
+        "equal_cases": 6,
+        "worse_cases": 18
+      },
+      "A55": {
+        "better_cases": 77,
+        "equal_cases": 31,
+        "worse_cases": 8
+      }
+    },
+    "metrics_case_mean": {
+      "MSA-DTI": {
+        "MSE": 0.006062718224357053,
+        "MAE": 0.02220862933700532,
+        "Worst10": 0.03858399303662484
+      },
+      "PT+FT": {
+        "MSE": 0.00666841928982347,
+        "MAE": 0.024687253345140173,
+        "Worst10": 0.04004977390789776
+      },
+      "A55": {
+        "MSE": 0.00624671493660869,
+        "MAE": 0.024723429475476795,
+        "Worst10": 0.039480233298873464
+      }
+    },
+    "invalid_target_windows_sum": 0,
+    "forecast_windows_total": 72413
+  }
+}

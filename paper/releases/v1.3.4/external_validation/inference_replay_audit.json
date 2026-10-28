@@ -1,0 +1,1426 @@
+{
+  "status": "PASS",
+  "cases": 236,
+  "models_per_case": 7,
+  "checks": "recomputed MSE, MAE, Worst10 and valid-window count from source trace and saved adapted states",
+  "max_abs_difference": 0,
+  "scope": "inference replay, same code and environment; not independent retraining",
+  "receipts": [
+    {
+      "case_id": "materna_484_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_484_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_484_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_484_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_157_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_157_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_157_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_157_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_80_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_80_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_80_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_80_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_83_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_83_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_83_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_83_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_175_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_175_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_175_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_175_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_428_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_428_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_428_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_428_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_503_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_503_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_503_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_503_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_166_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_166_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_166_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_166_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_232_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_232_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_232_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_232_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_404_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_404_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_404_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_404_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_357_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_357_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_357_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_357_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_153_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_153_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_153_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_153_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_305_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_305_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_305_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_305_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_165_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_165_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_165_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_165_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_496_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_496_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_496_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_496_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_392_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_392_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_392_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_392_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_352_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_352_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_352_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_352_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_329_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_329_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_329_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_329_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_425_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_425_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_425_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_425_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_47_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_47_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_47_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_47_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_279_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_279_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_279_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_279_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_188_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_188_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_188_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_188_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_464_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_464_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_464_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_464_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_472_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_472_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_472_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_472_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_248_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_248_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_248_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_248_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_277_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_277_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_277_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_277_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_333_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_333_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_333_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_333_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_272_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_272_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_272_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_272_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_134_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_134_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_134_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_134_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "materna_273_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "materna_273_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "materna_273_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "materna_273_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_1066_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_1066_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_1066_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_1066_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_281_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_281_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_281_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_281_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_344_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_344_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_344_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_344_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_943_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_943_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_943_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_943_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_514_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_514_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_514_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_514_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_80_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_80_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_80_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_80_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_1009_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_1009_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_1009_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_1009_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_1222_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_1222_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_1222_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_1222_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_250_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_250_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_250_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_250_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_559_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_559_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_559_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_559_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_1250_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_1250_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_1250_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_1250_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_848_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_848_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_848_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_848_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_1146_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_1146_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_1146_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_1146_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_1140_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_1140_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_1140_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_1140_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_164_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_164_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_164_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_164_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_1153_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_1153_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_1153_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_1153_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_917_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_917_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_917_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_917_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_680_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_680_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_680_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_680_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_587_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_587_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_587_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_587_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_657_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_657_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_657_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_657_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_1142_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_1142_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_1142_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_1142_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_171_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_171_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_171_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_171_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_741_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_741_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_741_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_741_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_660_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_660_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_660_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_660_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_466_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_466_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_466_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_466_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_1036_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_1036_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_1036_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_1036_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_778_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_778_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_778_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_778_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_604_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_604_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_604_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_604_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    },
+    {
+      "case_id": "bitbrains_709_H1_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 627
+    },
+    {
+      "case_id": "bitbrains_709_H1_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 625
+    },
+    {
+      "case_id": "bitbrains_709_H4_K10",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 624
+    },
+    {
+      "case_id": "bitbrains_709_H4_K20",
+      "models": 7,
+      "max_abs_difference": 0,
+      "valid_windows": 621
+    }
+  ]
+}

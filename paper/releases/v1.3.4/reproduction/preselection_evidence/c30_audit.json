@@ -1,0 +1,25 @@
+{
+  "study": "c3_0_diagnostic_audit",
+  "decision": "PASS_C30_DIAGNOSTIC_COMPLETE_AND_AUDITED",
+  "checks": {
+    "fixed_complete": true,
+    "oracle_complete": true,
+    "fixed_test_unused": true,
+    "oracle_test_unused": true,
+    "analysis_test_unused": true,
+    "diagnostic_pool_exact": true,
+    "anchor_A57_bound": true,
+    "four_recipes_complete": true,
+    "oracle_hard_feasible_nonempty": true,
+    "oracle_candidate_complete": true,
+    "internal_final_audit_bound": true,
+    "external_final_audit_bound": true,
+    "c1_bank_hash_bound": true
+  },
+  "fixed_sha256": "150cdb91d5c222c0208c29f48ab703397d4a60e5d7bf2351f02c5ccbe815a9f5",
+  "oracle_sha256": "e113d7500029e5aeed99def3e2cbf87f1bd4863aa30c95828339dd75a06afb9e",
+  "analysis_sha256": "aa8857bdf97ef501f52053c45dea8090661ffef76cae0cd6378a35cabfc14413",
+  "analysis_decision": "PROCEED_C3_ANCHOR_PROTECTED_SEARCH",
+  "N_cases": 80,
+  "test_used": false
+}

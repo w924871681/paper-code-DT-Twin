@@ -1,6 +1,8 @@
 # MSA-DTI manuscript versions
 
-The current pre-submission manuscript is the [2026-10-11 revision](manuscript_20261011/), synchronized byte-for-byte from `MSA_DTI_Manuscript_v1.2.7_20261011.zip`.
+The current manuscript is [v1.3.4](releases/v1.3.4/). The material described below is an earlier archived revision.
+
+The earlier archived manuscript is the [2026-10-11 revision](manuscript_20261011/), synchronized byte-for-byte from `MSA_DTI_Manuscript_v1.2.7_20261011.zip`.
 
 - [Main LaTeX](manuscript_20261011/main.tex) and [supplied main PDF](manuscript_20261011/compiled/main.pdf)
 - [Supplementary LaTeX](manuscript_20261011/supplementary.tex) and [supplied supplementary PDF](manuscript_20261011/compiled/supplementary.pdf)

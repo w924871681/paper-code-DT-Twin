@@ -1,0 +1,15 @@
+\begin{table}[!htbp]
+\centering\footnotesize
+\caption{Matched-optimizer controls (errors in $10^{-2}$ units).}\label{tab:s-matched}
+\begin{tabular}{lrrrrrr}
+\toprule
+Selection policy & $\tau$ & MSE & MAE & Worst-10\% & CVaR90 & Harm\\\midrule
+A55 shortlist, calibrated & 0.2 & 0.4472 & 1.9689 & 2.8063 & 3.6736 & 0.00\%\\
+A55 shortlist, validation minimum & 0 & 0.4429 & 1.9353 & 2.7722 & 3.6736 & 0.00\%\\
+A57-PT shortlist, calibrated & 0.2 & 0.4634 & 1.9798 & 2.8973 & 3.8389 & 0.00\%\\
+A57-PT shortlist, validation minimum & 0 & 0.4614 & 1.9629 & 2.8837 & 3.8389 & 0.83\%\\
+Fused ranking, SGD50 & 0 & 0.7790 & 2.5407 & 4.6905 & 6.4468 & --\\
+Support proxy, SGD50 & 0 & 0.7306 & 2.4666 & 4.4837 & 6.0922 & --\\
+\bottomrule\end{tabular}
+\par\vspace{3pt}\begin{minipage}{\linewidth}\footnotesize Each calibrated policy and its validation-minimum counterpart share the same task-specific shortlist and source checkpoints. Harm is relative to the named adapted reference; the last two controls have no reference-based policy.\end{minipage}
+\end{table}

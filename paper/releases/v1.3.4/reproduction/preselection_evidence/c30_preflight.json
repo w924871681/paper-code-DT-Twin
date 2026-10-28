@@ -1,0 +1,79 @@
+{
+  "study": "c3_0_preflight",
+  "decision": "PASS_C30_PREFLIGHT_READY",
+  "protocol": {
+    "protocol_version": "c3_0_fixed_anchor_recipe_and_c1_oracle_v1_0",
+    "data_seed": 2904,
+    "train_seed": 2904,
+    "source_centers": 20,
+    "diagnostic_pool": [
+      900,
+      20,
+      180000
+    ],
+    "H_list": [
+      1,
+      4
+    ],
+    "K_list": [
+      10,
+      20
+    ],
+    "architecture_count": 66,
+    "anchor_arch_idx": 57,
+    "output_root": "outputs/c30_d2904_t2904",
+    "final_internal_audit": "outputs/final_e2e_c23_d2904_t2904/final/audit/final_e2e_c23_audit.json",
+    "expected_internal_decision": "PASS_FINAL_E2E_C23_COMPLETE_AND_AUDITED",
+    "external_audit": "outputs/final_e2e_c23_external_d2904_t2904/audit/external_baseline_audit.json",
+    "expected_external_decision": "PASS_FINAL_E2E_C23_EXTERNAL_BASELINES_COMPLETE_AND_AUDITED",
+    "external_source_manifest": "outputs/final_e2e_c23_external_d2904_t2904/source_assets/source_assets_manifest.json",
+    "expected_source_decision": "PASS_EXTERNAL_SOURCE_ASSETS_FROZEN",
+    "c1_bank_path": "outputs/formal_c1_seed2904/shared_artifacts/ours_weight_bank_source_pooled_c1_v1_src20.pt",
+    "c1_bank_sha256": "bb3a655606af3b554a8f088bb1d2f3f8d9f190b0911a812fd3755d3de3216b9d",
+    "sgd_steps": 50,
+    "sgd_lr": 0.01,
+    "sgd_grad_clip": 1.0,
+    "huber_steps": 50,
+    "huber_lr": 0.0003,
+    "huber_delta": 0.2,
+    "huber_grad_clip": 5.0,
+    "bootstrap_repeats": 4000,
+    "eps": 1e-12,
+    "dominant_effect_mean": 0.05,
+    "oracle_headroom_mean": 0.1,
+    "oracle_headroom_ci_low": 0.05,
+    "realizable_headroom_mean": 0.03,
+    "realizable_headroom_ci_low": 0.0,
+    "known_used_center_ranges": [
+      [
+        0,
+        219
+      ],
+      [
+        420,
+        839
+      ]
+    ]
+  },
+  "paths": {
+    "internal_audit": "D:\\new_exercise_revised\\outputs/final_e2e_c23_d2904_t2904/final/audit/final_e2e_c23_audit.json",
+    "external_audit": "D:\\new_exercise_revised\\outputs/final_e2e_c23_external_d2904_t2904/audit/external_baseline_audit.json",
+    "source_manifest": "D:\\new_exercise_revised\\outputs/final_e2e_c23_external_d2904_t2904/source_assets/source_assets_manifest.json",
+    "c1_bank": "D:\\new_exercise_revised\\outputs/formal_c1_seed2904/shared_artifacts/ours_weight_bank_source_pooled_c1_v1_src20.pt"
+  },
+  "checks": {
+    "internal_audit_exists": true,
+    "external_audit_exists": true,
+    "source_manifest_exists": true,
+    "c1_bank_exists": true,
+    "internal_audit_pass": true,
+    "external_audit_pass": true,
+    "source_assets_pass": true,
+    "c1_bank_hash": true,
+    "diagnostic_pool_no_known_overlap": true,
+    "diagnostic_pool_count": true,
+    "anchor_A57": true
+  },
+  "overlap": [],
+  "test_used": false
+}
