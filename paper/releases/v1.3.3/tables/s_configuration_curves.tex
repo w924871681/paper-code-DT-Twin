@@ -1,0 +1,35 @@
+\begin{table}[!htbp]
+\centering\footnotesize
+\begin{minipage}[t]{.43\linewidth}
+\centering
+\caption{Nested candidate-subset sensitivity.}\label{tab:s-bankcurve}
+\begin{tabular}{rrr}
+\toprule Records & $\tau$ & MSE\\\midrule
+1 & 0 & 0.00466938\\
+2 & 0 & 0.00464900\\
+3 & 0.05 & 0.00456028\\
+4 & 0.05 & 0.00455966\\
+5 & 0.05 & 0.00450548\\
+6 & 0.05 & 0.00449615\\
+7 & 0.05 & 0.00448824\\
+\bottomrule\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{.53\linewidth}
+\centering
+\caption{Adaptation-update sensitivity.}\label{tab:s-updates}
+\begin{tabular}{rrrr}
+\toprule Updates & $\tau$ & MSE & Agreement\\\midrule
+0 & 0 & 0.00461449 & 60.83\%\\
+1 & 0 & 0.00457297 & 59.17\%\\
+5 & 0 & 0.00452183 & 55.00\%\\
+10 & 0.075 & 0.00450235 & 65.00\%\\
+20 & 0.05 & 0.00448124 & 82.50\%\\
+50 & 0.05 & 0.00448824 & 100.00\%\\
+\bottomrule\end{tabular}
+\end{minipage}
+\par\vspace{4pt}\begin{minipage}{\linewidth}\footnotesize
+Subsets follow the order stated in Section~S5. Each subset/update condition
+has its own calibrated margin. Agreement compares candidate identities
+with those selected after 50 updates.
+\end{minipage}
+\end{table}

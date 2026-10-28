@@ -1,0 +1,17 @@
+\begin{table}[pos=H]
+\centering\footnotesize
+\caption{Task-matched baseline implementations.}\label{tab:baselines}
+\begin{tabular}{p{0.19\linewidth}p{0.50\linewidth}p{0.21\linewidth}}
+\toprule
+Method & Initialization and selection & Target updates\\\midrule
+PT+FT & A57-PT source-trained initialization & SGD/MSE, 50\\
+MeDeT-style & A57 meta-initialization; 400 source outer iterations & SGD/MSE, 50\\
+Scratch50 & Randomly initialized A57 & SGD/MSE, 50\\
+Meta+NAS-lite & Up to 12 candidates from 66 configurations; rank $0.6\,r_{\rm source}+0.4\,r_{\rm support}$ & Adam/Huber, 50 per candidate\\
+Zero-shot NAS & Top support-entropy proxy; source-trained C1 initialization & 0\\
+Zero-shot NAS+FT & Up to 12 support-proxy-ranked C1 candidates & Adam/Huber, 50 per candidate\\
+H-Meta-NAS-based & 240 source outer iterations; two populations of at most six feasible candidates & SGD/MSE, 50 per evaluation\\
+\bottomrule
+\end{tabular}
+\par\vspace{3pt}\begin{minipage}{\linewidth}\footnotesize SGD: learning rate 0.01, gradient norm limit 1. Adam: learning rate $3\times10^{-4}$, Huber threshold 0.2, gradient norm limit 5. Adapted search candidates are ranked by validation MSE, then resource counts and architecture index.\end{minipage}
+\end{table}

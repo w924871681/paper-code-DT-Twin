@@ -1,0 +1,171 @@
+{
+  "checkpoint_count": 14,
+  "source_machine_ids": [
+    "fastStorage:872",
+    "fastStorage:306",
+    "fastStorage:323",
+    "fastStorage:44",
+    "fastStorage:400",
+    "fastStorage:710",
+    "fastStorage:270",
+    "fastStorage:471",
+    "fastStorage:1181",
+    "fastStorage:865",
+    "fastStorage:1050",
+    "fastStorage:278",
+    "fastStorage:342",
+    "fastStorage:153",
+    "fastStorage:293",
+    "fastStorage:1018",
+    "fastStorage:933",
+    "fastStorage:20",
+    "fastStorage:867",
+    "fastStorage:890"
+  ],
+  "runtime": {
+    "device": "cuda",
+    "safe_mode": "gru-native",
+    "torch": "2.13.0+cu126",
+    "cuda": "12.6",
+    "deterministic_algorithms": true,
+    "torch_num_threads": 1,
+    "cuda_matmul_allow_tf32": false,
+    "cudnn_allow_tf32": false,
+    "cudnn_benchmark": false,
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "adam_betas": [
+      0.9,
+      0.999
+    ],
+    "adam_eps": 1e-08,
+    "adam_amsgrad": false
+  },
+  "checkpoints": [
+    {
+      "token": "PT_A57_ref",
+      "H": 1,
+      "arch_index": 57,
+      "architecture_family": "GRU",
+      "arch_key": "GRU_L1_H32_D0.1",
+      "initialization_seed": 3062,
+      "sha256": "af5a0d32044c900bc0f5f1cfa02ad4a9cc57d1942a03a04bcd19b37b8c353c37"
+    },
+    {
+      "token": "C1_A57_pair",
+      "H": 1,
+      "arch_index": 57,
+      "architecture_family": "GRU",
+      "arch_key": "GRU_L1_H32_D0.1",
+      "initialization_seed": 12961,
+      "sha256": "005dfe1769d604084e7f4ba633ac71bf5361cdcce5b89daf0ee1bf46e90eb630"
+    },
+    {
+      "token": "A1",
+      "H": 1,
+      "arch_index": 1,
+      "architecture_family": "MLP",
+      "arch_key": "MLP_L2_H32_D0.1",
+      "initialization_seed": 3006,
+      "sha256": "c127a71b2137491ae944eb9f8efa4364d2629c907f1e7641055490b42a595a9b"
+    },
+    {
+      "token": "A6",
+      "H": 1,
+      "arch_index": 6,
+      "architecture_family": "MLP",
+      "arch_key": "MLP_L3_H32_D0.0",
+      "initialization_seed": 3011,
+      "sha256": "2e6269a60af92bb8e6c03fa461f0ba0292789a02b4ebab456f9fdaa6878d15f1"
+    },
+    {
+      "token": "A13",
+      "H": 1,
+      "arch_index": 13,
+      "architecture_family": "MLP",
+      "arch_key": "MLP_L4_H32_D0.1",
+      "initialization_seed": 3018,
+      "sha256": "a8b2fa3aa5d18289ba76452ca1e4dc15e1e471e2ab90f2e9ab136d340d596d05"
+    },
+    {
+      "token": "A55",
+      "H": 1,
+      "arch_index": 55,
+      "architecture_family": "GRU",
+      "arch_key": "GRU_L1_H16_D0.1",
+      "initialization_seed": 3060,
+      "sha256": "ac0be62c08636956be4ef16c2d23c8f9197053765e7abbc92aa11613026bfb49"
+    },
+    {
+      "token": "A56",
+      "H": 1,
+      "arch_index": 56,
+      "architecture_family": "GRU",
+      "arch_key": "GRU_L1_H32_D0.0",
+      "initialization_seed": 3061,
+      "sha256": "f252aa7ac584682a3d4e43df6dc74f93d792653c6ff795e65b04eef9ecc2930c"
+    },
+    {
+      "token": "PT_A57_ref",
+      "H": 4,
+      "arch_index": 57,
+      "architecture_family": "GRU",
+      "arch_key": "GRU_L1_H32_D0.1",
+      "initialization_seed": 3365,
+      "sha256": "f9129ee6a746e3c16ba8adcfff7571147400d101c2840b9ae44a502b3bfde6bd"
+    },
+    {
+      "token": "C1_A57_pair",
+      "H": 4,
+      "arch_index": 57,
+      "architecture_family": "GRU",
+      "arch_key": "GRU_L1_H32_D0.1",
+      "initialization_seed": 42961,
+      "sha256": "da19787b1cda31be3b0f737ad9b2e1a71d3cb998123e3f30c764d3631e246b8b"
+    },
+    {
+      "token": "A1",
+      "H": 4,
+      "arch_index": 1,
+      "architecture_family": "MLP",
+      "arch_key": "MLP_L2_H32_D0.1",
+      "initialization_seed": 3309,
+      "sha256": "1485ef693747491c4740e7842735bd3638de50c26f3f72252815c5ad744ddb3c"
+    },
+    {
+      "token": "A6",
+      "H": 4,
+      "arch_index": 6,
+      "architecture_family": "MLP",
+      "arch_key": "MLP_L3_H32_D0.0",
+      "initialization_seed": 3314,
+      "sha256": "d41fd7299b6212ad41c6b1d93f05562d3fb3f09d73a9a3c84ca4184c9c894898"
+    },
+    {
+      "token": "A13",
+      "H": 4,
+      "arch_index": 13,
+      "architecture_family": "MLP",
+      "arch_key": "MLP_L4_H32_D0.1",
+      "initialization_seed": 3321,
+      "sha256": "0c523a9284cb99578fecff0a75e70190f0d20b27c0215c0ee36d99b34ac76fa4"
+    },
+    {
+      "token": "A55",
+      "H": 4,
+      "arch_index": 55,
+      "architecture_family": "GRU",
+      "arch_key": "GRU_L1_H16_D0.1",
+      "initialization_seed": 3363,
+      "sha256": "e2265f57758ce86d479db3020da020c7618670b1d737cb96ab95a6b5690cf853"
+    },
+    {
+      "token": "A56",
+      "H": 4,
+      "arch_index": 56,
+      "architecture_family": "GRU",
+      "arch_key": "GRU_L1_H32_D0.0",
+      "initialization_seed": 3364,
+      "sha256": "b3bd0d272de3cebeccd36ba24ea18777fac04e22fbaac75d8fa1bec1e639efe3"
+    }
+  ]
+}

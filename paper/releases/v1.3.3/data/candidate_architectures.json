@@ -1,0 +1,159 @@
+{
+  "qaxis": [
+    "A1",
+    "A13",
+    "A55",
+    "A56",
+    "A6",
+    "C1_A57_pair",
+    "PT_A57_ref"
+  ],
+  "specs": {
+    "PT_A57_ref": {
+      "arch_id": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "hparams": {
+        "n_layers": 1,
+        "hidden_dim": 32,
+        "dropout": 0.1
+      }
+    },
+    "C1_A57_pair": {
+      "arch_id": 57,
+      "arch_key": "GRU_L1_H32_D0.1",
+      "family": "GRU",
+      "hparams": {
+        "n_layers": 1,
+        "hidden_dim": 32,
+        "dropout": 0.1
+      }
+    },
+    "A1": {
+      "arch_id": 1,
+      "arch_key": "MLP_L2_H32_D0.1",
+      "family": "MLP",
+      "hparams": {
+        "n_layers": 2,
+        "hidden_dim": 32,
+        "dropout": 0.1
+      }
+    },
+    "A6": {
+      "arch_id": 6,
+      "arch_key": "MLP_L3_H32_D0.0",
+      "family": "MLP",
+      "hparams": {
+        "n_layers": 3,
+        "hidden_dim": 32,
+        "dropout": 0.0
+      }
+    },
+    "A13": {
+      "arch_id": 13,
+      "arch_key": "MLP_L4_H32_D0.1",
+      "family": "MLP",
+      "hparams": {
+        "n_layers": 4,
+        "hidden_dim": 32,
+        "dropout": 0.1
+      }
+    },
+    "A55": {
+      "arch_id": 55,
+      "arch_key": "GRU_L1_H16_D0.1",
+      "family": "GRU",
+      "hparams": {
+        "n_layers": 1,
+        "hidden_dim": 16,
+        "dropout": 0.1
+      }
+    },
+    "A56": {
+      "arch_id": 56,
+      "arch_key": "GRU_L1_H32_D0.0",
+      "family": "GRU",
+      "hparams": {
+        "n_layers": 1,
+        "hidden_dim": 32,
+        "dropout": 0.0
+      }
+    }
+  },
+  "resources_by_H": {
+    "1": {
+      "PT_A57_ref": {
+        "params": 5697,
+        "operations": 1050688,
+        "arch_index": 57
+      },
+      "C1_A57_pair": {
+        "params": 5697,
+        "operations": 1050688,
+        "arch_index": 57
+      },
+      "A1": {
+        "params": 77921,
+        "operations": 155712,
+        "arch_index": 1
+      },
+      "A6": {
+        "params": 78977,
+        "operations": 157760,
+        "arch_index": 6
+      },
+      "A13": {
+        "params": 80033,
+        "operations": 159808,
+        "arch_index": 13
+      },
+      "A55": {
+        "params": 2081,
+        "operations": 377888,
+        "arch_index": 55
+      },
+      "A56": {
+        "params": 5697,
+        "operations": 1050688,
+        "arch_index": 56
+      }
+    },
+    "4": {
+      "PT_A57_ref": {
+        "params": 5796,
+        "operations": 1050880,
+        "arch_index": 57
+      },
+      "C1_A57_pair": {
+        "params": 5796,
+        "operations": 1050880,
+        "arch_index": 57
+      },
+      "A1": {
+        "params": 78020,
+        "operations": 155904,
+        "arch_index": 1
+      },
+      "A6": {
+        "params": 79076,
+        "operations": 157952,
+        "arch_index": 6
+      },
+      "A13": {
+        "params": 80132,
+        "operations": 160000,
+        "arch_index": 13
+      },
+      "A55": {
+        "params": 2132,
+        "operations": 377984,
+        "arch_index": 55
+      },
+      "A56": {
+        "params": 5796,
+        "operations": 1050880,
+        "arch_index": 56
+      }
+    }
+  }
+}

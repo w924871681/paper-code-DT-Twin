@@ -1,0 +1,14 @@
+\begin{table}[pos=!htbp]
+\centering\footnotesize
+\caption{Chronological task geometry (zero-based native-record indices).}\label{tab:s-windows}
+\begin{tabular}{rrrrrrrr}
+\toprule
+$H$ & $K$ & Support records & Validation origins & $V$ before mask & $t_0$ & Forecast origins & $B$\\\midrule
+1 & 10 & 0--105 & 201--1551 & 1351 & 1552 & 1552--2178 & 627\\
+1 & 20 & 0--115 & 211--1556 & 1346 & 1557 & 1557--2181 & 625\\
+4 & 10 & 0--108 & 204--1549 & 1346 & 1553 & 1553--2176 & 624\\
+4 & 20 & 0--118 & 214--1555 & 1342 & 1559 & 1559--2179 & 621\\
+\bottomrule
+\end{tabular}
+\par\vspace{3pt}\begin{minipage}{\linewidth}\footnotesize Indices are relative to the target span\textquotesingle s start. Each input ends at its origin and predicts the next $H$ records. Validation labels end at or before $t_0$; forecast labels begin at $t_0+1$.\end{minipage}
+\end{table}

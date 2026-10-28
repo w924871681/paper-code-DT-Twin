@@ -1,0 +1,5 @@
+pool,n_VM,n_tasks,threshold_1_count,threshold_2_count,threshold_3_count,reference
+Dev20_full,20,80,28,22,8,A61
+Dev_subpool_0,7,28,19,13,3,A61
+Dev_subpool_1,7,28,11,8,2,A55
+Dev_subpool_2,6,24,11,9,5,PT_A57_ref

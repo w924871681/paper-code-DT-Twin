@@ -1,10 +1,10 @@
 # Adaptation-Aware Model Selection for Few-Shot Digital Twin Instantiation
 
-## Current manuscript and reproducibility materials — v1.3.2
+## Current manuscript and reproducibility materials — v1.3.3
 
 The current Bitbrains-based MSA-DTI manuscript, supplement, experimental-figure
 scripts, source data and selection-rule replay are in
-[`paper/releases/v1.3.2/`](paper/releases/v1.3.2/). See that directory's README
+[`paper/releases/v1.3.3/`](paper/releases/v1.3.3/). See that directory's README
 for scope, commands and the limits of the released artifacts. The current
 manuscript uses a development-selected A55 reference and a separately calibrated
 relative margin. This is a retrospective, non-blind same-source evaluation.
@@ -12,11 +12,12 @@ relative margin. This is a retrospective, non-blind same-source evaluation.
 The material below describes the earlier, frozen **v1.2.7** manuscript and
 evidence releases. Those results use a different reference and evaluation
 setting; they are retained for historical provenance and must not be mixed
-with v1.3.2 results. `paper/current/` in that older description is the 2026-10-13
-manuscript, not the current v1.3.2 manuscript. Version v1.3.2 removes newly added
-main-text references to the supplementary material while retaining the v1.3.1
-clarity revisions and provenance disclosure; the frozen v1.3.0 experiments
-remain unchanged. Additional v1.3.0 weight assets remain in that release.
+with v1.3.3 results. `paper/current/` in that older description is the 2026-10-13
+manuscript, not the current v1.3.3 manuscript. Version v1.3.3 adds the
+recovered original C3-0 per-case preselection records, historical audit and
+verification; it updates the obsolete missing-record statement. The frozen
+v1.3.0 experimental results remain unchanged. Additional v1.3.0 weight assets
+remain in that release.
 
 ---
 
